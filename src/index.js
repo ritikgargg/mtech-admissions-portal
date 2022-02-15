@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Example from './components/sign-in-reg';
+import SignInNav from './components/SignInNav';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <Example />
+    <SignInNav/>
   </React.StrictMode>,
   document.getElementById('root')
 );
