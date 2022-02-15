@@ -5,6 +5,7 @@ import ContactUs from './components/ContactUs.js';
 import HowToApply from './components/HowToApply.js';
 import NewHomePage from './components/NewHomePage';
 import Navbar from './components/Navbar';
+import TempNavbar from './components/NewNavbar';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       {/* <HomePage/> */}
       {/* <ContactUs/> */}
       {/* <HowToApply/> */}
-      <Navbar/>
+      <TempNavbar/>
       <NewHomePage/>
       <Footer/>
     </div>
