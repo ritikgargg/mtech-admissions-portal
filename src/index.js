@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import SignInNav from './components/SignInNav';
+import Dashboard from './components/Dashboard';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SignInNav/>
+    <Dashboard/>
   </React.StrictMode>,
   document.getElementById('root')
 );
