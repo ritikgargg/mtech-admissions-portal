@@ -7,7 +7,8 @@ import Dashboard from './components/Dashboard';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Dashboard/>
+    {/* <Dashboard/> */}
+    <SignInNav/>
   </React.StrictMode>,
   document.getElementById('root')
 );

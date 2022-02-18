@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import SignIn from './SignIn'
 import Otp from './Otp'
-import { InformationForm } from './InformationForm';
-import ReactCSSTransitionGroup from 'react-transition-group'; // ES6
 
 class SignInNav extends React.Component {
   constructor() {
