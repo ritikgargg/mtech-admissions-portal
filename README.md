@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+To run frontend, cd into client directory and run `npm start` command.  
+To run backend, cd into server directory and run `npm run dev` command.  
+Run both the commands on different terminals.  
+Use `npm install` to install all dependencies in both directories.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
