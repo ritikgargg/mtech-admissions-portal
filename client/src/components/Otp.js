@@ -1,9 +1,7 @@
 import { LockClosedIcon, BellIcon  } from '@heroicons/react/solid';
-import { render } from '@testing-library/react';
 import React from 'react';
 
-export default function Otp () {
-
+export default function Otp (props) {
   return (
     <>
         <div className='flex text-center justify-center'>
@@ -14,7 +12,7 @@ export default function Otp () {
                 OTP has been sent to your mail account.
             </p>
         </div>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={props.onClick}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="my-2 rounded shadow-sm -space-y-px">
               <div>
@@ -29,22 +27,9 @@ export default function Otp () {
                   required
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="OTP"
+                  onChange={e => props.updateData('otp', e.target.value)}
                 />
               </div>
-              {/* <div>
-                <label htmlFor="otp" className="sr-only">
-                  OTP
-                </label>
-                <input
-                  id="otp"
-                  name="otp"
-                  type="otp"
-                  autoComplete="current-otp"
-                  required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="OTP"
-                />
-              </div> */}
             </div>
 
             <div>

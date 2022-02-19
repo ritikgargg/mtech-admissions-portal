@@ -1,34 +1,48 @@
 import React from 'react'
+import axios from 'axios'
 import SignIn from './SignIn'
 import Otp from './Otp'
+import { setUserSession } from '../utils/sessions'
 
 class SignInNav extends React.Component {
   constructor() {
     super();
     this.state = {
       otpSent: false,
+      email: "",
+      otp: "",
+      trueOTP: ""
     };
   }
 
-  onClick () {
+  emailSubmit () {
     this.setState({
-      otpSent: !this.state.otpSent,
-      validated: false
+      otpSent: !this.state.otpSent
     });
-    // console.log(this.state.pageType);
+
+    axios.post('http://localhost:8080/signin', {email: this.state.email}).then(response => {
+      setUserSession(response.data);
+      this.setState({
+        trueOTP: response.data
+      });
+    });
   }
+
+  updateData = (target, value) => {
+    this.setState({ [target]: value });
+  };
+
+  handleSubmit () {
+    if(this.state.trueOTP === this.state.otp) {
+      this.props.history.push("/dashboard");
+    }
+    else {
+      console.log(this.props);
+      alert("Wrong otp");
+    }
+  };
   
   render() {
-    
-    let theChild = undefined;
-    if(!this.state.validated){
-      if (this.state.otpSent) {
-        theChild = <Otp/>
-      } else {
-        theChild = <SignIn onClick={()=>this.onClick()}/>;
-      }
-    }
-
     return (
       <> 
         <div className="w-full h-screen flex">
@@ -51,22 +65,9 @@ class SignInNav extends React.Component {
     
                 </div>
 
-                {/* NAVBAR */}
-                {/* <ul class="flex justify-around">
-                      <li>
-                      <button class="text-center w-52 block border border-blue-500 rounded py-2 hover:bg-blue-700 text-white bg-blue-500 shadow">Sign up</button>
-                      </li>
-                      <li>
-                      <button class="text-center w-52 block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2" href="#">Login</button>
-                      </li>
-                </ul> */}
-
-                {/* {this.state.pageType%2==0&&<SignIn onClick={()=>this.onClick()}/>}
-                {this.state.pageType%2!=0&&<Otp onClick={()=>this.onClick()}/>} */}
-
                 <div>
-                    {/* {this.state.otpSent?<Otp onClick={()=>this.onClick()}/>:<SignIn onClick={()=>this.onClick()}/>} */}
-                    {theChild}
+                  {this.state.otpSent === false && <SignIn onClick={()=>this.emailSubmit()} updateData={this.updateData}/>}
+                  {this.state.otpSent === true && <Otp onClick={()=>this.handleSubmit()} updateData={this.updateData}/>}
                 </div>
 
               </div>
@@ -79,6 +80,3 @@ class SignInNav extends React.Component {
 }
 
 export default SignInNav;
-
-
-            

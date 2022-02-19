@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import SignInNav from './components/SignInNav';
-import Dashboard from './components/Dashboard';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Dashboard/>
-    {/* <SignInNav/> */}
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
