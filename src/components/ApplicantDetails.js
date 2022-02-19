@@ -4,7 +4,7 @@ import PersonalInfo from "./PersonalInfo";
 import CommunicationDetails from "./CommunicatonDetails.js";
 import EducationalDetails from "./EducationalDetails.js";
 import Review from './Review.js';
-import SignUp from './SignUp.js';
+import SignUpUtil from './SignUpUtil.js';
 
 
 function ApplicantDetails() {
@@ -40,7 +40,7 @@ function ApplicantDetails() {
           2 : <CommunicationDetails increasePageNumber = {increasePageNumber} decreasePageNumber={decreasePageNumber}/>,          
           3 : <EducationalDetails increasePageNumber = {increasePageNumber} decreasePageNumber={decreasePageNumber}/>,
           4 : <Review increasePageNumber = {increasePageNumber} decreasePageNumber={decreasePageNumber}/>,
-          5 : <SignUp decreasePageNumber={decreasePageNumber}/>
+          5 : <SignUpUtil decreasePageNumber={decreasePageNumber}/>
                     
         }[page]
       }

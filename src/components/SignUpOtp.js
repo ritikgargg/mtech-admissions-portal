@@ -1,7 +1,8 @@
 import React from 'react';
+import { LockClosedIcon, BellIcon  } from '@heroicons/react/solid';
 import iit_ropar_logo from "../images/iit-ropar-logo.jpg";
 
-function SignUp(props){
+function SignUpOtp(props){
     return(
         <div>
             
@@ -30,10 +31,24 @@ function SignUp(props){
                   <hr className="mt-6 border-b-1 border-gray-400" />
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                  <div className="text-gray-500 text-center mb-3 font-bold"><small>An OTP will be sent to your email ID for verification</small></div>
+                  
+                  <div className="text-gray-500 text-center mb-3 font-bold">
+                        <span>
+                            <BellIcon className='inline h-5 w-5 mx-1 text-red-500 group-hover:text-indigo-400'/>
+                        </span>
+                        <small className="text-red-700">OTP has been sent to your mail account.</small>
+                  </div>
                   <form>
                     <div className="relative w-full mb-3 mt-4">
-                      <input id="email-address" name="email" type="email" autoComplete="email" required className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email Address" style={{transition: 'all 0.15s ease 0s'}} />
+                        <input
+                    id="otp"
+                    name="otp"
+                    type="text"
+                    autoComplete="otp"
+                    required
+                    className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="OTP"
+                    />
                     </div>
                     {/* <div className="relative w-full mb-3">
                       <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">Password</label>
@@ -44,7 +59,7 @@ function SignUp(props){
                         <input id="customCheckLogin" type="checkbox" className="form-checkbox text-gray-800 ml-1 w-5 h-5" style={{transition: 'all 0.15s ease 0s'}} /><span className="ml-2 text-sm font-semibold text-gray-700">Remember me</span></label>
                     </div> */}
                     <div className="text-center mt-6">
-                      <button  onClick={() => props.increaseFlag()} className="bg-[#1E3A8A] w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="button" style={{transition: 'all 0.15s ease 0s'}}>Sign Up</button>
+                      <button onClick={() => props.decreaseFlag()} className="bg-[#1E3A8A] w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="button" style={{transition: 'all 0.15s ease 0s'}}>Validate</button>
                     </div>
                   </form>
                 </div>
@@ -63,4 +78,4 @@ function SignUp(props){
 
 
 
-export default SignUp;
+export default SignUpOtp;
