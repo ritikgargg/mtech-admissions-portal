@@ -57,7 +57,7 @@ export default function OpenPositions() {
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
                         {applications.map((application) => (
-                            <tr key={application.key}>
+                            <tr key={application.id}>
                             {/* <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
                                 <div className="flex-shrink-0 h-10 w-10">

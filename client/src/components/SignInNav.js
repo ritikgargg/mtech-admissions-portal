@@ -1,48 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import SignIn from './SignIn'
 import Otp from './Otp'
-import { setUserSession } from '../utils/sessions'
+import { setUserSession } from '../utils/Sessions'
+import { useNavigate } from "react-router-dom";
 
-class SignInNav extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      otpSent: false,
-      email: "",
-      otp: "",
-      trueOTP: ""
+export default function SignInNav () {
+    const navigate = useNavigate();
+
+    const [otpSent, setotpSent] = useState(false);
+    const [email, setEmail] = useState("");
+    const [otp, setOtp] = useState("");
+    const [trueOtp, setTrueOtp] = useState("");
+    const [msg, setMsg] = useState("OTP has been sent to your mail account.");
+
+    const emailSubmit = () => {
+        setotpSent(!otpSent);
+
+        axios.post('http://localhost:8080/signin', {email: email}).then(response => {
+            setTrueOtp(response.data)
+        });
+    }
+
+    const updateEmail = e => {
+        setEmail(e.target.value);
+    }
+
+    const updateOTP = e => {
+        setOtp(e.target.value);
+    }
+
+    const handleSubmit = () => {
+        if(trueOtp === otp) {
+            setUserSession(trueOtp);
+            navigate("/dashboard");
+        }
+        else {
+            setMsg("The OTP you entered is incorrect.")
+        }
     };
-  }
 
-  emailSubmit () {
-    this.setState({
-      otpSent: !this.state.otpSent
-    });
-
-    axios.post('http://localhost:8080/signin', {email: this.state.email}).then(response => {
-      setUserSession(response.data);
-      this.setState({
-        trueOTP: response.data
-      });
-    });
-  }
-
-  updateData = (target, value) => {
-    this.setState({ [target]: value });
-  };
-
-  handleSubmit () {
-    if(this.state.trueOTP === this.state.otp) {
-      this.props.history.push("/dashboard");
-    }
-    else {
-      console.log(this.props);
-      alert("Wrong otp");
-    }
-  };
-  
-  render() {
     return (
       <> 
         <div className="w-full h-screen flex">
@@ -66,8 +63,8 @@ class SignInNav extends React.Component {
                 </div>
 
                 <div>
-                  {this.state.otpSent === false && <SignIn onClick={()=>this.emailSubmit()} updateData={this.updateData}/>}
-                  {this.state.otpSent === true && <Otp onClick={()=>this.handleSubmit()} updateData={this.updateData}/>}
+                  {otpSent === false && <SignIn onClick={emailSubmit} updateData={updateEmail}/>}
+                  {otpSent === true && <Otp onClick={handleSubmit} updateData={updateOTP} msg={msg}/>}
                 </div>
 
               </div>
@@ -76,7 +73,4 @@ class SignInNav extends React.Component {
         </div>  
       </>
     )
-  }
 }
-
-export default SignInNav;

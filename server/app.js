@@ -14,8 +14,8 @@ const transporter = nodemailer.createTransport({
      rejectUnauthorized: true
   },
   auth: {
-      user: 'your_email_id',
-      pass: 'your_app_password'
+      user: '18tarun2001@gmail.com',
+      pass: 'inwrovrslpmuimzj'
   }
 });
 
@@ -36,20 +36,22 @@ app.post('/signin', (req, res) => {
 
   var mailOptions = {
     from: 'IIT Ropar',
-    to: '2001singlatarun1810@gmail.com', 
+    to: 'email', 
     subject: 'Register/Sign-in', 
-    text: '' 
+    text: 'Your OTP is ' 
   };
 
-  mailOptions.text = otp;
+  mailOptions.to = email;
+  mailOptions.text += otp;
   console.log(otp);
 
   // transporter.sendMail(mailOptions, function(error, info){
   //   if (error) {
   //     console.log(error);
-  //   } else {
-  //     console.log('Email sent: ' + info.response);
-  //   }
+  //   } 
+  //   // else {
+  //   //   console.log('Email sent: ' + info.response);
+  //   // }
   // });
 
   res.send(otp);

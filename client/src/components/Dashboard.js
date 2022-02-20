@@ -14,10 +14,10 @@ const navigation = [
   { name: 'Home', href: '#', current: true },
   { name: 'My Applications', href: '#', current: false },
 ]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+// const userNavigation = [
+//   { name: 'Your Profile', href: '#' },
+//   { name: 'Sign out', href: '#' },
+// ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -80,21 +80,34 @@ export default function Dashboard() {
                           leaveTo="transform opacity-0 scale-95"
                         >
                           <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
+                              <Menu.Item>
                                 {({ active }) => (
-                                  <a
-                                    href={item.href}
+                                  <Disclosure.Button
+                                    as="a"
+                                    href="#"
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-gray-700'
                                     )}
                                   >
-                                    {item.name}
-                                  </a>
+                                    Your Profile
+                                  </Disclosure.Button>
                                 )}
                               </Menu.Item>
-                            ))}
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <Disclosure.Button
+                                    as="a"
+                                    href="logout"
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                  >
+                                  Sign out
+                                  </Disclosure.Button>
+                                )}
+                              </Menu.Item>
                           </Menu.Items>
                         </Transition>
                       </Menu>
@@ -149,16 +162,20 @@ export default function Dashboard() {
                     </button>
                   </div>
                   <div className="mt-3 px-2 space-y-1">
-                    {userNavigation.map((item) => (
                       <Disclosure.Button
-                        key={item.name}
                         as="a"
-                        href={item.href}
+                        href="#"
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                       >
-                        {item.name}
+                        Your Profile
                       </Disclosure.Button>
-                    ))}
+                      <Disclosure.Button
+                        as="a"
+                        href="logout"
+                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                      >
+                      Sign out
+                      </Disclosure.Button>
                   </div>
                 </div>
               </Disclosure.Panel>
