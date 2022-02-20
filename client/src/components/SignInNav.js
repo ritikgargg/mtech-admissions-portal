@@ -3,7 +3,9 @@ import axios from 'axios'
 import SignIn from './SignIn'
 import Otp from './Otp'
 import { setUserSession } from '../utils/Sessions'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import iit_ropar from "../images/iit-ropar.jpg";
+import iit_ropar_logo from "../images/iit-ropar-logo.jpg";
 
 export default function SignInNav () {
     const navigate = useNavigate();
@@ -43,7 +45,7 @@ export default function SignInNav () {
     return (
       <> 
         <div className="w-full h-screen flex">
-          <img src="./images/iit_ropar_login_page.jpg" alt="background" className="object-cover object-center h-screen w-7/12"></img>
+          <img src={iit_ropar} alt="background" className="object-cover object-center h-screen w-7/12"></img>
           <div className="bg-white flex flex-col justify-center w-5/12 shadow-lg">
             <div className="min-h-full flex justify-center py-12 px-4 sm:px-6 lg:px-8">
               <div className="max-w-md w-full">
@@ -51,13 +53,13 @@ export default function SignInNav () {
                   <div className='mb-5'>
                     <img
                       className="mx-auto h-55 w-48"
-                      src="./images/iitrpr_logo.png"
+                      src={iit_ropar_logo}
                       alt="IIT Ropar logo"
                     />
                   </div>
                   
                   <div>
-                    <h2 className="text-center text-2xl font-bold" style={{color: "#001f60"}}>Register or Sign in to your account</h2>
+                    <h2 className="text-center text-2xl font-bold" style={{color: "#001f60"}}>Sign in to your account</h2>
                   </div>
     
                 </div>

@@ -14,8 +14,8 @@ const transporter = nodemailer.createTransport({
      rejectUnauthorized: true
   },
   auth: {
-      user: '18tarun2001@gmail.com',
-      pass: 'inwrovrslpmuimzj'
+      user: 'your_email_id',
+      pass: 'your_app_password'
   }
 });
 
@@ -36,7 +36,7 @@ app.post('/signin', (req, res) => {
 
   var mailOptions = {
     from: 'IIT Ropar',
-    to: 'email', 
+    to: 'email_id_to_send_otp', 
     subject: 'Register/Sign-in', 
     text: 'Your OTP is ' 
   };

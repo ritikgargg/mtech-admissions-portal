@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import OpenPositions from './OpenPositions'
+import iit_ropar_logo_clear from "../images/iit-ropar-logo-clear.png";
 
 const user = {
   name: 'Tom Cook',
@@ -36,7 +37,7 @@ export default function Dashboard() {
                     <div className="flex-shrink-0">
                       <img
                         className="h-12 w-12"
-                        src="./images/iitrpr_logo2.png"
+                        src={iit_ropar_logo_clear}
                         alt="IIT Ropar logo"
                       />
                     </div>
