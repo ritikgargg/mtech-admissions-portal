@@ -37,9 +37,12 @@ export default function SignInNav () {
             setUserSession(trueOtp);
             navigate("/dashboard");
         }
-        else {
-            setMsg("The OTP you entered is incorrect.")
+        else if(otp === "") {
+            setMsg("Please enter the OTP.")
         }
+        else {
+          setMsg("The OTP you entered is incorrect.")
+      }
     };
 
     return (
