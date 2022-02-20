@@ -1,40 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
 import SignIn from './SignIn'
 import Otp from './Otp'
-import iit_ropar_pic from "../images/iit-ropar.jpg";
-import iit_ropar_logo from "../images/iit-ropar-logo.jpg";
+import { setUserSession } from '../utils/Sessions'
+import { useNavigate } from "react-router-dom";
 
-class SignInNav extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      otpSent: false,
-    };
-  }
+export default function SignInNav () {
+    const navigate = useNavigate();
 
-  onClick () {
-    this.setState({
-      otpSent: !this.state.otpSent,
-      validated: false
-    });
-    // console.log(this.state.pageType);
-  }
-  
-  render() {
-    
-    let theChild = undefined;
-    if(!this.state.validated){
-      if (this.state.otpSent) {
-        theChild = <Otp/>
-      } else {
-        theChild = <SignIn onClick={()=>this.onClick()}/>;
-      }
+    const [otpSent, setotpSent] = useState(false);
+    const [email, setEmail] = useState("");
+    const [otp, setOtp] = useState("");
+    const [trueOtp, setTrueOtp] = useState("");
+    const [msg, setMsg] = useState("OTP has been sent to your mail account.");
+
+    const emailSubmit = () => {
+        setotpSent(!otpSent);
+
+        axios.post('http://localhost:8080/signin', {email: email}).then(response => {
+            setTrueOtp(response.data)
+        });
     }
+
+    const updateEmail = e => {
+        setEmail(e.target.value);
+    }
+
+    const updateOTP = e => {
+        setOtp(e.target.value);
+    }
+
+    const handleSubmit = () => {
+        if(trueOtp === otp) {
+            setUserSession(trueOtp);
+            navigate("/dashboard");
+        }
+        else {
+            setMsg("The OTP you entered is incorrect.")
+        }
+    };
 
     return (
       <> 
         <div className="w-full h-screen flex">
-          <img src={iit_ropar_pic} alt="background" className="object-cover object-center h-screen w-7/12"></img>
+          <img src="./images/iit_ropar_login_page.jpg" alt="background" className="object-cover object-center h-screen w-7/12"></img>
           <div className="bg-white flex flex-col justify-center w-5/12 shadow-lg">
             <div className="min-h-full flex justify-center py-12 px-4 sm:px-6 lg:px-8">
               <div className="max-w-md w-full">
@@ -42,7 +51,7 @@ class SignInNav extends React.Component {
                   <div className='mb-5'>
                     <img
                       className="mx-auto h-55 w-48"
-                      src={iit_ropar_logo}
+                      src="./images/iitrpr_logo.png"
                       alt="IIT Ropar logo"
                     />
                   </div>
@@ -53,22 +62,9 @@ class SignInNav extends React.Component {
     
                 </div>
 
-                {/* NAVBAR */}
-                {/* <ul class="flex justify-around">
-                      <li>
-                      <button class="text-center w-52 block border border-blue-500 rounded py-2 hover:bg-blue-700 text-white bg-blue-500 shadow">Sign up</button>
-                      </li>
-                      <li>
-                      <button class="text-center w-52 block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2" href="#">Login</button>
-                      </li>
-                </ul> */}
-
-                {/* {this.state.pageType%2==0&&<SignIn onClick={()=>this.onClick()}/>}
-                {this.state.pageType%2!=0&&<Otp onClick={()=>this.onClick()}/>} */}
-
                 <div>
-                    {/* {this.state.otpSent?<Otp onClick={()=>this.onClick()}/>:<SignIn onClick={()=>this.onClick()}/>} */}
-                    {theChild}
+                  {otpSent === false && <SignIn onClick={emailSubmit} updateData={updateEmail}/>}
+                  {otpSent === true && <Otp onClick={handleSubmit} updateData={updateOTP} msg={msg}/>}
                 </div>
 
               </div>
@@ -77,10 +73,4 @@ class SignInNav extends React.Component {
         </div>  
       </>
     )
-  }
 }
-
-export default SignInNav;
-
-
-            
