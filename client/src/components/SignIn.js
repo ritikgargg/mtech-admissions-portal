@@ -7,7 +7,7 @@ export default function SignIn (props) {
   }
   return (
     <>
-        <p className="mb-10 text-center text-sm font-medium">
+        <p className="mb-10 text-[#6F8BD6] text-center text-sm font-medium">
           {props.msg}
         </p>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

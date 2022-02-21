@@ -11,7 +11,9 @@ import HowToApply from "./components/HowToApply.js"
 import Error from "./components/Error.js"
 import SignUpNav from './components/SignUpNav'
 import WithHeaderFooter from "./components/WithHeaderFooter"
-
+import Profile from './components/Profile'
+import SignUpStartPage from './components/SignUpStartPage'
+import SignInStartPage from './components/SignInStartPage'
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -44,7 +46,7 @@ function App() {
 						path='/sign-in' 
 						element={
 							<SpecialRoute>
-							<SignInNav/>
+							<SignInStartPage/>
 							</SpecialRoute>
 						} 
 					/>
@@ -55,7 +57,7 @@ function App() {
 						path='/sign-up' 
 						element={
 							<SpecialRoute>
-							<SignUpNav/>
+							<SignUpStartPage />
 							</SpecialRoute>
 						} 
 					/>
@@ -69,6 +71,16 @@ function App() {
 						</PrivateRoute>
 					}
 				/>
+
+					<Route
+					path="/my-profile"
+					element={
+						<PrivateRoute>
+						<Profile user={{imageUrl: ""}} />
+						</PrivateRoute>
+					}
+				/>
+
 				<Route
 					path="/logout"
 					element={
