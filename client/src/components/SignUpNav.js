@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 import iit_ropar from "../images/iit-ropar.jpg";
 import iit_ropar_logo from "../images/iit-ropar-logo.jpg";
 
-export default function SignInNav () {
+export default function SignUpNav () {
     const navigate = useNavigate();
 
     const [otpSent, setotpSent] = useState(false);
@@ -17,12 +17,12 @@ export default function SignInNav () {
     const [msg_signin, setMsgSignin] = useState("An OTP will be sent to your email ID for verification.")
 
     const emailSubmit = () => {
-        axios.post('http://localhost:8080/auth/signin/otp', {email: email}).then(response => {
+        axios.post('http://localhost:8080/auth/signup/otp', {email: email}).then(response => {
           if(response.data === 0) {
             setMsgSignin("Please enter your email.")
           }
           else if(response.data === 1) {
-            setMsgSignin("You do not have an account. Sign-up first!")
+            setMsgSignin("An account is already associated with this email-id. Sign-in!")
           }
           else {
             setotpSent(!otpSent);
@@ -39,7 +39,7 @@ export default function SignInNav () {
     }
 
     const handleSubmit = () => {
-      axios.post('http://localhost:8080/auth/signin/verify', {email: email, otp: otp}).then(response => {
+      axios.post('http://localhost:8080/auth/signup/verify', {email: email, otp: otp}).then(response => {
           if(response.data === 1) {
             setUserSession(otp);
             navigate("/dashboard");
@@ -73,7 +73,8 @@ export default function SignInNav () {
                   </div>
                   
                   <div>
-                    <h2 className="text-center text-2xl font-bold" style={{color: "#001f60"}}>Sign in to your account</h2>
+                    <h2 className="text-center text-2xl font-bold" style={{color: "#001f60"}}>Welcome to IIT Ropar!</h2>
+                    <h2 className="text-center text-2xl font-bold" style={{color: "#001f60"}}>Sign-up to create a new account</h2>
                   </div>
     
                 </div>

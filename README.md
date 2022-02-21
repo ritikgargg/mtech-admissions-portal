@@ -18,6 +18,6 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 
 ## Extra settings
 For the server, create an app password for your **email**.  
-In the `app.js` file in the server directory, put your email and app password in **auth**.  
+In the `auth.js` file in the server directory, put your email and app password in **auth**.  
 
 Happy Coding :)

@@ -17,6 +17,10 @@ app.post('/auth/signin/otp', auth.signin_otp);
 
 app.post('/auth/signin/verify', auth.signin_verify);
 
+app.post('/auth/signup/otp', auth.signup_otp);
+
+app.post('/auth/signup/verify', auth.signup_verify);
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

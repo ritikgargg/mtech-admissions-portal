@@ -48,7 +48,7 @@ function Navbar() {
                 </Link>
               ))}
               <Link
-                to="/log-in"
+                to="/sign-in"
                 className="font-medium text-gray-500 hover:text-indigo-500"
               >
                 Log-in

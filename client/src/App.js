@@ -9,10 +9,11 @@ import HomePage from "./components/HomePage.js"
 import ContactUs from "./components/ContactUs.js"
 import HowToApply from "./components/HowToApply.js"
 import Error from "./components/Error.js"
-import SignUpStartPage from "./components/SignUpStartPage.js"
-import ApplicantDetails from "./components/ApplicantDetails"
-import WithoutHeaderFooter from "./components/WithoutHeaderFooter"
+import SignUpNav from './components/SignUpNav'
 import WithHeaderFooter from "./components/WithHeaderFooter"
+// import SignUpStartPage from "./components/SignUpStartPage.js"
+// import ApplicantDetails from "./components/ApplicantDetails"
+// import WithoutHeaderFooter from "./components/WithoutHeaderFooter"
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -42,10 +43,21 @@ function App() {
 			<Routes>
 				<Route element={<WithHeaderFooter/>}>
 					<Route 
-						path='/log-in' 
+						path='/sign-in' 
 						element={
 							<SpecialRoute>
 							<SignInNav/>
+							</SpecialRoute>
+						} 
+					/>
+				</Route>
+
+				<Route element={<WithHeaderFooter/>}>
+					<Route 
+						path='/sign-up' 
+						element={
+							<SpecialRoute>
+							<SignUpNav/>
 							</SpecialRoute>
 						} 
 					/>
@@ -75,10 +87,10 @@ function App() {
 					<Route path="*" element={<Error/>}></Route>
     			</Route>
 
-				<Route element={<WithoutHeaderFooter/>}>
+				{/* <Route element={<WithoutHeaderFooter/>}>
 					<Route path="/sign-up" element={<SignUpStartPage />}></Route>
 					<Route path="/sign-up-form" element={<ApplicantDetails />} ></Route>
-				</Route>
+				</Route> */}
 
 			</Routes>
 		</BrowserRouter>
