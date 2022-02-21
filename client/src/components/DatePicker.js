@@ -1,5 +1,5 @@
 import React from "react";
-import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";  
 function DatePicker() {
   return (
     <div>

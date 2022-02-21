@@ -13,6 +13,8 @@ import SignUpStartPage from "./components/SignUpStartPage.js"
 import ApplicantDetails from "./components/ApplicantDetails"
 import WithoutHeaderFooter from "./components/WithoutHeaderFooter"
 import WithHeaderFooter from "./components/WithHeaderFooter"
+import PersonalInfo from "./components/PersonalInfo"
+import Profile from './components/Profile'
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -54,9 +56,9 @@ function App() {
 				<Route
 					path="/dashboard"
 					element={
-						<PrivateRoute>
+						
 						<Dashboard />
-						</PrivateRoute>
+				
 					}
 				/>
 				<Route
@@ -69,14 +71,14 @@ function App() {
 				/>
           
 				<Route element={<WithHeaderFooter/>}>
-					<Route path="/" element={<HomePage />}></Route>
+					<Route path="/" element={<HomePage/>}></Route>
 					<Route path="/how-to-apply" element={<HowToApply />}></Route>
 					<Route path="/contact-us" element={<ContactUs />}></Route>
+					<Route path="/sign-up" element={<SignUpStartPage />}></Route>
 					<Route path="*" element={<Error/>}></Route>
     			</Route>
 
 				<Route element={<WithoutHeaderFooter/>}>
-					<Route path="/sign-up" element={<SignUpStartPage />}></Route>
 					<Route path="/sign-up-form" element={<ApplicantDetails />} ></Route>
 				</Route>
 
