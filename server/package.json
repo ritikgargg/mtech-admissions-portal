@@ -11,10 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
-    "otp-generator": "^4.0.0"
+    "otp-generator": "^4.0.0",
+    "pg": "^8.7.3"
   }
 }

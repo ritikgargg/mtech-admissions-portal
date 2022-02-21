@@ -1,23 +1,7 @@
-const express = require("express");
-const nodemailer = require('nodemailer');
+const express = require("express")
 const cors = require('cors')
-const otpGenerator = require('otp-generator')
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  secureConnection: true, 
-  port: 465,
-  pool: true,
-  maxConnections: 20,
-  tls: {
-     ciphers:'SSLv3',
-     rejectUnauthorized: true
-  },
-  auth: {
-      user: 'your_email_id',
-      pass: 'your_app_password'
-  }
-});
+const pool = require("./db")
+const auth = require("./auth")
 
 const PORT = process.env.PORT || 8080;
 
@@ -29,33 +13,13 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post('/signin', (req, res) => {
-  email = req.body.email;
+app.post('/auth/signin/otp', auth.signin_otp);
 
-  otp = otpGenerator.generate(6, { specialChars: false });
+app.post('/auth/signin/verify', auth.signin_verify);
 
-  var mailOptions = {
-    from: 'IIT Ropar',
-    to: 'email_id_to_send_otp', 
-    subject: 'Register/Sign-in', 
-    text: 'Your OTP is ' 
-  };
+app.post('/auth/signup/otp', auth.signup_otp);
 
-  mailOptions.to = email;
-  mailOptions.text += otp;
-  console.log(otp);
-
-  // transporter.sendMail(mailOptions, function(error, info){
-  //   if (error) {
-  //     console.log(error);
-  //   } 
-  //   // else {
-  //   //   console.log('Email sent: ' + info.response);
-  //   // }
-  // });
-
-  res.send(otp);
-});
+app.post('/auth/signup/verify', auth.signup_verify);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
