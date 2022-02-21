@@ -16,12 +16,6 @@ CREATE TABLE applicants (
     email_id TEXT PRIMARY KEY
 );
 
-CREATE TRIGGER trigger_insert_into_applicants
-  AFTER INSERT
-  ON applicants
-  FOR EACH ROW
-  EXECUTE PROCEDURE insert_into_login_verification();
-
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
   RETURNS TRIGGER 
   LANGUAGE PLPGSQL
@@ -32,6 +26,14 @@ BEGIN
 	RETURN NEW;
 END;
 $$;
+
+CREATE TRIGGER trigger_insert_into_applicants
+  AFTER INSERT
+  ON applicants
+  FOR EACH ROW
+  EXECUTE PROCEDURE insert_into_login_verification();
+
+
 
 -- insert into applicants(email_id) values('18tarun2001@gmail.com');
 
