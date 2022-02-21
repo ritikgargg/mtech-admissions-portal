@@ -2,6 +2,9 @@ const express = require("express");
 const nodemailer = require('nodemailer');
 const cors = require('cors')
 const otpGenerator = require('otp-generator')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const pool = require("./db")
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -29,8 +32,12 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post('/signin', (req, res) => {
+app.post('/auth/signin/otp', async (req, res) => {
   email = req.body.email;
+
+  const result = await pool.query("select from login_verification where email_id = $1", [email]);
+
+  if(result.rowCount === 0) return res.send("0");
 
   otp = otpGenerator.generate(6, { specialChars: false });
 
@@ -45,6 +52,11 @@ app.post('/signin', (req, res) => {
   mailOptions.text += otp;
   console.log(otp);
 
+  // encrypt otp and save in db
+  bcrypt.hash(otp, saltRounds, async function(err, hash) {
+    await pool.query("UPDATE login_verification SET hashed_otp = $1, expiration_time = to_timestamp($2) WHERE email_id = $3", [hash, Date.now()/1000.0+600, email]);
+  });
+
   // transporter.sendMail(mailOptions, function(error, info){
   //   if (error) {
   //     console.log(error);
@@ -54,7 +66,33 @@ app.post('/signin', (req, res) => {
   //   // }
   // });
 
-  res.send(otp);
+  res.send("1");
+});
+
+app.post('/auth/signin/verify', async (req, res) => {
+  const {email, otp} = req.body;
+
+  // encrypt and check for otp in db and return accordingly
+  const result = await pool.query("select * from login_verification where email_id = $1", [email]);
+  const result_row = result.rows[0];
+
+  // check if otp is expired
+  if(Date.now() > (new Date(result_row.expiration_time.getTime()))) {
+    return res.send("2");
+  }
+  // console.log(Date(result_row.expiration_time));
+  // console.log(result_row.expiration_time);
+  // console.log(new Date(result_row.expiration_time).getTime());
+  // console.log(Date.now());
+
+  await bcrypt.compare(otp, result_row.hashed_otp, function(err, result) {
+    if(result == true) {
+      return res.send("1");
+    }
+    else {
+      return res.send("0");
+    }
+  });
 });
 
 app.listen(PORT, () => {

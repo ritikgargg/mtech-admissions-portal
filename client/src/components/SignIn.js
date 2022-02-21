@@ -8,7 +8,7 @@ export default function SignIn (props) {
   return (
     <>
         <p className="mb-10 text-center text-sm font-medium">
-          An OTP will be sent to your email ID for verification
+          {props.msg}
         </p>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />

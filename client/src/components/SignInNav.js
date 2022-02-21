@@ -13,14 +13,20 @@ export default function SignInNav () {
     const [otpSent, setotpSent] = useState(false);
     const [email, setEmail] = useState("");
     const [otp, setOtp] = useState("");
-    const [trueOtp, setTrueOtp] = useState("");
-    const [msg, setMsg] = useState("OTP has been sent to your mail account.");
+    const [msg_otp, setMsgOtp] = useState("OTP has been sent to your mail account.");
+    const [msg_signin, setMsgSignin] = useState("An OTP will be sent to your email ID for verification.")
 
     const emailSubmit = () => {
-        setotpSent(!otpSent);
-
-        axios.post('http://localhost:8080/signin', {email: email}).then(response => {
-            setTrueOtp(response.data)
+        axios.post('http://localhost:8080/auth/signin/otp', {email: email}).then(response => {
+          if(email === "") {
+            setMsgSignin("Please enter your email.")
+          }
+          else if(response.data === 0) {
+            setMsgSignin("You do not have an account. Sign-up first!")
+          }
+          else {
+            setotpSent(!otpSent);
+          }
         });
     }
 
@@ -33,16 +39,21 @@ export default function SignInNav () {
     }
 
     const handleSubmit = () => {
-        if(trueOtp === otp) {
-            setUserSession(trueOtp);
+      axios.post('http://localhost:8080/auth/signin/verify', {email: email, otp: otp}).then(response => {
+          if(response.data === 1) {
+            setUserSession(otp);
             navigate("/dashboard");
-        }
-        else if(otp === "") {
-            setMsg("Please enter the OTP.")
-        }
-        else {
-          setMsg("The OTP you entered is incorrect.")
-      }
+          }
+          else if(otp === "") {
+            setMsgOtp("Please enter the OTP sent to your email.")
+          }
+          else if(response.data === 2) {
+            setMsgOtp("Your OTP has expired.")
+          }
+          else {
+            setMsgOtp("The OTP you entered is incorrect.")
+          }
+      });
     };
 
     return (
@@ -68,8 +79,8 @@ export default function SignInNav () {
                 </div>
 
                 <div>
-                  {otpSent === false && <SignIn onClick={emailSubmit} updateData={updateEmail}/>}
-                  {otpSent === true && <Otp onClick={handleSubmit} updateData={updateOTP} msg={msg}/>}
+                  {otpSent === false && <SignIn onClick={emailSubmit} updateData={updateEmail} msg={msg_signin}/>}
+                  {otpSent === true && <Otp onClick={handleSubmit} updateData={updateOTP} msg={msg_otp}/>}
                 </div>
 
               </div>
