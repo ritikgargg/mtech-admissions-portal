@@ -64,9 +64,9 @@ function App() {
 				<Route
 					path="/dashboard"
 					element={
-						
+						<PrivateRoute>
 						<Dashboard />
-				
+						</PrivateRoute>
 					}
 				/>
 				<Route
@@ -82,7 +82,6 @@ function App() {
 					<Route path="/" element={<HomePage/>}></Route>
 					<Route path="/how-to-apply" element={<HowToApply />}></Route>
 					<Route path="/contact-us" element={<ContactUs />}></Route>
-					<Route path="/sign-up" element={<SignUpStartPage />}></Route>
 					<Route path="*" element={<Error/>}></Route>
     			</Route>
 
