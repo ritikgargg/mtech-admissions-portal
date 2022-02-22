@@ -8,6 +8,10 @@ module.exports = {
       colors: {
       'custom-purple': '#4f46e5',
       },
+      fontFamily: {
+        'montserrat': ['Montserrat'],
+        'josefin-sans' : ['Josefin Sans']
+      }
     },
   },
   plugins: [

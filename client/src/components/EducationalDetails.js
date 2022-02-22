@@ -5,8 +5,8 @@ function EducationalDetails(props) {
   const [count, setCount] = useState(1);
 
   return (
-    <div id="educationalDetailsModal" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
-        <div className="relative object-center  overscroll-none px-4 w-full max-w-7xl h-5/6">
+    <div id="educationalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
+        <div className="relative object-center overflow-y-auto overflow-x-hidden overscroll-none px-4 w-full max-w-7xl h-5/6">
           {/* Modal content */}
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             {/* Modal header */}
