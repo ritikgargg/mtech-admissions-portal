@@ -21,7 +21,6 @@ export default function Profile (props) {
     return (
         <>
         <DashboardNavBar currentFlag={2} user={props.user}/>
-        <CompleteProfileAlert/>
         <div className='flex'>
             <div className='flex-2 my-20 mx-20'>
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}

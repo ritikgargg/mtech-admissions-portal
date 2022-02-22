@@ -5,10 +5,8 @@ import {MenuIcon, XIcon } from '@heroicons/react/outline'
 import {Link} from 'react-router-dom';
 
 const navigation = [
-    { name: 'Home', to: '/home' },
-    { name: 'My Applications', to: '/my-applications' },
-    { name: 'My Profile', to: '/my-profile' },
-  ]
+  { name: 'My Applications', to: '/my-applications' }
+]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -32,21 +30,50 @@ function DashboardNavBar (props) {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item, index) => (
-                          <Link
-                            key={item.name}
-                            to={item.to}
+                        <a
+                            key="Home"
+                            href="/home"
                             className={classNames(
-                              (index === props.currentFlag)
+                              (0 === props.currentFlag)
                                 ? 'bg-gray-900 text-white'
                                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                               'px-3 py-2 rounded-md text-sm font-medium'
                             )}
-                            aria-current={item.current ? 'page' : undefined}
+                            aria-current={0 === props.currentFlag ? 'page' : undefined}
                           >
-                            {item.name}
-                          </Link>
-                        ))}
+                            Home
+                          </a>
+
+                        
+                        <Link
+                          key="My Applications"
+                          to="/my-applications"
+                          className={classNames(
+                            (1 === props.currentFlag)
+                              ? 'bg-gray-900 text-white'
+                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'px-3 py-2 rounded-md text-sm font-medium'
+                          )}
+                          aria-current={1 === props.currentFlag ? 'page' : undefined}
+                        >
+                          My Applications
+                        </Link>
+                        
+
+                        <a
+                            key="My Profile"
+                            href="/my-profile"
+                            className={classNames(
+                              (2 === props.currentFlag)
+                                ? 'bg-gray-900 text-white'
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              'px-3 py-2 rounded-md text-sm font-medium'
+                            )}
+                            aria-current={2 === props.currentFlag ? 'page' : undefined}
+                          >
+                            My Profile
+                          </a>
+
                       </div>
                     </div>
                   </div>
