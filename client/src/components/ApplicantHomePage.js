@@ -109,7 +109,6 @@ export default function ApplicantHomePage(props) {
                 </div>
             </div>
             </div>
-            </div>
         </>
     )
 }
