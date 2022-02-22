@@ -104,7 +104,7 @@ function Navbar() {
                 ))}
               </div>
               <Link
-                to="/log-in"
+                to="/sign-in"
                 className="block w-full px-5 py-3 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100"
               >
                 Log-in

@@ -13,7 +13,58 @@ CREATE TABLE login_verification (
 );
 
 CREATE TABLE applicants (
-    email_id TEXT PRIMARY KEY
+    -- Primary Keys
+    applicant_id SERIAL PRIMARY KEY,
+    email_id TEXT PRIMARY KEY,
+
+    -- Personal Details
+    full_name TEXT,
+    fathers_name TEXT,
+    profile_image_url TEXT,
+    date_of_birth TEXT,
+    aadhar_card_number TEXT,
+    category Text,
+    is_pwd Boolean,
+    marital_status TEXT,
+    nationality TEXT,
+    gender TEXT,
+
+    -- Communication Details
+    communication_address TEXT,
+    communication_city TEXT,
+    communication_state TEXT,
+    communication_pincode TEXT,
+
+    permanent_address TEXT,
+    permanent_city TEXT,
+    permanent_state TEXT,
+    permanent_pincode TEXT,
+
+    email TEXT,
+    mobile_number TEXT,
+    alternate_mobile_number TEXT,
+
+    -- Educational Details
+    degree_10th TEXT,
+    board_10th TEXT,
+    percentage_cgpa_format_10th TEXT,
+    percentage_cgpa_value_10th TEXT,
+    year_of_passing_10th TEXT,
+    remarks_10th TEXT,
+
+    degree_12th TEXT,
+    board_12th TEXT,
+    percentage_cgpa_format_12th TEXT,
+    percentage_cgpa_value_12th TEXT,
+    year_of_passing_12th TEXT,
+    remarks_12th TEXT,
+
+    degree_1 TEXT,
+    board_1 TEXT,
+    percentage_cgpa_format_1 TEXT,
+    percentage_cgpa_value_1 TEXT,
+    year_of_passing_1 TEXT,
+    remarks_10th TEXT,
 );
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()

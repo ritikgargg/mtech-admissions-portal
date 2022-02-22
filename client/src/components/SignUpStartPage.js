@@ -36,11 +36,16 @@ function SignUpStartPage() {
         setOtp(e.target.value);
     }
 
+    const resendOTP = () => {
+      axios.post('http://localhost:8080/auth/signup/otp', {email: email});
+      setMsgOtp("OTP has been resent to your mail account.");
+    }
+
     const handleSubmit = () => {
       axios.post('http://localhost:8080/auth/signup/verify', {email: email, otp: otp}).then(response => {
           if(response.data === 1) {
             setUserSession(otp);
-            navigate("/dashboard");
+            navigate("/home");
           }
           else if(response.data === 2) {
             setMsgOtp("Your OTP has expired.")
@@ -97,7 +102,7 @@ function SignUpStartPage() {
               </div> */}
               <div>
                   {otpSent === false && <SignIn onClick={emailSubmit} updateData={updateEmail} msg={msg_signin}/>}
-                  {otpSent === true && <Otp onClick={handleSubmit} updateData={updateOTP} msg={msg_otp}/>}
+                  {otpSent === true && <Otp onClick={handleSubmit} updateData={updateOTP} msg={msg_otp} resendOTP={resendOTP}/>}
                 </div>
 
               <div className="flex mt-7 items-center text-center">

@@ -1,4 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
+import DashboardNavBar from "./DashboardNavBar"
+
 const applications = [
     {
       id: 1,
@@ -16,9 +18,17 @@ const applications = [
   
 // Department, Type, Status
 
-export default function OpenPositions() {
+export default function ApplicantHomePage(props) {
     return (
         <>
+        <DashboardNavBar currentFlag={0} user={props.user}/>
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+		    <div className="px-4 py-6 sm:px-0">
+            <header className="bg-white shadow">
+                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <h1 className="text-3xl font-bold text-gray-900">Applications</h1>
+                </div>
+            </header>
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -96,6 +106,7 @@ export default function OpenPositions() {
                 </div>
                 </div>
             </div>
+            </div></div>
         </>
     )
 }

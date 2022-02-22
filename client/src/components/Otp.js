@@ -16,9 +16,9 @@ export default function Otp (props) {
               {props.msg}
             </p>
         </div>
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-2" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <div className="my-2 rounded shadow-sm -space-y-px">
+            <div className="mb-2 rounded shadow-sm -space-y-px">
               <div>
                 <label htmlFor="otp" className="sr-only">
                   OTP
@@ -34,6 +34,11 @@ export default function Otp (props) {
                   onChange={props.updateData}
                 />
               </div>
+            </div>
+            <div className="mb-6 text-sm text-right items-end">
+                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500" onClick={props.resendOTP}>
+                  Resend OTP?
+                </a>
             </div>
 
             <div>
