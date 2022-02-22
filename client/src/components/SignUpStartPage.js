@@ -71,7 +71,7 @@ function SignUpStartPage() {
             </label>
 
             <p className="text-center mt-2 text-sm text-gray-500">
-              Please sign-up to participate in the campus admissions!
+              Please sign-up to submit your applications for admission.
             </p>
 
             <div className="mt-5">
