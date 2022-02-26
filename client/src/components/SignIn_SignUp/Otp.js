@@ -4,6 +4,7 @@ import React from 'react';
 export default function Otp (props) {
   const handleSubmit = (event) => {
     event.preventDefault();
+    props.onClick();
   }
 
   return (
@@ -12,9 +13,25 @@ export default function Otp (props) {
             <span>
                 <BellIcon className='h-5 w-5 mx-1 text-red-500 group-hover:text-indigo-400'/>
             </span>
-            <p className="mb-5 text-sm text-red-700 font-medium">
+            {props.colorChange == 0 && 
+              <p className={"mb-10 text-center text-sm font-semibold text-[#6F8BD6]"}>
+                {props.msg}
+              </p>
+            }
+            {props.colorChange == 1 && 
+              <p className={"mb-10 text-center text-sm font-semibold text-[#FC4F4F]"}>
+                {props.msg}
+              </p>
+            }
+            {props.colorChange == 2 && 
+              <p className={"mb-10 text-center text-sm font-semibold text-[#39962d]"}>
+                {props.msg}
+              </p>
+            }
+
+            {/* <p className="mb-5 text-sm text-red-700 font-medium">
               {props.msg}
-            </p>
+            </p> */}
         </div>
         <form className="mt-2" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />

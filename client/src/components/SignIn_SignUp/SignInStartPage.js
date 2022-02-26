@@ -13,17 +13,22 @@ function SignInStartPage() {
     const [otp, setOtp] = useState("");
     const [msg_otp, setMsgOtp] = useState("OTP has been sent to your mail account.");
     const [msg_signin, setMsgSignin] = useState("An OTP will be sent to your email ID for verification.")
+    const [colorEmail, setColorEmail] = useState(0);
+    const [colorOTP, setColorOTP] = useState(0);
 
     const emailSubmit = () => {
         axios.post('http://localhost:8080/auth/signin/otp', {email: email}).then(response => {
           if(response.data === 0) {
             setMsgSignin("Please enter your email.")
+            setColorEmail(1)
           }
           else if(response.data === 1) {
             setMsgSignin("You do not have an account. Sign-up first!")
+            setColorEmail(1)
           }
           else {
             setotpSent(!otpSent);
+            setColorOTP(2)
           }
         });
     }
@@ -39,6 +44,7 @@ function SignInStartPage() {
     const resendOTP = () => {
         axios.post('http://localhost:8080/auth/signin/otp', {email: email});
         setMsgOtp("OTP has been resent to your mail account.");
+        setColorOTP(2);
     }
 
     const handleSubmit = () => {
@@ -49,12 +55,15 @@ function SignInStartPage() {
           }
           else if(response.data === 2) {
             setMsgOtp("This OTP has expired.")
+            setColorOTP(1);
           }
           else if(response.data === 3) {
             setMsgOtp("Please enter the OTP sent to your email.")
+            setColorOTP(1);
           }
           else {
             setMsgOtp("The OTP you entered is incorrect.")
+            setColorOTP(1);
           }
       });
     };
@@ -82,8 +91,8 @@ function SignInStartPage() {
 
             <div className="mt-5">
               <div>
-                  {otpSent === false && <SignIn onClick={emailSubmit} updateData={updateEmail} msg={msg_signin}/>}
-                  {otpSent === true && <Otp onClick={handleSubmit} updateData={updateOTP} msg={msg_otp} resendOTP={resendOTP}/>}
+                  {otpSent === false && <SignIn onClick={emailSubmit} updateData={updateEmail} msg={msg_signin} colorChange={colorEmail}/>}
+                  {otpSent === true && <Otp onClick={handleSubmit} updateData={updateOTP} msg={msg_otp} resendOTP={resendOTP} colorChange={colorOTP}/>}
               </div>
 
               <div className="flex mt-7 items-center text-center">

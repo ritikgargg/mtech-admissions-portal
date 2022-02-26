@@ -127,9 +127,10 @@ function PersonalInfo(props) {
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
                       <input
-                        type="text"
+                        type="number"
                         name="aadhar-number"
                         id="aadhar-number"
+                        size="12"
                         autoComplete="aadhar"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />

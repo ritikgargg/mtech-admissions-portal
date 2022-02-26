@@ -2,11 +2,11 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { getToken } from './components/SignIn_SignUp/Sessions'
 import Logout from './components/SignIn_SignUp/Logout'
-import HomePage from "./components/Public/HomePage"
-import ContactUs from "./components/Public/ContactUs"
-import HowToApply from "./components/Public/HowToApply"
-import Error from "./components/Public/Error"
-import WithHeaderFooter from "./components/Public/WithHeaderFooter"
+import HomePage from "./components/Landing/HomePage"
+import ContactUs from "./components/Landing/ContactUs"
+import HowToApply from "./components/Landing/HowToApply"
+import Error from "./components/Landing/Error"
+import WithHeaderFooter from "./components/Landing/WithHeaderFooter"
 import Profile from './components/Applicant/Profile'
 import SignUpStartPage from './components/SignIn_SignUp/SignUpStartPage'
 import SignInStartPage from './components/SignIn_SignUp/SignInStartPage'
@@ -43,7 +43,7 @@ function App() {
 					path="/home"
 					element={
 						<PrivateRoute>
-							<ApplicantHomePage user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: ""}}/>
+							<ApplicantHomePage user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}}/>
 						</PrivateRoute>
 					}
 				/>
@@ -51,7 +51,7 @@ function App() {
 					path="/my-profile"
 					element={
 						<PrivateRoute>
-						<Profile user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: ""}} />
+						<Profile user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}} />
 						</PrivateRoute>
 					}
 				/>
@@ -59,7 +59,7 @@ function App() {
 					path="/my-applications"
 					element={
 						<PrivateRoute>
-						<MyApplications user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: ""}}/>
+						<MyApplications user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}}/>
 						</PrivateRoute>
 					}
 				/>
