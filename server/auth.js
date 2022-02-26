@@ -34,12 +34,13 @@ const signin_otp = async (req, res) => {
     var mailOptions = {
         from: 'IIT Ropar',
         to: 'email_id_to_send_otp', 
-        subject: 'Register/Sign-in', 
-        text: 'Your OTP is ' 
+        subject: 'OTP for Sign-in', 
+        text: 'Your OTP for Sign-in is ' 
     };
 
     mailOptions.to = email;
     mailOptions.text += otp;
+    mailOptions.text += ". This OTP is valid only for 10 minutes."
     console.log(otp);
 
     // encrypt otp and save in db
@@ -97,12 +98,13 @@ const signup_otp = async (req, res) => {
     var mailOptions = {
         from: 'IIT Ropar',
         to: 'email_id_to_send_otp', 
-        subject: 'Register/Sign-in', 
-        text: 'Your OTP is ' 
+        subject: 'OTP for Sign-up', 
+        text: 'Your OTP for Sign-up is ' 
     };
 
     mailOptions.to = email;
     mailOptions.text += otp;
+    mailOptions.text += ". This OTP is valid only for 10 minutes."
     console.log(otp);
 
     const ifexists = await pool.query("select * from signup_verification where email_id = $1", [email]);

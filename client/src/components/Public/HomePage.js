@@ -1,6 +1,6 @@
 import React from "react";
-import iit_ropar_pic from "../images/iit-ropar.jpg";
-import pic from "../images/iit-ropar-logo.jpg";
+import iit_ropar_pic from "../../images/iit-ropar.jpg";
+import pic from "../../images/iit-ropar-logo.jpg";
 import {Link} from 'react-router-dom';
 
 function HomePage() {

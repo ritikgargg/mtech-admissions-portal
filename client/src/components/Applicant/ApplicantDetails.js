@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import ChevronDots from "./ChevronDots.js";
-import PersonalInfo from "./PersonalInfo";
-import CommunicationDetails from "./CommunicatonDetails.js";
-import EducationalDetails from "./EducationalDetails.js";
-import Review from './Review.js';
+import ChevronDots from "../ChevronDots.js";
+import PersonalInfo from "../PersonalInfo";
+import CommunicationDetails from "../CommunicatonDetails.js";
+import EducationalDetails from "../EducationalDetails.js";
+import Review from '../Review.js';
 import SignUpUtil from './SignUpUtil.js';
 
 

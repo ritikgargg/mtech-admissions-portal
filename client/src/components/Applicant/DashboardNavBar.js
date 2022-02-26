@@ -1,8 +1,8 @@
 import {Fragment} from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import iit_ropar_logo_clear from "../images/iit-ropar-logo-clear.png";
+import iit_ropar_logo_clear from "../../images/iit-ropar-logo-clear.png";
 import {MenuIcon, XIcon } from '@heroicons/react/outline'
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'; 
 
 const navigation = [
   { name: 'My Applications', to: '/my-applications' }

@@ -1,18 +1,17 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { getToken } from './utils/Sessions'
-
-import Logout from './components/Logout'
-import HomePage from "./components/HomePage.js"
-import ContactUs from "./components/ContactUs.js"
-import HowToApply from "./components/HowToApply.js"
-import Error from "./components/Error.js"
-import WithHeaderFooter from "./components/WithHeaderFooter"
-import Profile from './components/Profile'
-import SignUpStartPage from './components/SignUpStartPage'
-import SignInStartPage from './components/SignInStartPage'
-import MyApplications from './components/MyApplications'
-import ApplicantHomePage from './components/ApplicantHomePage'
+import { getToken } from './components/SignIn_SignUp/Sessions'
+import Logout from './components/SignIn_SignUp/Logout'
+import HomePage from "./components/Public/HomePage"
+import ContactUs from "./components/Public/ContactUs"
+import HowToApply from "./components/Public/HowToApply"
+import Error from "./components/Public/Error"
+import WithHeaderFooter from "./components/Public/WithHeaderFooter"
+import Profile from './components/Applicant/Profile'
+import SignUpStartPage from './components/SignIn_SignUp/SignUpStartPage'
+import SignInStartPage from './components/SignIn_SignUp/SignInStartPage'
+import MyApplications from './components/Applicant/MyApplications'
+import ApplicantHomePage from './components/Applicant/ApplicantHomePage'
 
 function App() {
 	// Pages that can only be accessed if you are logged in
