@@ -5,6 +5,7 @@ import Logout from './components/SignIn_SignUp/Logout'
 import HomePage from "./components/Landing/HomePage"
 import ContactUs from "./components/Landing/ContactUs"
 import HowToApply from "./components/Landing/HowToApply"
+import FAQs from "./components/Landing/FAQs"
 import Error from "./components/Landing/Error"
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter"
 import Profile from './components/Applicant/Profile'
@@ -87,6 +88,7 @@ function App() {
 					<Route path="/" element={<HomePage/>}></Route>
 					<Route path="/how-to-apply" element={<HowToApply />}></Route>
 					<Route path="/contact-us" element={<ContactUs />}></Route>
+					<Route path="/faqs" element={<FAQs />}></Route>
 					<Route 
 						path='/sign-in' 
 						element={
