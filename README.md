@@ -1,3 +1,5 @@
+# Urgent: Change your applicants table before sign-in/signup
+
 # Readme
 
 ## Setup
@@ -20,5 +22,7 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 ## Extra settings
 For the server, create an app password for your **email**.  
 In the `auth.js` file in the server directory, put your email and app password in **auth**.  
+
+## To get email hash token from session storage, import getToken from Sessions.js and use `getToken()`.
 
 Happy Coding :)

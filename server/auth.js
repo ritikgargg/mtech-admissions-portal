@@ -63,7 +63,7 @@ const signin_otp = async (req, res) => {
 const signin_verify = async (req, res) => {
     const {email, otp} = req.body;
 
-    if(otp === "") return res.send("3");
+    if(otp === "") return res.send({result:3});
 
     // encrypt and check for otp in db and return accordingly
     const result = await pool.query("select * from login_verification where email_id = $1", [email]);
@@ -71,15 +71,17 @@ const signin_verify = async (req, res) => {
 
     // check if otp is expired
     if(Date.now() > (new Date(result_row.expiration_time.getTime()))) {
-        return res.send("2");
+        return res.send({result:2});
     }
 
-    await bcrypt.compare(otp, result_row.hashed_otp, function(err, result) {
-        if(result == true) {
-            return res.send("1");
+    await bcrypt.compare(otp, result_row.hashed_otp, async function(err, result) {
+        if(result === true) {
+            await bcrypt.hash(email, saltRounds, async function(err, hash) {
+                return res.send({result:1,user:hash});
+            });
         }
         else {
-            return res.send("0");
+            return res.send({result:0});
         }
     });
 }
@@ -138,7 +140,7 @@ const signup_otp = async (req, res) => {
 const signup_verify = async (req, res) => {
     const {email, otp} = req.body;
 
-    if(otp === "") return res.send("3");
+    if(otp === "") return res.send({result:3});
 
     // encrypt and check for otp in db and return accordingly
     const result = await pool.query("select * from signup_verification where email_id = $1", [email]);
@@ -146,16 +148,18 @@ const signup_verify = async (req, res) => {
 
     // check if otp is expired
     if(Date.now() > (new Date(result_row.expiration_time.getTime()))) {
-        return res.send("2");
+        return res.send({result:2});
     }
 
     await bcrypt.compare(otp, result_row.hashed_otp, async function(err, result) {
         if(result == true) {
-            await pool.query("insert into applicants(email_id) values($1)", [email]);
-            return res.send("1");
+            await bcrypt.hash(email, saltRounds, async function(err, hash) {
+                await pool.query("insert into applicants(email_id, email_hash) values($1, $2)", [email, hash]);
+                return res.send({result:1,user:hash});
+            });
         }
         else {
-            return res.send("0");
+            return res.send({result:0});
         }
     });
 }

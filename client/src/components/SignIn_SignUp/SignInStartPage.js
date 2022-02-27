@@ -49,15 +49,15 @@ function SignInStartPage() {
 
     const handleSubmit = () => {
       axios.post('http://localhost:8080/auth/signin/verify', {email: email, otp: otp}).then(response => {
-          if(response.data === 1) {
-            setUserSession(otp);
+          if(response.data.result === 1) {
+            setUserSession(response.data.user);
             navigate("/home");
           }
-          else if(response.data === 2) {
+          else if(response.data.result === 2) {
             setMsgOtp("This OTP has expired.")
             setColorOTP(1);
           }
-          else if(response.data === 3) {
+          else if(response.data.result === 3) {
             setMsgOtp("Please enter the OTP sent to your email.")
             setColorOTP(1);
           }
