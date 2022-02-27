@@ -12,10 +12,16 @@ CREATE TABLE login_verification (
     expiration_time TIMESTAMP
 );
 
+-- CREATE TABLE applicants (
+--     email_id TEXT PRIMARY KEY,
+--     email_hash TEXT
+-- );
+
 CREATE TABLE applicants (
     -- Primary Keys
     applicant_id SERIAL PRIMARY KEY,
     email_id TEXT PRIMARY KEY,
+    email_hash TEXT,
 
     -- Personal Details
     full_name TEXT,
