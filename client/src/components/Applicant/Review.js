@@ -3,7 +3,7 @@ import { PaperClipIcon } from '@heroicons/react/solid'
 
 export default function Review(props) {
   return (
-      <div className="relative flex flex-col sm:justify-center items-center mb-6">
+      <div className="relative flex flex-col sm:justify-center items-center mb-6 mt-6">
     <div className="bg-white shadow-lg overflow-hidden sm:rounded-lg w-3/4 mx-12 mt-8">
       <div className="px-4 py-5 sm:px-6">
         <h3 className="text-lg leading-6 font-medium text-gray-900">Personal Details</h3>
@@ -315,25 +315,26 @@ export default function Review(props) {
       </div>
       </div>
       </div>
+
+      <div className="mt-1 mb-4 grid grid-cols-6 gap-6">
+        <button
+          type="button"
+          onClick={() => props.decreasePageNumber()}
+          className="ml-5 col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Back
+        </button>
+        
+        <button
+            type="button"
+            className="mr-5 col-start-6 col-end-7 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+          Submit
+        </button>
+      </div>
     </div>
 
-    <div className="mt-1 mb-4 grid grid-cols-6 gap-6">
-                  <button
-                    type="button"
-                    onClick={() => props.decreasePageNumber()}
-                    className="col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Back
-                  </button>
-                  
-                  <button
-                    type="button"
-                    onClick={() => props.increasePageNumber()}
-                    className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Next
-                    </button>
-                  </div>
+    
     </div>
   )
 }

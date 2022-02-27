@@ -1,6 +1,6 @@
 import React from 'react';
 
-function QualifyingExamDetails(){
+function QualifyingExamDetails(props){
     return (
         <div>
           <div className="px-6 py-6 mx-20 my-20 bg-[#f3f4f6] rounded-2xl">
@@ -209,19 +209,27 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                       Any other relevant information (like publications, patents or any other relevant information not already mentioned)
                       </p>
                     </div>
-                       
-    
                         
                       </div>
+                      <div className="my-4 grid grid-cols-6 gap-6">
+                  <button
+                    type="button"
+                    onClick={() => props.decreasePageNumber()}
+                    className="col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Back
+                  </button>
+                  
+                  <button
+                    type="button"
+                    onClick={() => props.increasePageNumber()}
+                    className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Next
+                    </button>
+                  </div>
                     </div>
-                    <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                      <button
-                        type="button"
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      >
-                        Next
-                      </button>
-                    </div>
+                    
                   </div>
                 </form>
               </div>
