@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
 import FileUploader from "./FileUploader";
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 function PersonalInfo(props) {
   const [country, setCountry] = useState("");
