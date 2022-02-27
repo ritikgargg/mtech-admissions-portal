@@ -316,13 +316,15 @@ function EducationalDetails(props) {
                     ))}
 
                     <div className="flex mb-4 col-span-4">
-                      <button
+                    {count === 4 ? (
+                        <div></div>
+                      ) : (<button
                         type="button"
                         onClick={() => setCount(count + 1)}
                         className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
                       >
                         Add Section
-                      </button>
+                      </button>)}
                       {count === 1 ? (
                         <div></div>
                       ) : (
@@ -336,9 +338,32 @@ function EducationalDetails(props) {
                       )}
                     </div>
                   </div>
+
                   
                   <div className="col-span-full sm:col-span-full">
                       <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
+                      <div className="col-span-full sm:col-span-full">
+                      <label
+                        htmlFor="about"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Any other educational highlights/information
+                      </label>
+                      <div className="mt-1">
+                        <textarea
+                          id="AddressForCommunication"
+                          name="AddressForCommunication"
+                          rows={3}
+                          className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                          defaultValue={""}
+                        />
+                      </div>
+                      <p className="mt-2 text-sm text-gray-500">
+                      
+                      </p>
+                    </div>
+                  
+                        
                         <div className="col-span-full sm:col-span-full">
                           <label
                             htmlFor="category"
@@ -357,6 +382,8 @@ function EducationalDetails(props) {
                             <option>No</option>
                           </select>
                         </div>
+
+
 
                       </div>
                     </div>
