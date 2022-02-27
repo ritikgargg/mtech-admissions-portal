@@ -13,17 +13,17 @@ export default function Otp (props) {
             <span>
                 <BellIcon className='h-5 w-5 mx-1 text-red-500 group-hover:text-indigo-400'/>
             </span>
-            {props.colorChange == 0 && 
+            {props.colorChange === 0 && 
               <p className={"mb-10 text-center text-sm font-semibold text-[#6F8BD6]"}>
                 {props.msg}
               </p>
             }
-            {props.colorChange == 1 && 
+            {props.colorChange === 1 && 
               <p className={"mb-10 text-center text-sm font-semibold text-[#FC4F4F]"}>
                 {props.msg}
               </p>
             }
-            {props.colorChange == 2 && 
+            {props.colorChange === 2 && 
               <p className={"mb-10 text-center text-sm font-semibold text-[#39962d]"}>
                 {props.msg}
               </p>
@@ -62,7 +62,7 @@ export default function Otp (props) {
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                onClick={props.onClick}
+                // onClick={props.onClick}
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />

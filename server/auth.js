@@ -44,7 +44,7 @@ const signin_otp = async (req, res) => {
     console.log(otp);
 
     // encrypt otp and save in db
-    bcrypt.hash(otp, saltRounds, async function(err, hash) {
+    await bcrypt.hash(otp, saltRounds, async function(err, hash) {
         await pool.query("UPDATE login_verification SET hashed_otp = $1, expiration_time = to_timestamp($2) WHERE email_id = $3", [hash, Date.now()/1000.0+600, email]);
     });
 
@@ -112,13 +112,13 @@ const signup_otp = async (req, res) => {
     // encrypt otp and save in db
     if(ifexists.rowCount === 0) {
         // First time sign-up
-        bcrypt.hash(otp, saltRounds, async function(err, hash) {
+        await bcrypt.hash(otp, saltRounds, async function(err, hash) {
             await pool.query("INSERT INTO signup_verification(email_id, hashed_otp, expiration_time) VALUES($1, $2, to_timestamp($3))", [email, hash, Date.now()/1000.0+600]);
         });
     }
     else {
         // If there is already an entry (helpful for resend OTP feature)
-        bcrypt.hash(otp, saltRounds, async function(err, hash) {
+        await bcrypt.hash(otp, saltRounds, async function(err, hash) {
             await pool.query("UPDATE signup_verification SET hashed_otp = $1, expiration_time = to_timestamp($2) WHERE email_id = $3", [hash, Date.now()/1000.0+600, email]);
         });
     }
@@ -132,7 +132,7 @@ const signup_otp = async (req, res) => {
     //   // }
     // });
 
-    res.send("2");
+    return res.send("2")
 }
 
 const signup_verify = async (req, res) => {

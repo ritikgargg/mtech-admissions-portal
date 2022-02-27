@@ -15,6 +15,7 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 3. Run all the commands in the `database.sql` file in psql.
 4. Create any relation you want in the psql. Also, add the command in the `database.sql` file.
 5. Add your password in the `db.js` file.
+6. When you drop the `applicants` table or any other table and then add it to the database again, do not forget to add the corresponding triggers.
 
 ## Extra settings
 For the server, create an app password for your **email**.  
