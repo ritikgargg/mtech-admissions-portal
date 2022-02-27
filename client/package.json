@@ -6,7 +6,6 @@
   "dependencies": {
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
-    "@mui/material": "^5.4.3",
     "@syncfusion/ej2-react-calendars": "^19.4.52",
     "@tailwindcss/forms": "^0.4.0",
     "@testing-library/jest-dom": "^5.16.2",

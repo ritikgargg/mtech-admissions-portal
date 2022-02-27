@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
 import FileUploader from "./FileUploader";
-import { TextField } from "@mui/material"
 
 function PersonalInfo(props) {
   const [country, setCountry] = useState("");
