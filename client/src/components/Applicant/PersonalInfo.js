@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
 import FileUploader from "./FileUploader";
+import { TextField } from "@mui/material"
 
 function PersonalInfo(props) {
   const [country, setCountry] = useState("");
@@ -193,12 +194,23 @@ function PersonalInfo(props) {
                               >
                                 Category Certificate (SC/ST/OBC/PwD/EWS)
                               </label>
-                              <input
+                              {/* <input
                                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 aria-describedby="user_avatar_help"
                                 id="user_avatar"
                                 type="file"
                                 accept=".jpeg, .jpg, .png"
+                              /> */}
+                              <FileUploader
+                                onFileSelectSuccess={(file) => {setProfilePicture(file);}}
+                                onFileSelectError={({ error }) => alert(error)}
+                                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                aria_describedby="user_avatar_help"
+                                id="user_avatar"
+                                type="file"
+                                required
+                                accept=" .jpg, .png, .jpeg "
+                                maxSize={2}
                               />
                               <div
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"

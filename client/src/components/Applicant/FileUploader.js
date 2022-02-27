@@ -1,12 +1,12 @@
-// Requires
-//     onFileSelectSuccess
+// Requires 
+//     onFileSelectSuccess 
 //     onFileSelectError
 //     className
 //     aria_describedby
 //     id
 //     type
 //     accept
-//     maxSize
+//     maxSize     
 
 // onFileSelectSuccess={(file) => {setProfilePicture(file);}}
 // onFileSelectError={({ error }) => alert(error)}
