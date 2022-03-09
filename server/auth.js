@@ -43,7 +43,7 @@ const signin_otp = async (req, res) => {
     mailOptions.text += ". This OTP is valid only for 10 minutes."
     console.log(otp);
 
-    // encrypt otp and save in db
+    /** encrypt otp and save in db */
     await bcrypt.hash(otp, saltRounds, async function(err, hash) {
         await pool.query("UPDATE login_verification SET hashed_otp = $1, expiration_time = to_timestamp($2) WHERE email_id = $3", [hash, Date.now()/1000.0+600, email]);
     });
@@ -65,11 +65,11 @@ const signin_verify = async (req, res) => {
 
     if(otp === "") return res.send({result:3});
 
-    // encrypt and check for otp in db and return accordingly
+    /** encrypt and check for otp in db and return accordingly */
     const result = await pool.query("select * from login_verification where email_id = $1", [email]);
     const result_row = result.rows[0];
 
-    // check if otp is expired
+    /** check if otp is expired */
     if(Date.now() > (new Date(result_row.expiration_time.getTime()))) {
         return res.send({result:2});
     }
@@ -111,15 +111,15 @@ const signup_otp = async (req, res) => {
 
     const ifexists = await pool.query("select * from signup_verification where email_id = $1", [email]);
 
-    // encrypt otp and save in db
+    /** encrypt otp and save in db */
     if(ifexists.rowCount === 0) {
-        // First time sign-up
+        /** First time sign-up */
         await bcrypt.hash(otp, saltRounds, async function(err, hash) {
             await pool.query("INSERT INTO signup_verification(email_id, hashed_otp, expiration_time) VALUES($1, $2, to_timestamp($3))", [email, hash, Date.now()/1000.0+600]);
         });
     }
     else {
-        // If there is already an entry (helpful for resend OTP feature)
+        /** If there is already an entry (helpful for resend OTP feature) */
         await bcrypt.hash(otp, saltRounds, async function(err, hash) {
             await pool.query("UPDATE signup_verification SET hashed_otp = $1, expiration_time = to_timestamp($2) WHERE email_id = $3", [hash, Date.now()/1000.0+600, email]);
         });
@@ -142,11 +142,11 @@ const signup_verify = async (req, res) => {
 
     if(otp === "") return res.send({result:3});
 
-    // encrypt and check for otp in db and return accordingly
+    /** encrypt and check for otp in db and return accordingly */
     const result = await pool.query("select * from signup_verification where email_id = $1", [email]);
     const result_row = result.rows[0];
 
-    // check if otp is expired
+    /** check if otp is expired */
     if(Date.now() > (new Date(result_row.expiration_time.getTime()))) {
         return res.send({result:2});
     }

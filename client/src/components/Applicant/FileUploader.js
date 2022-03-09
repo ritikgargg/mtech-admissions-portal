@@ -14,7 +14,7 @@
 
 import React, {useRef} from 'react'
 
-const FileUploader = ({register,onFileSelectSuccess, onFileSelectError, className, aria_describedby, id, type, accept, maxSize}) => {
+const FileUploader = ({onFileSelectSuccess,required, onFileSelectError, className, aria_describedby, id, type, accept, maxSize}) => {
     const fileInput = useRef(null);
 
     const handleFileInput = (e) => {
@@ -30,13 +30,11 @@ const FileUploader = ({register,onFileSelectSuccess, onFileSelectError, classNam
     }
 
     return (
-        <input 
-            ref = {register}  
+        <input  
             className={className}
             aria-describedby={aria_describedby}
             id={id}
             type={type}
-            required
             onChange={handleFileInput}
             accept={accept}/>
     )

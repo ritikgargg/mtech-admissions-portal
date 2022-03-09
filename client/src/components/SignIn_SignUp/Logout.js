@@ -7,7 +7,7 @@ export default function Logout() {
 
     const signout = () => {
         removeUserSession();
-        navigate("/");
+        navigate("/sign-in");
     };
 
     useEffect(() => {

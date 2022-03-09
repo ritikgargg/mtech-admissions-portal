@@ -1,11 +1,49 @@
 import React, { useState } from "react";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
-import FileUploader from "./FileUploader";
+import {useForm} from "react-hook-form";
+import Axios from "axios";
 
-function PersonalInfo(props) {
-  const [country, setCountry] = useState("");
-  const [profilePicture, setProfilePicture] = useState(null);
+function PersonalInfo() {
+  const [nationality, setNationality] = useState("");
+  const [dateOfBirth,setDateOfBirth] = useState("");
+  const [profile_image, setProfileImage] = useState(null);
+  const [categoryCertificate, setCategoryCertificate] = useState(null);
+  const {register, handleSubmit, errors} = useForm();
+
+  const date_of_birth = "27-01-2000";
+  
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    
+    formData.append("full_name", data.full_name);
+    formData.append("fathers_name", data.fathers_name);    
+    formData.append("date_of_birth", date_of_birth);
+    formData.append("aadhar_card_number", data.aadhar_card_number);
+    formData.append("category", data.category);
+    formData.append("is_pwd", data.pwdCategory);
+    formData.append("marital_status", data.marital_status);
+    formData.append("nationality", nationality);
+    formData.append("gender", data.gender);
+    formData.append("profile_image", profile_image);
+    formData.append("category_certificate", categoryCertificate);
+
+    Axios.post("http://localhost:8080/save-personal-info", formData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
+  const handleFileSubmit = (e, maxSize, setVariable) => {
+    const file = e.target.files[0];
+    if (file.size > maxSize*1000000){
+        e.target.value = null;
+        const error = "File size cannot exceed more than " + maxSize.toString() + "MB";
+        alert(error);
+    }
+    else {
+        setVariable(file);
+    }
+  }
 
   return (
     <div id="personalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
@@ -40,7 +78,8 @@ function PersonalInfo(props) {
 
                   {/* Main form */}
                   <div className="mt-5 md:mt-0 md:col-span-2">
-                    <form action="/save-personal-info" method="POST">
+                    {/* <form action="/save-personal-info" method="POST"> */}
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="shadow overflow-hidden sm:rounded-md">
                         <div className="px-4 py-5 bg-white sm:p-6">
                           <div className="grid grid-cols-6 gap-6">
@@ -48,25 +87,26 @@ function PersonalInfo(props) {
                             {/* Applicant's Name */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
-                                htmlFor="first-name"
+                                htmlFor="name"
                                 className="block text-sm font-medium text-gray-700"
                               >
                                 Full Name<span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <input
                                 type="text"
-                                name="name"
+                                {...register("full_name")}
                                 id="name"
                                 autoComplete="Name"
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              
                               />
                             </div>
 
                             {/* Applicant's Father's Name */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
-                                htmlFor="last-name"
+                                htmlFor="father-name"
                                 className="block text-sm font-medium text-gray-700"
                               >
                                 Father's Name
@@ -74,7 +114,7 @@ function PersonalInfo(props) {
                               </label>
                               <input
                                 type="text"
-                                name="father-name"
+                                {...register("fathers_name")}
                                 id="father-name"
                                 autoComplete="father-name"
                                 required
@@ -86,49 +126,25 @@ function PersonalInfo(props) {
                             <div className="col-span-full sm:col-span-full">
                               <label
                                 className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                                htmlFor="user_avatar"
+                                htmlFor="profile_picture"
                               >
                                 Upload your recent photograph<span style={{ color: "#ff0000" }}> *</span>
                               </label>
-                              {/* <input
+                              <input
                                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                aria-describedby="user_avatar_help"
-                                id="user_avatar"
+                                aria-describedby="profile-picture-desc"
+                                id="profile_picture"
                                 type="file"
                                 required
-                                accept=" .jpg, .png, .jpeg "
-                              /> */}
-                              <FileUploader
-                                onFileSelectSuccess={(file) => {setProfilePicture(file);}}
-                                onFileSelectError={({ error }) => alert(error)}
-                                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                aria_describedby="user_avatar_help"
-                                id="user_avatar"
-                                type="file"
-                                required
-                                accept=" .jpg, .png, .jpeg "
-                                maxSize={2}
-                              />
+                                accept=".jpeg, .jpg, .png"
+                                onChange={(e) => handleFileSubmit(e, 2, setProfileImage)}
+                                />
                               <div
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="user_avatar_help"
+                                id="profile-picture-desc"
                               >
                                 <span className="font-semibold">Height:</span> 150px, <span className="font-semibold">Width:</span> 130px,  <span className="font-semibold">Maximum file size:</span> 2MB,  <span className="font-semibold">Allowed formats:</span> .jpg, .png, .jpeg 
-                              </div>
-
-                              <div
-                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="user_avatar_help"
-                              >
-                              </div>
-
-                              <div
-                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="user_avatar_help"
-                              >
-                              
-                              </div>
-                              
+                              </div>                              
                             </div>
 
 
@@ -141,7 +157,11 @@ function PersonalInfo(props) {
                                 Date of Birth
                                 <span style={{ color: "#ff0000" }}> *</span>
                               </label>
-                              <DatePicker />
+                              <DatePicker 
+                                value={dateOfBirth}
+                                onChange={(val) => {
+                                  console.log(val);
+                                  setDateOfBirth(val)}}/>
                             </div>
 
 
@@ -155,15 +175,26 @@ function PersonalInfo(props) {
                                 <span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <input
-                                type="number"
-                                name="aadhar-number"
+                                type="text"
+                                {...register("aadhar_card_number")}
                                 id="aadhar-number"
-                                size="12"
+                                minLength={12}
+                                maxLength={12}
+                                pattern="[1-9]{1}[0-9]{11}"
                                 autoComplete="aadhar"
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
+
+                              {/* <TextField
+                                required
+                                id="aadhar"
+                                label="Aadhar-Card"
+                                defaultValue=""
+                                inputProps={{ maxLength: 12 }}
+                              /> */}
                             </div>
 
+                              {/* Category */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="category"
@@ -173,7 +204,7 @@ function PersonalInfo(props) {
                               </label>
                               <select
                                 id="category"
-                                name="category"
+                                {...register("category")}
                                 autoComplete="category"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
@@ -186,6 +217,8 @@ function PersonalInfo(props) {
                               </select>
                             </div>
 
+
+                              {/* Category Certificate */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -193,38 +226,32 @@ function PersonalInfo(props) {
                               >
                                 Category Certificate (SC/ST/OBC/PwD/EWS)
                               </label>
-                              {/* <input
+                              <input
                                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                aria-describedby="user_avatar_help"
-                                id="user_avatar"
+                                aria-describedby="category-certificate-desc"
+                                id="category-certificate"
+                               
                                 type="file"
                                 accept=".jpeg, .jpg, .png"
-                              /> */}
-                              <FileUploader
-                                onFileSelectSuccess={(file) => {setProfilePicture(file);}}
-                                onFileSelectError={({ error }) => alert(error)}
-                                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                aria_describedby="user_avatar_help"
-                                id="user_avatar"
-                                type="file"
-                                required
-                                accept=" .jpg, .png, .jpeg "
-                                maxSize={2}
-                              />
+                               
+                                onChange={(e) => handleFileSubmit(e, 2, setCategoryCertificate)}
+                                />
                               <div
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="user_avatar_help"
+                                id="category-certificate-desc"
                               >
                                 Files must be less than <span className="font-semibold">2 MB</span>.
                               </div>
                               <div
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="user_avatar_help"
+                                id="category-certificate-desc"
                               >
                                 Allowed file types: <span className="font-semibold">jpg jpeg png</span>.
                               </div>
                             </div>
 
+
+                              {/* PWD Category */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="pwd-category"
@@ -235,7 +262,7 @@ function PersonalInfo(props) {
                               </label>
                               <select
                                 id="pwd-category"
-                                name="pwd-category"
+                                {...register("pwdCategory")}
                                 autoComplete="pwd-category"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
@@ -245,6 +272,7 @@ function PersonalInfo(props) {
                               </select>
                             </div>
 
+                              {/* Marital Status */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="marital-status"
@@ -254,7 +282,7 @@ function PersonalInfo(props) {
                               </label>
                               <select
                                 id="marital-status"
-                                name="marital-status"
+                                {...register("marital_status")}
                                 autoComplete="marital-status"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
@@ -264,6 +292,7 @@ function PersonalInfo(props) {
                               </select>
                             </div>
 
+                              {/* Nationality */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="nationality"
@@ -273,11 +302,12 @@ function PersonalInfo(props) {
                               </label>
                               <CountryDropdown
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                value={country}
-                                onChange={(val) => setCountry(val)}
+                                value={nationality}
+                                onChange={(val) => setNationality(val)}
                               />
                             </div>
 
+                              {/* Gender */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="gender"
@@ -286,6 +316,7 @@ function PersonalInfo(props) {
                                 Gender<span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <select
+                                {...register("gender")}
                                 id="gender"
                                 name="gender"
                                 autoComplete="gender"
@@ -308,6 +339,7 @@ function PersonalInfo(props) {
                           </button>
                         </div> */}
                       </div>
+                      <button type="submit">Submit</button>
                     </form>
                   </div>
                 </div>

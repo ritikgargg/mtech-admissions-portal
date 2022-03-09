@@ -14,6 +14,7 @@ import SignInStartPage from './components/SignIn_SignUp/SignInStartPage'
 import MyApplications from './components/Applicant/MyApplications'
 import ApplicantHomePage from './components/Applicant/ApplicantHomePage'
 import ApplicantionDetails from './components/Applicant/ApplicationDetails'
+import Temp from './components/Applicant/Temp';
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -45,7 +46,7 @@ function App() {
 					path="/home"
 					element={
 						<PrivateRoute>
-							<ApplicantHomePage user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}}/>
+						<ApplicantHomePage user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}}/>
 						</PrivateRoute>
 					}
 				/>
@@ -105,7 +106,7 @@ function App() {
 							</SpecialRoute>
 						} 
 					/>
-					<Route path="*" element={<Error/>}></Route>
+					<Route path="*" element={<Temp/>}></Route>
     			</Route>
 
 			</Routes>

@@ -19,8 +19,8 @@ CREATE TABLE login_verification (
 
 CREATE TABLE applicants (
     -- Primary Keys
-    applicant_id SERIAL PRIMARY KEY,
     email_id TEXT PRIMARY KEY,
+    applicant_id SERIAL,
     email_hash TEXT,
 
     -- Personal Details
@@ -29,8 +29,9 @@ CREATE TABLE applicants (
     profile_image_url TEXT,
     date_of_birth TEXT,
     aadhar_card_number TEXT,
-    category Text,
-    is_pwd Boolean,
+    category TEXT,
+    category_certificate_url TEXT,
+    is_pwd TEXT,
     marital_status TEXT,
     nationality TEXT,
     gender TEXT,
@@ -70,7 +71,7 @@ CREATE TABLE applicants (
     percentage_cgpa_format_1 TEXT,
     percentage_cgpa_value_1 TEXT,
     year_of_passing_1 TEXT,
-    remarks_10th TEXT,
+    remarks_10th TEXT
 );
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
