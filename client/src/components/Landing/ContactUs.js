@@ -1,6 +1,4 @@
 import React from "react";
-import NewNavbar from "./Navbar";
-import Footer from "./Footer.js";
 
 function ContactUs() {
   return (
