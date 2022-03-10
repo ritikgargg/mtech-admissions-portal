@@ -43,7 +43,7 @@ function Navbar() {
                 <Link
                   key={item.name}
                   to={item.to}
-                  className="font-medium text-gray-500 hover:text-gray-900"
+                  className="font-medium text-gray-500 hover:text-indigo-500"
                 >
                   {item.name}
                 </Link>
@@ -106,13 +106,13 @@ function Navbar() {
               </div>
               <Link
                 to="/sign-in"
-                className="block w-full px-5 py-3 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100"
+                className="block w-full px-5 py-3 text-center font-medium text-gray-700 bg-gray-50 hover:text-indigo-500 hover:bg-gray-100"
               >
-                Log-in
+                Sign-in
               </Link>
               <Link
                 to="/sign-up"
-                className="block w-full px-5 py-3 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100"
+                className="block w-full px-5 py-3 text-center font-medium text-gray-700 bg-gray-50 hover:text-indigo-500 hover:bg-gray-100"
               >
                 Sign-up
               </Link>

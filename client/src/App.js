@@ -14,7 +14,7 @@ import SignInStartPage from './components/SignIn_SignUp/SignInStartPage'
 import MyApplications from './components/Applicant/MyApplications'
 import ApplicantHomePage from './components/Applicant/ApplicantHomePage'
 import ApplicantionDetails from './components/Applicant/ApplicationDetails'
-import Temp from './components/Applicant/Temp';
+// import Temp from './components/Applicant/Temp';
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -106,7 +106,7 @@ function App() {
 							</SpecialRoute>
 						} 
 					/>
-					<Route path="*" element={<Temp/>}></Route>
+					{/* <Route path="*" element={<Temp/>}></Route> */}
     			</Route>
 
 			</Routes>
