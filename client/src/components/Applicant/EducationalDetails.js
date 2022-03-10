@@ -1,8 +1,55 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import CollegeDegreeSection from "./CollegeDegreeSection.js";
+import Axios from "axios";
+import { getToken } from "../SignIn_SignUp/Sessions";
 
 function EducationalDetails(props) {
   const [count, setCount] = useState(1);
+  const { register, handleSubmit, errors } = useForm();
+  const [marksheet_10th, setMarksheet_10th] = useState(null);
+  const [marksheet_12th, setMarksheet_12th] = useState(null);
+  const [lemao, setLemao] = useState(4);
+  
+  const [degrees, setDegrees] = useState(Array.from({length: 4},()=> Array.from({length: 10}, () => '')))
+  
+  const handleChange = (row, column, event) => {
+    let copy = [...degrees];
+    copy[row][column] = event.target.value;
+    setDegrees(copy);
+  };
+
+  const hC = () => {
+    console.log('helloworld');
+  }
+
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    
+    formData.append("lemao", lemao);
+
+    Axios.post("http://localhost:8080/temp", formData, {
+      headers: {
+        Authorization: getToken()
+      }
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
+  const handleFileSubmit = (e, maxSize, setVariable) => {
+    const file = e.target.files[0];
+    if (file.size > maxSize*1000000){
+        e.target.value = null;
+        const error = "File size cannot exceed more than " + maxSize.toString() + "MB";
+        alert(error);
+    }
+    else {
+        setVariable(file);
+    }
+  }
+
+
 
   return (
     <div id="educationalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
@@ -32,7 +79,7 @@ function EducationalDetails(props) {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -40,15 +87,16 @@ function EducationalDetails(props) {
                       <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                         <div className="col-span-4 sm:col-span-2">
                           <label
-                            htmlFor="category"
+                            htmlFor="degree_10th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Degree<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <select
-                            id="category"
-                            name="category"
-                            autoComplete="category"
+                            id="degree_10th"
+                            required
+                            {...register("degree_10th")}
+                        
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option>10th</option>
@@ -57,7 +105,7 @@ function EducationalDetails(props) {
 
                         <div className="col-span-8 sm:col-span-4">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="board_10th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Board<span style={{ color: "#ff0000" }}> *</span>
@@ -65,25 +113,26 @@ function EducationalDetails(props) {
 
                           <input
                             type="text"
-                            name="last-name"
-                            id="last-name"
-                            autoComplete="family-name"
+                            required
+                            id="board_10th"
+                            {...register("board_10th")}
+                            
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
 
                         <div className="col-span-4 sm:col-span-2">
                           <label
-                            htmlFor="category"
+                            htmlFor="percentage_cgpa_format_10th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Percentage/CGPA
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <select
-                            id="category"
-                            name="category"
-                            autoComplete="category"
+                            id="percentage_cgpa_format_10th"
+                            required
+                            {...register("percentage_cgpa_format_10th")}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option>- Select -</option>
@@ -94,7 +143,7 @@ function EducationalDetails(props) {
 
                         <div className="col-span-4 sm:col-span-2">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="percentage_cgpa_value_10th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Percentage/CGPA
@@ -102,42 +151,45 @@ function EducationalDetails(props) {
                           </label>
                           <input
                             type="text"
-                            name="last-name"
-                            id="last-name"
-                            autoComplete="family-name"
+                            required
+                            id="percentage_cgpa_value_10th"
+                            {...register("percentage_cgpa_value_10th")}
+                            
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
 
                         <div className="col-span-4 sm:col-span-2">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="year_of_passing_10th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Year of Passing
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
+                          
                           <input
                             type="text"
-                            name="last-name"
-                            id="last-name"
-                            autoComplete="family-name"
+                            required
+                            {...register("year_of_passing_10th")}
+                            id="year_of_passing_10th"
+                            
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
 
                         <div className="col-span-full sm:col-span-full">
                           <label
-                            htmlFor="about"
+                            htmlFor="remarks_10th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Remarks (if any)
                           </label>
                           <div className="mt-1">
                             <textarea
-                              id="AddressForCommunication"
-                              name="AddressForCommunication"
+                              id="remarks_10th"
                               rows={2}
+                              {...register("remarks_10th")}
                               className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                               defaultValue={""}
                             />
@@ -152,12 +204,17 @@ function EducationalDetails(props) {
                             10th Certificate/Marksheet
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
+                          
                           <input
-                            className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help"
-                            id="user_avatar"
-                            type="file"
-                          />
+                                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                aria-describedby="profile-picture-desc"
+                                id="marksheet_10th"
+                                name="marksheet_10th"
+                                type="file"
+                                required
+                                accept=".pdf"
+                                onChange={(e) => handleFileSubmit(e, 2, setMarksheet_10th)}
+                                />
                           <div
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
@@ -177,15 +234,16 @@ function EducationalDetails(props) {
                       <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                         <div className="col-span-4 sm:col-span-2">
                           <label
-                            htmlFor="category"
+                            htmlFor="degree_12th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Degree<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <select
-                            id="category"
-                            name="category"
-                            autoComplete="category"
+                            id="degree_12th"
+                            required
+                            {...register("degree_12th")}
+                           
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option>12th</option>
@@ -194,7 +252,7 @@ function EducationalDetails(props) {
 
                         <div className="col-span-8 sm:col-span-4">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="board_12th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Board/University/Institute
@@ -202,25 +260,27 @@ function EducationalDetails(props) {
                           </label>
                           <input
                             type="text"
-                            name="last-name"
-                            id="last-name"
-                            autoComplete="family-name"
+                            required
+                            {...register("board_12th")}
+                            id="board_12th"
+            
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
 
                         <div className="col-span-4 sm:col-span-2">
                           <label
-                            htmlFor="category"
+                            htmlFor="percentage_cgpa_format_12th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Percentage/CGPA
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <select
-                            id="category"
-                            name="category"
-                            autoComplete="category"
+                            id="percentage_cgpa_format_12th"
+                            required
+                            {...register("board_12th")}
+                           
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option>- Select -</option>
@@ -231,7 +291,7 @@ function EducationalDetails(props) {
 
                         <div className="col-span-4 sm:col-span-2">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="percentage_cgpa_value_12th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Percentage/CGPA
@@ -239,16 +299,17 @@ function EducationalDetails(props) {
                           </label>
                           <input
                             type="text"
-                            name="last-name"
-                            id="last-name"
-                            autoComplete="family-name"
+                            
+                            id="percentage_cgpa_value_12th"
+                            {...register("percentage_cgpa_value_12th")}
+                          
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
 
                         <div className="col-span-4 sm:col-span-2">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="year_of_passing_12th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Year of Passing
@@ -256,24 +317,26 @@ function EducationalDetails(props) {
                           </label>
                           <input
                             type="text"
-                            name="last-name"
-                            id="last-name"
-                            autoComplete="family-name"
+                            required
+                            id="year_of_passing_12th"
+                            {...register("year_of_passing_12th")}
+                           
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
 
                         <div className="col-span-full sm:col-span-full">
                           <label
-                            htmlFor="about"
+                            htmlFor="remarks_12th"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Remarks (if any)
                           </label>
                           <div className="mt-1">
                             <textarea
-                              id="AddressForCommunication"
-                              name="AddressForCommunication"
+                              id="remarks_12th"
+                              
+                              {...register("remarks_12th")}
                               rows={2}
                               className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                               defaultValue={""}
@@ -290,11 +353,15 @@ function EducationalDetails(props) {
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
-                            className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help"
-                            id="user_avatar"
-                            type="file"
-                          />
+                                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                aria-describedby="profile-picture-desc"
+                                id="marksheet_12th"
+                                name="marksheet_12th"
+                                type="file"
+                                required
+                                accept=".pdf"
+                                onChange={(e) => handleFileSubmit(e, 2, setMarksheet_12th)}
+                                />
                           <div
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
@@ -312,7 +379,7 @@ function EducationalDetails(props) {
                     </div>
 
                     {[...Array(count)].map((_, i) => (
-                      <CollegeDegreeSection key={i} />
+                      <CollegeDegreeSection key={i} id={i} handleChange={handleChange} />
                     ))}
 
                     <div className="flex mb-4 col-span-4">
@@ -409,17 +476,17 @@ function EducationalDetails(props) {
                 
                
               </div>
+              <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
+                        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                        <button data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
+                      </div>
             </form>
           </div>
         </div>
       </div>
       </div>
     </div>
-    {/* Modal footer */}
-    <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-              <button data-modal-toggle="educationalDetailsModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-              <button data-modal-toggle="educationalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
-            </div>
+  
           </div>
         </div>
       </div>

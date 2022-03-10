@@ -4,8 +4,10 @@ import { PencilIcon } from '@heroicons/react/outline'
 import PersonalInfo from './PersonalInfo'
 import CommunicationDetails from './CommunicatonDetails'
 import EducationalDetails from './EducationalDetails'
-import CompleteProfileAlert from './CompleteProfileAlert'
 import DashboardNavBar from './DashboardNavBar'
+import { useState, useEffect } from 'react'
+import axios from "axios";
+import { getToken } from "../SignIn_SignUp/Sessions";
 
 
 export default function Profile (props) {
@@ -16,6 +18,18 @@ export default function Profile (props) {
         { degree: 'B-Tech', board_uni: 'IIT Ropar', per_cgpa: '7.67', yop: '2021', att: 'graduation_certificate.pdf' }
     ]
 
+    const [personalInfo, setpersonalInfo] = useState(0);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/get-personal-info", {
+            headers: {
+                Authorization: getToken()
+            }
+        })
+        .then(res => setpersonalInfo(res.data))
+        .catch(err => console.log(err));
+    });
+
     var overlayHidden = false;
 
     return (
@@ -24,7 +38,7 @@ export default function Profile (props) {
         <div className='flex'>
             <div className='flex-2 my-20 mx-20'>
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}
-                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={props.user.imageUrl}/>
+                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={personalInfo.profile_image_url} alt="Your Profile Image"/>
             </div>
             <div className="mr-20 my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
@@ -43,36 +57,36 @@ export default function Profile (props) {
                     <dl>
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Full name</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Tom Cook</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.full_name}</dd>
                         </div>
                         <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Father's Name</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">John Cook</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.fathers_name}</dd>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Date of Birth</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">08/04/1987</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.date_of_birth}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Gender</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Male</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.gender}</dd>
                         </div>  
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Nationality</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Indian</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.nationality}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Category</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">General</dd>   
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.category}</dd>   
                         </div>
                         <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Aadhaar Card Number</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">7586-7568-5865</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.aadhar_card_number}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Marital Status</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Married</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.marital_status}</dd>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Belongs to PWD</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">No</dd>    
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.is_pwd}</dd>    
                         </div>
                     </dl>
                 </div>

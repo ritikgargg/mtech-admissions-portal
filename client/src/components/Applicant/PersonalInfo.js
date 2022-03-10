@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Axios from "axios";
+import { getToken } from "../SignIn_SignUp/Sessions";
 
 function PersonalInfo() {
   const [nationality, setNationality] = useState("");
@@ -28,8 +29,12 @@ function PersonalInfo() {
     formData.append("profile_image", profile_image);
     formData.append("category_certificate", categoryCertificate);
 
-    Axios.post("http://localhost:8080/save-personal-info", formData)
-      .then(res => console.log(res))
+    Axios.post("http://localhost:8080/save-personal-info", formData, {
+      headers: {
+        Authorization: getToken()
+      }
+    })
+      .then(window.location.reload())
       .catch(err => console.log(err));
   }
 
@@ -339,7 +344,11 @@ function PersonalInfo() {
                           </button>
                         </div> */}
                       </div>
-                      <button type="submit">Submit</button>
+                      <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
+                        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                        <button data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
+                      </div>
+                      {/* <button type="submit">Submit</button> */}
                     </form>
                   </div>
                 </div>
@@ -348,8 +357,8 @@ function PersonalInfo() {
             </div>
 
             <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-              <button data-modal-toggle="personalDetailsModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-              <button data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
+              {/* <button data-modal-toggle="personalDetailsModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+              <button data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button> */}
             </div>
           </div>
         </div>

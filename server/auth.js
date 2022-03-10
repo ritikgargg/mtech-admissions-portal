@@ -77,7 +77,7 @@ const signin_verify = async (req, res) => {
     await bcrypt.compare(otp, result_row.hashed_otp, async function(err, result) {
         if(result === true) {
             await bcrypt.hash(email, saltRounds, async function(err, hash) {
-                return res.send({result:1,user:hash});
+                return res.send({result:1,user:email});
             });
         }
         else {
@@ -155,7 +155,7 @@ const signup_verify = async (req, res) => {
         if(result == true) {
             await bcrypt.hash(email, saltRounds, async function(err, hash) {
                 await pool.query("insert into applicants(email_id, email_hash) values($1, $2)", [email, hash]);
-                return res.send({result:1,user:hash});
+                return res.send({result:1,user:email});
             });
         }
         else {

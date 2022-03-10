@@ -24,6 +24,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-transition-group": "^1.2.1",
+    "tw-elements": "^1.0.0-alpha11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,0 +1,19 @@
+Image name that is send to gcp must be unique, else it replaces the existing image
+
+Submit button in forms, rerender the same on the user page
+
+JWT token authorization, logout user if wrong token
+
+Responsive UI
+
+Applicant database, form submission and review page, Apply page for applicant, Application submission
+
+Courses Page (list of tiles)
+
+Educational details and Communication details retreiving storing data to gcp
+
+Date picker sahi karna hai ( new datpicker + fetch value )
+
+contact us
+
+Note: Changed access control on the gcp for image loading on the profile page

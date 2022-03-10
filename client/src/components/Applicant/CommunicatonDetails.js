@@ -1,6 +1,35 @@
 import React from "react";
+import {useForm} from "react-hook-form";
+import Axios from "axios";
+import { getToken } from "../SignIn_SignUp/Sessions";
 
+//TODO:: Confirm Email
 function CommunicationDetails(props) {
+  const {register, handleSubmit, errors} = useForm();
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    
+    formData.append("communication_address", data.communication_address);
+    formData.append("communication_city", data.communication_city)
+    formData.append("communication_state", data.communication_state)
+    formData.append("communication_pincode", data.communication_pincode)
+    formData.append("permanent_address", data.permanent_address);
+    formData.append("permanent_city", data.permanent_city);
+    formData.append("permanent_state", data.permanent_state);
+    formData.append("permanent_pincode", data.permanent_pincode);
+    formData.append("email", data.email)
+    formData.append("mobile_number", data.mobile_number)
+    formData.append("alternate_mobile_number", data.alternate_mobile_number)
+
+    Axios.post("http://localhost:8080/save-personal-info", formData, {
+      headers: {
+        Authorization: getToken()
+      }
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+  
   return (
     <div id="communicationDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
         <div className="relative object-center overflow-y-auto overflow-x-hidden overscroll-none px-4 w-full max-w-7xl h-5/6">
@@ -29,13 +58,13 @@ function CommunicationDetails(props) {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                     <div className="col-span-full sm:col-span-full">
                       <label
-                        htmlFor="about"
+                        htmlFor="communication_address"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Address for Communication
@@ -43,10 +72,11 @@ function CommunicationDetails(props) {
                       </label>
                       <div className="mt-1">
                         <textarea
-                          id="AddressForCommunication"
-                          name="AddressForCommunication"
+                          id="communication_address"
+                          {...register("communication_address")}
                           rows={4}
                           className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                          required
                           defaultValue={""}
                         />
                       </div>
@@ -57,7 +87,7 @@ function CommunicationDetails(props) {
 
                     <div className="col-span-4 sm:col-span-2">
                       <label
-                        htmlFor="first-name"
+                        htmlFor="communication_city"
                         className="block text-sm font-medium text-gray-700"
                       >
                         City
@@ -65,16 +95,16 @@ function CommunicationDetails(props) {
                       </label>
                       <input
                         type="text"
-                        name="first-name"
-                        id="first-name"
-                        autoComplete="given-name"
+                        {...register("communication_city")}
+                        id="communication_city"
+                        required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
 
                     <div className="col-span-4 sm:col-span-2">
                       <label
-                        htmlFor="last-name"
+                        htmlFor="communication_state"
                         className="block text-sm font-medium text-gray-700"
                       >
                         State
@@ -82,16 +112,16 @@ function CommunicationDetails(props) {
                       </label>
                       <input
                         type="text"
-                        name="last-name"
-                        id="last-name"
-                        autoComplete="family-name"
+                        {...register("communication_state")}
+                        id="communication_state"
+                        required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
 
                     <div className="col-span-4 sm:col-span-2">
                       <label
-                        htmlFor="last-name"
+                        htmlFor="communication_pincode"
                         className="block text-sm font-medium text-gray-700"
                       >
                         PIN Code
@@ -99,9 +129,9 @@ function CommunicationDetails(props) {
                       </label>
                       <input
                         type="text"
-                        name="last-name"
-                        id="last-name"
-                        autoComplete="family-name"
+                        id="communication_pincode"
+                        {...register("communication_pincode")}
+                        required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
@@ -110,7 +140,7 @@ function CommunicationDetails(props) {
                   <div className="mt-8 outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                     <div className="col-span-full sm:col-span-full">
                       <label
-                        htmlFor="about"
+                        htmlFor="permanent_address"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Permanent Address
@@ -118,9 +148,10 @@ function CommunicationDetails(props) {
                       </label>
                       <div className="mt-1">
                         <textarea
-                          id="AddressFor"
-                          name="about"
+                          id="permanent_address"
                           rows={4}
+                          required
+                          {...register("permanent_address")}
                           className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                           defaultValue={""}
                         />
@@ -132,7 +163,7 @@ function CommunicationDetails(props) {
 
                     <div className="col-span-4 sm:col-span-2">
                       <label
-                        htmlFor="first-name"
+                        htmlFor="permanent_city"
                         className="block text-sm font-medium text-gray-700"
                       >
                         City
@@ -140,16 +171,16 @@ function CommunicationDetails(props) {
                       </label>
                       <input
                         type="text"
-                        name="first-name"
-                        id="first-name"
-                        autoComplete="given-name"
+                        {...register("permanent_city")}
+                        id="permanent_city"
+                        required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
 
                     <div className="col-span-4 sm:col-span-2">
                       <label
-                        htmlFor="last-name"
+                        htmlFor="permanent_state"
                         className="block text-sm font-medium text-gray-700"
                       >
                         State
@@ -157,16 +188,16 @@ function CommunicationDetails(props) {
                       </label>
                       <input
                         type="text"
-                        name="last-name"
-                        id="last-name"
-                        autoComplete="family-name"
+                        id="permanent_state"
+                        {...register("permanent_state")}
+                        required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
 
                     <div className="col-span-4 sm:col-span-2">
                       <label
-                        htmlFor="last-name"
+                        htmlFor="permanent_pincode"
                         className="block text-sm font-medium text-gray-700"
                       >
                         PIN Code
@@ -174,9 +205,9 @@ function CommunicationDetails(props) {
                       </label>
                       <input
                         type="text"
-                        name="last-name"
-                        id="last-name"
-                        autoComplete="family-name"
+                        required
+                        id="permanent_pincode"
+                        {...register("permanent_pincode")}
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
@@ -185,67 +216,66 @@ function CommunicationDetails(props) {
                   <div className="mt-8 outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="email-address"
+                        htmlFor="email"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Email address
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
                       <input
-                        type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
+                        type="email"
+                        required
+                        {...register("email")}
+                        id="email"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="email-address"
+                        htmlFor="confirm_email"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Confirm Email address
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
                       <input
-                        type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
+                        type="email"
+                        required
+                        id="confirm_email"
+                        {...register("confirm_email")}
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="email-address"
+                        htmlFor="mobile_number"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Mobile Number
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
                       <input
-                        type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
+                        type="number"
+                        required
+                        {...register("mobile_number")}
+                        id="mobile_number"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="email-address"
+                        htmlFor="alternate_mobile_number"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Alternate Mobile Number{" "}
                       </label>
                       <input
-                        type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
+                        type="number"
+                        {...register("alternate_mobile_number")}
+                        id="alternate_mobile_number"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-function CollegeDegreeSection() {
+function CollegeDegreeSection(props) {
   return (
     <div className="col-span-full sm:col-span-full">
       <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
@@ -14,7 +14,7 @@ function CollegeDegreeSection() {
           <select
             id="category"
             name="category"
-            autoComplete="category"
+            onChange={(event) => props.handleChange(props.key,0,event)}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option>B.E.</option>
@@ -23,16 +23,16 @@ function CollegeDegreeSection() {
 
         <div className="col-span-8 sm:col-span-4">
           <label
-            htmlFor="last-name"
+            htmlFor="lemao"
             className="block text-sm font-medium text-gray-700"
           >
             Branch<span style={{ color: "#ff0000" }}> *</span>
           </label>
           <input
             type="text"
-            name="last-name"
-            id="last-name"
-            autoComplete="family-name"
+            name="lemao"
+            id="lemao"
+            onChange={(event) => props.handleChange(props.id,1,event)}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           />
         </div>
@@ -49,7 +49,6 @@ function CollegeDegreeSection() {
             type="text"
             name="last-name"
             id="last-name"
-            autoComplete="family-name"
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           />
         </div>
@@ -66,7 +65,6 @@ function CollegeDegreeSection() {
             type="text"
             name="last-name"
             id="last-name"
-            autoComplete="family-name"
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           />
         </div>
@@ -82,7 +80,6 @@ function CollegeDegreeSection() {
           <select
             id="category"
             name="category"
-            autoComplete="category"
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option>- Select -</option>
@@ -103,7 +100,6 @@ function CollegeDegreeSection() {
             type="text"
             name="last-name"
             id="last-name"
-            autoComplete="family-name"
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           />
         </div>
@@ -118,7 +114,6 @@ function CollegeDegreeSection() {
           <select
             id="category"
             name="category"
-            autoComplete="category"
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option>- None -</option>
