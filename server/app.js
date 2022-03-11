@@ -7,12 +7,14 @@ const path = require("path");
 const multer = require("multer");
 const upload = multer();
 const applicantdB = require("./applicant-db")
-
-const PORT = process.env.PORT || 8080;
+const dotenv = require('dotenv')
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+dotenv.config();
+const PORT = process.env.PORT || 5000;1
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

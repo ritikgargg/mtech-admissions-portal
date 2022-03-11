@@ -2,6 +2,10 @@ const path = require("path");
 const {format} = require('util');
 const { Storage } = require("@google-cloud/storage");
 const pool = require("./db")
+const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
+
+dotenv.config();
 
 const gc = new Storage({
   keyFilename: path.join(__dirname, "./phd-pg-admission-iit-ropar-0aa094c57f3e.json"),
@@ -62,13 +66,18 @@ const save_education_details = async (req, res) => {
  */
 const save_personal_info = async (req, res) => {
   /**
-   * hash => if hash not found, return error; else, insert [hash will be given in header]
+   * Verify using authToken
    */
-  hash = req.headers.authorization;
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  const verified = jwt.verify(authToken, jwtSecretKey);
+      
+  if(!verified) {
+      return res.send("1"); /** Error, logout on user side */
+  }
 
-  const result = await pool.query("SELECT * FROM applicants WHERE email_id = $1", [hash]);
-
-  if(result.rowCount === 0) return res.send("1"); /** Error, logout on user side */
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail
 
   info = req.body;
 
@@ -109,7 +118,7 @@ const save_personal_info = async (req, res) => {
         console.log(category_certificate_url);
 
         await pool.query("UPDATE applicants SET category_certificate_url = $1 WHERE email_id = $2;", 
-                  [category_certificate_url, hash]);
+                  [category_certificate_url, email]);
       });
 
       blobStream2.end(req.files.category_certificate[0].buffer);
@@ -119,7 +128,7 @@ const save_personal_info = async (req, res) => {
                   date_of_birth = $4, aadhar_card_number = $5, category = $6, is_pwd = $7, marital_status = $8, \
                   nationality = $9, gender = $10 WHERE email_id = $11;", 
                   [info.full_name, info.fathers_name, profile_image_url, info.date_of_birth, info.aadhar_card_number, 
-                  info.category, info.is_pwd, info.marital_status, info.nationality, info.gender, hash]);
+                  info.category, info.is_pwd, info.marital_status, info.nationality, info.gender, email]);
   });
 
   blobStream.end(req.files.profile_image[0].buffer);
@@ -132,17 +141,22 @@ const save_personal_info = async (req, res) => {
  */
 const get_personal_info = async (req, res) => {
   /**
-   * hash => if hash not found, return error; else, insert [hash will be given in header]
+   * Verify using authToken
    */
-   hash = req.headers.authorization;
-
-   const result = await pool.query("SELECT * FROM applicants WHERE email_id = $1", [hash]);
+   authToken = req.headers.authorization;
+   let jwtSecretKey = process.env.JWT_SECRET_KEY;
+   const verified = jwt.verify(authToken, jwtSecretKey);
+       
+   if(!verified) {
+       return res.send("1"); /** Error, logout on user side */
+   }
  
-   if(result.rowCount === 0) return res.send("1"); /** Error, logout on user side */
+   /** Get email */
+   var email = jwt.decode(authToken).userEmail
 
    const results = await pool.query("SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
                               category, is_pwd, marital_status, nationality, gender from applicants \
-                              WHERE email_id = $1;", [hash]);
+                              WHERE email_id = $1;", [email]);
     
     return res.send(results.rows[0]);
 }

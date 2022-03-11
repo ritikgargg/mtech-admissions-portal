@@ -50,7 +50,7 @@ function SignUpStartPage() {
     const handleSubmit = () => {
       axios.post('http://localhost:8080/auth/signup/verify', {email: email, otp: otp}).then(response => {
           if(response.data.result === 1) {
-            setUserSession(response.data.user);
+            setUserSession(response.data.token);
             navigate("/home");
           }
           else if(response.data.result === 2) {

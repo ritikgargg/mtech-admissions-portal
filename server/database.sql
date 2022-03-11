@@ -21,7 +21,6 @@ CREATE TABLE applicants (
     -- Primary Keys
     email_id TEXT PRIMARY KEY,
     applicant_id SERIAL,
-    email_hash TEXT,
 
     -- Personal Details
     full_name TEXT,

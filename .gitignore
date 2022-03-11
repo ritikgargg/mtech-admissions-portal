@@ -24,3 +24,4 @@ chrome-user-data
 *.swp
 *.swo
 phd-pg-admission-iit-ropar-0aa094c57f3e.json
+.env

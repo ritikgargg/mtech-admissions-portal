@@ -3,6 +3,10 @@ const otpGenerator = require('otp-generator')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const pool = require("./db")
+const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
+
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -76,9 +80,12 @@ const signin_verify = async (req, res) => {
 
     await bcrypt.compare(otp, result_row.hashed_otp, async function(err, result) {
         if(result === true) {
-            await bcrypt.hash(email, saltRounds, async function(err, hash) {
-                return res.send({result:1,user:email});
-            });
+            let jwtSecretKey = process.env.JWT_SECRET_KEY;
+            let data = {
+                userEmail: email,
+            }
+            const authToken = jwt.sign(data, jwtSecretKey);
+            return res.send({result:1,token:authToken});
         }
         else {
             return res.send({result:0});
@@ -152,11 +159,14 @@ const signup_verify = async (req, res) => {
     }
 
     await bcrypt.compare(otp, result_row.hashed_otp, async function(err, result) {
-        if(result == true) {
-            await bcrypt.hash(email, saltRounds, async function(err, hash) {
-                await pool.query("insert into applicants(email_id, email_hash) values($1, $2)", [email, hash]);
-                return res.send({result:1,user:email});
-            });
+        if(result === true) {
+            await pool.query("insert into applicants(email_id) values($1)", [email]);
+            let jwtSecretKey = process.env.JWT_SECRET_KEY;
+            let data = {
+                userEmail: email,
+            }
+            const authToken = jwt.sign(data, jwtSecretKey);
+            return res.send({result:1,token:authToken});
         }
         else {
             return res.send({result:0});
