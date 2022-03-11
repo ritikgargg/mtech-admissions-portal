@@ -8,7 +8,21 @@ import Review from './Review.js';
 function ApplicantionDetails() {
   const [page, setPage] = useState(1);
   // const ref = useRef();
-  const [applicant_details, setApplicantDetails] = useState(Array.from({length: 21},()=>''));
+
+  const init_application_details = () => {
+    const array = Array.from({length: 21},()=>'');
+    let date = new Date();
+    date = date.toISOString().split('T')[0];
+    array[0]='GEN';
+    array[6]='GATE';
+    array[7]='CS';
+    array[5] = date;
+    array[19] = date;
+    return array;
+  }
+
+
+  const [applicant_details, setApplicantDetails] = useState(init_application_details());
 
   function handleApplicantDetailsChange(e, index){
     let copy = [...applicant_details];

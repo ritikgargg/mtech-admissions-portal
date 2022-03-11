@@ -33,3 +33,5 @@ Requested format in Aadhar, pincode(2), mobile number(2); Also, change the forma
 Educational details on profile page improve, no proper checks -- do it for educational details atleast
 
 Once we move to the next page, the file gets removed from that page [ Although we have it in the array ]    
+
+makes images names unique by appending name with timestamp, change with that of education details

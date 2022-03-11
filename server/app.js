@@ -1,15 +1,14 @@
 const express = require("express")
-const {format} = require('util');
+const {format} = require('util')
 const cors = require('cors')
 const pool = require("./db")
 const auth = require("./auth")
-const path = require("path");
-const multer = require("multer");
-const upload = multer();
+const path = require("path")
+const multer = require("multer")
+const upload = multer()
 const applicantdB = require("./applicant-db")
 const dotenv = require('dotenv')
-var bodyParser = require("body-parser");
-
+var bodyParser = require("body-parser")
 
 const app = express();
 app.use(express.json());
@@ -54,9 +53,6 @@ app.post('/save-education-details',
 app.get('/get-profile-info', applicantdB.get_profile_info)
 
 app.get('/get-personal-info', applicantdB.get_personal_info)
-
-// app.post('/temp', upload.fields([{name:"marksheet_10th_url", maxCount : 1},{name:"marksheet_12th_url", maxCount : 1},{name:"upload_marksheet0", maxCount : 1},{name:"upload_degree0", maxCount : 1},{name:"upload_marksheet1", maxCount : 1},{name:"upload_degree1", maxCount : 1},{name:"upload_marksheet2", maxCount : 1},{name:"upload_degree2", maxCount : 1},{name:"upload_marksheet3", maxCount : 1},{name:"upload_degree3", maxCount : 1}]), applicantdB.temp);
-// app.post('/temp', upload.fields([{name:"profile_image", maxCount : 1}, {name:"category_certificate", maxCount : 1}]), applicantdB.temp);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`)

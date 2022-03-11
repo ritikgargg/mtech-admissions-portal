@@ -12,11 +12,6 @@ CREATE TABLE login_verification (
     expiration_time TIMESTAMP
 );
 
--- CREATE TABLE applicants (
---     email_id TEXT PRIMARY KEY,
---     email_hash TEXT
--- );
-
 CREATE TABLE applicants (
     -- Primary Keys
     email_id TEXT PRIMARY KEY,
@@ -66,7 +61,7 @@ CREATE TABLE applicants (
     remarks_12th TEXT,
     marksheet_12th_url TEXT,
 
-    degress TEXT[][],
+    degrees TEXT[][],
 
     other_remarks TEXT,
     is_last_degree_completed TEXT
@@ -88,10 +83,6 @@ CREATE TRIGGER trigger_insert_into_applicants
   ON applicants
   FOR EACH ROW
   EXECUTE PROCEDURE insert_into_login_verification();
-
-
-
--- insert into applicants(email_id) values('18tarun2001@gmail.com');
 
 
 -- Maybe delete entries from signup_verification table using a corn-job

@@ -1,6 +1,11 @@
 import React from 'react';
 
 function QualifyingExamDetails(props){
+
+  const date = new Date();
+  const max_year = date.getFullYear();
+  const min_year = max_year - 2;
+
     return (
         <div>
           <div className="px-6 py-6 mx-20 my-20 bg-[#f3f4f6] rounded-2xl">
@@ -22,7 +27,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
 
 
               <div className="mt-5 md:mt-0 md:col-span-2">
-                <form action="#" method="POST">
+                <form onSubmit={() => props.increasePageNumber()} method="POST">
                   <div className="shadow overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -34,11 +39,10 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             Qualifying Examination<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <select
-                            id="category"
-                            name="category"
+                            id="qualifying_examination"
+                            name="qualifying_examination"
                             value={props.details[6]}
                             onChange={e => props.onChange(e, 6)}
-                            autoComplete="category"
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option>GATE</option>
@@ -47,20 +51,19 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
 
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="category"
+                            htmlFor="branch_code"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Branch Code<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <select
-                            id="category"
-                            name="category"
-                            autoComplete="category"
+                            id="branch_code"
+                            name="branch_code"
+                           
                             value={props.details[7]}
                             onChange={e => props.onChange(e, 7)}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
-                            <option>- Select -</option>
                             <option>CS</option>
                             <option>EE</option>
                           </select>
@@ -68,16 +71,18 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                         
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="amount"
+                            htmlFor="year"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Year<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
                             type="number"
-                            name="amount"
-                            id="amount"
-                            autoComplete="amount"
+                            name="year"
+                            id="year"
+                            
+                            min = {min_year}
+                            max = {max_year}
                             value={props.details[8]}
                             onChange={(event) => props.onChange(event,8)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -86,16 +91,19 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
     
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="gate_enrollment_number"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Gate Enrollment Number/Registration Number
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
-                            type="number"
-                            name="last-name"
-                            id="last-name"
+                            type="text"
+                            name="gate_enrollment_number"
+                            id="gate_enrollment_number"
+                            pattern="[A-Za-z0-9]{11}"
+                            required
+                            title="Only alpha-numeric characters are allowed and length must be 11"
                             value={props.details[9]}
                             onChange={(event) => props.onChange(event,9)}
                             autoComplete="family-name"
@@ -106,15 +114,18 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                        
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="amount"
+                            htmlFor="coap_registration_number"
                             className="block text-sm font-medium text-gray-700"
                           >
                             COAP Registration Number<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
-                            type="number"
-                            name="amount"
-                            id="amount"
+                            type="text"
+                            name="coap_registration_number"
+                            id="coap_registration_number"
+                            required
+                            pattern="[A-Za-z0-9]{12}"
+                            title="Only alpha-numeric characters are allowed and length must be 12"
                             autoComplete="amount"
                             value={props.details[10]}
                             onChange={(event) => props.onChange(event,10)}
@@ -124,7 +135,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
     
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="all_india_rank"
                             className="block text-sm font-medium text-gray-700"
                           >
                             All India Rank
@@ -132,9 +143,11 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                           </label>
                           <input
                             type="number"
-                            name="last-name"
-                            id="last-name"
-                            autoComplete="family-name"
+                            name="all_india_rank"
+                            id="all_india_rank"
+                            required
+                            min = {1}
+                           
                             value={props.details[11]}
                             onChange={(event) => props.onChange(event,11)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -144,16 +157,19 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                         
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="amount"
+                            htmlFor="gate_score"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Gate Score<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
                             type="number"
-                            name="amount"
-                            id="amount"
-                            autoComplete="amount"
+                            name="gate_score"
+                            id="gate_score"
+                            required
+                            min = {0}
+                            max = {1000}
+                         
                             value={props.details[12]}
                             onChange={(event) => props.onChange(event,12)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -162,7 +178,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
     
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="last-name"
+                            htmlFor="valid_upto"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Valid Upto
@@ -170,9 +186,10 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                           </label>
                           <input
                             type="number"
-                            name="last-name"
-                            id="last-name"
-                            autoComplete="family-name"
+                            name="valid_upto"
+                            id="valid_upto"
+                           
+                            required
                             value = {props.details[13]}
                             onChange={(event) => props.onChange(event,13)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -182,7 +199,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                         <div className="col-span-full sm:col-span-full">
                           <label
                             className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                            htmlFor="user_avatar"
+                            htmlFor="gate_result"
                           >
                             Self Attested copies of GATE as mentioned in the form<span style={{ color: "#ff0000" }}> *</span>
                           </label>
@@ -195,8 +212,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                           <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="profile-picture-desc"
-                            id="transaction_flip"
-                            name="transaction_slip"
+                            id="gate_result"
+                            name="gate_result"
                             type="file"
                             // value={props.details[4].name}
                             // ref={props.ref}
@@ -221,20 +238,19 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                         
                         <div className="col-span-full sm:col-span-full">
                       <label
-                        htmlFor="about"
+                        htmlFor="remarks"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Remarks
                       </label>
                       <div className="mt-1">
                         <textarea
-                          id="AddressForCommunication"
-                          name="AddressForCommunication"
+                          id="remarks"
+                          name="remarks"
                           rows={4}
                           value={props.details[15]}
                           onChange={(event) => props.onChange(event,15)}
                           className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                          defaultValue={""}
                         />
                       </div>
                       <p className="mt-2 text-sm text-gray-500">
@@ -253,8 +269,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                   </button>
                   
                   <button
-                    type="button"
-                    onClick={() => props.increasePageNumber()}
+                    type="submit"
                     className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Next

@@ -4,6 +4,8 @@ const { Storage } = require("@google-cloud/storage");
 const pool = require("./db")
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
+const { info } = require("console");
+const { file } = require("googleapis/build/src/apis/file");
 
 dotenv.config();
 
@@ -76,15 +78,72 @@ const save_education_details = async (req, res) => {
   /** Get email */
   var email = jwt.decode(authToken).userEmail
 
-  console.log(req.body)
-  console.log(req.files)
+  var info = req.body
 
-  // await pool.query("UPDATE applicants SET communication_address = $1, communication_city = $2, communication_state = $3, \
-  //                   communication_pincode = $4, permanent_address = $5, permanent_city = $6, permanent_state = $7, \
-  //                   permanent_pincode = $8, mobile_number = $9, alternate_mobile_number = $10 WHERE email_id = $11;", 
-  //                   [info.communication_address, info.communication_city, info.communication_state, info.communication_pincode, 
-  //                   info.permanent_address, info.permanent_city, info.permanent_state, info.permanent_pincode, 
-  //                   info.mobile_number, info.alternate_mobile_number, email]);
+  degrees = JSON.parse(info.degrees)
+
+  await pool.query("UPDATE applicants SET degrees = $1, degree_10th = $2, board_10th = $3, percentage_cgpa_format_10th = $4, \
+                    percentage_cgpa_value_10th = $5, year_of_passing_10th = $6, remarks_10th = $7, degree_12th = $8, \
+                    board_12th = $9, percentage_cgpa_format_12th = $10, percentage_cgpa_value_12th = $11, \
+                    year_of_passing_12th = $12, remarks_12th = $13, other_remarks = $14, is_last_degree_completed = $15 WHERE email_id = $16;", 
+                    [degrees, info.degree_10th, info.board_10th, info.percentage_cgpa_format_10th, 
+                    info.percentage_cgpa_value_10th, info.year_of_passing_10th, info.remarks_10th, info.degree_12th, 
+                    info.board_12th, info.percentage_cgpa_format_12th, info.percentage_cgpa_value_12th, info.year_of_passing_12th,
+                    info.remarks_12th, info.other_remarks, info.is_last_degree_completed, email]);
+
+  let promises = []
+  let vals = Object.values(req.files)
+
+  for(let f of vals){
+    const gcsname = f[0].originalname + '_' + Date.now()
+    const file = applicantBucket.file(gcsname)
+
+    const stream = file.createWriteStream({
+      metadata: {
+        contentType: f[0].mimetype
+      },
+      resumable: false
+    })
+
+    stream.on('error', (err) => {
+      f[0].cloudStorageError = err
+      next(err)
+    })
+
+    stream.end(f[0].buffer)
+
+    promises.push(
+      new Promise ((resolve, reject) => {
+        stream.on('finish', async () => {
+          url = format(`https://storage.googleapis.com/${applicantBucket.name}/${file.name}`);
+
+          if(f[0].fieldname === 'marksheet_10th_url') {
+            await pool.query("UPDATE applicants SET marksheet_10th_url = $1 WHERE email_id = $2;", [url, email]);
+          }
+          else if(f[0].fieldname === 'marksheet_12th_url') {
+            await pool.query("UPDATE applicants SET marksheet_12th_url = $1 WHERE email_id = $2;", [url, email]);
+          }
+          else {
+            str = f[0].fieldname
+            first = str.substring(0, str.length - 1);
+            lastChar = str.substr(str.length - 1);
+
+            x =  lastChar + 1
+            y = (first === 'upload_marksheet') ? 9 : 10
+
+            await pool.query("UPDATE applicants SET degrees[$1][$2] = $3 WHERE email_id = $4;", [x, y, url, email]);
+          }
+
+          f[0].cloudStorageObject = gcsname;
+          file.makePublic().then(() => {
+            resolve()
+          })
+        })
+      })
+    )
+  }
+
+  Promise.all(promises)
   
   return res.status(200).send("Ok")
 }
@@ -237,15 +296,10 @@ const get_profile_info = async (req, res) => {
     return res.send(results.rows[0]);
 }
 
-const temp = async (req, res) => {
-  console.log(req.body)
-}
-
 module.exports = {
     save_personal_info,
     save_communication_details,
     save_education_details,
     get_profile_info,
-    get_personal_info,
-    temp
+    get_personal_info
 }

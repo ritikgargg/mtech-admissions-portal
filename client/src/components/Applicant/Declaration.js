@@ -2,6 +2,9 @@ import React from 'react';
 import DatePicker from "./DatePicker";
 
 function Declaration(props){
+
+
+
     return (
         <div>
           <div className="px-6 py-6 mx-20 my-20 bg-[#f3f4f6] rounded-2xl">
@@ -28,25 +31,25 @@ of the Institute, which shall be final.
 
 
               <div className="mt-5 md:mt-0 md:col-span-full">
-                <form action="#" method="POST">
+                <form onSubmit={()=> props.increasePageNumber()} method="POST">
                   <div className="shadow overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
                         
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="amount"
+                            htmlFor="full_name"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Write your full name if you agree to the above declaration<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
                             type="text"
-                            name="amount"
-                            id="amount"
+                            name="full_name"
+                            id="full_name"
+                            required
                             value={props.details[16]}
                             onChange={e => props.onChange(e, 16)}
-                            autoComplete="amount"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -55,44 +58,44 @@ of the Institute, which shall be final.
                         <div className="col-span-6 sm:col-span-3">
                           <label
                             className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                            htmlFor="user_avatar"
+                            htmlFor="signature"
                           >
                             Upload your Signature<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="profile-picture-desc"
-                            id="transaction_flip"
-                            name="transaction_slip"
+                            id="signature"
+                            name="signature"
                             type="file"
                             // value={props.details[4].name}
                             // ref={props.ref}
                             required
-                            accept=".pdf, .jpeg, .jpg"
+                            accept=".pdf, .png, .jpeg, .jpg, .gif"
                             onChange={(e) => props.handleFileSubmit(e, 2, 17)}
                             />
                           <div
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
                           >
-                            Files must be less than 1 MB. Allowed file types: gif jpg jpeg png.
+                            Files must be less than 1 MB. Allowed file types: pdf gif jpg jpeg png.
                           </div>
                         </div>
 
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="amount"
+                            htmlFor="place"
                             className="block text-sm font-medium text-gray-700"
                           >
                            Place<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
                             type="text"
-                            name="amount"
-                            id="amount"
+                            name="place"
+                            id="place"
                             value={props.details[18]}
                             onChange={e => props.onChange(e, 18)}
-                            autoComplete="amount"
+                            required
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -106,11 +109,13 @@ of the Institute, which shall be final.
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
                       <input
-                            type="date"
-                            value={props.details[19]}
-                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            onChange={e=>props.onChange(e, 19)}
-                          />
+                        id = "date"
+                        name = "date"
+                        type="date"
+                        value={props.details[19]}
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        onChange={e=>props.onChange(e, 19)}
+                      />
                     </div>                        
                       </div>
 
@@ -124,8 +129,7 @@ of the Institute, which shall be final.
                   </button>
                   
                   <button
-                    type="button"
-                    onClick={() => props.increasePageNumber()}
+                    type="submit"
                     className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Next

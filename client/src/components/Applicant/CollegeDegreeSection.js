@@ -17,6 +17,7 @@ function CollegeDegreeSection(props) {
             onChange={(event) => props.handleChange(props.id,0,event)}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
+            <option>- Select -</option>
             <option>B.E.</option>
             <option>BTech</option>
           </select>
