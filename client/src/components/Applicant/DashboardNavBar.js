@@ -5,7 +5,9 @@ import {MenuIcon, XIcon } from '@heroicons/react/outline'
 import {Link} from 'react-router-dom'; 
 
 const navigation = [
-  { name: 'My Applications', to: '/my-applications' }
+  { name: 'Home', to: '/home' },
+  { name: 'My Applications', to: '/my-applications' },
+  { name: 'My Profile', to: '/my-profile' }
 ]
 
 function classNames(...classes) {

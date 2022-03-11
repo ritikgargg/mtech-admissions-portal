@@ -8,10 +8,13 @@ const multer = require("multer");
 const upload = multer();
 const applicantdB = require("./applicant-db")
 const dotenv = require('dotenv')
+var bodyParser = require("body-parser");
+
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;1
@@ -30,14 +33,31 @@ app.post('/auth/signup/verify', auth.signup_verify);
 
 app.post('/save-personal-info', upload.fields([{name:"profile_image", maxCount : 1}, {name:"category_certificate", maxCount : 1}]), applicantdB.save_personal_info);
 
-app.post('/save-communication-details', applicantdB.save_communication_details);
+app.post('/save-communication-details', upload.fields([]), applicantdB.save_communication_details);
 
-app.post('/save-education-details', applicantdB.save_education_details);
+app.post('/save-education-details', 
+        upload.fields([
+          {name:"marksheet_10th_url", maxCount : 1},
+          {name:"marksheet_12th_url", maxCount : 1},
+          {name:"upload_marksheet0", maxCount : 1},
+          {name:"upload_degree0", maxCount : 1},
+          {name:"upload_marksheet1", maxCount : 1},
+          {name:"upload_degree1", maxCount : 1},
+          {name:"upload_marksheet2", maxCount : 1},
+          {name:"upload_degree2", maxCount : 1},
+          {name:"upload_marksheet3", maxCount : 1},
+          {name:"upload_degree3", maxCount : 1},
+          {name:"upload_marksheet4", maxCount : 1},
+          {name:"upload_degree4", maxCount : 1}]),          
+          applicantdB.save_education_details);
+
+app.get('/get-profile-info', applicantdB.get_profile_info)
 
 app.get('/get-personal-info', applicantdB.get_personal_info)
 
-app.post('/temp', applicantdB.temp);
+// app.post('/temp', upload.fields([{name:"marksheet_10th_url", maxCount : 1},{name:"marksheet_12th_url", maxCount : 1},{name:"upload_marksheet0", maxCount : 1},{name:"upload_degree0", maxCount : 1},{name:"upload_marksheet1", maxCount : 1},{name:"upload_degree1", maxCount : 1},{name:"upload_marksheet2", maxCount : 1},{name:"upload_degree2", maxCount : 1},{name:"upload_marksheet3", maxCount : 1},{name:"upload_degree3", maxCount : 1}]), applicantdB.temp);
+// app.post('/temp', upload.fields([{name:"profile_image", maxCount : 1}, {name:"category_certificate", maxCount : 1}]), applicantdB.temp);
 
 app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+  console.log(`Server listening on ${PORT}`)
 });

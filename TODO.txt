@@ -1,19 +1,35 @@
 Image name that is send to gcp must be unique, else it replaces the existing image
 
-Submit button in forms, rerender the same on the user page
-
-JWT token authorization, logout user if wrong token
-
 Responsive UI
 
 Applicant database, form submission and review page, Apply page for applicant, Application submission
+
+Application database
+
+OpenPositions database
 
 Courses Page (list of tiles)
 
 Educational details and Communication details retreiving storing data to gcp
 
-Date picker sahi karna hai ( new datpicker + fetch value )
-
 contact us
 
 Note: Changed access control on the gcp for image loading on the profile page
+
+Update Profile alert needs to be connected
+
+PDF file jo bhi database me store usko download krne ka option nahi aa rha profile me
+
+Optional category certificate download option, alternate mobile number
+
+Pre-Load data at the time of editing - :/
+
+Improve profile page white black alternating
+
+Do something with applicant ID
+
+Requested format in Aadhar, pincode(2), mobile number(2); Also, change the formats to standardize; Similarly, formats in educational details
+
+Educational details on profile page improve, no proper checks -- do it for educational details atleast
+
+Once we move to the next page, the file gets removed from that page [ Although we have it in the array ]    

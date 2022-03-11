@@ -6,11 +6,13 @@ import CommunicationDetails from './CommunicatonDetails'
 import EducationalDetails from './EducationalDetails'
 import DashboardNavBar from './DashboardNavBar'
 import { useState, useEffect } from 'react'
-import axios from "axios";
-import { getToken } from "../SignIn_SignUp/Sessions";
+import axios from "axios"
+import { getToken } from "../SignIn_SignUp/Sessions"
+import { useNavigate } from "react-router-dom"
 
 
 export default function Profile (props) {
+  const navigate = useNavigate();
     
     var degrees = [
         { degree: '10th', board_uni: 'CBSE', per_cgpa: '85.5', yop: '2015', att: '10th_certificate.pdf' },
@@ -18,15 +20,22 @@ export default function Profile (props) {
         { degree: 'B-Tech', board_uni: 'IIT Ropar', per_cgpa: '7.67', yop: '2021', att: 'graduation_certificate.pdf' }
     ]
 
-    const [personalInfo, setpersonalInfo] = useState(0);
+    const [profileInfo, setProfileInfo] = useState(0);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/get-personal-info", {
+        axios.get("http://localhost:8080/get-profile-info", {
             headers: {
                 Authorization: getToken()
             }
         })
-        .then(res => setpersonalInfo(res.data))
+        .then(response => {
+            if(response.data === 1) {
+              navigate("/logout");
+            }
+            else {
+                setProfileInfo(response.data)
+            }
+          })
         .catch(err => console.log(err));
     });
 
@@ -38,7 +47,7 @@ export default function Profile (props) {
         <div className='flex'>
             <div className='flex-2 my-20 mx-20'>
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}
-                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={personalInfo.profile_image_url} alt="Your Profile Image"/>
+                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : '#'} alt="Your Profile Image"/>
             </div>
             <div className="mr-20 my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
@@ -57,36 +66,36 @@ export default function Profile (props) {
                     <dl>
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Full name</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.full_name}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.full_name ? profileInfo.full_name : 'Your Full Name'}</dd>
                         </div>
                         <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Father's Name</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.fathers_name}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.fathers_name ? profileInfo.fathers_name : 'Your Father\'s Name'}</dd>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Date of Birth</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.date_of_birth}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.date_of_birth ? profileInfo.date_of_birth : 'Your Date of Birth'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Gender</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.gender}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.gender ? profileInfo.gender : 'Your Gender'}</dd>
                         </div>  
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Nationality</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.nationality}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.nationality ? profileInfo.nationality : 'Your Nationality'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Category</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.category}</dd>   
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.category ? profileInfo.category : 'Your Category'}</dd>   
                         </div>
                         <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Aadhaar Card Number</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.aadhar_card_number}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.aadhar_card_number ? profileInfo.aadhar_card_number : 'Your Aadhar Card Number'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Marital Status</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.marital_status}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.marital_status ? profileInfo.marital_status : 'Your Marital Status'}</dd>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Belongs to PWD</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{personalInfo.is_pwd}</dd>    
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.is_pwd ? profileInfo.is_pwd : 'Your PWD Status'}</dd>    
                         </div>
                     </dl>
                 </div>
@@ -104,42 +113,42 @@ export default function Profile (props) {
                     <dl>
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Address for communication</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">438-Avenue, Silicon Valley, California</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.communication_address ? profileInfo.communication_address : 'Your Communication Address'}</dd>
     
                             <dt className="text-sm font-medium text-gray-500">City</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Silicon Valley</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.communication_city ? profileInfo.communication_city : 'Your City'}</dd>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">State</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">California</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.communication_state ? profileInfo.communication_state : 'Your State'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">PIN Code</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">400709</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.communication_pincode ? profileInfo.communication_pincode : 'Your Pincode'}</dd>
                         </div>  
                     </dl>
                     <dl className="my-2 border-t border-gray-200">
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Permanent Address</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Jiwaji Nagar, Thatipur, Gwalior</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.permanent_address ? profileInfo.permanent_address : 'Your Permanent Address'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">City</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Gwalior</dd>   
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.permanent_city ? profileInfo.permanent_city : 'Your City'}</dd>   
                         </div>
                         <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">State</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Madhya Pradesh</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.permanent_state ? profileInfo.permanent_state : 'Your State'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">PIN Code</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">474011</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.permanent_pincode ? profileInfo.permanent_pincode : 'Your Pincode'}</dd>
                         </div>
                     </dl>
                     <dl className="my-2 border-t border-gray-200">
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Email</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">tomcook@gmail.com</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.email_id ? profileInfo.email_id : 'Your Email ID'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Mobile Number</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">9162783914</dd>    
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.mobile_number ? profileInfo.mobile_number : 'Your Mobile Number'}</dd>    
                         </div>
                     </dl>
                 </div>
@@ -192,7 +201,6 @@ export default function Profile (props) {
                 </div>
             </div>
         </div>
-        
         </>
     )
 }

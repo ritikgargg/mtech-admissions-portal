@@ -46,7 +46,6 @@ CREATE TABLE applicants (
     permanent_state TEXT,
     permanent_pincode TEXT,
 
-    email TEXT,
     mobile_number TEXT,
     alternate_mobile_number TEXT,
 
@@ -65,15 +64,12 @@ CREATE TABLE applicants (
     percentage_cgpa_value_12th TEXT,
     year_of_passing_12th TEXT,
     remarks_12th TEXT,
-    marksheet_12th_url TEXT
+    marksheet_12th_url TEXT,
 
-    -- degree_1 TEXT,
-    -- board_1 TEXT,
-    -- percentage_cgpa_format_1 TEXT,
-    -- percentage_cgpa_value_1 TEXT,
-    -- year_of_passing_1 TEXT,
-    -- remarks_10th TEXT
-    -- marksheet_degree1_url
+    degress TEXT[][],
+
+    other_remarks TEXT,
+    is_last_degree_completed TEXT
 );
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()

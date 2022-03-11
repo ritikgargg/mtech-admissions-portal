@@ -16,49 +16,77 @@ const applicantBucket = gc.bucket("applicant-iit-ropar");
 
 /**
  * Update/save applicant communcation info
- * ALERT: DO NOT CHANGE EMAIL
  */
 const save_communication_details = async (req, res) => {
-  hash = req.headers.authorization;
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  
+  var verified = null
 
-  const result = await pool.query("select * from applicants where email_hash = $1", [hash]);
+  try {
+      verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+    
+  if(!verified) {
+      return res.send("1"); /** Error, logout on user side */
+  }
 
-  if(result.rowCount === 0) return res.send("1"); /** Error, logout on user side */
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail
 
   info = req.body;
 
   await pool.query("UPDATE applicants SET communication_address = $1, communication_city = $2, communication_state = $3, \
                     communication_pincode = $4, permanent_address = $5, permanent_city = $6, permanent_state = $7, \
-                    permanent_pincode = $8, mobile_number = $9, alternate_mobile_number = $10 WHERE email_hash = $11;", 
+                    permanent_pincode = $8, mobile_number = $9, alternate_mobile_number = $10 WHERE email_id = $11;", 
                     [info.communication_address, info.communication_city, info.communication_state, info.communication_pincode, 
                     info.permanent_address, info.permanent_city, info.permanent_state, info.permanent_pincode, 
-                    info.mobile_number, info.alternate_mobile_number, hash]);
+                    info.mobile_number, info.alternate_mobile_number, email]);
   
-  return res.send(info) /** Confirm, rerender */
+  return res.status(200).send("Ok")
 }
 
 /**
  * Update/save applicant education details
- * ALERT: NOT CORRECT
- * TODO: Chenge since there are multiple education details possible
  */
 const save_education_details = async (req, res) => {
-  hash = req.headers.authorization;
-
-  const result = await pool.query("select * from applicants where email_hash = $1", [hash]);
-
-  if(result.rowCount === 0) return res.send("1"); /** Error, logout on user side */
-
-  info = req.body;
-
-  await pool.query("UPDATE applicants SET communication_address = $1, communication_city = $2, communication_state = $3, \
-                    communication_pincode = $4, permanent_address = $5, permanent_city = $6, permanent_state = $7, \
-                    permanent_pincode = $8, mobile_number = $9, alternate_mobile_number = $10 WHERE email_hash = $11;", 
-                    [info.communication_address, info.communication_city, info.communication_state, info.communication_pincode, 
-                    info.permanent_address, info.permanent_city, info.permanent_state, info.permanent_pincode, 
-                    info.mobile_number, info.alternate_mobile_number, hash]);
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
   
-  return res.send(info) /** Confirm, rerender */
+  var verified = null
+
+  try {
+      verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+    
+  if(!verified) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail
+
+  console.log(req.body)
+  console.log(req.files)
+
+  // await pool.query("UPDATE applicants SET communication_address = $1, communication_city = $2, communication_state = $3, \
+  //                   communication_pincode = $4, permanent_address = $5, permanent_city = $6, permanent_state = $7, \
+  //                   permanent_pincode = $8, mobile_number = $9, alternate_mobile_number = $10 WHERE email_id = $11;", 
+  //                   [info.communication_address, info.communication_city, info.communication_state, info.communication_pincode, 
+  //                   info.permanent_address, info.permanent_city, info.permanent_state, info.permanent_pincode, 
+  //                   info.mobile_number, info.alternate_mobile_number, email]);
+  
+  return res.status(200).send("Ok")
 }
 
 /**
@@ -70,8 +98,15 @@ const save_personal_info = async (req, res) => {
    */
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
-  const verified = jwt.verify(authToken, jwtSecretKey);
-      
+  
+  var verified = null
+
+  try {
+      verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+     
   if(!verified) {
       return res.send("1"); /** Error, logout on user side */
   }
@@ -133,23 +168,64 @@ const save_personal_info = async (req, res) => {
 
   blobStream.end(req.files.profile_image[0].buffer);
 
-  res.status(200)
+  return res.status(200).send("Ok") /** Confirm, rerender */
 }
 
 /**
- * Get applicant personal info
+ * Get applicant profile info
  */
-const get_personal_info = async (req, res) => {
+const get_profile_info = async (req, res) => {
   /**
    * Verify using authToken
    */
    authToken = req.headers.authorization;
    let jwtSecretKey = process.env.JWT_SECRET_KEY;
-   const verified = jwt.verify(authToken, jwtSecretKey);
-       
-   if(!verified) {
-       return res.send("1"); /** Error, logout on user side */
-   }
+
+   var verified = null
+
+    try {
+        verified = jwt.verify(authToken, jwtSecretKey);
+    } catch (error) {
+        return res.send("1"); /** Error, logout on user side */
+    }
+      
+    if(!verified) {
+        return res.send("1"); /** Error, logout on user side */
+    }
+ 
+   /** Get email */
+   var email = jwt.decode(authToken).userEmail
+
+   const results = await pool.query("SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
+                              category, is_pwd, marital_status, nationality, gender, communication_address, communication_city, \
+                              communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
+                              permanent_pincode, mobile_number, email_id from applicants \
+                              WHERE email_id = $1;", [email]);
+    
+    return res.send(results.rows[0]);
+}
+
+/**
+ * Get applicant personal info
+ */
+ const get_personal_info = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+   authToken = req.headers.authorization;
+   let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+   var verified = null
+
+    try {
+        verified = jwt.verify(authToken, jwtSecretKey);
+    } catch (error) {
+        return res.send("1"); /** Error, logout on user side */
+    }
+      
+    if(!verified) {
+        return res.send("1"); /** Error, logout on user side */
+    }
  
    /** Get email */
    var email = jwt.decode(authToken).userEmail
@@ -162,14 +238,14 @@ const get_personal_info = async (req, res) => {
 }
 
 const temp = async (req, res) => {
-  info = req.body;
-  console.log(info.lemao);
+  console.log(req.body)
 }
 
 module.exports = {
     save_personal_info,
     save_communication_details,
     save_education_details,
+    get_profile_info,
     get_personal_info,
     temp
 }

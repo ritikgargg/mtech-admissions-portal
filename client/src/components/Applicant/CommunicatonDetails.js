@@ -1,13 +1,16 @@
 import React from "react";
 import {useForm} from "react-hook-form";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 
 //TODO:: Confirm Email
-function CommunicationDetails(props) {
+function CommunicationDetails() {
+  const navigate = useNavigate();
+
   const {register, handleSubmit, errors} = useForm();
   const onSubmit = (data) => {
-    const formData = new FormData();
+  const formData = new FormData();
     
     formData.append("communication_address", data.communication_address);
     formData.append("communication_city", data.communication_city)
@@ -17,16 +20,22 @@ function CommunicationDetails(props) {
     formData.append("permanent_city", data.permanent_city);
     formData.append("permanent_state", data.permanent_state);
     formData.append("permanent_pincode", data.permanent_pincode);
-    formData.append("email", data.email)
     formData.append("mobile_number", data.mobile_number)
     formData.append("alternate_mobile_number", data.alternate_mobile_number)
 
-    Axios.post("http://localhost:8080/save-personal-info", formData, {
+    Axios.post("http://localhost:8080/save-communication-details", formData, {
       headers: {
         Authorization: getToken()
       }
     })
-      .then(res => console.log(res))
+      .then(response => {
+        if(response.data === 1) {
+          navigate("/logout");
+        }
+        else {
+          window.location.reload();
+        }
+      })
       .catch(err => console.log(err));
   }
   
@@ -129,6 +138,9 @@ function CommunicationDetails(props) {
                       </label>
                       <input
                         type="text"
+                        minLength={6}
+                        maxLength={6}
+                        pattern="[1-9]{1}[0-9]{5}"
                         id="communication_pincode"
                         {...register("communication_pincode")}
                         required
@@ -205,6 +217,9 @@ function CommunicationDetails(props) {
                       </label>
                       <input
                         type="text"
+                        minLength={6}
+                        maxLength={6}
+                        pattern="[1-9]{1}[0-9]{5}"
                         required
                         id="permanent_pincode"
                         {...register("permanent_pincode")}
@@ -214,7 +229,7 @@ function CommunicationDetails(props) {
                   </div>
 
                   <div className="mt-8 outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
-                    <div className="col-span-6 sm:col-span-3">
+                    {/* <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="email"
                         className="block text-sm font-medium text-gray-700"
@@ -246,7 +261,7 @@ function CommunicationDetails(props) {
                         {...register("confirm_email")}
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
-                    </div>
+                    </div> */}
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -257,7 +272,10 @@ function CommunicationDetails(props) {
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
                       <input
-                        type="number"
+                        type="text"
+                        minLength={10}
+                        maxLength={10}
+                        pattern="[1-9]{1}[0-9]{9}"
                         required
                         {...register("mobile_number")}
                         id="mobile_number"
@@ -273,7 +291,10 @@ function CommunicationDetails(props) {
                         Alternate Mobile Number{" "}
                       </label>
                       <input
-                        type="number"
+                        type="text"
+                        minLength={10}
+                        maxLength={10}
+                        pattern="[1-9]{1}[0-9]{9}"
                         {...register("alternate_mobile_number")}
                         id="alternate_mobile_number"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -281,6 +302,10 @@ function CommunicationDetails(props) {
                     </div>
                   </div>
                  </div>                  
+                </div>
+                <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
+                  <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                  <button data-modal-toggle="communicationDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
                 </div>
             </form>
           </div>
@@ -290,8 +315,8 @@ function CommunicationDetails(props) {
     </div>
     {/* Modal footer */}
     <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-              <button data-modal-toggle="communicationDetailsModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-              <button data-modal-toggle="communicationDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
+              {/* <button data-modal-toggle="communicationDetailsModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+              <button data-modal-toggle="communicationDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button> */}
             </div>
           </div>
         </div>

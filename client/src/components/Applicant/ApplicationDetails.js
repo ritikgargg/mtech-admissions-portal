@@ -1,16 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ChevronDots from "./ChevronDots.js";
 import QualifyingExamDetails from "./QualifyingExamDetails";
 import Declaration from "./Declaration";
 import ApplicationFeeDetails from "./ApplicationFeeDetails";
 import Review from './Review.js';
 
-
-
 function ApplicantionDetails() {
   const [page, setPage] = useState(1);
+  // const ref = useRef();
+  const [applicant_details, setApplicantDetails] = useState(Array.from({length: 21},()=>''));
+
+  function handleApplicantDetailsChange(e, index){
+    let copy = [...applicant_details];
+    copy[index] = e.target.value;
+    setApplicantDetails(copy);
+  }
+
+  const handleFileSubmit = (e, maxSize, index) => {
+    const file = e.target.files[0];
+    // ref.current = file;
+    if (file.size > maxSize*1000000){
+        e.target.value = null;
+        const error = "File size cannot exceed more than " + maxSize.toString() + "MB";
+        alert(error);
+    }
+    else {
+      let copy = [...applicant_details];
+      copy[index] = file;
+      setApplicantDetails(copy);
+    }
+  }
 
   function increasePageNumber(){
+    console.log(applicant_details);
     setPage(page + 1);
   }
 
@@ -49,10 +71,10 @@ function ApplicantionDetails() {
 
       {
         {
-          1 : <ApplicationFeeDetails increasePageNumber = {increasePageNumber} />,                
-          2 : <QualifyingExamDetails increasePageNumber = {increasePageNumber} decreasePageNumber={decreasePageNumber}/>,          
-          3 : <Declaration increasePageNumber = {increasePageNumber} decreasePageNumber={decreasePageNumber}/>,
-          4 : <Review decreasePageNumber={decreasePageNumber}/>,                    
+          1 : <ApplicationFeeDetails increasePageNumber = {increasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,                
+          2 : <QualifyingExamDetails increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,          
+          3 : <Declaration increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,
+          4 : <Review decreasePageNumber={decreasePageNumber} details={applicant_details}/>,                    
         }[page]
       }
     </div>

@@ -44,6 +44,8 @@ of the Institute, which shall be final.
                             type="text"
                             name="amount"
                             id="amount"
+                            value={props.details[16]}
+                            onChange={e => props.onChange(e, 16)}
                             autoComplete="amount"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
@@ -59,11 +61,16 @@ of the Institute, which shall be final.
                           </label>
                           <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help"
-                            id="user_avatar"
+                            aria-describedby="profile-picture-desc"
+                            id="transaction_flip"
+                            name="transaction_slip"
                             type="file"
-                            accept=".gif,.jpg,.jpeg,.png"
-                          />
+                            // value={props.details[4].name}
+                            // ref={props.ref}
+                            required
+                            accept=".pdf, .jpeg, .jpg"
+                            onChange={(e) => props.handleFileSubmit(e, 2, 17)}
+                            />
                           <div
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
@@ -83,6 +90,8 @@ of the Institute, which shall be final.
                             type="text"
                             name="amount"
                             id="amount"
+                            value={props.details[18]}
+                            onChange={e => props.onChange(e, 18)}
                             autoComplete="amount"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
@@ -96,7 +105,12 @@ of the Institute, which shall be final.
                         Date
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
-                      <DatePicker />
+                      <input
+                            type="date"
+                            value={props.details[19]}
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            onChange={e=>props.onChange(e, 19)}
+                          />
                     </div>                        
                       </div>
 

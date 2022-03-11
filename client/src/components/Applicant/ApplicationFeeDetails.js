@@ -1,7 +1,7 @@
-import React from 'react';
-import DatePicker from "./DatePicker";
+import React from "react";
 
 function ApplicationFeeDetails(props){
+
     return (
         <div>
           <div className="px-6 py-6 mx-20 my-20 bg-[#f3f4f6] rounded-2xl">
@@ -33,6 +33,8 @@ function ApplicationFeeDetails(props){
                             id="category"
                             name="category"
                             autoComplete="category"
+                            value={props.details[0]}
+                            onChange={(event) => props.onChange(event,0)}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option>- Select -</option>
@@ -55,6 +57,8 @@ function ApplicationFeeDetails(props){
                             type="number"
                             name="amount"
                             id="amount"
+                            defaultValue={props.details[1]}
+                            onChange={(event) => props.onChange(event,1)}
                             autoComplete="amount"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
@@ -72,6 +76,8 @@ function ApplicationFeeDetails(props){
                             type="number"
                             name="last-name"
                             id="last-name"
+                            defaultValue={props.details[2]}
+                            onChange={(event) => props.onChange(event,2)}
                             autoComplete="family-name"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
@@ -89,7 +95,9 @@ function ApplicationFeeDetails(props){
                             type="text"
                             name="aadhar-number"
                             id="aadhar-number"
+                            value={props.details[3]}
                             autoComplete="aadhar"
+                            onChange={(event) => props.onChange(event,3)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -97,16 +105,29 @@ function ApplicationFeeDetails(props){
                         <div className="col-span-6 sm:col-span-3">
                           <label
                             className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                            htmlFor="user_avatar"
+                            htmlFor="transaction_slip"
                           >
                             Transaction Slip<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            aria-describedby="profile-picture-desc"
+                            id="transaction_flip"
+                            name="transaction_slip"
+                            type="file"
+                            // value={props.details[4].name}
+                            // ref={props.ref}
+                            required
+                            accept=".pdf, .jpeg, .jpg"
+                            onChange={(e) => props.handleFileSubmit(e, 2, 4)}
+                            />
+                          {/* <input
+                            className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help"
                             id="user_avatar"
+                            
                             type="file"
-                          />
+                          /> */}
                           <div
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
@@ -129,7 +150,12 @@ function ApplicationFeeDetails(props){
                             Date of Transaction
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
-                          <DatePicker />
+                          <input
+                            type="date"
+                            value={props.details[5]}
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            onChange={e=>props.onChange(e, 5)}
+                          />
                         </div>
 
                                                     

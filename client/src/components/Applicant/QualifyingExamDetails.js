@@ -36,6 +36,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                           <select
                             id="category"
                             name="category"
+                            value={props.details[6]}
+                            onChange={e => props.onChange(e, 6)}
                             autoComplete="category"
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
@@ -54,9 +56,13 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             id="category"
                             name="category"
                             autoComplete="category"
+                            value={props.details[7]}
+                            onChange={e => props.onChange(e, 7)}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option>- Select -</option>
+                            <option>CS</option>
+                            <option>EE</option>
                           </select>
                         </div>
                         
@@ -72,6 +78,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             name="amount"
                             id="amount"
                             autoComplete="amount"
+                            value={props.details[8]}
+                            onChange={(event) => props.onChange(event,8)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -88,6 +96,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             type="number"
                             name="last-name"
                             id="last-name"
+                            value={props.details[9]}
+                            onChange={(event) => props.onChange(event,9)}
                             autoComplete="family-name"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
@@ -106,6 +116,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             name="amount"
                             id="amount"
                             autoComplete="amount"
+                            value={props.details[10]}
+                            onChange={(event) => props.onChange(event,10)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -123,6 +135,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             name="last-name"
                             id="last-name"
                             autoComplete="family-name"
+                            value={props.details[11]}
+                            onChange={(event) => props.onChange(event,11)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div> 
@@ -140,6 +154,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             name="amount"
                             id="amount"
                             autoComplete="amount"
+                            value={props.details[12]}
+                            onChange={(event) => props.onChange(event,12)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -157,6 +173,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             name="last-name"
                             id="last-name"
                             autoComplete="family-name"
+                            value = {props.details[13]}
+                            onChange={(event) => props.onChange(event,13)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div> 
@@ -168,12 +186,24 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                           >
                             Self Attested copies of GATE as mentioned in the form<span style={{ color: "#ff0000" }}> *</span>
                           </label>
-                          <input
+                          {/* <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="user_avatar_help"
                             id="user_avatar"
                             type="file"
-                          />
+                          /> */}
+                          <input
+                            className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            aria-describedby="profile-picture-desc"
+                            id="transaction_flip"
+                            name="transaction_slip"
+                            type="file"
+                            // value={props.details[4].name}
+                            // ref={props.ref}
+                            required
+                            accept=".pdf, .jpeg, .jpg"
+                            onChange={(e) => props.handleFileSubmit(e, 2, 14)}
+                            />
                           <div
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
@@ -201,6 +231,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                           id="AddressForCommunication"
                           name="AddressForCommunication"
                           rows={4}
+                          value={props.details[15]}
+                          onChange={(event) => props.onChange(event,15)}
                           className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                           defaultValue={""}
                         />

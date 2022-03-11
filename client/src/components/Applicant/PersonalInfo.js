@@ -4,15 +4,21 @@ import { CountryDropdown } from "react-country-region-selector";
 import { useForm } from "react-hook-form";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
+import { useNavigate } from "react-router-dom"
+import { useEffect } from 'react'
+import axios from "axios";
 
 function PersonalInfo() {
+  const navigate = useNavigate();
+  const [personalInfo, setPersonalInfo] = useState(0);
+
   const [nationality, setNationality] = useState("");
   const [dateOfBirth,setDateOfBirth] = useState("");
   const [profile_image, setProfileImage] = useState(null);
   const [categoryCertificate, setCategoryCertificate] = useState(null);
   const {register, handleSubmit, errors} = useForm();
 
-  const date_of_birth = "27-01-2000";
+  const [date_of_birth, updateDateOfBirth] = useState(new Date());
   
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -34,7 +40,14 @@ function PersonalInfo() {
         Authorization: getToken()
       }
     })
-      .then(window.location.reload())
+      .then(response => {
+        if(response.data === 1) {
+          navigate("/logout");
+        }
+        else {
+          window.location.reload();
+        }
+      })
       .catch(err => console.log(err));
   }
 
@@ -49,6 +62,27 @@ function PersonalInfo() {
         setVariable(file);
     }
   }
+
+  const handleDateChange = (value) => {
+    updateDateOfBirth(value);
+  };
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/get-personal-info", {
+        headers: {
+            Authorization: getToken()
+        }
+    })
+    .then(response => {
+        if(response.data === 1) {
+          navigate("/logout");
+        }
+        else {
+            setPersonalInfo(response.data)
+        }
+      })
+    .catch(err => console.log(err));
+  });
 
   return (
     <div id="personalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
@@ -104,7 +138,6 @@ function PersonalInfo() {
                                 autoComplete="Name"
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                              
                               />
                             </div>
 
@@ -162,11 +195,8 @@ function PersonalInfo() {
                                 Date of Birth
                                 <span style={{ color: "#ff0000" }}> *</span>
                               </label>
-                              <DatePicker 
-                                value={dateOfBirth}
-                                onChange={(val) => {
-                                  console.log(val);
-                                  setDateOfBirth(val)}}/>
+                              <DatePicker
+                                onChange={handleDateChange}/>
                             </div>
 
 

@@ -24,7 +24,7 @@ const FileUploader = ({onFileSelectSuccess,required, onFileSelectError, classNam
     
             onFileSelectError({ error: "File size cannot exceed more than " + maxSize.toString() + "MB" });
         }
-        else if(file.size <= maxSize) {
+        else if(file.size <= maxSize*1000000) {
             onFileSelectSuccess(file);
         }
     }
