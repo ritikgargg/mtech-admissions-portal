@@ -17,3 +17,5 @@ Date picker sahi karna hai ( new datpicker + fetch value )
 contact us
 
 Note: Changed access control on the gcp for image loading on the profile page
+
+Update Profile alert needs to be connected

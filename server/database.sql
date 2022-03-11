@@ -75,6 +75,9 @@ CREATE TABLE applicants (
     -- year_of_passing_1 TEXT,
     -- remarks_10th TEXT
     -- marksheet_degree1_url
+
+    other_remarks TEXT,
+    is_last_degree_completed TEXT
 );
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()

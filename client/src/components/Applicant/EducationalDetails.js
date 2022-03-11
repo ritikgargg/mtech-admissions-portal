@@ -28,6 +28,23 @@ function EducationalDetails(props) {
     
     formData.append("degrees", degrees);
 
+    formData.append("degree_10th", data.degree_10th);
+    formData.append("board_10th", data.board_10th);
+    formData.append("percentage_cgpa_format_10th", data.percentage_cgpa_format_10th);
+    formData.append("percentage_cgpa_value_10th", data.percentage_cgpa_value_10th);
+    formData.append("year_of_passing_10th", data.year_of_passing_10th);
+    formData.append("remarks_10th", data.remarks_10th);
+
+    formData.append("degree_12th", data.degree_10th);
+    formData.append("board_12th", data.board_10th);
+    formData.append("percentage_cgpa_format_12th", data.percentage_cgpa_format_10th);
+    formData.append("percentage_cgpa_value_12th", data.percentage_cgpa_value_10th);
+    formData.append("year_of_passing_12th", data.year_of_passing_10th);
+    formData.append("remarks_12th", data.remarks_10th);
+
+    formData.append("other_remarks", data.other_remarks);
+    formData.append("is_last_degree_completed", data.is_last_degree_completed);
+
     Axios.post("http://localhost:8080/temp", formData, {
       headers: {
         Authorization: getToken()
@@ -411,15 +428,16 @@ function EducationalDetails(props) {
                       <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                       <div className="col-span-full sm:col-span-full">
                       <label
-                        htmlFor="about"
+                        htmlFor="other_remarks"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Any other educational highlights/information
                       </label>
                       <div className="mt-1">
                         <textarea
-                          id="AddressForCommunication"
-                          name="AddressForCommunication"
+                          id="other_remarks"
+                          
+                          {...register("other_remarks")}
                           rows={3}
                           className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                           defaultValue={""}
@@ -433,15 +451,15 @@ function EducationalDetails(props) {
                         
                         <div className="col-span-full sm:col-span-full">
                           <label
-                            htmlFor="category"
+                            htmlFor="is_last_degree_completed"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Whether you have completed your last degree: <span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <select
-                            id="category"
-                            name="category"
-                            autoComplete="category"
+                            id="is_last_degree_completed"
+                            required
+                            {...register("is_last_degree_completed")}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option>- Select -</option>

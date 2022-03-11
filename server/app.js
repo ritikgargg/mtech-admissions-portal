@@ -34,7 +34,7 @@ app.post('/save-education-details', applicantdB.save_education_details);
 
 app.get('/get-personal-info', applicantdB.get_personal_info)
 
-app.post('/temp', upload.fields([{name:"profile_image", maxCount : 1}, {name:"category_certificate", maxCount : 1}]), applicantdB.temp);
+app.post('/temp', upload.fields([]), applicantdB.temp);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
