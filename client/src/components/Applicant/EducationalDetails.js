@@ -26,7 +26,7 @@ function EducationalDetails(props) {
   const onSubmit = (data) => {
     const formData = new FormData();
     
-    formData.append("lemao", lemao);
+    formData.append("degrees", degrees);
 
     Axios.post("http://localhost:8080/temp", formData, {
       headers: {
