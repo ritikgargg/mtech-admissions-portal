@@ -76,7 +76,7 @@ function EducationalDetails() {
           navigate("/logout");
         }
         else {
-          // window.location.reload();
+          window.location.reload();
         }
       })
       .catch(err => console.log(err));

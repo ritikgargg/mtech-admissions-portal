@@ -69,7 +69,7 @@ function ApplicationFeeDetails(props){
                             htmlFor="transaction_id"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Trasaction ID
+                            Transaction ID
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input

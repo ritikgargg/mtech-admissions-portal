@@ -50,9 +50,17 @@ app.post('/save-education-details',
           {name:"upload_degree4", maxCount : 1}]),          
           applicantdB.save_education_details);
 
-app.get('/get-profile-info', applicantdB.get_profile_info)
+app.get('/get-profile-info', applicantdB.get_profile_info);
 
-app.get('/get-personal-info', applicantdB.get_personal_info)
+app.get('/get-personal-info', applicantdB.get_personal_info);
+
+app.post('/save-application-info',
+          upload.fields([
+            {name:"transaction_slip", maxCount : 1},
+            {name:"self_attested_copies", maxCount : 1},
+            {name:"signature", maxCount : 1}
+          ]), 
+          applicantdB.save_application_info);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`)

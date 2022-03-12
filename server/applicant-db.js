@@ -41,7 +41,7 @@ const save_communication_details = async (req, res) => {
   /** Get email */
   var email = jwt.decode(authToken).userEmail
 
-  info = req.body;
+  var info = req.body;
 
   await pool.query("UPDATE applicants SET communication_address = $1, communication_city = $2, communication_state = $3, \
                     communication_pincode = $4, permanent_address = $5, permanent_city = $6, permanent_state = $7, \
@@ -94,7 +94,7 @@ const save_education_details = async (req, res) => {
   let promises = []
   let vals = Object.values(req.files)
 
-  for(let f of vals){
+  for(let f of vals) {
     const gcsname = f[0].originalname + '_' + Date.now()
     const file = applicantBucket.file(gcsname)
 
@@ -173,59 +173,57 @@ const save_personal_info = async (req, res) => {
   /** Get email */
   var email = jwt.decode(authToken).userEmail
 
-  info = req.body;
+  var info = req.body
 
-  let profile_image_url, category_certificate_url;
-  const blob = applicantBucket.file(req.files.profile_image[0].originalname);
-  const blobStream = blob.createWriteStream();
-  
-  blobStream.on('error', err => {
-    next(err);
-  });
-
-  blobStream.on('finish', async () => {
-    // The public URL can be used to directly access the file via HTTP.
-    profile_image_url = format(
-      `https://storage.googleapis.com/${applicantBucket.name}/${blob.name}`
-    );
-    try {
-      await applicantBucket.file(req.files.profile_image[0].originalname).makePublic();
-    }
-    catch(err) {
-      console.log(err)
-    }
-    console.log(profile_image_url);
-    
-    if("category_certificate" in req.files){
-      const blob2 = applicantBucket.file(req.files.category_certificate[0].originalname);
-      const blobStream2 = blob2.createWriteStream();
-  
-      blobStream2.on('error', err => {
-        next(err);
-      });
-  
-      blobStream2.on('finish', async () => {
-        // The public URL can be used to directly access the file via HTTP.
-        category_certificate_url = format(
-          `https://storage.googleapis.com/${applicantBucket.name}/${blob2.name}`
-          );
-        console.log(category_certificate_url);
-
-        await pool.query("UPDATE applicants SET category_certificate_url = $1 WHERE email_id = $2;", 
-                  [category_certificate_url, email]);
-      });
-
-      blobStream2.end(req.files.category_certificate[0].buffer);
-    }
-
-    await pool.query("UPDATE applicants SET full_name = $1, fathers_name = $2, profile_image_url = $3, \
-                  date_of_birth = $4, aadhar_card_number = $5, category = $6, is_pwd = $7, marital_status = $8, \
-                  nationality = $9, gender = $10 WHERE email_id = $11;", 
-                  [info.full_name, info.fathers_name, profile_image_url, info.date_of_birth, info.aadhar_card_number, 
+  await pool.query("UPDATE applicants SET full_name = $1, fathers_name = $2, \
+                  date_of_birth = $3, aadhar_card_number = $4, category = $5, is_pwd = $6, marital_status = $7, \
+                  nationality = $8, gender = $9 WHERE email_id = $10;", 
+                  [info.full_name, info.fathers_name, info.date_of_birth, info.aadhar_card_number, 
                   info.category, info.is_pwd, info.marital_status, info.nationality, info.gender, email]);
-  });
 
-  blobStream.end(req.files.profile_image[0].buffer);
+  let promises = []
+  let vals = Object.values(req.files)
+
+  for(let f of vals) {
+    const gcsname = f[0].originalname + '_' + Date.now()
+    const file = applicantBucket.file(gcsname)
+
+    const stream = file.createWriteStream({
+      metadata: {
+        contentType: f[0].mimetype
+      },
+      resumable: false
+    })
+
+    stream.on('error', (err) => {
+      f[0].cloudStorageError = err
+      next(err)
+    })
+
+    stream.end(f[0].buffer)
+
+    promises.push(
+      new Promise ((resolve, reject) => {
+        stream.on('finish', async () => {
+          url = format(`https://storage.googleapis.com/${applicantBucket.name}/${file.name}`);
+          
+          if(f[0].fieldname === 'category_certificate') {
+            await pool.query("UPDATE applicants SET category_certificate_url = $1 WHERE email_id = $2", [url, email])
+          }
+          else {
+            await pool.query("UPDATE applicants SET profile_image_url = $1 WHERE email_id = $2", [url, email])
+          }
+
+          f[0].cloudStorageObject = gcsname;
+          file.makePublic().then(() => {
+            resolve()
+          })
+        })
+      })
+    )
+  }
+
+  Promise.all(promises)
 
   return res.status(200).send("Ok") /** Confirm, rerender */
 }
@@ -258,7 +256,9 @@ const get_profile_info = async (req, res) => {
    const results = await pool.query("SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
                               category, is_pwd, marital_status, nationality, gender, communication_address, communication_city, \
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
-                              permanent_pincode, mobile_number, email_id from applicants \
+                              permanent_pincode, mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_value_10th, \
+                              year_of_passing_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_value_12th, \
+                              year_of_passing_12th, marksheet_12th_url, degrees from applicants \
                               WHERE email_id = $1;", [email]);
     
     return res.send(results.rows[0]);
@@ -296,10 +296,20 @@ const get_profile_info = async (req, res) => {
     return res.send(results.rows[0]);
 }
 
+
+const save_application_info = async (req, res) => {
+  const info = req.body;
+  // const applicant_details = JSON.parse(info.applicant_details);
+  // console.log(applicant_details);
+  console.log(req.files);
+}
+
+
 module.exports = {
     save_personal_info,
     save_communication_details,
     save_education_details,
     get_profile_info,
-    get_personal_info
+    get_personal_info,
+    save_application_info
 }

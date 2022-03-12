@@ -4,9 +4,15 @@ import QualifyingExamDetails from "./QualifyingExamDetails";
 import Declaration from "./Declaration";
 import ApplicationFeeDetails from "./ApplicationFeeDetails";
 import Review from './Review.js';
+import Axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { getToken } from "../SignIn_SignUp/Sessions";
+import { useForm } from "react-hook-form";
 
 function ApplicantionDetails() {
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
+  const {register, handleSubmit, errors} = useForm();
   // const ref = useRef();
 
   const init_application_details = () => {
@@ -43,6 +49,33 @@ function ApplicantionDetails() {
       copy[index] = file;
       setApplicantDetails(copy);
     }
+  }
+
+  function handleApplicationSubmit () {
+    const formData = new FormData();
+
+    formData.append("applicant_details", JSON.stringify(applicant_details));
+    formData.append("transaction_slip", applicant_details[4]);
+    formData.append("self_attested_copies", applicant_details[14]);
+    formData.append("signature", applicant_details[17]);
+
+    console.log("submit ho rhaa hai");
+
+    Axios.post("http://localhost:8080/save-application-info", formData, {
+      headers: {
+        Authorization: getToken()
+      }
+    })
+      .then(response => {
+        if(response.data === 1) {
+          navigate("/logout");
+        }
+        else {
+          // window.location.reload();
+        }
+      })
+      .catch(err => console.log(err));
+
   }
 
   function increasePageNumber(){
@@ -88,7 +121,7 @@ function ApplicantionDetails() {
           1 : <ApplicationFeeDetails increasePageNumber = {increasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,                
           2 : <QualifyingExamDetails increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,          
           3 : <Declaration increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,
-          4 : <Review decreasePageNumber={decreasePageNumber} details={applicant_details}/>,                    
+          4 : <Review decreasePageNumber={decreasePageNumber} details={applicant_details} handleSubmit={handleSubmit} onSubmit={handleApplicationSubmit}/>,                    
         }[page]
       }
     </div>

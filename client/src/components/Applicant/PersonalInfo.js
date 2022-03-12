@@ -13,7 +13,6 @@ function PersonalInfo() {
   const [personalInfo, setPersonalInfo] = useState(0);
 
   const [nationality, setNationality] = useState("");
-  const [dateOfBirth,setDateOfBirth] = useState("");
   const [profile_image, setProfileImage] = useState(null);
   const [categoryCertificate, setCategoryCertificate] = useState(null);
   const {register, handleSubmit, errors} = useForm();
@@ -135,7 +134,6 @@ function PersonalInfo() {
                                 type="text"
                                 {...register("full_name")}
                                 id="name"
-                                autoComplete="Name"
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
@@ -153,8 +151,7 @@ function PersonalInfo() {
                               <input
                                 type="text"
                                 {...register("fathers_name")}
-                                id="father-name"
-                                autoComplete="father-name"
+                                id="father-name"  
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
@@ -213,10 +210,9 @@ function PersonalInfo() {
                                 type="text"
                                 {...register("aadhar_card_number")}
                                 id="aadhar-number"
-                                minLength={12}
-                                maxLength={12}
                                 pattern="[1-9]{1}[0-9]{11}"
-                                autoComplete="aadhar"
+                                title="12 digit number"
+                                required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
 
@@ -240,7 +236,6 @@ function PersonalInfo() {
                               <select
                                 id="category"
                                 {...register("category")}
-                                autoComplete="category"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
                                 <option>Select Category</option>
@@ -265,10 +260,9 @@ function PersonalInfo() {
                                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 aria-describedby="category-certificate-desc"
                                 id="category-certificate"
-                               
                                 type="file"
                                 accept=".jpeg, .jpg, .png"
-                               
+                                required
                                 onChange={(e) => handleFileSubmit(e, 2, setCategoryCertificate)}
                                 />
                               <div
@@ -298,7 +292,6 @@ function PersonalInfo() {
                               <select
                                 id="pwd-category"
                                 {...register("pwdCategory")}
-                                autoComplete="pwd-category"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
                                 <option>Select Choice</option>
@@ -318,7 +311,6 @@ function PersonalInfo() {
                               <select
                                 id="marital-status"
                                 {...register("marital_status")}
-                                autoComplete="marital-status"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
                                 <option>Select Status</option>
@@ -354,7 +346,6 @@ function PersonalInfo() {
                                 {...register("gender")}
                                 id="gender"
                                 name="gender"
-                                autoComplete="gender"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
                                 <option>Select Gender</option>

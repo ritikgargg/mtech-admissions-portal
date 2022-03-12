@@ -47,7 +47,7 @@ export default function Profile (props) {
         <div className='flex'>
             <div className='flex-2 my-20 mx-20'>
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}
-                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : '#'} alt="Your Profile Image"/>
+                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : '#'} alt="Your Profile Picture"/>
             </div>
             <div className="mr-20 my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
@@ -157,11 +157,79 @@ export default function Profile (props) {
 
         <div className='flex mx-20 my-10'>
             <div className="my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
-            <div className="flex space-x-3 px-4 py-5 sm:px-6">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Education Details</h3>
+                <div className="flex space-x-3 px-4 py-5 sm:px-6">
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">Education Details</h3>
 
-                    <button data-modal-toggle="educationalDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600"><PencilIcon/></button>
-                    <EducationalDetails/>
+                        <button data-modal-toggle="educationalDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600"><PencilIcon/></button>
+                        <EducationalDetails/>
+                </div>
+                <div className="border-t border-gray-300">
+                    <dl className="py-3 border-t border-gray-200">
+                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Degree</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.degree_10th ? profileInfo.degree_10th : 'Your 10th Degree'}</dd>
+    
+                            <dt className="text-sm font-medium text-gray-500">Board/University</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.board_10th ? profileInfo.board_10th : 'Your 10th Board'}</dd>
+                        </div>
+                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.percentage_cgpa_value_10th ? profileInfo.percentage_cgpa_value_10th : 'Your Percentage/CGPA in 10th'}</dd>
+
+                            <dt className="text-sm font-medium text-gray-500">Year of Passing</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.year_of_passing_10th ? profileInfo.year_of_passing_10th : 'Your Year of Passing of Class 10th'}</dd>
+                        </div>  
+                        <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Attachments</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <div className="pr-4 flex items-center justify-between text-sm">
+                                    <div className="w-0 flex-1 flex items-center">
+                                        <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                        <span className="ml-2 flex-1 w-0 truncate">10th_certificate.pdf</span>
+                                    </div>
+                                    <div className="ml-4 flex-shrink-0">
+                                        <a href={profileInfo.marksheet_10th_url ? profileInfo.marksheet_10th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        Download
+                                        </a>
+                                    </div>
+                                </div>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+                <div className="border-t border-gray-300">
+                    <dl className="py-3 border-t border-gray-200">
+                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Degree</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.degree_12th ? profileInfo.degree_12th : 'Your 12th Degree'}</dd>
+    
+                            <dt className="text-sm font-medium text-gray-500">Board/University</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.board_12th ? profileInfo.board_12th : 'Your 12th Board'}</dd>
+                        </div>
+                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.percentage_cgpa_value_12th ? profileInfo.percentage_cgpa_value_12th : 'Your Percentage/CGPA in 12th'}</dd>
+
+                            <dt className="text-sm font-medium text-gray-500">Year of Passing</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.year_of_passing_12th ? profileInfo.year_of_passing_12th : 'Your Year of Passing of Class 12th'}</dd>
+                        </div>  
+                        <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Attachments</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <div className="pr-4 flex items-center justify-between text-sm">
+                                    <div className="w-0 flex-1 flex items-center">
+                                        <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                        <span className="ml-2 flex-1 w-0 truncate">12th_certificate.pdf</span>
+                                    </div>
+                                    <div className="ml-4 flex-shrink-0">
+                                        <a href={profileInfo.marksheet_12th_url ? profileInfo.marksheet_12th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        Download
+                                        </a>
+                                    </div>
+                                </div>
+                            </dd>
+                        </div>
+                    </dl>
                 </div>
                 <div className="border-t border-gray-300">
                     {degrees.map((Degree) => (

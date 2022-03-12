@@ -67,6 +67,35 @@ CREATE TABLE applicants (
     is_last_degree_completed TEXT
 );
 
+CREATE TABLE applications(
+  application_id SERIAL PRIMARY KEY,
+  email_id TEXT,
+
+  category TEXT,
+  amount TEXT,
+  transaction_id TEXT,
+  bank TEXT,
+  transaction_slip_url TEXT,
+  date_of_transaction TEXT,
+  qualifying_examination TEXT,
+  branch_code TEXT,
+  year TEXT,
+  gate_enrollment_number TEXT,
+  coap_registeration_number TEXT,
+  all_india_rank TEXT,
+  gate_score TEXT,
+  valid_upto TEXT,
+  self_attested_copies_url TEXT,
+  remarks TEXT,
+
+  -- Declaration
+  singnature_url TEXT
+
+  CONSTRAINT fk_email
+    FOREIGN KEY(email_id)
+      REFERENCES applicants(email_id)
+);
+
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
   RETURNS TRIGGER 
   LANGUAGE PLPGSQL

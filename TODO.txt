@@ -1,5 +1,3 @@
-Image name that is send to gcp must be unique, else it replaces the existing image
-
 Responsive UI
 
 Applicant database, form submission and review page, Apply page for applicant, Application submission
@@ -13,8 +11,6 @@ Courses Page (list of tiles)
 Educational details and Communication details retreiving storing data to gcp
 
 contact us
-
-Note: Changed access control on the gcp for image loading on the profile page
 
 Update Profile alert needs to be connected
 
@@ -34,4 +30,10 @@ Educational details on profile page improve, no proper checks -- do it for educa
 
 Once we move to the next page, the file gets removed from that page [ Although we have it in the array ]    
 
-makes images names unique by appending name with timestamp, change with that of education details
+give name format for files uploaded
+
+different email for applying?
+
+CGPA scale in education details, also check the range
+
+Files have to choosen again at the time of edit profile

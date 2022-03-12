@@ -444,6 +444,7 @@ export default function Review(props) {
       </div>
       </div>
 
+      <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <div className="mt-1 mb-4 grid grid-cols-6 gap-6">
         <button
           type="button"
@@ -454,12 +455,13 @@ export default function Review(props) {
         </button>
         
         <button
-            type="button"
+            type="submit"
             className="mr-5 col-start-6 col-end-7 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
           Submit
         </button>
       </div>
+      </form>
     </div>
 
     
