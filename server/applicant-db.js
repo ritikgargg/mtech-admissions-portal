@@ -237,6 +237,7 @@ const get_profile_info = async (req, res) => {
   /**
    * Verify using authToken
    */
+  // console.log("huehue");
    authToken = req.headers.authorization;
    let jwtSecretKey = process.env.JWT_SECRET_KEY;
 

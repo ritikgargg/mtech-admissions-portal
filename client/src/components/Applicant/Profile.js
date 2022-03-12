@@ -9,18 +9,36 @@ import { useState, useEffect } from 'react'
 import axios from "axios"
 import { getToken } from "../SignIn_SignUp/Sessions"
 import { useNavigate } from "react-router-dom"
+import DefaultProfilePicture from "../../images/default-profile-picture.png"
 
 
 export default function Profile (props) {
   const navigate = useNavigate();
     
-    var degrees = [
-        { degree: '10th', board_uni: 'CBSE', per_cgpa: '85.5', yop: '2015', att: '10th_certificate.pdf' },
-        { degree: '12th', board_uni: 'CBSE', per_cgpa: '95.5', yop: '2017', att: '12th_certificate.pdf' },
-        { degree: 'B-Tech', board_uni: 'IIT Ropar', per_cgpa: '7.67', yop: '2021', att: 'graduation_certificate.pdf' }
-    ]
+    // var degrees = [
+    //     { degree: '10th', board_uni: 'CBSE', per_cgpa: '85.5', yop: '2015', att: '10th_certificate.pdf' },
+    //     { degree: '12th', board_uni: 'CBSE', per_cgpa: '95.5', yop: '2017', att: '12th_certificate.pdf' },
+    //     { degree: 'B-Tech', board_uni: 'IIT Ropar', per_cgpa: '7.67', yop: '2021', att: 'graduation_certificate.pdf' }
+    // ]
 
     const [profileInfo, setProfileInfo] = useState(0);
+    const [degrees, setDegrees] = useState([]);
+
+    function convert2dArrayToJsonObjectArray(degrees) {
+        if(degrees === null) return []
+
+        var result = []
+        for(var i = 0; i < degrees.length; i++) {
+            if(degrees[i][0] === "") continue;
+            var degree = {}
+            for(var j = 0; j < degrees[i].length; j++) {
+                degree[String(j)] = degrees[i][j]
+            }
+            // degree['id'] = i
+            result.push(degree)
+        }
+        return result
+    }
 
     useEffect(() => {
         axios.get("http://localhost:8080/get-profile-info", {
@@ -34,10 +52,11 @@ export default function Profile (props) {
             }
             else {
                 setProfileInfo(response.data)
+                setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
             }
           })
         .catch(err => console.log(err));
-    });
+    },[]);
 
     var overlayHidden = false;
 
@@ -47,7 +66,7 @@ export default function Profile (props) {
         <div className='flex'>
             <div className='flex-2 my-20 mx-20'>
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}
-                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : '#'} alt="Your Profile Picture"/>
+                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Your Profile Picture"/>
             </div>
             <div className="mr-20 my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
@@ -182,7 +201,7 @@ export default function Profile (props) {
                         <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Attachments</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <div className="pr-4 flex items-center justify-between text-sm">
+                                <div className="pr-4 flex border-t items-center justify-between text-sm">
                                     <div className="w-0 flex-1 flex items-center">
                                         <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
                                         <span className="ml-2 flex-1 w-0 truncate">10th_certificate.pdf</span>
@@ -222,7 +241,7 @@ export default function Profile (props) {
                                         <span className="ml-2 flex-1 w-0 truncate">12th_certificate.pdf</span>
                                     </div>
                                     <div className="ml-4 flex-shrink-0">
-                                        <a href={profileInfo.marksheet_12th_url ? profileInfo.marksheet_12th_url : "#"} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        <a href={profileInfo.marksheet_12th_url ? profileInfo.marksheet_12th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
                                         Download
                                         </a>
                                     </div>
@@ -233,20 +252,20 @@ export default function Profile (props) {
                 </div>
                 <div className="border-t border-gray-300">
                     {degrees.map((Degree) => (
-                        <dl className="py-3 border-t border-gray-200">
+                        <dl className="py-3 border-t border-gray-200" key={Degree.id}>
                             <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Degree</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree.degree}</dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['1']}, {Degree['0']}</dd>
         
                                 <dt className="text-sm font-medium text-gray-500">Board/University</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree.board_uni}</dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['2']}</dd>
                             </div>
                             <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree.per_cgpa}</dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['5']}</dd>
 
                                 <dt className="text-sm font-medium text-gray-500">Year of Passing</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree.yop}</dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['3']}</dd>
                             </div>  
                             <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Attachments</dt>
@@ -254,10 +273,23 @@ export default function Profile (props) {
                                     <div className="pr-4 flex items-center justify-between text-sm">
                                         <div className="w-0 flex-1 flex items-center">
                                             <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                            <span className="ml-2 flex-1 w-0 truncate">{Degree.att}</span>
+                                            <span className="ml-2 flex-1 w-0 truncate">Marksheet.pdf</span>
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
-                                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                            <a href={Degree['8'] ? Degree['8'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                            Download
+                                            </a>
+                                        </div>
+                                    </div>
+                                </dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div className="pr-4 flex items-center justify-between text-sm">
+                                        <div className="w-0 flex-1 flex items-center">
+                                            <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                            <span className="ml-2 flex-1 w-0 truncate">Degree.pdf</span>
+                                        </div>
+                                        <div className="ml-4 flex-shrink-0">
+                                            <a href={Degree['9'] ? Degree['9'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
                                             Download
                                             </a>
                                         </div>
@@ -267,8 +299,8 @@ export default function Profile (props) {
                         </dl>
                     ))}
                 </div>
+                </div>
             </div>
-        </div>
         </>
     )
 }
