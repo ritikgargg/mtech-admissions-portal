@@ -5,12 +5,12 @@ import { useForm } from "react-hook-form";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom"
-import { useEffect } from 'react'
-import axios from "axios";
+// import { useEffect } from 'react'
+// import axios from "axios";
 
 function PersonalInfo() {
   const navigate = useNavigate();
-  const [personalInfo, setPersonalInfo] = useState(0);
+  // const [personalInfo, setPersonalInfo] = useState(0);
 
   const [nationality, setNationality] = useState("");
   const [profile_image, setProfileImage] = useState(null);
@@ -66,22 +66,22 @@ function PersonalInfo() {
     updateDateOfBirth(value);
   };
 
-  useEffect(() => {
-    axios.get("http://localhost:8080/get-personal-info", {
-        headers: {
-            Authorization: getToken()
-        }
-    })
-    .then(response => {
-        if(response.data === 1) {
-          navigate("/logout");
-        }
-        else {
-            setPersonalInfo(response.data)
-        }
-      })
-    .catch(err => console.log(err));
-  });
+  // useEffect(() => {
+  //   axios.get("http://localhost:8080/get-personal-info", {
+  //       headers: {
+  //           Authorization: getToken()
+  //       }
+  //   })
+  //   .then(response => {
+  //       if(response.data === 1) {
+  //         navigate("/logout");
+  //       }
+  //       else {
+  //           setPersonalInfo(response.data)
+  //       }
+  //     })
+  //   .catch(err => console.log(err));
+  // });
 
   return (
     <div id="personalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">

@@ -128,8 +128,10 @@ const save_education_details = async (req, res) => {
             first = str.substring(0, str.length - 1);
             lastChar = str.substr(str.length - 1);
 
-            x =  lastChar + 1
+            x =  parseInt(lastChar) + 1
             y = (first === 'upload_marksheet') ? 9 : 10
+
+            // console.log(x, y, first, lastChar, str)
 
             await pool.query("UPDATE applicants SET degrees[$1][$2] = $3 WHERE email_id = $4;", [x, y, url, email]);
           }
@@ -310,6 +312,6 @@ module.exports = {
     save_communication_details,
     save_education_details,
     get_profile_info,
-    get_personal_info,
+    // get_personal_info,
     save_application_info
 }
