@@ -178,7 +178,12 @@ function PersonalInfo() {
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                 id="profile-picture-desc"
                               >
-                                <span className="font-semibold">Height:</span> 150px, <span className="font-semibold">Width:</span> 130px,  <span className="font-semibold">Maximum file size:</span> 2MB,  <span className="font-semibold">Allowed formats:</span> .jpg, .png, .jpeg 
+                                <span className="font-semibold">Maximum file size:</span> 2 MB,  <span className="font-semibold">Allowed file formats:</span> .jpg, .png, .jpeg 
+                                <br/>
+                                <div className="mt-1">
+                                <span className="font-semibold">File Name Format:</span> 
+                                <span> Photograph_&lt;your_email_id&gt; For Example: Photograph_abc@gmail.com</span>
+                                </div>
                               </div>                              
                             </div>
 
@@ -263,23 +268,29 @@ function PersonalInfo() {
                                 id="category-certificate"
                                 type="file"
                                 accept=".jpeg, .jpg, .png"
-                                required
+                               
                                 onChange={(e) => handleFileSubmit(e, 2, setCategoryCertificate)}
                                 />
                               <div
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                 id="category-certificate-desc"
                               >
-                                Files must be less than <span className="font-semibold">2 MB</span>.
+                                <span className="font-semibold"> Maximum file size: </span>2 MB
                               </div>
                               <div
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                 id="category-certificate-desc"
                               >
-                                Allowed file types: <span className="font-semibold">jpg jpeg png</span>.
+                                <span className="font-semibold">Allowed file formats:</span> .jpg, .jpeg, .png
+                              </div>
+                              <div
+                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                id="category-certificate-desc"
+                              >
+                                <span className="font-semibold">File Name Format:</span> 
+                                <span> CC_&lt;your_email_id&gt; For Example: CC_abc@gmail.com</span>
                               </div>
                             </div>
-
 
                               {/* PWD Category */}
                             <div className="col-span-6 sm:col-span-3">

@@ -1,7 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
+import { useState } from 'react';
 import DashboardNavBar from "./DashboardNavBar"
 import CompleteProfile from './CompleteProfileAlert';
-import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import axios from 'axios';
+import { getToken } from "../SignIn_SignUp/Sessions"
+import {Link} from 'react-router-dom'; 
 
 const applications = [
     {
@@ -22,14 +26,43 @@ const applications = [
   
 // Department, Type, Status
 
+
 export default function ApplicantHomePage(props) {
+    const navigate = useNavigate();
+
+
+    function checkProfileComplete () {
+
+        // if not complete then show CompleteProfileAlert
+        axios.get("http://localhost:8080/get-profile-info", {
+            headers: {
+                Authorization: getToken()
+            }
+        })
+        .then(response => {
+            if(response.data === 1) {
+              navigate("/logout");
+            }
+            else {
+                if(response.data.full_name && response.data.communication_address && response.data.degree_10th){
+                    navigate('/apply');
+                }
+                else {
+                    console.log("profile not complete");
+                }
+            }
+          })
+        .catch(err => console.log(err));
+        console.log("Apply Button Clicked");
+    }
+
     return (
         <>
         <DashboardNavBar currentFlag={0} user={props.user}/>
-        <CompleteProfile/> 
+        <CompleteProfile/>
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		    <div className="px-4 py-6 sm:px-0">
-                <header className="bg-white shadow">
+                <header className="bg-white">
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         <h1 className="text-3xl font-bold text-gray-900">Applications</h1>
                     </div>
@@ -108,9 +141,13 @@ export default function ApplicantHomePage(props) {
                                             <div className="text-sm text-gray-500">{application.last_date}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <Link to="/apply" className="text-indigo-600 hover:text-indigo-900">
-                                            Apply
+                                            {/* <button onClick={checkProfileComplete} className="mr-4 text-indigo-600 hover:text-indigo-900">
+                                            Check
+                                            </button> */}
+                                            <Link to='/apply'  className="text-indigo-600 hover:text-indigo-900">
+                                                Apply
                                             </Link>
+
                                         </td>
                                         </tr>
                                     ))}

@@ -115,8 +115,16 @@ function EducationalDetails() {
       copy[index] = "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)";
       setPercentageCgpaPattern(copy);
     }
-    else {
+    else if((e.target.value === "CGPA" )){
       copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
+      setPercentageCgpaPattern(copy);
+    }
+    else if(e.target.value==="10" &&  copy[index]!=="(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"){
+      copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
+      setPercentageCgpaPattern(copy);
+    }
+    else if(copy[index]!=="(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"){
+      copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
       setPercentageCgpaPattern(copy);
     }
     console.log(percentage_cgpa_pattern);
@@ -204,6 +212,7 @@ function EducationalDetails() {
                                     id="percentage_cgpa_format_10th"
                                     required
                                     {...register("percentage_cgpa_format_10th")}
+                                   
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     onChange={e => handleSelectChange(e,0)}
                                   >
@@ -224,6 +233,7 @@ function EducationalDetails() {
                                   <input
                                     type="text"
                                     required
+                                    title="Correct Percentage Format: 94.65, Correct CGPA Format: 8.23"
                                     pattern = {percentage_cgpa_pattern}
                                     id="percentage_cgpa_value_10th"
                                     {...register("percentage_cgpa_value_10th")}
@@ -292,13 +302,21 @@ function EducationalDetails() {
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="user_avatar_help"
                                   >
-                                    Files must be less than 2 MB.
+                                    {/* Files must be less than 2 MB. */}
+                                    <span className="font-semibold">Maximum file size:</span> 2 MB <span className="font-semibold">Allowed file formats:</span> .pdf
                                   </div>
+                                  {/* <div
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="user_avatar_help"
+                                  >
+                                    <span className="font-semibold">Allowed file formats:</span> .pdf
+                                  </div> */}
                                   <div
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="user_avatar_help"
                                   >
-                                    Allowed file types: pdf.
+                                    <span className="font-semibold">File Name Format:</span> 
+                                    <span> Marksheet10th_&lt;your_email_id&gt; For Example: Marksheet10th_abc@gmail.com</span>
                                   </div>
                                 </div>
                               </div>
@@ -372,6 +390,7 @@ function EducationalDetails() {
                                   </label>
                                   <input
                                     type="text"
+                                    title="Correct Percentage Format: 94.65, Correct CGPA Format: 8.23"
                                     pattern={percentage_cgpa_pattern[1]}
                                     id="percentage_cgpa_value_12th"
                                     {...register("percentage_cgpa_value_12th")}
@@ -436,17 +455,16 @@ function EducationalDetails() {
                                         onChange={(e) => handleFileSubmit(e, 2, setMarksheet_12th)}
                                         />
                                   <div
-                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                    id="user_avatar_help"
-                                  >
-                                    Files must be less than 2 MB.
-                                  </div>
-                                  <div
-                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                    id="user_avatar_help"
-                                  >
-                                    Allowed file types: pdf.
-                                  </div>
+                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                      id="marksheet_help"
+                                    >
+                                      {/* Files must be less than 2 MB., Allowed file types: pdf. */}
+                                      <span className="font-semibold">Maximum file size:</span> 2 MB <span className="font-semibold">Allowed file formats:</span> .pdf
+                                    </div>
+                                    <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
+                                      <span className="font-semibold">File Name Format:</span> 
+                                      <span> Marksheet12th_&lt;your_email_id&gt; For Example: Marksheet12th__abc@gmail.com</span>
+                                    </div>
                                 </div>
                               </div>
                             </div>

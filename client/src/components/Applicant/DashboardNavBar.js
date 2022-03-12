@@ -46,10 +46,9 @@ function DashboardNavBar (props) {
                             Home
                           </a>
 
-                        
-                        <Link
+                        <a
                           key="My Applications"
-                          to="/my-applications"
+                          href="/my-applications"
                           className={classNames(
                             (1 === props.currentFlag)
                               ? 'bg-gray-900 text-white'
@@ -59,9 +58,8 @@ function DashboardNavBar (props) {
                           aria-current={1 === props.currentFlag ? 'page' : undefined}
                         >
                           My Applications
-                        </Link>
+                        </a>
                         
-
                         <a
                             key="My Profile"
                             href="/my-profile"

@@ -1,7 +1,6 @@
 import React from "react";
 
-function ApplicationFeeDetails(props){
-
+function ApplicationFeeDetails(props) {
     return (
         <div>
           <div className="px-6 py-6 mx-20 my-20 bg-[#f3f4f6] rounded-2xl">
@@ -35,14 +34,15 @@ function ApplicationFeeDetails(props){
                             value={props.details[0]}
                             onChange={(event) => props.onChange(event, 0)}
                             placeholder="- Select -"
+                            required
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
-                            {/* <option>- Select -</option> */}
-                            <option>GEN</option>
-                            <option>GEN-EWS</option>
-                            <option>OBC</option>
-                            <option>SC</option>
-                            <option >ST</option>
+                            <option value="">- Select -</option>
+                            <option value="GEN">GEN</option>
+                            <option value="GEN-EWS">GEN-EWS</option>
+                            <option value="OBC">OBC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
                           </select>
                         </div>
                         <br></br>
@@ -54,9 +54,11 @@ function ApplicationFeeDetails(props){
                             Amount<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
-                            type="number"
+                            type="text"
                             name="amount"
                             id="amount"
+                            pattern="[0-9]*"
+                            title="Only numbers are allowed"
                             required
                             defaultValue={props.details[1]}
                             onChange={(event) => props.onChange(event,1)}
@@ -134,13 +136,23 @@ function ApplicationFeeDetails(props){
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
                           >
-                            Files must be less than 2 MB.
+                            {/* Files must be less than 2 MB. */}
+                            <span className="font-semibold"> Maximum file size: </span>2 MB
                           </div>
                           <div
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
                           >
-                            Allowed file types: jpg jpeg pdf.
+                            {/* Allowed file types: jpg jpeg pdf. */}
+                            <span className="font-semibold">Allowed file formats:</span> .jpg, .jpeg, .pdf
+                          </div>
+                          <div
+                            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                            id="user_avatar_help"
+                          >
+                            {/* Allowed file types: jpg jpeg pdf. */}
+                            <span className="font-semibold">File Name Format:</span> 
+                            <span> Transaction_Slip_&lt;your_email_id&gt; <br/>For Example: Transcation_Slip_abc@gmail.com</span>
                           </div>
                         </div>
     

@@ -1,6 +1,9 @@
 import React from "react";
 
 function Footer() {
+  const date = new Date();
+  const curr_year = date.getFullYear();
+
   return (
     <footer className="text-center lg:text-left bg-[#1E3A8A] text-white">
       <div className="mx-12 pb-0 py-10 text-center md:text-left">
@@ -224,7 +227,7 @@ function Footer() {
         </div>
       </div>
       <div className="text-center p-3 bg-[#1E3A8A]">
-        <span> Copyright © 2022, </span>
+        <span> Copyright © {curr_year}, </span>
         <a href="https://www.iitrpr.ac.in/" target="_blank" rel="noopener noreferrer">
           IIT Ropar
         </a>

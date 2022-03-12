@@ -1,10 +1,6 @@
 import React from 'react';
-import DatePicker from "./DatePicker";
 
 function Declaration(props){
-
-
-
     return (
         <div>
           <div className="px-6 py-6 mx-20 my-20 bg-[#f3f4f6] rounded-2xl">
@@ -68,18 +64,21 @@ of the Institute, which shall be final.
                             id="signature"
                             name="signature"
                             type="file"
-                            // value={props.details[4].name}
-                            // ref={props.ref}
                             required
                             accept=".pdf, .png, .jpeg, .jpg, .gif"
                             onChange={(e) => props.handleFileSubmit(e, 2, 17)}
                             />
                           <div
-                            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                            id="user_avatar_help"
-                          >
-                            Files must be less than 1 MB. Allowed file types: pdf gif jpg jpeg png.
-                          </div>
+                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                      id="marksheet_help"
+                                    >
+                                      {/* Files must be less than 2 MB., Allowed file types: pdf. */}
+                                      <span className="font-semibold">Maximum file size:</span> 1 MB <span className="font-semibold">Allowed file formats:</span> .pdf, .jpeg, .png, .jpg, .gif
+                                    </div>
+                                    <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
+                                      <span className="font-semibold">File Name Format:</span> 
+                                      <span> Signature_&lt;your_email_id&gt; For Example: Signature_abc@gmail.com</span>
+                                    </div>
                         </div>
 
                         <div className="col-span-6 sm:col-span-3">
@@ -112,9 +111,10 @@ of the Institute, which shall be final.
                         id = "date"
                         name = "date"
                         type="date"
+                        disabled="true"
                         value={props.details[19]}
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                        onChange={e=>props.onChange(e, 19)}
+                        // onChange={e=>props.onChange(e, 19)}
                       />
                     </div>                        
                       </div>

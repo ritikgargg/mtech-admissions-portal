@@ -18,10 +18,18 @@ function ApplicantionDetails() {
   const init_application_details = () => {
     const array = Array.from({length: 21},()=>'');
     let date = new Date();
-    date = date.toISOString().split('T')[0];
-    array[0]='GEN';
+    // console.log(date)
+    // console.log(date.getDate() + '-' + (date.getMonth()+1) + '-' + date.getFullYear())
+    // date = date.toISOString().split('T')[0];
+    // array[0]='GEN';
+
+    let month = date.getMonth()+1;
+    if(month.length === 1) month = '0' + month;
+    
+    date = date.getFullYear() + '-0' + month + '-' + date.getDate();
+    
     array[6]='GATE';
-    array[7]='CS';
+    // array[7]='CS';
     array[5] = date;
     array[19] = date;
     return array;

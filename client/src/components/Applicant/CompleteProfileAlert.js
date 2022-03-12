@@ -14,10 +14,10 @@ function CompleteProfile () {
             <svg className="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"></path></svg>
             Visit Profile
             </button>
-            </a>
-            <button type="button" className="text-yellow-700 bg-transparent border border-yellow-700 hover:bg-yellow-800 hover:text-white focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:border-yellow-800 dark:text-yellow-800 dark:hover:text-white" data-collapse-toggle="alert-additional-content-4" aria-label="Close">
-            Dismiss
-            </button>
+          </a>
+          <button type="button" className="text-yellow-700 bg-transparent border border-yellow-700 hover:bg-yellow-800 hover:text-white focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:border-yellow-800 dark:text-yellow-800 dark:hover:text-white" data-collapse-toggle="alert-additional-content-4" aria-label="Close">
+          Dismiss
+          </button>
         </div>
         </div>
         <div className="px-4 mt-2 mb-3 text-sm text-yellow-700 dark:text-yellow-800">

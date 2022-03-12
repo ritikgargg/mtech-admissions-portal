@@ -17,8 +17,8 @@ function QualifyingExamDetails(props){
                     Qualifying Examination(GATE score)
                   </h3>
                   <p className="ml-5 text-left mt-1 text-gray-600 text-base leading-relaxed">
-                  Details of GATE Score: (Please fill the higher GATE Score obtained by you. If the GATE Registration No. is filled wrong,
-the candidate will be responsible for this. GATE <span className="font-sebold">2020/ 2021/ 2022</span> qualified candidates are only eligible to apply.)
+                  Details of GATE Score: Please fill the details of the highest valid (past 3 years including this year) GATE Score obtained by you . If the GATE Registration No. is filled wrong,
+the candidate will be responsible for this. GATE <span className="font-sebold">{max_year-2}/ {max_year-1}/ {max_year}</span> qualified candidates are only eligible to apply.
                   </p>
                 </div>
               </div>
@@ -59,13 +59,14 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                           <select
                             id="branch_code"
                             name="branch_code"
-                           
+                            required
                             value={props.details[7]}
                             onChange={e => props.onChange(e, 7)}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
-                            <option>CS</option>
-                            <option>EE</option>
+                            <option value="">-- Select --</option>
+                            <option value="CS">CS</option>
+                            <option value="EE">EE</option>
                           </select>
                         </div>
                         
@@ -188,7 +189,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             type="number"
                             name="valid_upto"
                             id="valid_upto"
-                           
+                            min = {min_year+2}
+                            max = {max_year+2}
                             required
                             value = {props.details[13]}
                             onChange={(event) => props.onChange(event,13)}
@@ -218,21 +220,20 @@ the candidate will be responsible for this. GATE <span className="font-sebold">2
                             // value={props.details[4].name}
                             // ref={props.ref}
                             required
-                            accept=".pdf, .jpeg, .jpg"
+                            accept=".pdf"
                             onChange={(e) => props.handleFileSubmit(e, 2, 14)}
                             />
-                          <div
-                            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                            id="user_avatar_help"
-                          >
-                            Files must be less than 5 MB.
-                          </div>
-                          <div
-                            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                            id="user_avatar_help"
-                          >
-                            Allowed file types: pdf.
-                          </div>
+                         <div
+                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                      id="marksheet_help"
+                                    >
+                                      {/* Files must be less than 2 MB., Allowed file types: pdf. */}
+                                      <span className="font-semibold">Maximum file size:</span> 5 MB <span className="font-semibold">Allowed file formats:</span> .pdf
+                                    </div>
+                                    <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
+                                      <span className="font-semibold">File Name Format:</span> 
+                                      <span> GateCopy_&lt;your_email_id&gt; For Example: GateCopy__abc@gmail.com</span>
+                                    </div>
                         </div>
     
                         

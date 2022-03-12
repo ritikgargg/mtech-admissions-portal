@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { PaperClipIcon } from '@heroicons/react/solid'
 import React, { useState, useEffect }from 'react'
 import axios from 'axios'
@@ -10,23 +9,41 @@ export default function Review(props) {
   const navigate = useNavigate();
 
   const [profileInfo, setProfileInfo] = useState(0);
+  const [degrees, setDegrees] = useState([]);
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:8080/get-profile-info", {
-    //         headers: {
-    //             Authorization: getToken()
-    //         }
-    //     })
-    //     .then(response => {
-    //         if(response.data === 1) {
-    //           navigate("/logout");
-    //         }
-    //         else {
-    //             setProfileInfo(response.data)
-    //         }
-    //       })
-    //     .catch(err => console.log(err));
-    // });
+  function convert2dArrayToJsonObjectArray(degrees) {
+      if(degrees === null) return []
+
+      var result = []
+      for(var i = 0; i < degrees.length; i++) {
+          if(degrees[i][0] === "") continue;
+          var degree = {}
+          for(var j = 0; j < degrees[i].length; j++) {
+              degree[String(j)] = degrees[i][j]
+          }
+          degree['id'] = i
+          result.push(degree)
+      }
+      return result
+  }
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/get-profile-info", {
+        headers: {
+            Authorization: getToken()
+        }
+    })
+    .then(response => {
+        if(response.data === 1) {
+          navigate("/logout");
+        }
+        else {
+            setProfileInfo(response.data)
+            setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
+        }
+      })
+    .catch(err => console.log(err));
+  },[]);
 
 
   return (
@@ -56,7 +73,7 @@ export default function Review(props) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[3]}</dd>
           </div>
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Transaction Slip </dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[4].name}</dd>
           </div>
@@ -66,7 +83,7 @@ export default function Review(props) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[5]}</dd>
           </div>
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Qualifying Examination</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[6]}</dd>
           </div>
@@ -76,7 +93,7 @@ export default function Review(props) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[7]}</dd>
           </div>
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Year</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[8]}</dd>
           </div>
@@ -86,7 +103,7 @@ export default function Review(props) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[9]}</dd>
           </div>
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">COAP Registration Number</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[10]}</dd>
           </div>
@@ -96,7 +113,7 @@ export default function Review(props) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[11]}</dd>
           </div>
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Gate Score</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[12]}</dd>
           </div>
@@ -106,7 +123,7 @@ export default function Review(props) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[13]}</dd>
           </div>
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Self Attested Copies Of GATE</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[14].name}</dd>
           </div>
@@ -115,24 +132,6 @@ export default function Review(props) {
             <dt className="text-sm font-medium text-gray-500">Remarks</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[15]}</dd>
           </div>
-
-          {/* <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Uploads</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                  <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    <span className="ml-2 flex-1 w-0 truncate">category_certificate.pdf</span>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </dd>
-          </div> */}
         </dl>
       </div>
     </div>
@@ -171,7 +170,7 @@ export default function Review(props) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.is_pwd}</dd>
           </div>
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Marital Status</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.marital_status}</dd>
           </div>
@@ -181,7 +180,7 @@ export default function Review(props) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.nationality}</dd>
           </div>
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Gender</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.gender}</dd>
           </div>
@@ -272,11 +271,11 @@ export default function Review(props) {
             <dt className="text-sm font-medium text-gray-500">Email Address</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.email_id}</dd>
           </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Mobile Number</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.mobile_number}</dd>
           </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Alternate Mobile Number</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.alternate_mobile_number}</dd>
           </div>
@@ -293,155 +292,125 @@ export default function Review(props) {
         <h3 className="text-lg leading-6 font-medium text-gray-900">Educational Details</h3>
         <p className="mt-1 max-w-2xl text-sm text-gray-500">Please review your educational details.</p>
       </div>
-      
-      
-      <div className="outline rounded outline-[#f3f4f5] m-4 grid grid-cols-6 gap-6">
-      <div className="col-span-full sm:col-span-full">
-      <div className="border-t border-gray-200">
-        <dl>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Degree</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">10th</dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Board</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">CBSE</dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">10.00</dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Year Of Passing</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">2017</dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Review</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur
-              qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud
-              pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
-            </dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Attachments</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                  <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    <span className="ml-2 flex-1 w-0 truncate">10th Certificate/Marksheet.pdf</span>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      Download
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </dd>
-          </div>
-        </dl>
-      </div>
-      </div>
+
+      <div className="border-t border-gray-300">
+          <dl className="py-3 border-t border-gray-200">
+              <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Degree</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.degree_10th}</dd>
+
+                  <dt className="text-sm font-medium text-gray-500">Board/University</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.board_10th }</dd>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.percentage_cgpa_value_10th}</dd>
+
+                  <dt className="text-sm font-medium text-gray-500">Year of Passing</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.year_of_passing_10th}</dd>
+              </div>  
+              <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Attachments</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <div className="mr-4 flex items-center justify-between text-sm">
+                          <div className="w-0 flex-1 flex items-center">
+                              <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                              <span className="ml-2 flex-1 w-0 truncate">10th_marksheet.pdf</span>
+                          </div>
+                          <div className="ml-4 flex-shrink-0">
+                              <a href={profileInfo.marksheet_10th_url ? profileInfo.marksheet_10th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                              View
+                              </a>
+                          </div>
+                      </div>
+                  </dd>
+              </div>
+          </dl>
       </div>
 
-      <div className="outline rounded outline-[#f3f4f5] m-4 grid grid-cols-6 gap-6">
-      <div className="col-span-full sm:col-span-full">
-      <div className="border-t border-gray-200">
-        <dl>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Degree</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.degree_10th}</dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Board</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.percentage_cgpa_format_10th}</dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.percentage_cgpa_value_10th}</dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Year Of Passing</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.year_of_passing_10th}</dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Remarks</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {profileInfo.remarks_10th}
-            </dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Attachments</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                  <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    <span className="ml-2 flex-1 w-0 truncate">10th Certificate/Marksheet.pdf</span>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      Download
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </dd>
-          </div>
-        </dl>
-      </div>
-      </div>
+      <div className="border-t border-gray-300">
+          <dl className="py-3 border-t border-gray-200">
+              <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Degree</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.degree_12th }</dd>
+
+                  <dt className="text-sm font-medium text-gray-500">Board/University</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.board_12th}</dd>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.percentage_cgpa_value_12th}</dd>
+
+                  <dt className="text-sm font-medium text-gray-500">Year of Passing</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.year_of_passing_12th}</dd>
+              </div>  
+              <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Attachments</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <div className="pr-4 flex items-center justify-between text-sm">
+                          <div className="w-0 flex-1 flex items-center">
+                              <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                              <span className="ml-2 flex-1 w-0 truncate">12th_marksheet.pdf</span>
+                          </div>
+                          <div className="ml-4 flex-shrink-0">
+                              <a href={profileInfo.marksheet_12th_url ? profileInfo.marksheet_12th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                              View
+                              </a>
+                          </div>
+                      </div>
+                  </dd>
+              </div>
+          </dl>
       </div>
 
-      <div className="outline rounded outline-[#f3f4f5] m-4 grid grid-cols-6 gap-6">
-      <div className="col-span-full sm:col-span-full">
-      <div className="border-t border-gray-200">
-        <dl>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Degree</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.board_12th}</dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Board</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.percentage_cgpa_format_12th}</dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.percentage_cgpa_value_12th}</dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Year Of Passing</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"> {profileInfo.year_of_passing_12th}</dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Remarks</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {profileInfo.remarks_12th}
-            </dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Attachments</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                  <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    <span className="ml-2 flex-1 w-0 truncate">10th Certificate/Marksheet.pdf</span>
+      <div className="border-t border-gray-300">
+          {degrees.map((Degree) => (
+              <dl className="py-3 border-t border-gray-200" key={Degree.id}>
+                  <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                      <dt className="text-sm font-medium text-gray-500">Degree</dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['1']}, {Degree['0']}</dd>
+
+                      <dt className="text-sm font-medium text-gray-500">Board/University</dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['2']}</dd>
                   </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      Download
-                    </a>
+                  <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                      <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['5']}</dd>
+
+                      <dt className="text-sm font-medium text-gray-500">Year of Passing</dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['3']}</dd>
+                  </div>  
+                  <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                      <dt className="text-sm font-medium text-gray-500">Attachments</dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                          <div className="pr-4 flex items-center justify-between text-sm">
+                              <div className="w-0 flex-1 flex items-center">
+                                  <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                  <span className="ml-2 flex-1 w-0 truncate">Gradesheet.pdf</span>
+                              </div>
+                              <div className="ml-4 flex-shrink-0">
+                                  <a href={Degree['8'] ? Degree['8'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                  View
+                                  </a>
+                              </div>
+                          </div>
+                      </dd>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                          <div className="pr-4 flex items-center justify-between text-sm">
+                              <div className="w-0 flex-1 flex items-center">
+                                  <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                  <span className="ml-2 flex-1 w-0 truncate">Degree.pdf</span>
+                              </div>
+                              <div className="ml-4 flex-shrink-0">
+                                  <a href={Degree['9'] ? Degree['9'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                  View
+                                  </a>
+                              </div>
+                          </div>
+                      </dd>
                   </div>
-                </li>
-              </ul>
-            </dd>
-          </div>
-        </dl>
-      </div>
-      </div>
+              </dl>
+          ))}
       </div>
 
       <form onSubmit={props.handleSubmit(props.onSubmit)}>
@@ -463,7 +432,6 @@ export default function Review(props) {
       </div>
       </form>
     </div>
-
     
     </div>
   )

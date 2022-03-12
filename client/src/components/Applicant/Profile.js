@@ -34,7 +34,7 @@ export default function Profile (props) {
             for(var j = 0; j < degrees[i].length; j++) {
                 degree[String(j)] = degrees[i][j]
             }
-            // degree['id'] = i
+            degree['id'] = i
             result.push(degree)
         }
         return result
@@ -68,7 +68,7 @@ export default function Profile (props) {
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}
                 <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Your Profile Picture"/>
             </div>
-            <div className="mr-20 my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
+            <div className="mr-20 mt-4 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
                     <h3 className="text-lg leading-6 font-medium text-gray-900">Personal Details</h3>
 
@@ -98,21 +98,21 @@ export default function Profile (props) {
                             <dt className="text-sm font-medium text-gray-500">Gender</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.gender ? profileInfo.gender : 'Your Gender'}</dd>
                         </div>  
-                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                        <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Nationality</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.nationality ? profileInfo.nationality : 'Your Nationality'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Category</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.category ? profileInfo.category : 'Your Category'}</dd>   
                         </div>
-                        <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Aadhaar Card Number</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.aadhar_card_number ? profileInfo.aadhar_card_number : 'Your Aadhar Card Number'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">Marital Status</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.marital_status ? profileInfo.marital_status : 'Your Marital Status'}</dd>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                        <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Belongs to PWD</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.is_pwd ? profileInfo.is_pwd : 'Your PWD Status'}</dd>    
                         </div>
@@ -137,15 +137,15 @@ export default function Profile (props) {
                             <dt className="text-sm font-medium text-gray-500">City</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.communication_city ? profileInfo.communication_city : 'Your City'}</dd>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                        <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">State</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.communication_state ? profileInfo.communication_state : 'Your State'}</dd>
 
                             <dt className="text-sm font-medium text-gray-500">PIN Code</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.communication_pincode ? profileInfo.communication_pincode : 'Your Pincode'}</dd>
                         </div>  
-                    </dl>
-                    <dl className="my-2 border-t border-gray-200">
+                    {/* </dl> */}
+                    {/* <dl className="my-2 border-t border-gray-200"> */}
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Permanent Address</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.permanent_address ? profileInfo.permanent_address : 'Your Permanent Address'}</dd>
@@ -160,8 +160,8 @@ export default function Profile (props) {
                             <dt className="text-sm font-medium text-gray-500">PIN Code</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.permanent_pincode ? profileInfo.permanent_pincode : 'Your Pincode'}</dd>
                         </div>
-                    </dl>
-                    <dl className="my-2 border-t border-gray-200">
+                    {/* </dl> */}
+                    {/* <dl className="my-2 border-t border-gray-200"> */}
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Email</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.email_id ? profileInfo.email_id : 'Your Email ID'}</dd>
@@ -174,7 +174,7 @@ export default function Profile (props) {
             </div>
         </div>
 
-        <div className='flex mx-20 my-10'>
+        <div className='flex mx-20 mt-2 mb-10'>
             <div className="my-2 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Education Details</h3>
@@ -201,14 +201,14 @@ export default function Profile (props) {
                         <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Attachments</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <div className="pr-4 flex border-t items-center justify-between text-sm">
+                                <div className="mr-4 flex items-center justify-between text-sm">
                                     <div className="w-0 flex-1 flex items-center">
                                         <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                        <span className="ml-2 flex-1 w-0 truncate">10th_certificate.pdf</span>
+                                        <span className="ml-2 flex-1 w-0 truncate">10th_marksheet.pdf</span>
                                     </div>
                                     <div className="ml-4 flex-shrink-0">
                                         <a href={profileInfo.marksheet_10th_url ? profileInfo.marksheet_10th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                        Download
+                                        View
                                         </a>
                                     </div>
                                 </div>
@@ -238,11 +238,11 @@ export default function Profile (props) {
                                 <div className="pr-4 flex items-center justify-between text-sm">
                                     <div className="w-0 flex-1 flex items-center">
                                         <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                        <span className="ml-2 flex-1 w-0 truncate">12th_certificate.pdf</span>
+                                        <span className="ml-2 flex-1 w-0 truncate">12th_marksheet.pdf</span>
                                     </div>
                                     <div className="ml-4 flex-shrink-0">
                                         <a href={profileInfo.marksheet_12th_url ? profileInfo.marksheet_12th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                        Download
+                                        View
                                         </a>
                                     </div>
                                 </div>
@@ -273,11 +273,11 @@ export default function Profile (props) {
                                     <div className="pr-4 flex items-center justify-between text-sm">
                                         <div className="w-0 flex-1 flex items-center">
                                             <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                            <span className="ml-2 flex-1 w-0 truncate">Marksheet.pdf</span>
+                                            <span className="ml-2 flex-1 w-0 truncate">Gradesheet.pdf</span>
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
                                             <a href={Degree['8'] ? Degree['8'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                            Download
+                                            View
                                             </a>
                                         </div>
                                     </div>
@@ -290,7 +290,7 @@ export default function Profile (props) {
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
                                             <a href={Degree['9'] ? Degree['9'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                            Download
+                                            View
                                             </a>
                                         </div>
                                     </div>

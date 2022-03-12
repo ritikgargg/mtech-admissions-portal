@@ -87,7 +87,7 @@ function CollegeDegreeSection(props) {
             id="percentage-cgpa-format"
             name="percentage-cgpa-format"
             onChange={(event) => {props.handleChange(props.id,4,event); props.handleSelectChange(event, props.id+2)}}
-            
+           
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">- Select -</option>
@@ -109,6 +109,7 @@ function CollegeDegreeSection(props) {
             name="percentage-cgpa-value"
             id="percentage-cgpa-value"
             pattern={props.percentage_cgpa_pattern[props.id+2]}
+            title="Correct Format Percentage: 94.65, Correct Format CGPA: 8.23"
             onChange={(event) => props.handleChange(props.id,5,event)}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           />
@@ -124,7 +125,7 @@ function CollegeDegreeSection(props) {
           <select
             id="cgpa-scale"
             name="cgpa-scale"
-            onChange={(event) => props.handleChange(props.id,6,event)}
+            onChange={(event) => {props.handleChange(props.id,6,event);props.handleSelectChange(event, props.id+2)}}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">- None -</option>
@@ -165,6 +166,7 @@ function CollegeDegreeSection(props) {
             aria-describedby="marksheet_help"
             id="marksheet"
             type="file"
+            accept=".pdf"
             required
             onChange={(e) => props.handleFileSubmit(e, 2, props.id,8)}
           />
@@ -172,13 +174,12 @@ function CollegeDegreeSection(props) {
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
             id="marksheet_help"
           >
-            Files must be less than 5 MB.
+            {/* Files must be less than 5 MB., Allowed file types: pdf. */}
+            <span className="font-semibold">Maximum file size:</span> 5 MB <span className="font-semibold">Allowed file formats:</span> .pdf
           </div>
-          <div
-            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-            id="marksheet_help"
-          >
-            Allowed file types: pdf.
+          <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
+            <span className="font-semibold">File Name Format:</span> 
+            <span> Marksheet{props.id}_&lt;your_email_id&gt; For Example: Marksheet{props.id}_abc@gmail.com</span>
           </div>
         </div>
 
@@ -195,20 +196,20 @@ function CollegeDegreeSection(props) {
             aria-describedby="provisional_degree_help"
             id="provisional_degree"
             type="file"
+            accept=".pdf"
             required
             onChange={(e) => props.handleFileSubmit(e, 2, props.id,9)}
           />
-          <div
+              <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-            id="provisional_degree_help"
+            id="marksheet_help"
           >
-            Files must be less than 5 MB.
+            {/* Files must be less than 5 MB., Allowed file types: pdf. */}
+            <span className="font-semibold">Maximum file size:</span> 5 MB <span className="font-semibold">Allowed file formats:</span> .pdf
           </div>
-          <div
-            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-            id="provisional_degree_help"
-          >
-            Allowed file types: pdf.
+          <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
+            <span className="font-semibold">File Name Format:</span> 
+            <span> Degree{props.id}_&lt;your_email_id&gt; For Example: Degree{props.id}_abc@gmail.com</span>
           </div>
         </div>
       </div>
