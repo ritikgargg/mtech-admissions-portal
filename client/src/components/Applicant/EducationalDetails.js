@@ -12,6 +12,7 @@ function EducationalDetails() {
   const { register, handleSubmit, errors } = useForm();
   const [marksheet_10th, setMarksheet_10th] = useState(null);
   const [marksheet_12th, setMarksheet_12th] = useState(null);
+  const [percentage_cgpa_pattern, setPercentageCgpaPattern] = useState(Array.from({length: 5}, ()=>"(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"));
   
   const [degrees, setDegrees] = useState(Array.from({length: 5},()=> Array.from({length: 10}, () => '')))
   // const [degrees, setDegrees] = useState([
@@ -108,6 +109,19 @@ function EducationalDetails() {
     }
   }
 
+  const handleSelectChange = (e,index) => {
+    let copy = [...percentage_cgpa_pattern]
+    if(e.target.value === "Percentage") {
+      copy[index] = "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)";
+      setPercentageCgpaPattern(copy);
+    }
+    else {
+      copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
+      setPercentageCgpaPattern(copy);
+    }
+    console.log(percentage_cgpa_pattern);
+  }
+
   return (
     <div id="educationalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
         <div className="relative object-center overflow-y-auto overflow-x-hidden overscroll-none px-4 w-full max-w-7xl h-5/6">
@@ -156,7 +170,7 @@ function EducationalDetails() {
                                 
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                   >
-                                    <option>10th</option>
+                                    <option value="10th">10th</option>
                                   </select>
                                 </div>
 
@@ -191,10 +205,11 @@ function EducationalDetails() {
                                     required
                                     {...register("percentage_cgpa_format_10th")}
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    onChange={e => handleSelectChange(e,0)}
                                   >
-                                    <option>- Select -</option>
-                                    <option>Percentage</option>
-                                    <option>CGPA</option>
+                                    <option value="">- Select -</option>
+                                    <option value="Percentage">Percentage</option>
+                                    <option value="CGPA">CGPA</option>
                                   </select>
                                 </div>
 
@@ -209,6 +224,7 @@ function EducationalDetails() {
                                   <input
                                     type="text"
                                     required
+                                    pattern = {percentage_cgpa_pattern}
                                     id="percentage_cgpa_value_10th"
                                     {...register("percentage_cgpa_value_10th")}
                                     
@@ -337,12 +353,12 @@ function EducationalDetails() {
                                     id="percentage_cgpa_format_12th"
                                     required
                                     {...register("percentage_cgpa_format_12th")}
-                                  
+                                    onChange={e => handleSelectChange(e,1)}
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                   >
-                                    <option>- Select -</option>
-                                    <option>Percentage</option>
-                                    <option>CGPA</option>
+                                    <option value="">- Select -</option>
+                                    <option value="Percentage">Percentage</option>
+                                    <option value="CGPA">CGPA</option>
                                   </select>
                                 </div>
 
@@ -356,10 +372,10 @@ function EducationalDetails() {
                                   </label>
                                   <input
                                     type="text"
-                                    
+                                    pattern={percentage_cgpa_pattern[1]}
                                     id="percentage_cgpa_value_12th"
                                     {...register("percentage_cgpa_value_12th")}
-                                  
+                                    required
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                   />
                                 </div>
@@ -436,7 +452,7 @@ function EducationalDetails() {
                             </div>
 
                             {[...Array(count)].map((_, i) => (
-                              <CollegeDegreeSection key={i} id={i} handleChange={handleChange} handleFileSubmit={handleFileSubmitDegree}/>
+                              <CollegeDegreeSection key={i} id={i} handleChange={handleChange} handleFileSubmit={handleFileSubmitDegree} handleSelectChange={handleSelectChange} percentage_cgpa_pattern={percentage_cgpa_pattern}/>
                             ))}
 
                             <div className="flex mb-4 col-span-4">
@@ -502,9 +518,9 @@ function EducationalDetails() {
                                     {...register("is_last_degree_completed")}
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                   >
-                                    <option>- Select -</option>
-                                    <option>Yes</option>
-                                    <option>No</option>
+                                    <option value="">- Select -</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
                                   </select>
                                 </div>
 

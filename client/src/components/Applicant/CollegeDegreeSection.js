@@ -14,7 +14,7 @@ function CollegeDegreeSection(props) {
           <select
             id="degree"
             name="degree"
-            onChange={(event) => props.handleChange(props.id,0,event)}
+            onChange={(event) => {props.handleChange(props.id,0,event);}}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option>- Select -</option>
@@ -67,6 +67,8 @@ function CollegeDegreeSection(props) {
           <input
             type="text"
             name="year-of-passing"
+            pattern="[1-9]{1}[0-9]{3}"
+            title="4 Digit Year (Example: 2020)"
             id="year-of-passing"
             onChange={(event) => props.handleChange(props.id,3,event)}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -84,12 +86,13 @@ function CollegeDegreeSection(props) {
           <select
             id="percentage-cgpa-format"
             name="percentage-cgpa-format"
-            onChange={(event) => props.handleChange(props.id,4,event)}
+            onChange={(event) => {props.handleChange(props.id,4,event); props.handleSelectChange(event, props.id+2)}}
+            
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option>- Select -</option>
-            <option>Percentage</option>
-            <option>CGPA</option>
+            <option value="">- Select -</option>
+            <option value="Percentage">Percentage</option>
+            <option value="CGPA">CGPA</option>
           </select>
         </div>
 
@@ -105,6 +108,7 @@ function CollegeDegreeSection(props) {
             type="text"
             name="percentage-cgpa-value"
             id="percentage-cgpa-value"
+            pattern={props.percentage_cgpa_pattern[props.id+2]}
             onChange={(event) => props.handleChange(props.id,5,event)}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           />
@@ -123,9 +127,9 @@ function CollegeDegreeSection(props) {
             onChange={(event) => props.handleChange(props.id,6,event)}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option>- None -</option>
-            <option>10</option>
-            <option>4</option>
+            <option value="">- None -</option>
+            <option value="10">10</option>
+            <option value="4">4</option>
           </select>
         </div>
 
@@ -161,6 +165,7 @@ function CollegeDegreeSection(props) {
             aria-describedby="marksheet_help"
             id="marksheet"
             type="file"
+            required
             onChange={(e) => props.handleFileSubmit(e, 2, props.id,8)}
           />
           <div
@@ -190,6 +195,7 @@ function CollegeDegreeSection(props) {
             aria-describedby="provisional_degree_help"
             id="provisional_degree"
             type="file"
+            required
             onChange={(e) => props.handleFileSubmit(e, 2, props.id,9)}
           />
           <div

@@ -11,22 +11,22 @@ export default function Review(props) {
 
   const [profileInfo, setProfileInfo] = useState(0);
 
-    useEffect(() => {
-        axios.get("http://localhost:8080/get-profile-info", {
-            headers: {
-                Authorization: getToken()
-            }
-        })
-        .then(response => {
-            if(response.data === 1) {
-              navigate("/logout");
-            }
-            else {
-                setProfileInfo(response.data)
-            }
-          })
-        .catch(err => console.log(err));
-    });
+    // useEffect(() => {
+    //     axios.get("http://localhost:8080/get-profile-info", {
+    //         headers: {
+    //             Authorization: getToken()
+    //         }
+    //     })
+    //     .then(response => {
+    //         if(response.data === 1) {
+    //           navigate("/logout");
+    //         }
+    //         else {
+    //             setProfileInfo(response.data)
+    //         }
+    //       })
+    //     .catch(err => console.log(err));
+    // });
 
 
   return (

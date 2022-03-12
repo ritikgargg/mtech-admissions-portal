@@ -138,9 +138,6 @@ function CommunicationDetails() {
                       </label>
                       <input
                         type="text"
-                        minLength={6}
-                        maxLength={6}
-                        pattern="[1-9]{1}[0-9]{5}"
                         id="communication_pincode"
                         {...register("communication_pincode")}
                         required
@@ -217,9 +214,6 @@ function CommunicationDetails() {
                       </label>
                       <input
                         type="text"
-                        minLength={6}
-                        maxLength={6}
-                        pattern="[1-9]{1}[0-9]{5}"
                         required
                         id="permanent_pincode"
                         {...register("permanent_pincode")}
@@ -273,9 +267,8 @@ function CommunicationDetails() {
                       </label>
                       <input
                         type="text"
-                        minLength={10}
-                        maxLength={10}
                         pattern="[1-9]{1}[0-9]{9}"
+                        title="Mobile Number must be of 10 digits"
                         required
                         {...register("mobile_number")}
                         id="mobile_number"
@@ -292,9 +285,8 @@ function CommunicationDetails() {
                       </label>
                       <input
                         type="text"
-                        minLength={10}
-                        maxLength={10}
                         pattern="[1-9]{1}[0-9]{9}"
+                        title="Mobile Number must be of 10 digits"
                         {...register("alternate_mobile_number")}
                         id="alternate_mobile_number"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"

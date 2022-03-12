@@ -37,3 +37,4 @@ different email for applying?
 CGPA scale in education details, also check the range
 
 Files have to choosen again at the time of edit profile
+https://stackoverflow.com/questions/1084925/input-type-file-show-only-button

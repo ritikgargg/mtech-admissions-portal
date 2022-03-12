@@ -236,14 +236,15 @@ function PersonalInfo() {
                               <select
                                 id="category"
                                 {...register("category")}
+                                required
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
-                                <option>Select Category</option>
-                                <option>GEN</option>
-                                <option>GEN-EWS</option>
-                                <option>OBC</option>
-                                <option>SC</option>
-                                <option>ST</option>
+                                <option value="">Select Category</option>
+                                <option value="GEN">GEN</option>
+                                <option value="GEN-EWS">GEN-EWS</option>
+                                <option value="OBC">OBC</option>
+                                <option value="SC">SC</option>
+                                <option value="ST">ST</option>
                               </select>
                             </div>
 
@@ -291,12 +292,13 @@ function PersonalInfo() {
                               </label>
                               <select
                                 id="pwd-category"
+                                required
                                 {...register("pwdCategory")}
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
-                                <option>Select Choice</option>
-                                <option>YES</option>
-                                <option>NO</option>
+                                <option value="">Select Choice</option>
+                                <option value="YES">YES</option>
+                                <option value="NO">NO</option>
                               </select>
                             </div>
 
@@ -313,9 +315,9 @@ function PersonalInfo() {
                                 {...register("marital_status")}
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
-                                <option>Select Status</option>
-                                <option>Unmarried</option>
-                                <option>Married</option>
+                                <option value="">Select Status</option>
+                                <option value="Unmarried">Unmarried</option>
+                                <option value="Married">Married</option>
                               </select>
                             </div>
 
@@ -346,11 +348,12 @@ function PersonalInfo() {
                                 {...register("gender")}
                                 id="gender"
                                 name="gender"
+                                required
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
-                                <option>Select Gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                               </select>
                             </div>
                           </div>
