@@ -2,4 +2,4 @@ Note: Changed access control on the gcp for image loading on the profile page
 
 Note: Images/file names are now unique(appended with timestamp), but before they were getting replaced if they have same name
 
-If you change the token in the session storage, you will be logged out
+If you change the token in the session storage, you will be logged out if you make any request

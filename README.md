@@ -1,5 +1,3 @@
-# Urgent: Change your applicants table before sign-in/signup
-
 # Readme
 
 ## Setup
@@ -16,13 +14,10 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 2. Connect to the `mtech` database by running `\c mtech;`
 3. Run all the commands in the `database.sql` file in psql.
 4. Create any relation you want in the psql. Also, add the command in the `database.sql` file.
-5. Add your password in the `db.js` file.
-6. When you drop the `applicants` table or any other table and then add it to the database again, do not forget to add the corresponding triggers.
+5. When you drop the `applicants` table or any other table and then add it to the database again, do not forget to add the corresponding triggers.
 
 ## Extra settings
-For the server, create an app password for your **email**.  
-In the `auth.js` file in the server directory, put your email and app password in **auth**.  
+In the `.env` file in the server directory, update your details.
 
-## To get email hash token from session storage, import getToken from Sessions.js and use `getToken()`.
 
 Happy Coding :)

@@ -1,41 +1,39 @@
-import { useState } from 'react';
 import DashboardNavBar from "./DashboardNavBar"
 import CompleteProfile from './CompleteProfileAlert';
-import { useNavigate } from "react-router-dom"
-import axios from 'axios';
-import { getToken } from "../SignIn_SignUp/Sessions"
 import {Link} from 'react-router-dom'; 
 import ViewEligibility  from './ViewElgibility';
+import { useEffect, useState } from 'react';
+import axios from "axios";
+import { getToken } from "../SignIn_SignUp/Sessions";
+import { useNavigate } from "react-router-dom"
 
-const applications = [
-    {
-      id: 1,
-      department: 'Computer Science and Engineering',
-      specialization: "AI",
-      seats: "20",
-      eligibility: "B Tech/B.E in Civil, Environmental, Water resources, Agricultural Engineering and related areas with valid score of GATE.",
-      gate_paper_codes: "CS, AI",
-      deadline: "30-02-2022"
-    },
-    {
-      id: 2,
-      department: 'Electrical Engineering',
-      specialization: "VSLI",
-      seats: "20",
-      eligibility: "A bachelor's degree in engineering (BE / BTech), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A master's degree in science (MSc / MS), or equivalent, with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A bachelor’s degree in medicine/surgery (MBBS), pharmaceutical sciences (BPharm), veterinary science (BVSc), or dental surgery (BDS), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules B.Tech. from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE .",
-      gate_paper_codes: "EE, EC",
-      deadline: "30-02-2022"
-    }, 
-  ]
+// const applications = [
+//     {
+//       id: 1,
+//       department: 'Computer Science and Engineering',
+//       specialization: "AI",
+//       seats: "20",
+//       eligibility: "Candidates with B.Tech /B.E/MCA or M.Sc in the appropriate area with the valid GATE score in Computer Science and information Technology(CS),Electronics and communication Engineering (EC),and /or Mathematics (MA) ",
+//       gate_paper_codes: "CS, AI",
+//       deadline: "30-02-2022"
+//     },
+//     {
+//       id: 2,
+//       department: 'Electrical Engineering',
+//       specialization: "VSLI",
+//       seats: "20",
+//       eligibility: "A bachelor's degree in engineering (BE / BTech), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A master's degree in science (MSc / MS), or equivalent, with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A bachelor’s degree in medicine/surgery (MBBS), pharmaceutical sciences (BPharm), veterinary science (BVSc), or dental surgery (BDS), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules B.Tech. from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE .",
+//       gate_paper_codes: "EE, EC",
+//       deadline: "30-02-2022"
+//     }, 
+//   ]
 
 export default function ApplicantHomePage(props) {
     const navigate = useNavigate();
+    const [applications, setApplications] = useState([]);
 
-
-    function checkProfileComplete () {
-
-        // if not complete then show CompleteProfileAlert
-        axios.get("http://localhost:8080/get-profile-info", {
+    useEffect(() => {
+        axios.get("http://localhost:8080/get-open-positions", {
             headers: {
                 Authorization: getToken()
             }
@@ -45,17 +43,12 @@ export default function ApplicantHomePage(props) {
               navigate("/logout");
             }
             else {
-                if(response.data.full_name && response.data.communication_address && response.data.degree_10th){
-                    navigate('/apply');
-                }
-                else {
-                    console.log("profile not complete");
-                }
+                setApplications(response.data)
+                console.log(response.data)
             }
           })
         .catch(err => console.log(err));
-        console.log("Apply Button Clicked");
-    }
+    },[]);
 
     return (
         <>
@@ -122,58 +115,73 @@ export default function ApplicantHomePage(props) {
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {applications.map((application) => (
-                                        <tr key={application.id}>
-                                        {/* <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="flex items-center">
-                                            <div className="flex-shrink-0 h-10 w-10">
-                                                <img className="h-10 w-10 rounded-full" src={application.image} alt="" />
-                                            </div>
-                                            <div className="ml-4">
-                                                <div className="text-sm font-medium text-gray-900">{application.name}</div>
-                                                <div className="text-sm text-gray-500">{application.email}</div>
-                                            </div>
-                                            </div>
-                                        </td> */}
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{application.department}</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{application.specialization}</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{application.seats}</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">
-                                                <button data-modal-toggle={application.id} type="button" className="w-5 text-indigo-600">View</button>
-                                                <ViewEligibility id={application.id} eligibility={application.eligibility}/>
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{application.gate_paper_codes}</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{application.deadline}</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Active
-                                            </span>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            {/* <button onClick={checkProfileComplete} className="mr-4 text-indigo-600 hover:text-indigo-900">
-                                            Check
-                                            </button> */}
-                                            <Link to='/apply'  className="text-indigo-600 hover:text-indigo-900">
-                                                Apply
-                                            </Link>
-
-                                        </td>
+                                {applications.length === 0 && 
+                                    <tbody>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">No positions open currently!</div>
+                                            </td>
                                         </tr>
-                                    ))}
-                                </tbody>
+                                    </tbody>
+                                }
+                                {applications.length !== 0 && 
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        {applications.map((application) => (
+                                            <tr key={application.offering_id}>
+                                            {/* <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="flex items-center">
+                                                <div className="flex-shrink-0 h-10 w-10">
+                                                    <img className="h-10 w-10 rounded-full" src={application.image} alt="" />
+                                                </div>
+                                                <div className="ml-4">
+                                                    <div className="text-sm font-medium text-gray-900">{application.name}</div>
+                                                    <div className="text-sm text-gray-500">{application.email}</div>
+                                                </div>
+                                                </div>
+                                            </td> */}
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">{application.department}</div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">{application.specialization}</div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">{application.seats}</div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">
+                                                    <button data-modal-toggle={application.id} type="button" data-tooltip-target="tooltip-animation" className="w-5 text-indigo-600 font-medium">View</button>
+                                                    <ViewEligibility id={application.id} eligibility={application.eligibility}/>
+                                                </div>
+                                                <div id="tooltip-animation" role="tooltip" className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+                                                    View Eligibility
+                                                    <div className="tooltip-arrow" data-popper-arrow></div>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">{application.gate_paper_codes}</div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">{application.deadline}</div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                Active
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                {/* <button onClick={checkProfileComplete} className="mr-4 text-indigo-600 hover:text-indigo-900">
+                                                Check
+                                                </button> */}
+                                                <Link to='/apply'  className="text-indigo-600 hover:text-indigo-900">
+                                                    Apply
+                                                </Link>
+
+                                            </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                }
                             </table>
                             </div>
                         </div>

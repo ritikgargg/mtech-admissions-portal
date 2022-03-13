@@ -270,7 +270,7 @@ const get_profile_info = async (req, res) => {
 /**
  * Get applicant personal info
  */
- const get_personal_info = async (req, res) => {
+ const check_applicant_info = async (req, res) => {
   /**
    * Verify using authToken
    */
@@ -292,9 +292,7 @@ const get_profile_info = async (req, res) => {
    /** Get email */
    var email = jwt.decode(authToken).userEmail
 
-   const results = await pool.query("SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
-                              category, is_pwd, marital_status, nationality, gender from applicants \
-                              WHERE email_id = $1;", [email]);
+   const results = await pool.query("SELECT full_name, category from applicants WHERE email_id = $1;", [email]);
     
     return res.send(results.rows[0]);
 }
@@ -385,12 +383,39 @@ const save_application_info = async (req, res) => {
   return res.status(200).send("Ok")
 }
 
+/**
+ * 
+ */
+const get_open_positions = async (req, res) => {
+/**
+ * Verify using authToken
+ */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null
+
+  try {
+      verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+    
+  if(!verified) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+
+  const results = await pool.query("SELECT * from mtech_offerings;");
+
+  return res.send(results.rows);
+}
 
 module.exports = {
     save_personal_info,
     save_communication_details,
     save_education_details,
     get_profile_info,
-    // get_personal_info,
-    save_application_info
+    check_applicant_info,
+    save_application_info,
+    get_open_positions
 }

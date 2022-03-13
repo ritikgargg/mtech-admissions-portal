@@ -17,7 +17,7 @@ function ApplicantionDetails() {
   const [category, setCategory] = useState("");
   // const ref = useRef();
 
-  Axios.get("http://localhost:8080/get-profile-info", {
+  Axios.get("http://localhost:8080/check-applicant-info", {
         headers: {
             Authorization: getToken()
         }

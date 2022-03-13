@@ -8,6 +8,7 @@ const navigation = [
   { name: "Home", to: "/" },
   { name: "How to Apply", to: "/how-to-apply" },
   { name: "Contact us", to: "/contact-us" },
+  { name : "Courses", to: "/courses"},
   { name : "FAQs", to: "/faqs"}
 ];
 

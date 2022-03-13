@@ -27,7 +27,7 @@ function EducationalDetails() {
     let copy = [...degrees];
     copy[row][column] = event.target.value;
     setDegrees(copy);
-    console.log(degrees[row][column])
+    // console.log(degrees[row][column])
   };
 
   const onSubmit = (data) => {
@@ -127,7 +127,16 @@ function EducationalDetails() {
       copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
       setPercentageCgpaPattern(copy);
     }
-    console.log(percentage_cgpa_pattern);
+    // console.log(percentage_cgpa_pattern);
+  }
+
+  const removeDegree = (index) => {
+    let copy = [...degrees]
+    for (let i = 0; i < 10; i++) {
+      copy[index][i] = '';
+    }
+    setDegrees(copy);
+    // console.log(degrees)
   }
 
   return (
@@ -212,7 +221,7 @@ function EducationalDetails() {
                                     id="percentage_cgpa_format_10th"
                                     required
                                     {...register("percentage_cgpa_format_10th")}
-                                   
+                                    pattern={percentage_cgpa_pattern}
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     onChange={e => handleSelectChange(e,0)}
                                   >
@@ -234,7 +243,7 @@ function EducationalDetails() {
                                     type="text"
                                     required
                                     title="Correct Percentage Format: 94.65, Correct CGPA Format: 8.23"
-                                    pattern = {percentage_cgpa_pattern}
+                                    pattern = {percentage_cgpa_pattern[0]}
                                     id="percentage_cgpa_value_10th"
                                     {...register("percentage_cgpa_value_10th")}
                                     
@@ -256,7 +265,8 @@ function EducationalDetails() {
                                     required
                                     {...register("year_of_passing_10th")}
                                     id="year_of_passing_10th"
-                                    
+                                    pattern="[1-9]{1}[0-9]{3}"
+                                    title="4 Digit Year (Example: 2020)"
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                   />
                                 </div>
@@ -412,7 +422,8 @@ function EducationalDetails() {
                                     required
                                     id="year_of_passing_12th"
                                     {...register("year_of_passing_12th")}
-                                  
+                                    pattern="[1-9]{1}[0-9]{3}"
+                                    title="4 Digit Year (Example: 2020)"
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                   />
                                 </div>
@@ -478,7 +489,7 @@ function EducationalDetails() {
                                 <div></div>
                               ) : (<button
                                 type="button"
-                                onClick={() => setCount(count + 1)}
+                                onClick={() => {setCount(count + 1)}}
                                 className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
                               >
                                 Add Section
@@ -488,7 +499,7 @@ function EducationalDetails() {
                               ) : (
                                 <button
                                   type="button"
-                                  onClick={() => setCount(count - 1)}
+                                  onClick={() => {removeDegree(count-1);setCount(count - 1);}}
                                   className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
                                 >
                                   Remove Section

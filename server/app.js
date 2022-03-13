@@ -52,7 +52,9 @@ app.post('/save-education-details',
 
 app.get('/get-profile-info', applicantdB.get_profile_info);
 
-// app.get('/get-personal-info', applicantdB.get_personal_info);
+app.get('/check-applicant-info', applicantdB.check_applicant_info);
+
+app.get('/get-open-positions', applicantdB.get_open_positions);
 
 app.post('/save-application-info',
           upload.fields([
