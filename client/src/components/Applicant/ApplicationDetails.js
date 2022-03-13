@@ -87,8 +87,6 @@ function ApplicantionDetails() {
     formData.append("self_attested_copies", applicant_details[14]);
     formData.append("signature", applicant_details[17]);
 
-    console.log("submit ho rhaa hai");
-
     Axios.post("http://localhost:8080/save-application-info", formData, {
       headers: {
         Authorization: getToken()
@@ -99,7 +97,7 @@ function ApplicantionDetails() {
           navigate("/logout");
         }
         else {
-          // window.location.reload();
+          navigate("/my-applications");
         }
       })
       .catch(err => console.log(err));

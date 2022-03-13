@@ -332,8 +332,8 @@ const save_application_info = async (req, res) => {
                     branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
                     remarks, date_of_declaration, place_of_declaration) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
                     $13, $14, $15, $16);", [email, app_details[1], app_details[2], app_details[3], app_details[5], app_details[6], 
-                    app_details[7], app_details[8], app_details[9], app_details[10], app_details[11], app_details[12], app_details[1], 
-                    app_details[1], app_details[1], app_details[1]]);
+                    app_details[7], app_details[8], app_details[9], app_details[10], app_details[11], app_details[12], app_details[13], 
+                    app_details[15], app_details[19], app_details[18]]);
 
   let promises = []
   let vals = Object.values(req.files)
@@ -361,23 +361,14 @@ const save_application_info = async (req, res) => {
         stream.on('finish', async () => {
           url = format(`https://storage.googleapis.com/${applicantBucket.name}/${file.name}`);
 
-          if(f[0].fieldname === 'marksheet_10th_url') {
-            await pool.query("UPDATE applicants SET marksheet_10th_url = $1 WHERE email_id = $2;", [url, email]);
+          if(f[0].fieldname === 'transaction_slip') {
+            await pool.query("UPDATE applications SET transaction_slip_url = $1 WHERE email_id = $2;", [url, email]);
           }
-          else if(f[0].fieldname === 'marksheet_12th_url') {
-            await pool.query("UPDATE applicants SET marksheet_12th_url = $1 WHERE email_id = $2;", [url, email]);
+          else if(f[0].fieldname === 'self_attested_copies') {
+            await pool.query("UPDATE applications SET self_attested_copies_url = $1 WHERE email_id = $2;", [url, email]);
           }
-          else {
-            str = f[0].fieldname
-            first = str.substring(0, str.length - 1);
-            lastChar = str.substr(str.length - 1);
-
-            x =  parseInt(lastChar) + 1
-            y = (first === 'upload_marksheet') ? 9 : 10
-
-            // console.log(x, y, first, lastChar, str)
-
-            await pool.query("UPDATE applicants SET degrees[$1][$2] = $3 WHERE email_id = $4;", [x, y, url, email]);
+          else if(f[0].fieldname === 'signature') {
+            await pool.query("UPDATE applications SET signature_url = $1 WHERE email_id = $2;", [url, email]);
           }
 
           f[0].cloudStorageObject = gcsname;

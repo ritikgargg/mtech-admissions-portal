@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { useState } from 'react';
 import DashboardNavBar from "./DashboardNavBar"
 import CompleteProfile from './CompleteProfileAlert';
@@ -6,26 +5,28 @@ import { useNavigate } from "react-router-dom"
 import axios from 'axios';
 import { getToken } from "../SignIn_SignUp/Sessions"
 import {Link} from 'react-router-dom'; 
+import ViewEligibility  from './ViewElgibility';
 
 const applications = [
     {
       id: 1,
-      type: 'MTech',
       department: 'Computer Science and Engineering',
       specialization: "AI",
-      last_date: "30-02-2022"
+      seats: "20",
+      eligibility: "B Tech/B.E in Civil, Environmental, Water resources, Agricultural Engineering and related areas with valid score of GATE.",
+      gate_paper_codes: "CS, AI",
+      deadline: "30-02-2022"
     },
     {
       id: 2,
-      type: 'MTech',
       department: 'Electrical Engineering',
       specialization: "VSLI",
-      last_date: "30-02-2022"
+      seats: "20",
+      eligibility: "A bachelor's degree in engineering (BE / BTech), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A master's degree in science (MSc / MS), or equivalent, with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A bachelor’s degree in medicine/surgery (MBBS), pharmaceutical sciences (BPharm), veterinary science (BVSc), or dental surgery (BDS), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules B.Tech. from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE .",
+      gate_paper_codes: "EE, EC",
+      deadline: "30-02-2022"
     }, 
   ]
-  
-// Department, Type, Status
-
 
 export default function ApplicantHomePage(props) {
     const navigate = useNavigate();
@@ -63,8 +64,8 @@ export default function ApplicantHomePage(props) {
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		    <div className="px-4 py-6 sm:px-0">
                 <header className="bg-white">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        <h1 className="text-3xl font-bold text-gray-900">Applications</h1>
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-0">
+                        <h1 className="text-3xl font-bold text-gray-900">Open Positions</h1>
                     </div>
                 </header>
                 <div className="flex flex-col">
@@ -74,12 +75,6 @@ export default function ApplicantHomePage(props) {
                             <table className="min-w-full divide-y divide-gray-200">
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                        >
-                                            Type
-                                        </th>
                                         <th
                                             scope="col"
                                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -96,13 +91,31 @@ export default function ApplicantHomePage(props) {
                                             scope="col"
                                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                         >
-                                            Status
+                                            Seats
                                         </th>
                                         <th
                                             scope="col"
                                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                         >
-                                            Last Date
+                                            Eligibility
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Gate Paper Codes
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Deadline
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        >
+                                            Status
                                         </th>
                                         <th scope="col" className="relative px-6 py-3">
                                             <span className="sr-only">Apply</span>
@@ -124,21 +137,30 @@ export default function ApplicantHomePage(props) {
                                             </div>
                                         </td> */}
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{application.type}</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="text-sm text-gray-500">{application.department}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="text-sm text-gray-500">{application.specialization}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{application.seats}</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">
+                                                <button data-modal-toggle={application.id} type="button" className="w-5 text-indigo-600">View</button>
+                                                <ViewEligibility id={application.id} eligibility={application.eligibility}/>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{application.gate_paper_codes}</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{application.deadline}</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
                                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                             Active
                                             </span>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{application.last_date}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             {/* <button onClick={checkProfileComplete} className="mr-4 text-indigo-600 hover:text-indigo-900">

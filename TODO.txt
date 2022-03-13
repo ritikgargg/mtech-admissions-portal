@@ -1,9 +1,5 @@
 Responsive UI
 
-Applicant database, form submission and review page, Apply page for applicant, Application submission
-
-Application database
-
 OpenPositions database
 
 Courses Page (list of tiles)
@@ -16,13 +12,13 @@ Optional category certificate download option, alternate mobile number
 
 Pre-Load data at the time of editing - :/
 
-Do something with applicant ID
+Do something with applicant ID - not sure if required?
 
 Once we move to the next page, the file gets removed from that page [ Although we have it in the array ]    
 
 Disable profile change button(even during filling a form), Disable apply button, applicantion alert(also fix when logging in)
 
-Prefill values in the application form corresponding to the applicantion selected, must
+Prefill values in the application form corresponding to the applicantion selected, must (Branch and Specialization), also add the same in the application table
 
 On pressing enter going to next page in apply form
 
@@ -30,3 +26,5 @@ Files have to choosen again at the time of edit profile
 https://stackoverflow.com/questions/1084925/input-type-file-show-only-button
 
 New route -> for declaration, name, etc.
+
+Success modal on form submission

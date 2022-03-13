@@ -88,11 +88,21 @@ CREATE TABLE applications(
   remarks TEXT,
 
   -- Declaration
-  singnature_url TEXT,
+  signature_url TEXT,
   date_of_declaration TEXT,
   place_of_declaration TEXT,
 
   CONSTRAINT fk_email FOREIGN KEY(email_id) REFERENCES applicants(email_id)
+);
+
+CREATE TABLE mtech_offering(
+  offering_id SERIAL PRIMARY KEY,
+  department TEXT,
+  specialization TEXT,
+  seats TEXT,
+  gate_paper_codes TEXT,
+  eligibility TEXT,
+  deadline TIMESTAMPTZ,
 );
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
