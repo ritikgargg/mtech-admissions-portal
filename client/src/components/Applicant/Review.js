@@ -56,10 +56,10 @@ export default function Review(props) {
       </div>
       <div className="border-t border-gray-200">
         <dl>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          {/* <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Category</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[0]}</dd>
-          </div>
+          </div> */}
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Amount</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.details[1]}</dd>
@@ -187,20 +187,23 @@ export default function Review(props) {
 
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Uploads</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                  <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    <span className="ml-2 flex-1 w-0 truncate">category_certificate.pdf</span>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </dd>
+            {profileInfo.category_certificate_url &&
+              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                  <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                    <div className="w-0 flex-1 flex items-center">
+                      <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                      <span className="ml-2 flex-1 w-0 truncate">Category_Certificate.pdf</span>
+                    </div>
+                    <div className="ml-4 flex-shrink-0">
+                      <a href={profileInfo.category_certificate_url} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                      View
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </dd>
+            }
           </div>
         </dl>
       </div>

@@ -1,6 +1,8 @@
+
 import React from "react";
 
 function ApplicationFeeDetails(props) {
+
     return (
         <div>
           <div className="px-6 py-6 mx-20 my-20 bg-[#f3f4f6] rounded-2xl">
@@ -17,7 +19,7 @@ function ApplicationFeeDetails(props) {
                 </div>
               </div>
               <div className="mt-5 md:mt-0 md:col-span-2">
-                <form onSubmit={() => props.increasePageNumber()} method="POST">
+                <form method="POST">
                   <div className="shadow overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -37,12 +39,13 @@ function ApplicationFeeDetails(props) {
                             required
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
-                            <option value="">- Select -</option>
+                            {/* <option value="">- Select -</option>
                             <option value="GEN">GEN</option>
                             <option value="GEN-EWS">GEN-EWS</option>
                             <option value="OBC">OBC</option>
                             <option value="SC">SC</option>
-                            <option value="ST">ST</option>
+                            <option value="ST">ST</option> */}
+                            <option value={props.category}>{props.category}</option>
                           </select>
                         </div>
                         <br></br>
@@ -183,6 +186,7 @@ function ApplicationFeeDetails(props) {
                   
                   <button
                     type="submit"
+                    onClick={() => props.increasePageNumber()}
                     className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Next

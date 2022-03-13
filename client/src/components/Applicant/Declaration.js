@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function Declaration(props){
     return (
@@ -44,6 +44,8 @@ of the Institute, which shall be final.
                             name="full_name"
                             id="full_name"
                             required
+                            pattern={props.full_name}
+                            title="Please match your full name that you have entered in your profile."
                             value={props.details[16]}
                             onChange={e => props.onChange(e, 16)}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -111,7 +113,7 @@ of the Institute, which shall be final.
                         id = "date"
                         name = "date"
                         type="date"
-                        disabled="true"
+                        disabled={true}
                         value={props.details[19]}
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         // onChange={e=>props.onChange(e, 19)}

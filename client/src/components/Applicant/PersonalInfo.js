@@ -288,7 +288,7 @@ function PersonalInfo() {
                                 id="category-certificate-desc"
                               >
                                 <span className="font-semibold">File Name Format:</span> 
-                                <span> CC_&lt;your_email_id&gt; For Example: CC_abc@gmail.com</span>
+                                <span> Category_Certificate_&lt;your_email_id&gt; For Example: Category_Certificate_abc@gmail.com</span>
                               </div>
                             </div>
 

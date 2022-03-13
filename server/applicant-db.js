@@ -257,7 +257,7 @@ const get_profile_info = async (req, res) => {
    var email = jwt.decode(authToken).userEmail
 
    const results = await pool.query("SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
-                              category, is_pwd, marital_status, nationality, gender, communication_address, communication_city, \
+                              category, is_pwd, marital_status, category_certificate_url, nationality, gender, communication_address, communication_city, \
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
                               permanent_pincode, mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_value_10th, \
                               year_of_passing_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_value_12th, \
@@ -299,12 +299,99 @@ const get_profile_info = async (req, res) => {
     return res.send(results.rows[0]);
 }
 
-
+/**
+ * Save application info
+ */
 const save_application_info = async (req, res) => {
-  const info = req.body;
-  // const applicant_details = JSON.parse(info.applicant_details);
-  // console.log(applicant_details);
-  console.log(req.files);
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  
+  var verified = null
+
+  try {
+      verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+    
+  if(!verified) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail
+
+  var info = req.body
+
+  app_details = JSON.parse(info.applicant_details)
+
+  await pool.query("INSERT INTO applications(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
+                    branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
+                    remarks, date_of_declaration, place_of_declaration) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
+                    $13, $14, $15, $16);", [email, app_details[1], app_details[2], app_details[3], app_details[5], app_details[6], 
+                    app_details[7], app_details[8], app_details[9], app_details[10], app_details[11], app_details[12], app_details[1], 
+                    app_details[1], app_details[1], app_details[1]]);
+
+  let promises = []
+  let vals = Object.values(req.files)
+
+  for(let f of vals) {
+    const gcsname = f[0].originalname + '_' + Date.now()
+    const file = applicantBucket.file(gcsname)
+
+    const stream = file.createWriteStream({
+      metadata: {
+        contentType: f[0].mimetype
+      },
+      resumable: false
+    })
+
+    stream.on('error', (err) => {
+      f[0].cloudStorageError = err
+      next(err)
+    })
+
+    stream.end(f[0].buffer)
+
+    promises.push(
+      new Promise ((resolve, reject) => {
+        stream.on('finish', async () => {
+          url = format(`https://storage.googleapis.com/${applicantBucket.name}/${file.name}`);
+
+          if(f[0].fieldname === 'marksheet_10th_url') {
+            await pool.query("UPDATE applicants SET marksheet_10th_url = $1 WHERE email_id = $2;", [url, email]);
+          }
+          else if(f[0].fieldname === 'marksheet_12th_url') {
+            await pool.query("UPDATE applicants SET marksheet_12th_url = $1 WHERE email_id = $2;", [url, email]);
+          }
+          else {
+            str = f[0].fieldname
+            first = str.substring(0, str.length - 1);
+            lastChar = str.substr(str.length - 1);
+
+            x =  parseInt(lastChar) + 1
+            y = (first === 'upload_marksheet') ? 9 : 10
+
+            // console.log(x, y, first, lastChar, str)
+
+            await pool.query("UPDATE applicants SET degrees[$1][$2] = $3 WHERE email_id = $4;", [x, y, url, email]);
+          }
+
+          f[0].cloudStorageObject = gcsname;
+          file.makePublic().then(() => {
+            resolve()
+          })
+        })
+      })
+    )
+  }
+
+  Promise.all(promises)
+  
+  return res.status(200).send("Ok")
 }
 
 

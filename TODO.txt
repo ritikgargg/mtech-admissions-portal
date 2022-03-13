@@ -22,9 +22,11 @@ Once we move to the next page, the file gets removed from that page [ Although w
 
 Disable profile change button(even during filling a form), Disable apply button, applicantion alert(also fix when logging in)
 
-Prefill values in the application form corresponding to the applicantion selected
+Prefill values in the application form corresponding to the applicantion selected, must
 
-On entering going to next page in apply form
+On pressing enter going to next page in apply form
 
 Files have to choosen again at the time of edit profile
 https://stackoverflow.com/questions/1084925/input-type-file-show-only-button
+
+New route -> for declaration, name, etc.

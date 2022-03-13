@@ -13,10 +13,30 @@ function ApplicantionDetails() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const {register, handleSubmit, errors} = useForm();
+  const [full_name, setFullName] = useState("");
+  const [category, setCategory] = useState("");
   // const ref = useRef();
 
+  Axios.get("http://localhost:8080/get-profile-info", {
+        headers: {
+            Authorization: getToken()
+        }
+    })
+    .then(response => {
+        if(response.data === 1) {
+          navigate("/logout");
+        }
+        else {
+            setFullName(response.data.full_name);
+            setCategory(response.data.category);
+        }
+      })
+    .catch(err => console.log(err));
+
+
   const init_application_details = () => {
-    const array = Array.from({length: 21},()=>'');
+
+    const array = Array.from({length: 20},()=>'');
     let date = new Date();
     // console.log(date)
     // console.log(date.getDate() + '-' + (date.getMonth()+1) + '-' + date.getFullYear())
@@ -87,7 +107,7 @@ function ApplicantionDetails() {
   }
 
   function increasePageNumber(){
-    console.log(applicant_details);
+    // console.log(applicant_details);
     setPage(page + 1);
   }
 
@@ -126,9 +146,9 @@ function ApplicantionDetails() {
 
       {
         {
-          1 : <ApplicationFeeDetails increasePageNumber = {increasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,                
+          1 : <ApplicationFeeDetails category={category} increasePageNumber = {increasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,                
           2 : <QualifyingExamDetails increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,          
-          3 : <Declaration increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,
+          3 : <Declaration full_name = {full_name} increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,
           4 : <Review decreasePageNumber={decreasePageNumber} details={applicant_details} handleSubmit={handleSubmit} onSubmit={handleApplicationSubmit}/>,                    
         }[page]
       }

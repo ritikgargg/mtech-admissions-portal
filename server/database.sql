@@ -71,7 +71,6 @@ CREATE TABLE applications(
   application_id SERIAL PRIMARY KEY,
   email_id TEXT,
 
-  category TEXT,
   amount TEXT,
   transaction_id TEXT,
   bank TEXT,
@@ -89,11 +88,11 @@ CREATE TABLE applications(
   remarks TEXT,
 
   -- Declaration
-  singnature_url TEXT
+  singnature_url TEXT,
+  date_of_declaration TEXT,
+  place_of_declaration TEXT,
 
-  CONSTRAINT fk_email
-    FOREIGN KEY(email_id)
-      REFERENCES applicants(email_id)
+  CONSTRAINT fk_email FOREIGN KEY(email_id) REFERENCES applicants(email_id)
 );
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
