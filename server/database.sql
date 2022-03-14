@@ -102,14 +102,14 @@ CREATE TABLE mtech_offerings(
   seats TEXT,
   gate_paper_codes TEXT,
   eligibility TEXT,
-  deadline TIMESTAMPTZ
+  deadline TIMESTAMP
 );
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
-VALUES('Computer Science and Engineering', 'AI', 20, 'CS, AI', '2022-03-31 11:59:59+05:30', 'Candidates with B.Tech /B.E/MCA or M.Sc in the appropriate area with the valid GATE score in Computer Science and information Technology(CS),Electronics and communication Engineering (EC),and /or Mathematics (MA).');
+VALUES('Computer Science and Engineering', 'AI', 20, 'CS, AI', '2022-03-31', 'Candidates with B.Tech /B.E/MCA or M.Sc in the appropriate area with the valid GATE score in Computer Science and information Technology(CS),Electronics and communication Engineering (EC),and /or Mathematics (MA).');
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
-VALUES('Electrical Engineering', 'VSLI', 20, 'EE, EC', '2022-03-31 11:59:59+05:30', 'A bachelor''s degree in engineering (BE / BTech), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A master''s degree in science (MSc / MS), or equivalent, with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A bachelor''s degree in medicine/surgery (MBBS), pharmaceutical sciences (BPharm), veterinary science (BVSc), or dental surgery (BDS), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules B.Tech. from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE.');
+VALUES('Electrical Engineering', 'VSLI', 20, 'EE, EC', '2022-03-31', 'A bachelor''s degree in engineering (BE / BTech), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A master''s degree in science (MSc / MS), or equivalent, with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A bachelor''s degree in medicine/surgery (MBBS), pharmaceutical sciences (BPharm), veterinary science (BVSc), or dental surgery (BDS), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules B.Tech. from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE.');
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
   RETURNS TRIGGER 

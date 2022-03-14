@@ -1,7 +1,5 @@
 Responsive UI
 
-OpenPositions database
-
 Courses Page (list of tiles)
 
 contact us
@@ -26,3 +24,5 @@ https://stackoverflow.com/questions/1084925/input-type-file-show-only-button
 Success modal on form submission
 
 Change the person near the logout option
+
+\n in eligibility Not working
