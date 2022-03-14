@@ -1,7 +1,5 @@
 Responsive UI
 
-OpenPositions database
-
 Courses Page (list of tiles)
 
 contact us
@@ -26,3 +24,6 @@ Success modal on form submission
 DONE :: Change the person near the logout option
 
 Cross and cacnel button are set to reload the window, find a better option
+Change the person near the logout option
+
+\n in eligibility Not working
