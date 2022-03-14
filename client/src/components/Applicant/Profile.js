@@ -21,49 +21,9 @@ export default function Profile (props) {
     //     { degree: 'B-Tech', board_uni: 'IIT Ropar', per_cgpa: '7.67', yop: '2021', att: 'graduation_certificate.pdf' }
     // ]
 
-    //1 full_name,
-    //2 fathers_name,
-    //3 profile_image_url
-    //4   , date_of_birth
-    //5  , aadhar_card_number
-    //6   category
-    //7 , is_pwd
-    //8,   marital_status
-    //9    category_certificate_url
-    //10   nationality
-    //11 , gender
-    //12 , communication_address
-    //13 , communication_city
-    //14   communication_state
-    //15 , communication_pincode
-    //16 , permanent_address,
-    //17   permanent_city
-    //18   permanent_state,
-    //19   permanent_pincode,
-    //20   mobile_number
-    //21  ,alternate_mobile_number
-    //22   email_id,
-    //23   degree_10th
-    //24   board_10th
-    //25  percentage_cgpa_value_10th
-    //26 //year_of_passing_10th
-    //27 , marksheet_10th_url
-    //28 , degree_12th
-    //29 , board_12th
-    //30 , percentage_cgpa_value_12th
-    //31 //year_of_passing_12th
-    //32 , marksheet_12th_url
-    //33 , degrees
-
     const [profileInfo, setProfileInfo] = useState(0);
     const [localProfileInfo, setLocalProfileInfo] = useState(0);
     const [degrees, setDegrees] = useState([]);
-    // const [styleSheet, setStyleSheet] = useState({
-    //     backgroundSize: "cover",
-    //     backgroundRepeat: "no-repeat",
-    //     backgroundPosition: "50% 50%",
-    //     border: "2px solid black"}
-    //        );
 
 
     function emptyFile(key){
@@ -127,8 +87,6 @@ export default function Profile (props) {
                 setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
                 setLocalProfileInfo(response.data)
                 console.log(response.data)
-                // var copyobj = {...styleSheet, backgroundImage: url(response.data.prof)}
-                // setStyleSheet(styleSheet => styleSheet["background-image"] = "url(" + response.data.profile_image_url + ");");
             }
           })
         .catch(err => console.log(err));
@@ -156,13 +114,13 @@ export default function Profile (props) {
         <>
         <DashboardNavBar currentFlag={2} user={props.user}/>
         <div className='flex'>
-            <div className='flex-2 my-20 mx-20 block'>
+            {/* <div className='flex-2 my-20 mx-20 block'> */}
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}
             {/* ring-2 ring-gray-700 rounded-full */}
-                <img className="ring-2 h-40 w-40 ring-gray-700 rounded-full border border-black" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Your Profile Picture"/>
-            </div>
+                {/* <img className="ring-2 h-40 w-40 ring-gray-700 rounded-full border border-black" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Your Profile Picture"/>
+            </div> */}
 
-            {/* <div className="mx-10 my-10 rounded-full h-40 w-40" style={$.extend({background-image: url(profileInfo.profile_image_url)}, styleSheet)}></div> */}
+            <div className="mx-20 my-20 rounded-full h-40 w-40" style={{backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: '50% 50%', border: '2px solid black', backgroundImage: `url(${profileInfo.profile_image_url})`}} />
 
             <div className="mr-20 mt-4 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
@@ -241,7 +199,7 @@ export default function Profile (props) {
                     <h3 className="text-lg leading-6 font-medium text-gray-900">Communication Details</h3>
 
                     <button  data-modal-toggle="communicationDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600"><PencilIcon/></button>
-                    <CommunicationDetails/>
+                    <CommunicationDetails  localProfileInfo={localProfileInfo} onChange={handleLocalChange} syncLocalGlobalData={syncLocalGlobalData}/>
                 </div>
                 <div className="border-t border-gray-300">
                     <dl>

@@ -1,5 +1,6 @@
 
 import React from "react";
+import crossPic from "../../images/red_cross.png"
 
 function ApplicationFeeDetails(props) {
 
@@ -169,7 +170,7 @@ function ApplicationFeeDetails(props) {
                                 />
                             
                                 <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFileIndex(4)}>
-                                  <img className="w-6 h-6" src ="https://cdn-icons.flaticon.com/png/512/5910/premium/5910314.png?token=exp=1647249971~hmac=db85dd3a45aab42b8ef6989540cd37db"></img>
+                                  <img className="w-6 h-6" src ={crossPic}></img>
                                 </button>
                               </div>
                             </>

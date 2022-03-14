@@ -1,4 +1,5 @@
 import React from 'react';
+import crossPic from "../../images/red_cross.png"
 
 function QualifyingExamDetails(props){
 
@@ -211,6 +212,8 @@ the candidate will be responsible for this. GATE <span className="font-sebold">{
                             id="user_avatar"
                             type="file"
                           /> */}
+                           {(!props.details[14].name) && 
+                          <>
                           <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="profile-picture-desc"
@@ -220,20 +223,53 @@ the candidate will be responsible for this. GATE <span className="font-sebold">{
                             // value={props.details[4].name}
                             // ref={props.ref}
                             required
-                            accept=".pdf"
-                            onChange={(e) => props.handleFileSubmit(e, 2, 14)}
+                            accept=".pdf, .jpeg, .jpg"
+                            onChange={(e) => props.handleFileSubmit(e, 2,14)}
                             />
-                         <div
-                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                      id="marksheet_help"
-                                    >
-                                      {/* Files must be less than 2 MB., Allowed file types: pdf. */}
-                                      <span className="font-semibold">Maximum file size:</span> 5 MB <span className="font-semibold">Allowed file formats:</span> .pdf
-                                    </div>
-                                    <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
-                                      <span className="font-semibold">File Name Format:</span> 
-                                      <span> GateCopy_&lt;your_email_id&gt; For Example: GateCopy__abc@gmail.com</span>
-                                    </div>
+                            <div
+                            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                            id="gate_result_help"
+                          >
+                            {/* Files must be less than 2 MB. */}
+                            <span className="font-semibold"> Maximum file size: </span>2 MB
+                          </div>
+                          <div
+                            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                            id="gate_result_help"
+                          >
+                            {/* Allowed file types: jpg jpeg pdf. */}
+                            <span className="font-semibold">Allowed file formats:</span> .jpg, .jpeg, .pdf
+                          </div>
+                          <div
+                            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                            id="gate_result_help"
+                          >
+                            {/* Allowed file types: jpg jpeg pdf. */}
+                            <span className="font-semibold">File Name Format:</span> 
+                            <span> Transaction_Slip_&lt;your_email_id&gt; <br/>For Example: Transcation_Slip_abc@gmail.com</span>
+                          </div>
+                          </>}
+                            {(props.details[14].name) && 
+                            <>
+
+                              <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                              <input
+                                className="border-none block w-full shadow-sm sm:text-sm"
+                                id="gate_result"
+                                name="gate_result"
+                                type="text"
+                                value={props.details[14].name}
+                                // ref={props.ref}
+                                required
+                                readOnly
+                                />
+                            
+                                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFileIndex(14)}>
+                                  <img className="w-6 h-6" src ={crossPic}></img>
+                                </button>
+                              </div>
+                            </>
+                            }
                         </div>
     
                         

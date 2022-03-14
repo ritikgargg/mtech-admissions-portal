@@ -6,7 +6,7 @@ contact us
 
 DONE :: Update Profile alert needs to be connected
 
-Pre-Load data at the time of editing - :/
+DONE:: Pre-Load data at the time of editing - :/
 
 Do something with applicant ID - not sure if required?
 
@@ -27,3 +27,8 @@ Cross and cacnel button are set to reload the window, find a better option
 Change the person near the logout option
 
 \n in eligibility Not working
+
+Educational Details autofill data
+
+/apply should not directly redirect applicant to application form [profile validation must be checked]
+

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import crossPic from "../../images/red_cross.png"
 
 function Declaration(props){
     return (
@@ -51,6 +52,9 @@ of the Institute, which shall be final.
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
+
+
+                        
                         
                     
                         <div className="col-span-6 sm:col-span-3">
@@ -60,27 +64,52 @@ of the Institute, which shall be final.
                           >
                             Upload your Signature<span style={{ color: "#ff0000" }}> *</span>
                           </label>
-                          <input
-                            className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="profile-picture-desc"
-                            id="signature"
-                            name="signature"
-                            type="file"
-                            required
-                            accept=".pdf, .png, .jpeg, .jpg, .gif"
-                            onChange={(e) => props.handleFileSubmit(e, 2, 17)}
-                            />
-                          <div
-                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                      id="marksheet_help"
-                                    >
-                                      {/* Files must be less than 2 MB., Allowed file types: pdf. */}
-                                      <span className="font-semibold">Maximum file size:</span> 1 MB <span className="font-semibold">Allowed file formats:</span> .pdf, .jpeg, .png, .jpg, .gif
-                                    </div>
-                                    <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
-                                      <span className="font-semibold">File Name Format:</span> 
-                                      <span> Signature_&lt;your_email_id&gt; For Example: Signature_abc@gmail.com</span>
-                                    </div>
+
+                          
+                          {(!props.details[17].name)?
+                            <>
+                              <input
+                                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                aria-describedby="profile-picture-desc"
+                                id="signature"
+                                name="signature"
+                                type="file"
+                                required
+                                accept=".pdf, .png, .jpeg, .jpg, .gif"
+                                onChange={(e) => props.handleFileSubmit(e, 2, 17)}
+                                />
+                              <div
+                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                id="marksheet_help"
+                              >
+                                <span className="font-semibold">Maximum file size:</span> 1 MB <span className="font-semibold">Allowed file formats:</span> .pdf, .jpeg, .png, .jpg, .gif
+                              </div>
+                              <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
+                                <span className="font-semibold">File Name Format:</span> 
+                                <span> Signature_&lt;your_email_id&gt; For Example: Signature_abc@gmail.com</span>
+                              </div>
+                              </>
+                              :
+                              
+                              <>
+
+                              <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                              <input
+                                className="border-none block w-full shadow-sm sm:text-sm"
+                                id="signature"
+                                name="signature"
+                                type="text"
+                                value={props.details[17].name}
+                                // ref={props.ref}
+                                required
+                                readOnly
+                                />
+                            
+                                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFileIndex(17)}>
+                                  <img className="w-6 h-6" src ={crossPic}></img>
+                                </button>
+                              </div>
+                            </>}
                         </div>
 
                         <div className="col-span-6 sm:col-span-3">

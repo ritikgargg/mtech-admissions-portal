@@ -11,8 +11,9 @@ export default function ApplicantHomePage(props) {
     const navigate = useNavigate();
     const [applications, setApplications] = useState([]);
 
-    // 1 = not complete and show alert
+    // 1 = not complete and show alert and transition
     // 2 = not complete and don't show alert
+    // 3 = profile complete, open applications
     const [isProfileComplete, setProfileComplete] = useState(1);
 
     useEffect(() => {
@@ -58,9 +59,6 @@ export default function ApplicantHomePage(props) {
     function handleCheck() {
         if(isProfileComplete === 1 || isProfileComplete === 2) {
             setProfileComplete(1);
-        }
-        else {
-            navigate('/apply');
         }
     }
 
@@ -143,6 +141,7 @@ export default function ApplicantHomePage(props) {
                                 {applications.length !== 0 && 
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {applications.map((application) => (
+                                            <>
                                             <tr key={application.offering_id}>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm text-gray-500">{application.department}</div>
@@ -157,7 +156,16 @@ export default function ApplicantHomePage(props) {
                                                 <ViewEligibility eligibility={application.eligibility}/>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-500">{application.gate_paper_codes}</div>
+                                                <div className="text-sm text-gray-500">
+                                                <div tabIndex={0} className="collapse border border-base-300 bg-base-100 rounded-lg collapse-plus">
+                                                    <div className="pl-4 collapse-title text-md font-medium">
+                                                        Codes
+                                                    </div>
+                                                    <div className="collapse-content overflow-x-scroll"> 
+                                                    <p>{application.gate_paper_codes}</p>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm text-gray-500">{new Date(application.deadline).toLocaleDateString('en-GB')}</div>
@@ -171,13 +179,23 @@ export default function ApplicantHomePage(props) {
                                                 {/* <button onClick={checkProfileComplete} className="mr-4 text-indigo-600 hover:text-indigo-900">
                                                 Check
                                                 </button> */}
-                                                <button type='button' onClick={handleCheck} className="text-indigo-600 hover:text-indigo-900">
+                                                {isProfileComplete === 3 ?
+                                                <Link to='/apply' className="text-indigo-600 hover:text-indigo-900">
+                                                    Apply
+                                                </Link>
+                                                : <button className="text-gray-300" disabled onClick={handleCheck}>
                                                     Apply
                                                 </button>
+                                                }  
 
                                             </td>
                                             </tr>
+                                            
+      </>
+                                            
                                         ))}
+
+                                        
                                     </tbody>
                                 }
                             </table>

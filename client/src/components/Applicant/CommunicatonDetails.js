@@ -5,23 +5,23 @@ import { useNavigate } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 
 //TODO:: Confirm Email
-function CommunicationDetails() {
+function CommunicationDetails(props){
   const navigate = useNavigate();
 
   const {register, handleSubmit, errors} = useForm();
   const onSubmit = (data) => {
   const formData = new FormData();
     
-    formData.append("communication_address", data.communication_address);
-    formData.append("communication_city", data.communication_city)
-    formData.append("communication_state", data.communication_state)
-    formData.append("communication_pincode", data.communication_pincode)
-    formData.append("permanent_address", data.permanent_address);
-    formData.append("permanent_city", data.permanent_city);
-    formData.append("permanent_state", data.permanent_state);
-    formData.append("permanent_pincode", data.permanent_pincode);
-    formData.append("mobile_number", data.mobile_number)
-    formData.append("alternate_mobile_number", data.alternate_mobile_number)
+    formData.append("communication_address", props.localProfileInfo.communication_address);
+    formData.append("communication_city", props.localProfileInfo.communication_city)
+    formData.append("communication_state", props.localProfileInfo.communication_state)
+    formData.append("communication_pincode", props.localProfileInfo.communication_pincode)
+    formData.append("permanent_address", props.localProfileInfo.permanent_address);
+    formData.append("permanent_city", props.localProfileInfo.permanent_city);
+    formData.append("permanent_state", props.localProfileInfo.permanent_state);
+    formData.append("permanent_pincode", props.localProfileInfo.permanent_pincode);
+    formData.append("mobile_number", props.localProfileInfo.mobile_number)
+    formData.append("alternate_mobile_number", props.localProfileInfo.alternate_mobile_number)
 
     Axios.post("http://localhost:8080/save-communication-details", formData, {
       headers: {
@@ -46,7 +46,7 @@ function CommunicationDetails() {
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             {/* Modal header */}
             <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
-              <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="communicationDetailsModal">
+              <button onClick={props.syncLocalGlobalData} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="communicationDetailsModal">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>  
               </button>
             </div>
@@ -82,11 +82,13 @@ function CommunicationDetails() {
                       <div className="mt-1">
                         <textarea
                           id="communication_address"
-                          {...register("communication_address")}
+                          name="communication_address"
+                          defaultValue={props.localProfileInfo.communication_address}
+                          onChange={(event)=>props.onChange(event, 'communication_address')}
                           rows={4}
                           className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                           required
-                          defaultValue={""}
+                         
                         />
                       </div>
                       <p className="mt-2 text-sm text-gray-500">
@@ -104,8 +106,10 @@ function CommunicationDetails() {
                       </label>
                       <input
                         type="text"
-                        {...register("communication_city")}
                         id="communication_city"
+                        defaultValue={props.localProfileInfo.communication_city}
+                        name="communication_city"
+                        onChange={(event)=>props.onChange(event, 'communication_city')}
                         required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -121,7 +125,9 @@ function CommunicationDetails() {
                       </label>
                       <input
                         type="text"
-                        {...register("communication_state")}
+                        defaultValue={props.localProfileInfo.communication_state}
+                        name="communication_state"
+                        onChange={(event)=>props.onChange(event, 'communication_state')}
                         id="communication_state"
                         required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -139,7 +145,9 @@ function CommunicationDetails() {
                       <input
                         type="text"
                         id="communication_pincode"
-                        {...register("communication_pincode")}
+                        defaultValue={props.localProfileInfo.communication_pincode}
+                        name="communication_pincode"
+                        onChange={(event)=>props.onChange(event, 'communication_pincode')}
                         required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -160,9 +168,10 @@ function CommunicationDetails() {
                           id="permanent_address"
                           rows={4}
                           required
-                          {...register("permanent_address")}
+                          defaultValue={props.localProfileInfo.permanent_address}
+                          onChange={(event)=>props.onChange(event, 'permanent_address')}
+                          name="permanent_address"
                           className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                          defaultValue={""}
                         />
                       </div>
                       <p className="mt-2 text-sm text-gray-500">
@@ -180,7 +189,9 @@ function CommunicationDetails() {
                       </label>
                       <input
                         type="text"
-                        {...register("permanent_city")}
+                        defaultValue={props.localProfileInfo.permanent_city}
+                        onChange={(event)=>props.onChange(event, 'permanent_city')}
+                        name="permanent_city"
                         id="permanent_city"
                         required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -198,7 +209,9 @@ function CommunicationDetails() {
                       <input
                         type="text"
                         id="permanent_state"
-                        {...register("permanent_state")}
+                        defaultValue={props.localProfileInfo.permanent_state}
+                        onChange={(event)=>props.onChange(event, 'permanent_state')}
+                        name="permanent_state"
                         required
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -216,7 +229,9 @@ function CommunicationDetails() {
                         type="text"
                         required
                         id="permanent_pincode"
-                        {...register("permanent_pincode")}
+                        defaultValue={props.localProfileInfo.permanent_pincode}
+                        onChange={(event)=>props.onChange(event, 'permanent_pincode')}
+                        name="permanent_pincode"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
@@ -270,7 +285,9 @@ function CommunicationDetails() {
                         pattern="[1-9]{1}[0-9]{9}"
                         title="Mobile Number must be of 10 digits"
                         required
-                        {...register("mobile_number")}
+                        defaultValue={props.localProfileInfo.mobile_number}
+                        onChange={(event)=>props.onChange(event, 'mobile_number')}
+                        name="mobile_number"
                         id="mobile_number"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -287,7 +304,9 @@ function CommunicationDetails() {
                         type="text"
                         pattern="[1-9]{1}[0-9]{9}"
                         title="Mobile Number must be of 10 digits"
-                        {...register("alternate_mobile_number")}
+                        defaultValue={props.localProfileInfo.alternate_mobile_number}
+                        onChange={(event)=>props.onChange(event, 'alternate_mobile_number')}
+                        name="alternate_mobile_number"
                         id="alternate_mobile_number"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -297,7 +316,7 @@ function CommunicationDetails() {
                 </div>
                 <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                   <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                  <button data-modal-toggle="communicationDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
+                  <button onClick={props.syncLocalGlobalData} data-modal-toggle="communicationDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
                 </div>
             </form>
           </div>
