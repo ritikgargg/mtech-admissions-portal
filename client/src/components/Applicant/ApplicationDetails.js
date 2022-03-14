@@ -64,6 +64,11 @@ function ApplicantionDetails() {
     setApplicantDetails(copy);
   }
 
+  function emptyFileIndex(index){
+    let copy = [...applicant_details];
+    copy[index] = '';
+    setApplicantDetails(copy);
+  }
   const handleFileSubmit = (e, maxSize, index) => {
     const file = e.target.files[0];
     // ref.current = file;
@@ -76,6 +81,7 @@ function ApplicantionDetails() {
       let copy = [...applicant_details];
       copy[index] = file;
       setApplicantDetails(copy);
+      console.log(applicant_details)
     }
   }
 
@@ -144,7 +150,7 @@ function ApplicantionDetails() {
 
       {
         {
-          1 : <ApplicationFeeDetails category={category} increasePageNumber = {increasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,                
+          1 : <ApplicationFeeDetails category={category} increasePageNumber = {increasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,                
           2 : <QualifyingExamDetails increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,          
           3 : <Declaration full_name = {full_name} increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit}/>,
           4 : <Review decreasePageNumber={decreasePageNumber} details={applicant_details} handleSubmit={handleSubmit} onSubmit={handleApplicationSubmit}/>,                    

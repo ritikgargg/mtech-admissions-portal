@@ -21,9 +21,65 @@ export default function Profile (props) {
     //     { degree: 'B-Tech', board_uni: 'IIT Ropar', per_cgpa: '7.67', yop: '2021', att: 'graduation_certificate.pdf' }
     // ]
 
-    const [profileInfo, setProfileInfo] = useState(0);
-    const [degrees, setDegrees] = useState([]);
+    //1 full_name,
+    //2 fathers_name,
+    //3 profile_image_url
+    //4   , date_of_birth
+    //5  , aadhar_card_number
+    //6   category
+    //7 , is_pwd
+    //8,   marital_status
+    //9    category_certificate_url
+    //10   nationality
+    //11 , gender
+    //12 , communication_address
+    //13 , communication_city
+    //14   communication_state
+    //15 , communication_pincode
+    //16 , permanent_address,
+    //17   permanent_city
+    //18   permanent_state,
+    //19   permanent_pincode,
+    //20   mobile_number
+    //21  ,alternate_mobile_number
+    //22   email_id,
+    //23   degree_10th
+    //24   board_10th
+    //25  percentage_cgpa_value_10th
+    //26 //year_of_passing_10th
+    //27 , marksheet_10th_url
+    //28 , degree_12th
+    //29 , board_12th
+    //30 , percentage_cgpa_value_12th
+    //31 //year_of_passing_12th
+    //32 , marksheet_12th_url
+    //33 , degrees
 
+    const [profileInfo, setProfileInfo] = useState(0);
+    const [localProfileInfo, setLocalProfileInfo] = useState(0);
+    const [degrees, setDegrees] = useState([]);
+    // const [styleSheet, setStyleSheet] = useState({
+    //     backgroundSize: "cover",
+    //     backgroundRepeat: "no-repeat",
+    //     backgroundPosition: "50% 50%",
+    //     border: "2px solid black"}
+    //        );
+
+
+    function emptyFile(key){
+        let copy = {...localProfileInfo}
+        assign(copy, key, null)
+        setLocalProfileInfo(copy)
+    }
+
+    function syncLocalGlobalData(){
+        let copy = {...profileInfo}
+        console.log('copy', copy);
+        setLocalProfileInfo(copy)
+        console.log("sync ho raha hai");
+        console.log("local profile info :" , localProfileInfo);
+        window.location.reload();
+    }
     function convert2dArrayToJsonObjectArray(degrees) {
         if(degrees === null) return []
 
@@ -40,6 +96,22 @@ export default function Profile (props) {
         return result
     }
 
+    function assign(obj, prop, value) {
+        if (typeof prop === "string")
+            prop = prop.split(".");
+    
+        if (prop.length > 1) {
+            var e = prop.shift();
+            assign(obj[e] =
+                     Object.prototype.toString.call(obj[e]) === "[object Object]"
+                     ? obj[e]
+                     : {},
+                   prop,
+                   value);
+        } else
+            obj[prop[0]] = value;
+    }
+
     useEffect(() => {
         axios.get("http://localhost:8080/get-profile-info", {
             headers: {
@@ -53,10 +125,30 @@ export default function Profile (props) {
             else {
                 setProfileInfo(response.data)
                 setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
+                setLocalProfileInfo(response.data)
+                console.log(response.data)
+                // var copyobj = {...styleSheet, backgroundImage: url(response.data.prof)}
+                // setStyleSheet(styleSheet => styleSheet["background-image"] = "url(" + response.data.profile_image_url + ");");
             }
           })
         .catch(err => console.log(err));
     },[]);
+
+    const handleLocalChange = (event, key) => {
+        console.log(event.target.value)
+        console.log(key);
+        console.log(localProfileInfo)
+        let copy = {...localProfileInfo}
+        assign(copy, key, event.target.value);
+        setLocalProfileInfo(copy);
+        console.log(copy)
+      };
+
+    const onChangeNationality = (val) => {
+        let copy = {...localProfileInfo};
+        assign(copy, "nationality", val);
+        setLocalProfileInfo(copy);
+    }
 
     var overlayHidden = false;
 
@@ -64,16 +156,20 @@ export default function Profile (props) {
         <>
         <DashboardNavBar currentFlag={2} user={props.user}/>
         <div className='flex'>
-            <div className='flex-2 my-20 mx-20'>
+            <div className='flex-2 my-20 mx-20 block'>
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}
-                <img className="ring-2 ring-gray-700 block h-40 w-40 rounded-full" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Your Profile Picture"/>
+            {/* ring-2 ring-gray-700 rounded-full */}
+                <img className="ring-2 h-40 w-40 ring-gray-700 rounded-full border border-black" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Your Profile Picture"/>
             </div>
+
+            {/* <div className="mx-10 my-10 rounded-full h-40 w-40" style={$.extend({background-image: url(profileInfo.profile_image_url)}, styleSheet)}></div> */}
+
             <div className="mr-20 mt-4 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
                     <h3 className="text-lg leading-6 font-medium text-gray-900">Personal Details</h3>
 
                     <button data-modal-toggle="personalDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600" onClick={()=>{overlayHidden = !overlayHidden}}><PencilIcon/></button>
-                    <PersonalInfo/>
+                    <PersonalInfo onChangeNationality={onChangeNationality} localProfileInfo={localProfileInfo} onChange={handleLocalChange} emptyFile={emptyFile} syncLocalGlobalData={syncLocalGlobalData}/>
                     
             
                     <div id="tooltip-animation" role="tooltip" className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
@@ -116,6 +212,25 @@ export default function Profile (props) {
                             <dt className="text-sm font-medium text-gray-500">Belongs to PWD</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.is_pwd ? profileInfo.is_pwd : 'Your PWD Status'}</dd>    
                         </div>
+
+                        {profileInfo.category_certificate_url ? 
+                        <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Category Certificate</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <div className="mr-4 flex items-center justify-between text-sm">
+                                    <div className="w-0 flex-1 flex items-center">
+                                        <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                        <span className="ml-2 flex-1 w-0 truncate">Category_Certificate.pdf</span>
+                                    </div>
+                                    <div className="ml-4 flex-shrink-0">
+                                        <a href={profileInfo.category_certificate_url ? profileInfo.category_certificate_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        View
+                                        </a>
+                                    </div>
+                                </div>
+                            </dd>
+                        </div>
+                        : ''}
                     </dl>
                 </div>
             </div>
@@ -169,6 +284,13 @@ export default function Profile (props) {
                             <dt className="text-sm font-medium text-gray-500">Mobile Number</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.mobile_number ? profileInfo.mobile_number : 'Your Mobile Number'}</dd>    
                         </div>
+
+                        {profileInfo.alternate_mobile_number ? 
+                        <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500">Alternate Mobile Number</dt>
+                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.alternate_mobile_number ? profileInfo.alternate_mobile_number : 'Your Mobile Number'}</dd>    
+                    </div>
+                    : ''}
                     </dl>
                 </div>
             </div>

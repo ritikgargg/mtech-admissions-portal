@@ -1,8 +1,12 @@
-import {Fragment} from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import iit_ropar_logo_clear from "../../images/iit-ropar-logo-clear.png";
 import {MenuIcon, XIcon } from '@heroicons/react/outline'
 import {Link} from 'react-router-dom'; 
+import axios from "axios"
+import { getToken } from "../SignIn_SignUp/Sessions"
+import { useNavigate } from "react-router-dom"
+import DefaultProfilePicture from "../../images/default-profile-picture.png"
 
 const navigation = [
   { name: 'Home', to: '/home' },
@@ -10,11 +14,34 @@ const navigation = [
   { name: 'My Profile', to: '/my-profile' }
 ]
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 function DashboardNavBar (props) {
+
+  const navigate = useNavigate();
+  const [user, setUser] = useState({});
+
+  useEffect(()=>{
+    axios.get("http://localhost:8080/get-user-info", {
+        headers: {
+            Authorization: getToken()
+        }
+    })
+    .then(response => {
+        if(response.data === 1) {
+          navigate("/logout");
+        }
+        else {
+            setUser(response.data);
+        }
+      })
+    .catch(err => console.log(err));
+  }, []);
+
+
   return (
     <>
         <Disclosure as="nav" className="bg-gray-800">
@@ -84,7 +111,7 @@ function DashboardNavBar (props) {
                         <div>
                           <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={props.user.imageUrl} alt="" />
+                            <img className="h-8 w-8 rounded-full" src={user.profile_image_url ? user.profile_image_url : DefaultProfilePicture} alt="" />
                           </Menu.Button>
                         </div>
                         <Transition
@@ -150,11 +177,11 @@ function DashboardNavBar (props) {
                 <div className="pt-4 pb-3 border-t border-gray-700">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={props.user.imageUrl} alt="" />
+                      <img className="h-10 w-10 rounded-full" src={user.profile_image_url ? user.profile_image_url : DefaultProfilePicture} alt="" />
                     </div>
-                    <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{props.user.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{props.user.email}</div>
+                    <div className="ml-3 items-center">
+                      <div className="text-base mb-1 font-medium leading-none text-white">{user.full_name}</div>
+                      <div className="text-sm font-medium leading-none text-gray-400">{user.email_id}</div>
                     </div>
                   </div>
                   <div className="mt-3 px-2 space-y-1">

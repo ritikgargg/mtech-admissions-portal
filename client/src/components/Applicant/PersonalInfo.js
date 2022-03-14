@@ -1,36 +1,32 @@
 import React, { useState } from "react";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
-import { useForm } from "react-hook-form";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom"
+import crossPic from "../../images/red_cross.png"
+
 // import { useEffect } from 'react'
 // import axios from "axios";
 
-function PersonalInfo() {
+function PersonalInfo(props) {
   const navigate = useNavigate();
-  // const [personalInfo, setPersonalInfo] = useState(0);
 
-  const [nationality, setNationality] = useState("");
   const [profile_image, setProfileImage] = useState(null);
   const [categoryCertificate, setCategoryCertificate] = useState(null);
-  const {register, handleSubmit, errors} = useForm();
-
-  const [date_of_birth, updateDateOfBirth] = useState(new Date());
   
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     const formData = new FormData();
     
-    formData.append("full_name", data.full_name);
-    formData.append("fathers_name", data.fathers_name);    
-    formData.append("date_of_birth", date_of_birth);
-    formData.append("aadhar_card_number", data.aadhar_card_number);
-    formData.append("category", data.category);
-    formData.append("is_pwd", data.pwdCategory);
-    formData.append("marital_status", data.marital_status);
-    formData.append("nationality", nationality);
-    formData.append("gender", data.gender);
+    formData.append("full_name", props.localProfileInfo.full_name);
+    formData.append("fathers_name", props.localProfileInfo.fathers_name);    
+    formData.append("date_of_birth", props.localProfileInfo.date_of_birth);
+    formData.append("aadhar_card_number", props.localProfileInfo.aadhar_card_number);
+    formData.append("category", props.localProfileInfo.category);
+    formData.append("is_pwd", props.localProfileInfo.is_pwd);
+    formData.append("marital_status", props.localProfileInfo.marital_status);
+    formData.append("nationality", props.localProfileInfo.nationality);
+    formData.append("gender", props.localProfileInfo.gender);
     formData.append("profile_image", profile_image);
     formData.append("category_certificate", categoryCertificate);
 
@@ -62,9 +58,9 @@ function PersonalInfo() {
     }
   }
 
-  const handleDateChange = (value) => {
-    updateDateOfBirth(value);
-  };
+  // const handleDateChange = (value) => {
+  //   updateDateOfBirth(value);
+  // };
 
   // useEffect(() => {
   //   axios.get("http://localhost:8080/get-personal-info", {
@@ -82,7 +78,8 @@ function PersonalInfo() {
   //     })
   //   .catch(err => console.log(err));
   // });
-
+  // const s_idx = props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1
+  // const e_idx = props.localProfileInfo.category_certificate_url.lastIndexOf('_')
   return (
     <div id="personalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
         <div className="relative overflow-y-auto overflow-x-hidden object-center  overscroll-none px-4 w-full max-w-7xl h-5/6">
@@ -91,7 +88,7 @@ function PersonalInfo() {
 
             {/* Modal header and Cross button */}
             <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
-              <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="personalDetailsModal">
+              <button onClick={props.syncLocalGlobalData} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="personalDetailsModal">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>  
               </button>
             </div>
@@ -117,7 +114,7 @@ function PersonalInfo() {
                   {/* Main form */}
                   <div className="mt-5 md:mt-0 md:col-span-2">
                     {/* <form action="/save-personal-info" method="POST"> */}
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={onSubmit}>
                       <div className="shadow overflow-hidden sm:rounded-md">
                         <div className="px-4 py-5 bg-white sm:p-6">
                           <div className="grid grid-cols-6 gap-6">
@@ -132,8 +129,10 @@ function PersonalInfo() {
                               </label>
                               <input
                                 type="text"
-                                {...register("full_name")}
+                                name = "full_name"
+                                defaultValue={props.localProfileInfo.full_name}
                                 id="name"
+                                onChange={(event)=>props.onChange(event, 'full_name')}
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
@@ -150,7 +149,9 @@ function PersonalInfo() {
                               </label>
                               <input
                                 type="text"
-                                {...register("fathers_name")}
+                                name= "fathers_name"
+                                defaultValue={props.localProfileInfo.fathers_name}
+                                onChange={(event)=>props.onChange(event, 'fathers_name')}
                                 id="father-name"  
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -165,6 +166,8 @@ function PersonalInfo() {
                               >
                                 Upload your recent photograph<span style={{ color: "#ff0000" }}> *</span>
                               </label>
+                              {(!props.localProfileInfo.profile_image_url)?
+                              <>
                               <input
                                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 aria-describedby="profile-picture-desc"
@@ -184,7 +187,26 @@ function PersonalInfo() {
                                 <span className="font-semibold">File Name Format:</span> 
                                 <span> Photograph_&lt;your_email_id&gt; For Example: Photograph_abc@gmail.com</span>
                                 </div>
-                              </div>                              
+                              </div>                             
+                            </>
+                            :
+                            <>
+                              <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                              <input
+                                className="border-none block w-full shadow-sm sm:text-sm"
+                                id="profile_picture"
+                                name="profile_picture"
+                                type="text"
+                                defaultValue={props.localProfileInfo.profile_image_url.substring(props.localProfileInfo.profile_image_url.lastIndexOf('/') + 1, props.localProfileInfo.profile_image_url.lastIndexOf('_'))}
+                                readOnly
+                                />
+                            
+                                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFile('profile_image_url')}>
+                                  <img className="w-6 h-6" src ={crossPic}></img>
+                                </button>
+                              </div>
+                            </>
+                            }
                             </div>
 
 
@@ -198,7 +220,9 @@ function PersonalInfo() {
                                 <span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <DatePicker
-                                onChange={handleDateChange}/>
+                                onChange={(event)=>props.onChange(event, 'date_of_birth')}
+                                defaultValue={props.localProfileInfo.date_of_birth}
+                                />
                             </div>
 
 
@@ -213,21 +237,15 @@ function PersonalInfo() {
                               </label>
                               <input
                                 type="text"
-                                {...register("aadhar_card_number")}
+                                defaultValue={props.localProfileInfo.aadhar_card_number}
+                                onChange={(event)=>props.onChange(event, 'aadhar_card_number')}
+                                name = "aadhar_card_number"
                                 id="aadhar-number"
                                 pattern="[1-9]{1}[0-9]{11}"
                                 title="12 digit number"
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
-
-                              {/* <TextField
-                                required
-                                id="aadhar"
-                                label="Aadhar-Card"
-                                defaultValue=""
-                                inputProps={{ maxLength: 12 }}
-                              /> */}
                             </div>
 
                               {/* Category */}
@@ -240,7 +258,9 @@ function PersonalInfo() {
                               </label>
                               <select
                                 id="category"
-                                {...register("category")}
+                                name="category"
+                                value={props.localProfileInfo.category}
+                                onChange={(event)=>props.onChange(event, 'category')}
                                 required
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
@@ -262,6 +282,8 @@ function PersonalInfo() {
                               >
                                 Category Certificate (SC/ST/OBC/PwD/EWS)
                               </label>
+                              {(!props.localProfileInfo.category_certificate_url)?
+                              <>
                               <input
                                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 aria-describedby="category-certificate-desc"
@@ -290,7 +312,28 @@ function PersonalInfo() {
                                 <span className="font-semibold">File Name Format:</span> 
                                 <span> Category_Certificate_&lt;your_email_id&gt; For Example: Category_Certificate_abc@gmail.com</span>
                               </div>
+                              </>
+                              :
+                              <>
+                              <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                              <input
+                                className="border-none block w-full shadow-sm sm:text-sm"
+                                id="category-certificate"
+                                name="category-certificate"
+                                type="text"
+                                defaultValue={props.localProfileInfo.category_certificate_url.substring(props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1, props.localProfileInfo.category_certificate_url.lastIndexOf('_'))}
+                                readOnly
+                                />
+                            
+                                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFile('category_certificate_url')}>
+                                  <img className="w-6 h-6" src ={crossPic}></img>
+                                </button>
+                              </div>
+                            </>
+                              }
                             </div>
+                           
+                          
 
                               {/* PWD Category */}
                             <div className="col-span-6 sm:col-span-3">
@@ -304,7 +347,9 @@ function PersonalInfo() {
                               <select
                                 id="pwd-category"
                                 required
-                                {...register("pwdCategory")}
+                                value={props.localProfileInfo.is_pwd}
+                                onChange={(event)=>props.onChange(event, 'is_pwd')}
+                                name="is_pwd"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
                                 <option value="">Select Choice</option>
@@ -323,7 +368,8 @@ function PersonalInfo() {
                               </label>
                               <select
                                 id="marital-status"
-                                {...register("marital_status")}
+                                value={props.localProfileInfo.marital_status}
+                                onChange={(event)=>props.onChange(event, 'marital_status')}
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
                                 <option value="">Select Status</option>
@@ -342,8 +388,8 @@ function PersonalInfo() {
                               </label>
                               <CountryDropdown
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                value={nationality}
-                                onChange={(val) => setNationality(val)}
+                                value={props.localProfileInfo.nationality}
+                                onChange={(val)=>props.onChangeNationality(val)}
                               />
                             </div>
 
@@ -356,7 +402,8 @@ function PersonalInfo() {
                                 Gender<span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <select
-                                {...register("gender")}
+                                value={props.localProfileInfo.gender}
+                                onChange={(event)=>props.onChange(event, 'gender')}
                                 id="gender"
                                 name="gender"
                                 required
@@ -381,7 +428,7 @@ function PersonalInfo() {
                       </div>
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                        <button data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
+                        <button onClick={props.syncLocalGlobalData} data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
                       </div>
                       {/* <button type="submit">Submit</button> */}
                     </form>

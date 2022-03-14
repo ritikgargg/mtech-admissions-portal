@@ -56,6 +56,8 @@ app.get('/check-applicant-info', applicantdB.check_applicant_info);
 
 app.get('/get-open-positions', applicantdB.get_open_positions);
 
+app.get('/get-user-info', applicantdB.get_user_info);
+
 app.post('/save-application-info',
           upload.fields([
             {name:"transaction_slip", maxCount : 1},

@@ -32,6 +32,10 @@ export default function ApplicantHomePage(props) {
     const navigate = useNavigate();
     const [applications, setApplications] = useState([]);
 
+    // 1 = not complete and show alert
+    // 2 = not complete and don't show alert
+    const [isProfileComplete, setProfileComplete] = useState(1);
+
     useEffect(() => {
         axios.get("http://localhost:8080/get-open-positions", {
             headers: {
@@ -50,10 +54,43 @@ export default function ApplicantHomePage(props) {
         .catch(err => console.log(err));
     },[]);
 
+    useEffect(() => {
+        axios.get("http://localhost:8080/get-profile-info", {
+            headers: {
+                Authorization: getToken()
+            }
+        })
+        .then(response => {
+            if(response.data === 1) {
+              navigate("/logout");
+            }
+            else {
+                if(response.data.full_name && response.data.communication_address && response.data.board_10th){
+                    setProfileComplete(3);
+                }
+                else {
+                    setProfileComplete(1);
+                }
+            }
+          })
+        .catch(err => console.log(err));
+    },[]);
+
+    function handleCheck() {
+        if(isProfileComplete === 1 || isProfileComplete === 2) {
+            setProfileComplete(1);
+        }
+        else {
+            navigate('/apply');
+        }
+    }
+
     return (
         <>
         <DashboardNavBar currentFlag={0} user={props.user}/>
-        <CompleteProfile/>
+        { isProfileComplete === 1 ? 
+        <CompleteProfile setProfileComplete={setProfileComplete}/>
+        : <></>}
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		    <div className="px-4 py-6 sm:px-0">
                 <header className="bg-white">
@@ -173,9 +210,9 @@ export default function ApplicantHomePage(props) {
                                                 {/* <button onClick={checkProfileComplete} className="mr-4 text-indigo-600 hover:text-indigo-900">
                                                 Check
                                                 </button> */}
-                                                <Link to='/apply'  className="text-indigo-600 hover:text-indigo-900">
+                                                <button type='button' onClick={handleCheck} className="text-indigo-600 hover:text-indigo-900">
                                                     Apply
-                                                </Link>
+                                                </button>
 
                                             </td>
                                             </tr>

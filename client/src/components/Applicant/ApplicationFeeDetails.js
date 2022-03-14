@@ -116,6 +116,8 @@ function ApplicationFeeDetails(props) {
                           >
                             Transaction Slip<span style={{ color: "#ff0000" }}> *</span>
                           </label>
+                          {(!props.details[4].name) && 
+                          <>
                           <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="profile-picture-desc"
@@ -128,14 +130,7 @@ function ApplicationFeeDetails(props) {
                             accept=".pdf, .jpeg, .jpg"
                             onChange={(e) => props.handleFileSubmit(e, 2, 4)}
                             />
-                          {/* <input
-                            className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help"
-                            id="user_avatar"
-                            
-                            type="file"
-                          /> */}
-                          <div
+                            <div
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="user_avatar_help"
                           >
@@ -157,6 +152,36 @@ function ApplicationFeeDetails(props) {
                             <span className="font-semibold">File Name Format:</span> 
                             <span> Transaction_Slip_&lt;your_email_id&gt; <br/>For Example: Transcation_Slip_abc@gmail.com</span>
                           </div>
+                          </>}
+                            {(props.details[4].name) && 
+                            <>
+
+                              <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                              <input
+                                className="border-none block w-full shadow-sm sm:text-sm"
+                                id="transaction_slip"
+                                name="transaction_slip"
+                                type="text"
+                                value={props.details[4].name}
+                                // ref={props.ref}
+                                required
+                                readOnly
+                                />
+                            
+                                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFileIndex(4)}>
+                                  <img className="w-6 h-6" src ="https://cdn-icons.flaticon.com/png/512/5910/premium/5910314.png?token=exp=1647249971~hmac=db85dd3a45aab42b8ef6989540cd37db"></img>
+                                </button>
+                              </div>
+                            </>
+                            }
+                          {/* <input
+                            className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            aria-describedby="user_avatar_help"
+                            id="user_avatar"
+                            
+                            type="file"
+                          /> */}
+                          
                         </div>
     
                         <div className="col-span-6 sm:col-span-3">
@@ -173,7 +198,7 @@ function ApplicationFeeDetails(props) {
                             id = "date-of-transaction"
                             name = "date-of-transaction"
                             value={props.details[5]}
-                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             onChange={e=>props.onChange(e, 5)}
                           />
                         </div>

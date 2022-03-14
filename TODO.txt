@@ -6,15 +6,13 @@ Courses Page (list of tiles)
 
 contact us
 
-Update Profile alert needs to be connected
-
-Optional category certificate download option, alternate mobile number
+DONE :: Update Profile alert needs to be connected
 
 Pre-Load data at the time of editing - :/
 
 Do something with applicant ID - not sure if required?
 
-Once we move to the next page, the file gets removed from that page [ Although we have it in the array ]    
+DONE :: Once we move to the next page, the file gets removed from that page [ Although we have it in the array ]    
 
 Disable profile change button(even during filling a form), Disable apply button, applicantion alert(also fix when logging in)
 
@@ -25,4 +23,6 @@ https://stackoverflow.com/questions/1084925/input-type-file-show-only-button
 
 Success modal on form submission
 
-Change the person near the logout option
+DONE :: Change the person near the logout option
+
+Cross and cacnel button are set to reload the window, find a better option

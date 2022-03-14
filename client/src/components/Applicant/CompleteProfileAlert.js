@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function CompleteProfile () {
+function CompleteProfile (props) {
+  
   return (
-    <div id="alert-additional-content-4" className="p-4 bg-yellow-100 dark:bg-yellow-200" role="alert">
+    <>
+    <div className="p-4 bg-yellow-100 dark:bg-yellow-200" role="alert">
         <div className='pt-2 px-4 flex space-x-6'>
           <div className="flex items-center">
               <svg className="mr-2 w-5 h-5 text-yellow-700 dark:text-yellow-800" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
@@ -15,7 +17,7 @@ function CompleteProfile () {
             Visit Profile
             </button>
           </a>
-          <button type="button" className="text-yellow-700 bg-transparent border border-yellow-700 hover:bg-yellow-800 hover:text-white focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:border-yellow-800 dark:text-yellow-800 dark:hover:text-white" data-collapse-toggle="alert-additional-content-4" aria-label="Close">
+          <button type="button" onClick={()=>props.setProfileComplete(2)} className="text-yellow-700 bg-transparent border border-yellow-700 hover:bg-yellow-800 hover:text-white focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:border-yellow-800 dark:text-yellow-800 dark:hover:text-white" aria-label="Close">
           Dismiss
           </button>
         </div>
@@ -25,6 +27,7 @@ function CompleteProfile () {
               Please complete your profile to participate in the admission process.
         </div>
     </div>
+    </>
   )
 }
 
