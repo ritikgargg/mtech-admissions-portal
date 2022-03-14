@@ -184,8 +184,8 @@ function PersonalInfo(props) {
                                 <span className="font-semibold">Maximum file size:</span> 2 MB,  <span className="font-semibold">Allowed file formats:</span> .jpg, .png, .jpeg 
                                 <br/>
                                 <div className="mt-1">
-                                <span className="font-semibold">File Name Format:</span> 
-                                <span> Photograph_&lt;your_email_id&gt; For Example: Photograph_abc@gmail.com</span>
+                                <span className="font-semibold">Recommended File Name Format:</span> 
+                                <span> Photograph_&lt;your_email_id&gt; <br/>Example: Photograph_abc@gmail.com</span>
                                 </div>
                               </div>                             
                             </>
@@ -309,8 +309,8 @@ function PersonalInfo(props) {
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                 id="category-certificate-desc"
                               >
-                                <span className="font-semibold">File Name Format:</span> 
-                                <span> Category_Certificate_&lt;your_email_id&gt; For Example: Category_Certificate_abc@gmail.com</span>
+                                <span className="font-semibold">Recommended File Name Format:</span> 
+                                <span> Category_Certificate_&lt;your_email_id&gt;<br/>Example: Category_Certificate_abc@gmail.com</span>
                               </div>
                               </>
                               :

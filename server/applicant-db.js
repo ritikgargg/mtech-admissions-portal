@@ -259,7 +259,7 @@ const get_profile_info = async (req, res) => {
    const results = await pool.query("SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
                               category, is_pwd, marital_status, category_certificate_url, nationality, gender, communication_address, communication_city, \
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
-                              permanent_pincode, mobile_number,alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_value_10th, \
+                              permanent_pincode, mobile_number, alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_value_10th, \
                               year_of_passing_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_value_12th, \
                               year_of_passing_12th, marksheet_12th_url, degrees from applicants \
                               WHERE email_id = $1;", [email]);

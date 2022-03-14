@@ -1,34 +1,21 @@
 Responsive UI
 
-Courses Page (list of tiles)
-
 contact us
-
-DONE :: Update Profile alert needs to be connected
-
-DONE:: Pre-Load data at the time of editing - :/
 
 Do something with applicant ID - not sure if required?
 
-DONE :: Once we move to the next page, the file gets removed from that page [ Although we have it in the array ]    
-
-Disable profile change button(even during filling a form), Disable apply button, applicantion alert(also fix when logging in)
+Disable profile change button(even during filling a form), Disable apply button(only if corresponding application filled)
 
 Prefill values in the application form corresponding to the applicantion selected, must (Branch and Specialization), also add the same in the application table
 
-Files have to choosen again at the time of edit profile
-https://stackoverflow.com/questions/1084925/input-type-file-show-only-button
-
 Success modal on form submission
 
-DONE :: Change the person near the logout option
+What to do if we go back after submitting, must be redirected to home and not allowed to revisit that page
 
 Cross and cacnel button are set to reload the window, find a better option
-Change the person near the logout option
 
 \n in eligibility Not working
 
 Educational Details autofill data
 
 /apply should not directly redirect applicant to application form [profile validation must be checked]
-

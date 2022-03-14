@@ -184,8 +184,8 @@ function CollegeDegreeSection(props) {
             <span className="font-semibold">Maximum file size:</span> 5 MB <span className="font-semibold">Allowed file formats:</span> .pdf
           </div>
           <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
-            <span className="font-semibold">File Name Format:</span> 
-            <span> Marksheet{props.id}_&lt;your_email_id&gt; For Example: Marksheet{props.id}_abc@gmail.com</span>
+            <span className="font-semibold">Recommended File Name Format:</span> 
+            <span> Marksheet{props.id}_&lt;your_email_id&gt; <br/>For Example: Marksheet{props.id}_abc@gmail.com</span>
           </div>
         </div>
 
@@ -214,8 +214,8 @@ function CollegeDegreeSection(props) {
             <span className="font-semibold">Maximum file size:</span> 5 MB <span className="font-semibold">Allowed file formats:</span> .pdf
           </div>
           <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
-            <span className="font-semibold">File Name Format:</span> 
-            <span> Degree{props.id}_&lt;your_email_id&gt; For Example: Degree{props.id}_abc@gmail.com</span>
+            <span className="font-semibold">Recommended File Name Format:</span> 
+            <span> Degree{props.id}_&lt;your_email_id&gt; <br/>For Example: Degree{props.id}_abc@gmail.com</span>
           </div>
         </div>
       </div>

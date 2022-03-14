@@ -25,7 +25,6 @@ export default function Profile (props) {
     const [localProfileInfo, setLocalProfileInfo] = useState(0);
     const [degrees, setDegrees] = useState([]);
 
-
     function emptyFile(key){
         let copy = {...localProfileInfo}
         assign(copy, key, null)
@@ -40,6 +39,7 @@ export default function Profile (props) {
         console.log("local profile info :" , localProfileInfo);
         window.location.reload();
     }
+    
     function convert2dArrayToJsonObjectArray(degrees) {
         if(degrees === null) return []
 
@@ -83,10 +83,13 @@ export default function Profile (props) {
               navigate("/logout");
             }
             else {
-                setProfileInfo(response.data)
+                let copy = {...response.data};
+                assign(copy, "alternate_mobile_number", null);
+                setProfileInfo(copy)
                 setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
-                setLocalProfileInfo(response.data)
-                console.log(response.data)
+                setLocalProfileInfo(copy)
+                console.log(copy)
+                console.log("profile image url ", copy.profile_image_url);
             }
           })
         .catch(err => console.log(err));
@@ -114,13 +117,15 @@ export default function Profile (props) {
         <>
         <DashboardNavBar currentFlag={2} user={props.user}/>
         <div className='flex'>
-            {/* <div className='flex-2 my-20 mx-20 block'> */}
+            <div className='flex-2 my-20 mx-20 block'>
             {/* ring-2 ring-gray-900 shadow-2xl block h-40 w-40 rounded-full */}
             {/* ring-2 ring-gray-700 rounded-full */}
-                {/* <img className="ring-2 h-40 w-40 ring-gray-700 rounded-full border border-black" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Your Profile Picture"/>
-            </div> */}
+                <img className="ring-2 h-40 w-40 ring-gray-700 rounded-full border border-black" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Your Profile Picture"/>
+            </div>
 
+            {/* {profileInfo.profile_image_url ? 
             <div className="mx-20 my-20 rounded-full h-40 w-40" style={{backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: '50% 50%', border: '2px solid black', backgroundImage: `url(${profileInfo.profile_image_url})`}} />
+            : <div className="mx-20 my-20 rounded-full h-40 w-40" style={{backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: '50% 50%', border: '2px solid black', backgroundImage: `${DefaultProfilePicture}`}} />} */}
 
             <div className="mr-20 mt-4 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex space-x-3 px-4 py-5 sm:px-6">
@@ -243,12 +248,12 @@ export default function Profile (props) {
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.mobile_number ? profileInfo.mobile_number : 'Your Mobile Number'}</dd>    
                         </div>
 
-                        {profileInfo.alternate_mobile_number ? 
+                        {profileInfo.alternate_mobile_number && 
                         <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Alternate Mobile Number</dt>
-                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.alternate_mobile_number ? profileInfo.alternate_mobile_number : 'Your Mobile Number'}</dd>    
-                    </div>
-                    : ''}
+                            <dt className="text-sm font-medium text-gray-500">Alternate Mobile Number</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.alternate_mobile_number ? profileInfo.alternate_mobile_number : 'Your Mobile Number'}</dd>    
+                        </div>
+                        }
                     </dl>
                 </div>
             </div>

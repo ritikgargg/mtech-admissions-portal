@@ -4,9 +4,9 @@ function FAQs(){
     return (
         <>
         <div className="bg-white  mx-12 p-6">
-        <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 rounded-box collapse-plus">
+        <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 hover:bg-gray-100 rounded-lg collapse-plus">
         <div className="collapse-title text-lg font-medium">
-            How MS(R) program is different than an M Tech program?
+            How MS(R) program is different than an M.Tech program?
         </div>
         <div className="collapse-content"> 
           <p>The basic idea of two programs are different. M. Tech. program is oriented towards masters in engineering while MS(R) program is oriented towards research. Due to the basic approach of two programs, we see a couple of differences <br/>
@@ -19,7 +19,7 @@ function FAQs(){
         </div>
       </div>
       
-      <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 rounded-box collapse-plus">
+      <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 hover:bg-gray-100 rounded-lg collapse-plus">
         <div className="collapse-title text-lg font-medium">
         What are the career options after MS(R) or what are the job opportunities after MS(R)
         </div>
@@ -34,7 +34,7 @@ function FAQs(){
         </div>
       </div>
 
-      <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 rounded-box collapse-plus">
+      <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 hover:bg-gray-100 rounded-lg collapse-plus">
         <div className="collapse-title text-lg font-medium">
         As MS(R) is new in IIT Ropar, will it have good placements?
         </div>
@@ -42,12 +42,12 @@ function FAQs(){
           <p>MS(R) students are eligible to sit in companies that visit for campus placements. In computer science, in general good number of companies visit campus.
 
 
-In addition to that, student may approach companies that work in his area of research. Based on student’s expertise, companies may conduct off-campus interview for them.</p>
+In addition to that, student may approach companies that work in his area of research. Based on student's expertise, companies may conduct off-campus interview for them.</p>
         </div>
       </div>
 
 
-      <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 rounded-box collapse-plus">
+      <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 rounded-lg hover:bg-gray-100 collapse-plus">
         <div className="collapse-title text-lg font-medium">
         Is it actually better to do MS(R) or M.Tech.
         </div>
@@ -57,7 +57,7 @@ In addition to that, student may approach companies that work in his area of res
       </div>
       
       
-      <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 rounded-box collapse-plus">
+      <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 rounded-lg hover:bg-gray-100 collapse-plus">
         <div className="collapse-title text-lg font-medium">
         What are the research areas in the field of MS?
         </div>

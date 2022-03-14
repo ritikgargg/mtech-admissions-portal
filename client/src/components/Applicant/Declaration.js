@@ -85,8 +85,8 @@ of the Institute, which shall be final.
                                 <span className="font-semibold">Maximum file size:</span> 1 MB <span className="font-semibold">Allowed file formats:</span> .pdf, .jpeg, .png, .jpg, .gif
                               </div>
                               <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
-                                <span className="font-semibold">File Name Format:</span> 
-                                <span> Signature_&lt;your_email_id&gt; For Example: Signature_abc@gmail.com</span>
+                                <span className="font-semibold">Recommended File Name Format:</span> 
+                                <span> Signature_&lt;your_email_id&gt; <br/>For Example: Signature_abc@gmail.com</span>
                               </div>
                               </>
                               :

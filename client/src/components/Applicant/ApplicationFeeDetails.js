@@ -150,7 +150,7 @@ function ApplicationFeeDetails(props) {
                             id="user_avatar_help"
                           >
                             {/* Allowed file types: jpg jpeg pdf. */}
-                            <span className="font-semibold">File Name Format:</span> 
+                            <span className="font-semibold">Recommended File Name Format:</span> 
                             <span> Transaction_Slip_&lt;your_email_id&gt; <br/>For Example: Transcation_Slip_abc@gmail.com</span>
                           </div>
                           </>}

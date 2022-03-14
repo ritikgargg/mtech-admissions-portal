@@ -1,3 +1,15 @@
 ADD HERE NEW MILESTONES
 
 OpenPositions database done
+
+Courses Page (list of tiles)
+
+DONE :: Update Profile alert needs to be connected
+
+DONE:: Pre-Load data at the time of editing - :/
+
+DONE :: Once we move to the next page, the file gets removed from that page [ Although we have it in the array ]    
+
+DONE :: Change the person near the logout option
+
+Optional category certificate download option, alternate mobile number

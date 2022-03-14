@@ -15,6 +15,7 @@ import MyApplications from './components/Applicant/MyApplications'
 import ApplicantHomePage from './components/Applicant/ApplicantHomePage'
 import ApplicantionDetails from './components/Applicant/ApplicationDetails'
 import Courses from './components/Landing/Courses'
+import Info from './components/Landing/Info'
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -91,6 +92,7 @@ function App() {
 					<Route path="/contact-us" element={<ContactUs />}></Route>
 					<Route path="/faqs" element={<FAQs />}></Route>
 					<Route path="/courses" element={<Courses />}></Route>
+					<Route path="/info" element={<Info />}></Route>
 					<Route 
 						path='/sign-in' 
 						element={

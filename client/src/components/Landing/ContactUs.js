@@ -56,8 +56,8 @@ function ContactUs() {
                 Contact Details
               </h1>
               <p className="text-gray-400 text-xl">
-                Indian Institute of Technology Ropar, Rupnagar,Punjab -
-                140001,India
+                Indian Institute of Technology Ropar, Rupnagar, Punjab -
+                140001, India
               </p>
               <div className="my-4 mt-10">
                 <div className="flex flex-col">

@@ -19,8 +19,8 @@ const transporter = nodemailer.createTransport({
        rejectUnauthorized: true
     },
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_APP_PASSWORD
+        user: 'ritikgarg2701@gmail.com',
+        pass: 'vlwaqajbdcdakcdz'
     }
 });
 
@@ -52,14 +52,14 @@ const signin_otp = async (req, res) => {
         await pool.query("UPDATE login_verification SET hashed_otp = $1, expiration_time = to_timestamp($2) WHERE email_id = $3", [hash, Date.now()/1000.0+600, email]);
     });
 
-    // transporter.sendMail(mailOptions, function(error, info){
-    //   if (error) {
-    //     console.log(error);
-    //   } 
-    //   // else {
-    //   //   console.log('Email sent: ' + info.response);
-    //   // }
-    // });
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+      // else {
+      //   console.log('Email sent: ' + info.response);
+      // }
+    });
 
     return res.send("2");
 }
@@ -132,14 +132,14 @@ const signup_otp = async (req, res) => {
         });
     }
 
-    // transporter.sendMail(mailOptions, function(error, info){
-    //   if (error) {
-    //     console.log(error);
-    //   } 
-    //   // else {
-    //   //   console.log('Email sent: ' + info.response);
-    //   // }
-    // });
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+      // else {
+      //   console.log('Email sent: ' + info.response);
+      // }
+    });
 
     return res.send("2")
 }

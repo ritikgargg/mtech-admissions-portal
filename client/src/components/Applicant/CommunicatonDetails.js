@@ -37,7 +37,7 @@ function CommunicationDetails(props){
         }
       })
       .catch(err => console.log(err));
-  }
+    }
   
   return (
     <div id="communicationDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
@@ -298,7 +298,7 @@ function CommunicationDetails(props){
                         htmlFor="alternate_mobile_number"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Alternate Mobile Number{" "}
+                        Alternate Mobile Number
                       </label>
                       <input
                         type="text"

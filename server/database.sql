@@ -106,16 +106,16 @@ CREATE TABLE mtech_offerings(
 );
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
-VALUES('Computer Science and Engineering', 'AI', 20, 'CS, AI', '2022-03-31', 'Candidates with B.Tech /B.E/MCA or M.Sc in the appropriate area with the valid GATE score in Computer Science and information Technology(CS),Electronics and communication Engineering (EC),and /or Mathematics (MA).');
+VALUES('Chemical Engineering', 'Chemical Engineering', 12, 'CH', '2022-03-31', 'Candidates with BTech/BE/MSc with valid score of GATE.');
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
-VALUES('Electrical Engineering', 'VSLI', 20, 'EE, EC', '2022-03-31', 'A bachelor''s degree in engineering (BE / BTech), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A master''s degree in science (MSc / MS), or equivalent, with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules, \nOr\n A bachelor''s degree in medicine/surgery (MBBS), pharmaceutical sciences (BPharm), veterinary science (BVSc), or dental surgery (BDS), with a minimum of 60 percent marks (6.5 grade points on a scale of 10) and a valid GATE score. Relaxation for SC/ST candidates as per GOI rules B.Tech. from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE.');
+VALUES('Civil Engineering', 'Water Resources and Environment', 15, 'AG, CE', '2022-03-31', 'Candidates with BTech/BE in Civil, Environmental, Water resources, Agricultural Engineering and related areas with valid score of GATE.');
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
-VALUES('Mechanical Engineering', 'Thermal', 20, 'CS, ME, CE, MB, EE, MN, JK, LO, YU, RT, ER, RT ', '2022-03-31', 'Candidates with B.Tech /B.E/MCA or M.Sc in the appropriate area with the valid GATE score in Computer Science and information Technology(CS),Electronics and communication Engineering (EC),and /or Mathematics (MA).');
+VALUES('Computer Science and Engineering', 'Artificial Intelligence', 20, 'CS', '2022-03-31', 'Candidates with BTech/BE/MCA in the appropriate area with the valid GATE score in Computer Science and Information Technology(CS).');
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
-VALUES('Mechanical Engineering', 'Thermal', 20, 'CS, ME, CE, MB, EE, MN, JK, LO, YU, RT, ER, RT, CS, ME, CE, MB, EE, MN, JK, LO, YU, RT, ER, RT, CS, ME, CE, MB, EE, MN, JK, LO, YU, RT, ER, RT ', '2022-03-31', 'Candidates with B.Tech /B.E/MCA or M.Sc in the appropriate area with the valid GATE score in Computer Science and information Technology(CS),Electronics and communication Engineering (EC),and /or Mathematics (MA).');
+VALUES('Mechanical Engineering', 'Mechanics and Design (MD)', 15, 'ME', '2022-03-31', 'Candidates with BTech/BE in Mechanical Engineering or relevant area. BTech from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE.');
 
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()

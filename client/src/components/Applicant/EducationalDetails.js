@@ -325,8 +325,8 @@ function EducationalDetails() {
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="user_avatar_help"
                                   >
-                                    <span className="font-semibold">File Name Format:</span> 
-                                    <span> Marksheet10th_&lt;your_email_id&gt; For Example: Marksheet10th_abc@gmail.com</span>
+                                    <span className="font-semibold">Recommended File Name Format:</span> 
+                                    <span> Marksheet10th_&lt;your_email_id&gt; <br/>For Example: Marksheet10th_abc@gmail.com</span>
                                   </div>
                                 </div>
                               </div>
@@ -473,8 +473,8 @@ function EducationalDetails() {
                                       <span className="font-semibold">Maximum file size:</span> 2 MB <span className="font-semibold">Allowed file formats:</span> .pdf
                                     </div>
                                     <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
-                                      <span className="font-semibold">File Name Format:</span> 
-                                      <span> Marksheet12th_&lt;your_email_id&gt; For Example: Marksheet12th__abc@gmail.com</span>
+                                      <span className="font-semibold">Recommended File Name Format:</span> 
+                                      <span> Marksheet12th_&lt;your_email_id&gt; <br/>For Example: Marksheet12th__abc@gmail.com</span>
                                     </div>
                                 </div>
                               </div>
