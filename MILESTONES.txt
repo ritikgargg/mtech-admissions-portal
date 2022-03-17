@@ -13,3 +13,9 @@ DONE :: Once we move to the next page, the file gets removed from that page [ Al
 DONE :: Change the person near the logout option
 
 Optional category certificate download option, alternate mobile number
+
+Also, using Material UI
+
+Info page done
+
+DOME :: .env naatak

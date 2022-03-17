@@ -84,7 +84,8 @@ export default function Profile (props) {
             }
             else {
                 let copy = {...response.data};
-                assign(copy, "alternate_mobile_number", null);
+                if(copy.alternate_mobile_number === "null")
+                    assign(copy, "alternate_mobile_number", null);
                 setProfileInfo(copy)
                 setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
                 setLocalProfileInfo(copy)

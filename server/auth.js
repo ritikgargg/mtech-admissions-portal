@@ -19,8 +19,8 @@ const transporter = nodemailer.createTransport({
        rejectUnauthorized: true
     },
     auth: {
-        user: 'ritikgarg2701@gmail.com',
-        pass: 'vlwaqajbdcdakcdz'
+        user: process.env.EMAIL,
+        pass: process.env.APP_PASSWORD
     }
 });
 

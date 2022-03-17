@@ -19,3 +19,5 @@ Cross and cacnel button are set to reload the window, find a better option
 Educational Details autofill data
 
 /apply should not directly redirect applicant to application form [profile validation must be checked]
+
+alternate mobile number naatak

@@ -191,7 +191,7 @@ function HowToApply() {
           </div>
           <div className="mt-4 text-[#4a61a1]">
           Before filling the application details, please follow the given steps to submit the fees for the application:
-          <br/>1. Go to <a href="https://www.onlinesbi.com/" className="font-bold"> https://www.onlinesbi.com/</a>.
+          <br/>1. Go to <a href="https://www.onlinesbi.com/" className="font-bold" target="_blank" rel="noopener noreferrer"> https://www.onlinesbi.com/</a>.
           <br/>2. Select SB collect.
           <br/>3. Tick the terms and conditions and continue.
           <br/>4. Select state - Punjab.

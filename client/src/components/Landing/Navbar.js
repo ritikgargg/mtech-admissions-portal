@@ -7,10 +7,10 @@ import {Link} from "react-router-dom";
 const navigation = [
   { name: "Home", to: "/" },
   { name: "How to Apply", to: "/how-to-apply" },
-  { name: "Contact us", to: "/contact-us" },
-  // { name : "Courses", to: "/courses"},
+  { name : "Courses", to: "/courses"},
+  { name: "More Info", to: '/info'},
   { name : "FAQs", to: "/faqs"},
-  // { name: "Info", to: '/info'}
+  { name: "Contact us", to: "/contact-us" }
 ];
 
 function Navbar() {

@@ -96,7 +96,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">{
                             htmlFor="gate_enrollment_number"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Gate Enrollment Number/Registration Number
+                            GATE Enrollment Number/Registration Number
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
@@ -140,7 +140,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">{
                             htmlFor="all_india_rank"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            All India Rank
+                            All India Rank (AIR)
                             <span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
@@ -162,7 +162,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">{
                             htmlFor="gate_score"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Gate Score<span style={{ color: "#ff0000" }}> *</span>
+                            GATE Score<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           <input
                             type="number"
@@ -204,7 +204,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">{
                             className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                             htmlFor="gate_result"
                           >
-                            Self Attested copies of GATE as mentioned in the form<span style={{ color: "#ff0000" }}> *</span>
+                            Self attested copies of GATE as mentioned in the form<span style={{ color: "#ff0000" }}> *</span>
                           </label>
                           {/* <input
                             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -246,7 +246,7 @@ the candidate will be responsible for this. GATE <span className="font-sebold">{
                           >
                             {/* Allowed file types: jpg jpeg pdf. */}
                             <span className="font-semibold">Recommended File Name Format:</span> 
-                            <span> Gate_Copies_&lt;your_email_id&gt; <br/>For Example: Gate_Copies_abc@gmail.com</span>
+                            <span> GATE_Copies_&lt;your_email_id&gt; <br/>For Example: GATE_Copies_abc@gmail.com</span>
                           </div>
                           </>}
                             {(props.details[14].name) && 
