@@ -30,6 +30,8 @@ app.post('/auth/signup/otp', auth.signup_otp);
 
 app.post('/auth/signup/verify', auth.signup_verify);
 
+app.post('/contact-us', auth.contact_us);
+
 app.post('/save-personal-info', upload.fields([{name:"profile_image", maxCount : 1}, {name:"category_certificate", maxCount : 1}]), applicantdB.save_personal_info);
 
 app.post('/save-communication-details', upload.fields([]), applicantdB.save_communication_details);

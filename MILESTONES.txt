@@ -18,4 +18,6 @@ Also, using Material UI
 
 Info page done
 
-DOME :: .env naatak
+DONE :: .env naatak
+
+DONE :: contact us

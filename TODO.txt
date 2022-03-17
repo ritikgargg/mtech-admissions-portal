@@ -1,7 +1,5 @@
 Responsive UI
 
-contact us
-
 Do something with applicant ID - not sure if required?
 
 Disable profile change button(even during filling a form), Disable apply button(only if corresponding application filled)
