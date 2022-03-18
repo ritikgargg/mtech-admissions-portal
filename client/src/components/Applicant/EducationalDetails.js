@@ -9,7 +9,7 @@ function EducationalDetails() {
   const navigate = useNavigate();
 
   const [count, setCount] = useState(1);
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [marksheet_10th, setMarksheet_10th] = useState(null);
   const [marksheet_12th, setMarksheet_12th] = useState(null);
   const [percentage_cgpa_pattern, setPercentageCgpaPattern] = useState(Array.from({length: 5}, ()=>"(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"));
@@ -141,19 +141,19 @@ function EducationalDetails() {
 
   return (
     <div id="educationalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
-        <div className="relative object-center overflow-y-auto overflow-x-hidden overscroll-none px-4 w-full max-w-7xl h-5/6">
-          {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            {/* Modal header */}
-            <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
-              <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="educationalDetailsModal">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>  
-              </button>
-            </div>
-            {/* Modal body */}
-            
-            <div>
-              <div className="px-6 py-6 mx-10 bg-[#f3f4f6] ">
+      <div className="relative object-center overflow-y-auto overflow-x-hidden overscroll-none px-4 w-full max-w-7xl h-5/6">
+        {/* Modal content */}
+        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          {/* Modal header */}
+          <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
+            <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="educationalDetailsModal">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>  
+            </button>
+          </div>
+          {/* Modal body */}
+          
+          <div>
+            <div className="px-6 py-6 mx-10 bg-[#f3f4f6] ">
               <div className="mt-10 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
@@ -312,15 +312,9 @@ function EducationalDetails() {
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="user_avatar_help"
                                   >
-                                    {/* Files must be less than 2 MB. */}
                                     <span className="font-semibold">Maximum file size:</span> 2 MB <span className="font-semibold">Allowed file formats:</span> .pdf
                                   </div>
-                                  {/* <div
-                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                    id="user_avatar_help"
-                                  >
-                                    <span className="font-semibold">Allowed file formats:</span> .pdf
-                                  </div> */}
+
                                   <div
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="user_avatar_help"
@@ -331,6 +325,7 @@ function EducationalDetails() {
                                 </div>
                               </div>
                             </div>
+                            
                             <div className="col-span-full sm:col-span-full">
                               <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                                 <div className="col-span-4 sm:col-span-2">
@@ -469,13 +464,13 @@ function EducationalDetails() {
                                       className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                       id="marksheet_help"
                                     >
-                                      {/* Files must be less than 2 MB., Allowed file types: pdf. */}
-                                      <span className="font-semibold">Maximum file size:</span> 2 MB <span className="font-semibold">Allowed file formats:</span> .pdf
-                                    </div>
-                                    <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
-                                      <span className="font-semibold">Recommended File Name Format:</span> 
-                                      <span> Marksheet12th_&lt;your_email_id&gt; <br/>For Example: Marksheet12th__abc@gmail.com</span>
-                                    </div>
+                                    <span className="font-semibold">Maximum file size:</span> 2 MB <span className="font-semibold">Allowed file formats:</span> .pdf
+                                  </div>
+
+                                  <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
+                                    <span className="font-semibold">Recommended File Name Format:</span> 
+                                    <span> Marksheet12th_&lt;your_email_id&gt; <br/>For Example: Marksheet12th__abc@gmail.com</span>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -485,78 +480,73 @@ function EducationalDetails() {
                             ))}
 
                             <div className="flex mb-4 col-span-4">
-                            {count === 4 ? (
-                                <div></div>
-                              ) : (<button
-                                type="button"
-                                onClick={() => {setCount(count + 1)}}
-                                className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
-                              >
-                                Add Section
-                              </button>)}
-                              {count === 1 ? (
-                                <div></div>
-                              ) : (
-                                <button
+                              {count === 4 ? (
+                                  <div></div>
+                                ) : (<button
                                   type="button"
-                                  onClick={() => {removeDegree(count-1);setCount(count - 1);}}
+                                  onClick={() => {setCount(count + 1)}}
                                   className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
                                 >
-                                  Remove Section
-                                </button>
-                              )}
+                                  Add Section
+                                </button>)}
+                                {count === 1 ? (
+                                  <div></div>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={() => {removeDegree(count-1);setCount(count - 1);}}
+                                    className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
+                                  >
+                                    Remove Section
+                                  </button>
+                                )}
                             </div>
                           </div>
-
                           
                           <div className="col-span-full sm:col-span-full">
-                              <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
+                            <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
                               <div className="col-span-full sm:col-span-full">
-                              <label
-                                htmlFor="other_remarks"
-                                className="block text-sm font-medium text-gray-700"
-                              >
-                                Any other educational highlights/information
-                              </label>
-                              <div className="mt-1">
-                                <textarea
-                                  id="other_remarks"
-                                  
-                                  {...register("other_remarks")}
-                                  rows={3}
-                                  className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                  defaultValue={""}
-                                />
-                              </div>
-                              <p className="mt-2 text-sm text-gray-500">
-                              
-                              </p>
-                            </div>
-                          
-                                
-                                <div className="col-span-full sm:col-span-full">
-                                  <label
-                                    htmlFor="is_last_degree_completed"
-                                    className="block text-sm font-medium text-gray-700"
-                                  >
-                                    Whether you have completed your last degree: <span style={{ color: "#ff0000" }}> *</span>
-                                  </label>
-                                  <select
-                                    id="is_last_degree_completed"
-                                    required
-                                    {...register("is_last_degree_completed")}
-                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                  >
-                                    <option value="">- Select -</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                  </select>
+                                <label
+                                  htmlFor="other_remarks"
+                                  className="block text-sm font-medium text-gray-700"
+                                >
+                                  Any other educational highlights/information
+                                </label>
+                                <div className="mt-1">
+                                  <textarea
+                                    id="other_remarks"
+                                    
+                                    {...register("other_remarks")}
+                                    rows={3}
+                                    className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                    defaultValue={""}
+                                  />
                                 </div>
-
-
-
+                                <p className="mt-2 text-sm text-gray-500">
+                                </p>
                               </div>
+                          
+                              <div className="col-span-full sm:col-span-full">
+                                <label
+                                  htmlFor="is_last_degree_completed"
+                                  className="block text-sm font-medium text-gray-700"
+                                >
+                                  Whether you have completed your last degree: <span style={{ color: "#ff0000" }}> *</span>
+                                </label>
+                                <select
+                                  id="is_last_degree_completed"
+                                  required
+                                  {...register("is_last_degree_completed")}
+                                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                >
+                                  <option value="">- Select -</option>
+                                  <option value="Yes">Yes</option>
+                                  <option value="No">No</option>
+                                </select>
+                              </div>
+
                             </div>
+                          </div>
 
                           {/* <div className="my-4 grid grid-cols-6 gap-6">
                           <button
@@ -576,9 +566,8 @@ function EducationalDetails() {
                             </button>
                           </div> */}
                         </div>
-                        
-                      
                       </div>
+                      
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                         <button data-modal-toggle="educationalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
@@ -587,12 +576,11 @@ function EducationalDetails() {
                   </div>
                 </div>
               </div>
-              </div>
             </div>
-
           </div>
         </div>
       </div>
+    </div>
   );
 }
 

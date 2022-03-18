@@ -180,7 +180,6 @@ function CollegeDegreeSection(props) {
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
             id="marksheet_help"
           >
-            {/* Files must be less than 5 MB., Allowed file types: pdf. */}
             <span className="font-semibold">Maximum file size:</span> 5 MB <span className="font-semibold">Allowed file formats:</span> .pdf
           </div>
           <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
@@ -206,11 +205,10 @@ function CollegeDegreeSection(props) {
             required
             onChange={(e) => props.handleFileSubmit(e, 2, props.id,9)}
           />
-              <div
+          <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
             id="marksheet_help"
           >
-            {/* Files must be less than 5 MB., Allowed file types: pdf. */}
             <span className="font-semibold">Maximum file size:</span> 5 MB <span className="font-semibold">Allowed file formats:</span> .pdf
           </div>
           <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">

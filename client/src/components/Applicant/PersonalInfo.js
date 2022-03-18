@@ -6,9 +6,6 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom"
 import crossPic from "../../images/red_cross.png"
 
-// import { useEffect } from 'react'
-// import axios from "axios";
-
 function PersonalInfo(props) {
   const navigate = useNavigate();
 
@@ -80,22 +77,23 @@ function PersonalInfo(props) {
   // });
   // const s_idx = props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1
   // const e_idx = props.localProfileInfo.category_certificate_url.lastIndexOf('_')
+  
   return (
     <div id="personalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
-        <div className="relative overflow-y-auto overflow-x-hidden object-center  overscroll-none px-4 w-full max-w-7xl h-5/6">
-          {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div className="relative overflow-y-auto overflow-x-hidden object-center  overscroll-none px-4 w-full max-w-7xl h-5/6">
+        {/* Modal content */}
+        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
 
-            {/* Modal header and Cross button */}
-            <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
-              <button onClick={props.syncLocalGlobalData} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="personalDetailsModal">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>  
-              </button>
-            </div>
-          
-            {/* Personal Info Content */}
-            <div>
-              <div className="px-6 py-6 mx-8 bg-[#f3f4f6]">
+          {/* Modal header and Cross button */}
+          <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
+            <button onClick={props.syncLocalGlobalData} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="personalDetailsModal">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>  
+            </button>
+          </div>
+        
+          {/* Personal Info Content */}
+          <div>
+            <div className="px-6 py-6 mx-8 bg-[#f3f4f6]">
               <div className="mt-10 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
 
@@ -166,49 +164,51 @@ function PersonalInfo(props) {
                               >
                                 Upload your recent photograph<span style={{ color: "#ff0000" }}> *</span>
                               </label>
+                              
                               {(!props.localProfileInfo.profile_image_url)?
-                              <>
-                              <input
-                                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                aria-describedby="profile-picture-desc"
-                                id="profile_picture"
-                                type="file"
-                                required
-                                accept=".jpeg, .jpg, .png"
-                                onChange={(e) => handleFileSubmit(e, 2, setProfileImage)}
-                                />
-                              <div
-                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="profile-picture-desc"
-                              >
-                                <span className="font-semibold">Maximum file size:</span> 2 MB,  <span className="font-semibold">Allowed file formats:</span> .jpg, .png, .jpeg 
-                                <br/>
-                                <div className="mt-1">
-                                <span className="font-semibold">Recommended File Name Format:</span> 
-                                <span> Photograph_&lt;your_email_id&gt; <br/>Example: Photograph_abc@gmail.com</span>
-                                </div>
-                              </div>                             
-                            </>
-                            :
-                            <>
-                              <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                              <input
-                                className="border-none block w-full shadow-sm sm:text-sm"
-                                id="profile_picture"
-                                name="profile_picture"
-                                type="text"
-                                defaultValue={props.localProfileInfo.profile_image_url.substring(props.localProfileInfo.profile_image_url.lastIndexOf('/') + 1, props.localProfileInfo.profile_image_url.lastIndexOf('_'))}
-                                readOnly
-                                />
-                            
-                                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFile('profile_image_url')}>
-                                  <img className="w-6 h-6" src ={crossPic}></img>
-                                </button>
-                              </div>
-                            </>
-                            }
-                            </div>
+                                <>
+                                  <input
+                                    className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    aria-describedby="profile-picture-desc"
+                                    id="profile_picture"
+                                    type="file"
+                                    required
+                                    accept=".jpeg, .jpg, .png"
+                                    onChange={(e) => handleFileSubmit(e, 2, setProfileImage)}
+                                    />
+                                  <div
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="profile-picture-desc"
+                                  >
+                                    <span className="font-semibold">Maximum file size:</span> 2 MB,  <span className="font-semibold">Allowed file formats:</span> .jpg, .png, .jpeg 
+                                    <br/>
+                                    <div className="mt-1">
+                                    <span className="font-semibold">Recommended File Name Format:</span> 
+                                    <span> Photograph_&lt;your_email_id&gt; <br/>Example: Photograph_abc@gmail.com</span>
+                                    </div>
+                                  </div>                             
+                                </>
+                              
+                                :
 
+                                <>
+                                  <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <input
+                                      className="border-none block w-full shadow-sm sm:text-sm"
+                                      id="profile_picture"
+                                      name="profile_picture"
+                                      type="text"
+                                      defaultValue={props.localProfileInfo.profile_image_url.substring(props.localProfileInfo.profile_image_url.lastIndexOf('/') + 1, props.localProfileInfo.profile_image_url.lastIndexOf('_'))}
+                                      readOnly
+                                      />
+                                  
+                                    <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFile('profile_image_url')}>
+                                      <img className="w-6 h-6" src ={crossPic} alt="Cross"></img>
+                                    </button>
+                                  </div>
+                                </>
+                              }
+                            </div>
 
                             {/* Date of Birth */}
                             <div className="col-span-6 sm:col-span-3">
@@ -224,7 +224,6 @@ function PersonalInfo(props) {
                                 defaultValue={props.localProfileInfo.date_of_birth}
                                 />
                             </div>
-
 
                             {/* Aadhar Card Number */}
                             <div className="col-span-6 sm:col-span-3">
@@ -248,7 +247,7 @@ function PersonalInfo(props) {
                               />
                             </div>
 
-                              {/* Category */}
+                            {/* Category */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="category"
@@ -273,8 +272,7 @@ function PersonalInfo(props) {
                               </select>
                             </div>
 
-
-                              {/* Category Certificate */}
+                            {/* Category Certificate */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -282,60 +280,61 @@ function PersonalInfo(props) {
                               >
                                 Category Certificate (SC/ST/OBC/PwD/EWS)
                               </label>
+                              
                               {(!props.localProfileInfo.category_certificate_url)?
-                              <>
-                              <input
-                                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                aria-describedby="category-certificate-desc"
-                                id="category-certificate"
-                                type="file"
-                                accept=".jpeg, .jpg, .png"
-                               
-                                onChange={(e) => handleFileSubmit(e, 2, setCategoryCertificate)}
-                                />
-                              <div
-                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="category-certificate-desc"
-                              >
-                                <span className="font-semibold"> Maximum file size: </span>2 MB
-                              </div>
-                              <div
-                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="category-certificate-desc"
-                              >
-                                <span className="font-semibold">Allowed file formats:</span> .jpg, .jpeg, .png
-                              </div>
-                              <div
-                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                id="category-certificate-desc"
-                              >
-                                <span className="font-semibold">Recommended File Name Format:</span> 
-                                <span> Category_Certificate_&lt;your_email_id&gt;<br/>Example: Category_Certificate_abc@gmail.com</span>
-                              </div>
-                              </>
-                              :
-                              <>
-                              <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                              <input
-                                className="border-none block w-full shadow-sm sm:text-sm"
-                                id="category-certificate"
-                                name="category-certificate"
-                                type="text"
-                                defaultValue={props.localProfileInfo.category_certificate_url.substring(props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1, props.localProfileInfo.category_certificate_url.lastIndexOf('_'))}
-                                readOnly
-                                />
-                            
-                                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFile('category_certificate_url')}>
-                                  <img className="w-6 h-6" src ={crossPic}></img>
-                                </button>
-                              </div>
-                            </>
+                                <>
+                                  <input
+                                    className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    aria-describedby="category-certificate-desc"
+                                    id="category-certificate"
+                                    type="file"
+                                    accept=".jpeg, .jpg, .png"
+                                  
+                                    onChange={(e) => handleFileSubmit(e, 2, setCategoryCertificate)}
+                                    />
+                                  <div
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="category-certificate-desc"
+                                  >
+                                    <span className="font-semibold"> Maximum file size: </span>2 MB
+                                  </div>
+                                  <div
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="category-certificate-desc"
+                                  >
+                                    <span className="font-semibold">Allowed file formats:</span> .jpg, .jpeg, .png
+                                  </div>
+                                  <div
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="category-certificate-desc"
+                                  >
+                                    <span className="font-semibold">Recommended File Name Format:</span> 
+                                    <span> Category_Certificate_&lt;your_email_id&gt;<br/>Example: Category_Certificate_abc@gmail.com</span>
+                                  </div>
+                                </>
+                              
+                                :
+                              
+                                <>
+                                  <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <input
+                                      className="border-none block w-full shadow-sm sm:text-sm"
+                                      id="category-certificate"
+                                      name="category-certificate"
+                                      type="text"
+                                      defaultValue={props.localProfileInfo.category_certificate_url.substring(props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1, props.localProfileInfo.category_certificate_url.lastIndexOf('_'))}
+                                      readOnly
+                                      />
+                                  
+                                    <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFile('category_certificate_url')}>
+                                      <img className="w-6 h-6" src ={crossPic} alt="Cross"></img>
+                                    </button>
+                                  </div>
+                                </>
                               }
                             </div>
-                           
                           
-
-                              {/* PWD Category */}
+                            {/* PWD Category */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="pwd-category"
@@ -358,7 +357,7 @@ function PersonalInfo(props) {
                               </select>
                             </div>
 
-                              {/* Marital Status */}
+                            {/* Marital Status */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="marital-status"
@@ -378,7 +377,7 @@ function PersonalInfo(props) {
                               </select>
                             </div>
 
-                              {/* Nationality */}
+                            {/* Nationality */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="nationality"
@@ -393,7 +392,7 @@ function PersonalInfo(props) {
                               />
                             </div>
 
-                              {/* Gender */}
+                            {/* Gender */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="gender"
@@ -416,6 +415,7 @@ function PersonalInfo(props) {
                             </div>
                           </div>
                         </div>
+                        
                         {/* <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                           <button
                             type="button"
@@ -425,26 +425,26 @@ function PersonalInfo(props) {
                             Next
                           </button>
                         </div> */}
+
                       </div>
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                         <button onClick={props.syncLocalGlobalData} data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
                       </div>
-                      {/* <button type="submit">Submit</button> */}
                     </form>
                   </div>
                 </div>
               </div>
-              </div>
             </div>
+          </div>
 
-            <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-              {/* <button data-modal-toggle="personalDetailsModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-              <button data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button> */}
-            </div>
+          <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+            {/* <button data-modal-toggle="personalDetailsModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+            <button data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button> */}
           </div>
         </div>
       </div>
+    </div>
   );
 }
 

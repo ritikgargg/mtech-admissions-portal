@@ -43,48 +43,11 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route 
-					path="/home"
-					element={
-						<PrivateRoute>
-						<ApplicantHomePage user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}}/>
-						</PrivateRoute>
-					}
-				/>
-				<Route
-					path="/my-profile"
-					element={
-						<PrivateRoute>
-						<Profile user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}} />
-						</PrivateRoute>
-					}
-				/>
-				<Route
-					path="/my-applications"
-					element={
-						<PrivateRoute>
-						<MyApplications user={{name:"Ritik", email:"ritikgarg@gmail.com", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}}/>
-						</PrivateRoute>
-					}
-				/>
-
-				<Route
-					path="/apply"
-					element={
-						<PrivateRoute>
-						<ApplicantionDetails />
-						</PrivateRoute>
-					}
-				/>
-
-				<Route
-					path="/logout"
-					element={
-						<PrivateRoute>
-						<Logout />
-						</PrivateRoute>
-					}
-				/>
+				<Route path="/home" element={<PrivateRoute><ApplicantHomePage/></PrivateRoute>} />
+				<Route path="/my-profile" element={<PrivateRoute><Profile/></PrivateRoute>} />
+				<Route path="/my-applications" element={<PrivateRoute><MyApplications/></PrivateRoute>} />
+				<Route path="/apply" element={<PrivateRoute><ApplicantionDetails /></PrivateRoute>} />
+				<Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
           
 				<Route element={<WithHeaderFooter/>}>
 					<Route path="/" element={<HomePage/>}></Route>
@@ -93,22 +56,8 @@ function App() {
 					<Route path="/faqs" element={<FAQs />}></Route>
 					<Route path="/courses" element={<Courses />}></Route>
 					<Route path="/info" element={<Info />}></Route>
-					<Route 
-						path='/sign-in' 
-						element={
-							<SpecialRoute>
-							<SignInStartPage/>
-							</SpecialRoute>
-						} 
-					/>
-					<Route 
-						path='/sign-up' 
-						element={
-							<SpecialRoute>
-							<SignUpStartPage />
-							</SpecialRoute>
-						} 
-					/>
+					<Route path='/sign-in' element={<SpecialRoute><SignInStartPage/></SpecialRoute>} />
+					<Route path='/sign-up' element={<SpecialRoute><SignUpStartPage/></SpecialRoute>} />
 					<Route path="*" element={<Error/>}></Route>
     			</Route>
 

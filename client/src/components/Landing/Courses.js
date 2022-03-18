@@ -101,39 +101,39 @@ function Courses() {
             </td>
         </tr>
       }
-      {applications.length !== 0 && <>
-        {applications.map((application) => (
-        <div className="bg-white mx-12 px-10 pb-4" key={application.id}>
-          <div tabIndex="0" className="collapse collapse-arrow border hover:bg-gray-100 border-base-300 bg-transparent rounded-lg">
-            <div className="items-center collapse-title text-lg font-medium">
-              <div className="font-bold">{application.specialization}</div>
-              <div className="text-sm opacity-50">{application.department}</div>
-            </div>
-            <div className="collapse-content">
-              <div className="px-4 pb-1 sm:grid sm:grid-cols-6 sm:px-6">
-                <h1 className="font-bold">Seats</h1>
-                <p className="sm:mt-0 sm:col-span-2">{application.seats}</p>
-              </div>
 
-              <div className="px-4 py-1 sm:grid sm:grid-cols-6 sm:px-6">
-                <h1 className="font-bold">Gate Paper Codes</h1>
-                <p className="sm:mt-0 sm:col-span-2">{application.gate_paper_codes}</p>
-              </div>
+      {applications.length !== 0 && 
+        <>
+          {applications.map((application) => (
+            <div className="bg-white mx-12 px-10 pb-4" key={application.id}>
+              <div tabIndex="0" className="collapse collapse-arrow border hover:bg-gray-100 border-base-300 bg-transparent rounded-lg">
+                <div className="items-center collapse-title text-lg font-medium">
+                  <div className="font-bold">{application.specialization}</div>
+                  <div className="text-sm opacity-50">{application.department}</div>
+                </div>
+                <div className="collapse-content">
+                  <div className="px-4 pb-1 sm:grid sm:grid-cols-6 sm:px-6">
+                    <h1 className="font-bold">Seats</h1>
+                    <p className="sm:mt-0 sm:col-span-2">{application.seats}</p>
+                  </div>
 
-              <div className="px-4 pt-1 sm:grid sm:grid-cols-6 sm:px-6">
-                <h1 className="font-bold">Eligibility</h1>
-                <p className="sm:mt-0 sm:col-span-5" style={{whiteSpace:"pre-wrap"}}>{application.eligibility}</p>
+                  <div className="px-4 py-1 sm:grid sm:grid-cols-6 sm:px-6">
+                    <h1 className="font-bold">Gate Paper Codes</h1>
+                    <p className="sm:mt-0 sm:col-span-2">{application.gate_paper_codes}</p>
+                  </div>
+
+                  <div className="px-4 pt-1 sm:grid sm:grid-cols-6 sm:px-6">
+                    <h1 className="font-bold">Eligibility</h1>
+                    <p className="sm:mt-0 sm:col-span-5" style={{whiteSpace:"pre-wrap"}}>{application.eligibility}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      ))}
-      </>
-}
+          ))}
+        </>
+      }
     </>
-
   );
-
 }
 
 export default Courses;

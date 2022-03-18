@@ -4,8 +4,6 @@ const { Storage } = require("@google-cloud/storage");
 const pool = require("./db")
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-const { info } = require("console");
-const { file } = require("googleapis/build/src/apis/file");
 
 dotenv.config();
 

@@ -4,8 +4,8 @@ import DashboardNavBar from './DashboardNavBar';
 function MyApplications(props){
     return(
         <>
-        <DashboardNavBar currentFlag={1} user={props.user}/>
-        <div>MyApplications</div>
+            <DashboardNavBar currentFlag={1} user={props.user}/>
+            <div>MyApplications</div>
         </>
     );
 }

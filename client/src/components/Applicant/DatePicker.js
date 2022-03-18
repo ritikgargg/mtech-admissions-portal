@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-// import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";  
-// import DatePicker from "react-datepicker";
+import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
-// import format from "date-fns/format";
 
 function DatePick(props) { 
   return (

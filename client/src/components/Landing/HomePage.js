@@ -25,7 +25,7 @@ function HomePage() {
             </h1>
             <p className="text-center mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
               Indian Institute of Technology Ropar invites applications for
-              M.Tech programmes for the academic year 2022-23.
+              MTech programmes for the academic year 2022-23.
             </p>
             <div className="mt-5 sm:mt-8 sm:flex sm:justify-center">
               <div className="rounded-md shadow">

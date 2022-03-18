@@ -11,10 +11,9 @@
 // onFileSelectSuccess={(file) => {setProfilePicture(file);}}
 // onFileSelectError={({ error }) => alert(error)}
 
-
 import React, {useRef} from 'react'
 
-const FileUploader = ({onFileSelectSuccess,required, onFileSelectError, className, aria_describedby, id, type, accept, maxSize}) => {
+const FileUploader = ({onFileSelectSuccess, required, onFileSelectError, className, aria_describedby, id, type, accept, maxSize}) => {
     const fileInput = useRef(null);
 
     const handleFileInput = (e) => {

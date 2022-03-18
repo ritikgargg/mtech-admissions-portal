@@ -8,7 +8,7 @@ function Footer() {
     <footer className="text-center lg:text-left bg-[#1E3A8A] text-white">
       <div className="mx-12 pb-0 py-10 text-center md:text-left">
         <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className>
+          <div>
             <p className="mb-4">
               <a href="https://www.iitrpr.ac.in/" target="_blank" rel="noopener noreferrer">IIT Ropar</a>
             </p>
@@ -29,7 +29,7 @@ function Footer() {
             </p>
           </div>
 
-          <div className>
+          <div>
             <p className="mb-4">
               <a href="https://sites.google.com/a/iitrpr.ac.in/cbme/" target="_blank" rel="noopener noreferrer">CBME</a>
             </p>
@@ -50,7 +50,7 @@ function Footer() {
             </p>
           </div>
 
-          <div className>
+          <div>
             <p className="mb-4">
               <a href="https://iitrpr.ac.in/humanities" target="_blank" rel="noopener noreferrer">Humanities and Social Sciences</a>
             </p>
@@ -71,7 +71,7 @@ function Footer() {
             </p>
           </div>
 
-          <div className>
+          <div>
             <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
               Contact
             </h6>
