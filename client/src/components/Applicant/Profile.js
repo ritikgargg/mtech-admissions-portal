@@ -11,7 +11,7 @@ import { getToken } from "../SignIn_SignUp/Sessions"
 import { useNavigate } from "react-router-dom"
 import DefaultProfilePicture from "../../images/default-profile-picture.png"
 
-export default function Profile (props) {
+export default function Profile () {
   const navigate = useNavigate();
     
     // var degrees = [
@@ -115,7 +115,7 @@ export default function Profile (props) {
 
     return (
         <>
-            <DashboardNavBar currentFlag={2} user={props.user}/>
+            <DashboardNavBar currentFlag={2}/>
             <div className='flex'>
                 <div className='flex-2 my-20 mx-20 block'>
                     <img className="ring-2 h-40 w-40 ring-gray-700 rounded-full border border-black" src={profileInfo.profile_image_url ? profileInfo.profile_image_url : DefaultProfilePicture} alt="Profile"/>

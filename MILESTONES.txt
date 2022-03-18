@@ -23,3 +23,5 @@ DONE :: .env naatak
 DONE :: contact us
 
 Error page?
+
+Added help button on qualifying exam details

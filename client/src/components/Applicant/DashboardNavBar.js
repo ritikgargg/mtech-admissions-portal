@@ -38,7 +38,6 @@ function DashboardNavBar (props) {
     .catch(err => console.log(err));
   }, []);
 
-
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -57,18 +56,18 @@ function DashboardNavBar (props) {
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       <a
-                          key="Home"
-                          href="/home"
-                          className={classNames(
-                            (0 === props.currentFlag)
-                              ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'px-3 py-2 rounded-md text-sm font-medium'
-                          )}
-                          aria-current={0 === props.currentFlag ? 'page' : undefined}
-                        >
-                          Home
-                        </a>
+                        key="Home"
+                        href="/home"
+                        className={classNames(
+                          (0 === props.currentFlag)
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'px-3 py-2 rounded-md text-sm font-medium'
+                        )}
+                        aria-current={0 === props.currentFlag ? 'page' : undefined}
+                      >
+                        Home
+                      </a>
 
                       <a
                         key="My Applications"
@@ -85,19 +84,18 @@ function DashboardNavBar (props) {
                       </a>
                       
                       <a
-                          key="My Profile"
-                          href="/my-profile"
-                          className={classNames(
-                            (2 === props.currentFlag)
-                              ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'px-3 py-2 rounded-md text-sm font-medium'
-                          )}
-                          aria-current={2 === props.currentFlag ? 'page' : undefined}
-                        >
-                          My Profile
-                        </a>
-
+                        key="My Profile"
+                        href="/my-profile"
+                        className={classNames(
+                          (2 === props.currentFlag)
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'px-3 py-2 rounded-md text-sm font-medium'
+                        )}
+                        aria-current={2 === props.currentFlag ? 'page' : undefined}
+                      >
+                        My Profile
+                      </a>
                     </div>
                   </div>
                 </div>

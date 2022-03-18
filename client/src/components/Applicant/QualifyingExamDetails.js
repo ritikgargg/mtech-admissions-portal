@@ -1,5 +1,7 @@
 import React from 'react';
 import crossPic from "../../images/red_cross.png"
+import HelpIcon from '@mui/icons-material/Help';
+import Tooltip from '@mui/material/Tooltip';
 
 function QualifyingExamDetails(props){
 
@@ -157,7 +159,13 @@ function QualifyingExamDetails(props){
                             htmlFor="gate_score"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            GATE Score<span style={{ color: "#ff0000" }}> *</span>
+                            GATE Score<span style={{ color: "#ff0000" }}> * </span>
+                            <Tooltip 
+                              title="Are you Sure? You have to select the best of your last 3-year GATE scores. For example, if your GATE score last year was 750 and this  
+                              year it is 600, then, you should enter your last year's GATE score. You cannot edit your application once submitted. Be careful!" 
+                              arrow>
+                              <HelpIcon fontSize="small"></HelpIcon>
+                            </Tooltip>
                           </label>
                           <input
                             type="number"

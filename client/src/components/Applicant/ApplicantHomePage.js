@@ -7,7 +7,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import ViewEligibility  from './ViewEligibility';
 
-export default function ApplicantHomePage(props) {
+export default function ApplicantHomePage () {
     const navigate = useNavigate();
     const [applications, setApplications] = useState([]);
 
@@ -64,7 +64,7 @@ export default function ApplicantHomePage(props) {
 
     return (
         <>
-            <DashboardNavBar currentFlag={0} user={props.user}/>
+            <DashboardNavBar currentFlag={0}/>
             
             { isProfileComplete === 1 ? 
             <CompleteProfile setProfileComplete={setProfileComplete}/>

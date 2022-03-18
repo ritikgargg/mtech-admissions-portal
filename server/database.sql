@@ -68,14 +68,71 @@ CREATE TABLE applicants (
 );
 
 CREATE TABLE applications(
-  application_id SERIAL PRIMARY KEY,
+  application_id SERIAL,
+
+  -- Application information
+  department TEXT,
+  specialization TEXT,
+  offering_id TEXT,
   email_id TEXT,
 
+  -- Personal Details
+  full_name TEXT,
+  fathers_name TEXT,
+  profile_image_url TEXT,
+  date_of_birth TEXT,
+  aadhar_card_number TEXT,
+  category TEXT,
+  category_certificate_url TEXT,
+  is_pwd TEXT,
+  marital_status TEXT,
+  nationality TEXT,
+  gender TEXT,
+
+  -- Communication Details
+  communication_address TEXT,
+  communication_city TEXT,
+  communication_state TEXT,
+  communication_pincode TEXT,
+
+  permanent_address TEXT,
+  permanent_city TEXT,
+  permanent_state TEXT,
+  permanent_pincode TEXT,
+
+  mobile_number TEXT,
+  alternate_mobile_number TEXT,
+
+  -- Educational Details
+  degree_10th TEXT,
+  board_10th TEXT,
+  percentage_cgpa_format_10th TEXT,
+  percentage_cgpa_value_10th TEXT,
+  year_of_passing_10th TEXT,
+  remarks_10th TEXT,
+  marksheet_10th_url TEXT,
+
+  degree_12th TEXT,
+  board_12th TEXT,
+  percentage_cgpa_format_12th TEXT,
+  percentage_cgpa_value_12th TEXT,
+  year_of_passing_12th TEXT,
+  remarks_12th TEXT,
+  marksheet_12th_url TEXT,
+
+  degrees TEXT[][],
+
+  other_remarks TEXT,
+  is_last_degree_completed TEXT
+
+  -- Fee details
   amount TEXT,
   transaction_id TEXT,
   bank TEXT,
   transaction_slip_url TEXT,
   date_of_transaction TEXT,
+  
+  -- Qualifying exam details
   qualifying_examination TEXT,
   branch_code TEXT,
   year TEXT,
@@ -92,7 +149,9 @@ CREATE TABLE applications(
   date_of_declaration TEXT,
   place_of_declaration TEXT,
 
-  CONSTRAINT fk_email FOREIGN KEY(email_id) REFERENCES applicants(email_id)
+  CONSTRAINT fk_email FOREIGN KEY(email_id) REFERENCES applicants(email_id),
+  CONSTRAINT fk_offering FOREIGN KEY(offering_id) REFERENCES mtech_offerings(offering_id),
+  PRIMARY KEY(email_id, offering_id)
 );
 
 CREATE TABLE mtech_offerings(
