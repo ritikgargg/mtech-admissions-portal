@@ -1,4 +1,9 @@
 Responsive UI
+1. some space below footer on very big screens for home-page
+2. Home page on galaxy fold view
+3. sign-in, sign-up
+4. Navbar
+5. Applicant pages
 
 Do something with applicant ID - not sure if required?
 

@@ -21,3 +21,5 @@ Info page done
 DONE :: .env naatak
 
 DONE :: contact us
+
+Error page?

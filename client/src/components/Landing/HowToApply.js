@@ -15,7 +15,7 @@ function HowToApply() {
         <div className="flex md:flex-row flex-col bg-[#1E3A8A] justify-center md:text-left text-center">
           <div className="flex flex-col justify-center items-center relative">
             <div className="w-56 h-12 md:flex hidden justify-center">
-              <div className="h-full  border-white border-dashed" />
+              <div className="h-full border-white border-dashed" />
             </div>
             <div className="rounded-full w-12 h-12 text-xl text-[#1E3A8A] bg-white font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">
               1

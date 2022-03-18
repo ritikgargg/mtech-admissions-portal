@@ -4,7 +4,7 @@ function FAQs() {
   return (
     <>
       <div className="min-h-screen">
-        <div className="bg-white  mx-12 p-6">
+        <div className="bg-white mx-12 p-6">
           <div tabIndex={0} className="mb-4 collapse border border-base-300 bg-base-100 hover:bg-gray-100 rounded-lg collapse-plus">
             <div className="collapse-title text-lg font-medium">
                 How MS(R) program is different than an MTech program?

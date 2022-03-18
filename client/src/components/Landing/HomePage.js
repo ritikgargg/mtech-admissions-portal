@@ -7,10 +7,10 @@ function HomePage() {
   return (
     <div className="w-full">
       <div className=" flex bg-white" style={{ height: "690px" }}>
-        <div className="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
+        <div className="flex-auto items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2 sm:pt-8">
           <div>
             <div className="flex items-center justify-center">
-            <img alt="iit-ropar-logo" className="h-86 w-48 xl:ml-10 xl:mb-5 " src={pic} />
+              <img alt="iit-ropar-logo" className="h-86 w-48 xl:ml-10 xl:mb-5" src={pic} />
             </div>
             <h1 className="text-center text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
               <span className="block xl:inline  leading-normal">IIT Ropar</span>{" "}
@@ -23,7 +23,7 @@ function HomePage() {
                 MTech Registration Portal
               </span>
             </h1>
-            <p className="text-center mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+            <p className="text-center mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
               Indian Institute of Technology Ropar invites applications for
               MTech programmes for the academic year 2022-23.
             </p>
@@ -47,7 +47,7 @@ function HomePage() {
             </div>
           </div>
         </div>
-        <div className="hidden lg:block lg:w-3/5">
+        <div className="hidden xl:block lg:w-3/5">
           <img
             className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
             src={iit_ropar_pic}
