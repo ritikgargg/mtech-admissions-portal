@@ -14,20 +14,45 @@ import DefaultProfilePicture from "../../images/default-profile-picture.png"
 export default function Profile () {
   const navigate = useNavigate();
     
-    // var degrees = [
-    //     { degree: '10th', board_uni: 'CBSE', per_cgpa: '85.5', yop: '2015', att: '10th_certificate.pdf' },
-    //     { degree: '12th', board_uni: 'CBSE', per_cgpa: '95.5', yop: '2017', att: '12th_certificate.pdf' },
-    //     { degree: 'B-Tech', board_uni: 'IIT Ropar', per_cgpa: '7.67', yop: '2021', att: 'graduation_certificate.pdf' }
-    // ]
+    let temp = {
+        'id' : 0,
+         '0': '',
+         '1': '',
+         '2': '',
+         '3': '',
+         '4': '',
+         '5': '',
+         '6': '',
+         '7': '',
+         '8': '',
+         '9': '',
+        }
 
+    function initDegrees(){
+        let result = []
+        for(let i = 0;i < 5; i++){
+            temp['id'] = i;
+            result.push(temp);
+        }
+        return result;
+    }
     const [profileInfo, setProfileInfo] = useState(0);
     const [localProfileInfo, setLocalProfileInfo] = useState(0);
-    const [degrees, setDegrees] = useState([]);
+    const [degrees, setDegrees] = useState(initDegrees());
+    const [degreeSize, setDegreeSize] = useState(0);
+    const [count, setCount] = useState(1);
 
     function emptyFile(key){
         let copy = {...localProfileInfo}
         assign(copy, key, null)
         setLocalProfileInfo(copy)
+    }
+
+    function emptyFileDegree(index, id){
+        let copy = [...degrees]
+        copy[id][String(index)] = null
+        setDegrees(copy)
+        console.log(copy)
     }
 
     function syncLocalGlobalData(){
@@ -38,13 +63,25 @@ export default function Profile () {
         // console.log("local profile info :" , localProfileInfo);
         window.location.reload();
     }
+
+    const getDegreeSize = (degrees) => {
+      let cnt = 0;
+      for(var i = 0; i< degrees.length;i++){
+        if(degrees[i][0] !== ""){
+            cnt = cnt + 1;
+        }
+      }
+      return cnt;   
+    }
     
     function convert2dArrayToJsonObjectArray(degrees) {
-        if(degrees === null) return []
+        if(degrees === null) {
+            return initDegrees();
+        }
 
         var result = []
         for(var i = 0; i < degrees.length; i++) {
-            if(degrees[i][0] === "") continue;
+            // if(degrees[i][0] === "") continue;
             var degree = {}
             for(var j = 0; j < degrees[i].length; j++) {
                 degree[String(j)] = degrees[i][j]
@@ -85,11 +122,13 @@ export default function Profile () {
                 let copy = {...response.data};
                 if(copy.alternate_mobile_number === "null")
                     assign(copy, "alternate_mobile_number", null);
+                if(copy.category_certificate_url === "null")
+                    assign(copy, "category_certificate_url", null);
                 setProfileInfo(copy)
                 setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
+                setDegreeSize(getDegreeSize(response.data.degrees))
+                setCount(Math.max(1,getDegreeSize(response.data.degrees)))
                 setLocalProfileInfo(copy)
-                // console.log(copy)
-                // console.log("profile image url ", copy.profile_image_url);
             }
           })
         .catch(err => console.log(err));
@@ -203,7 +242,7 @@ export default function Profile () {
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Communication Details</h3>
 
                         <button  data-modal-toggle="communicationDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600"><PencilIcon/></button>
-                        <CommunicationDetails  localProfileInfo={localProfileInfo} onChange={handleLocalChange} syncLocalGlobalData={syncLocalGlobalData}/>
+                        <CommunicationDetails localProfileInfo={localProfileInfo} onChange={handleLocalChange} syncLocalGlobalData={syncLocalGlobalData}/>
                     </div>
                     <div className="border-t border-gray-300">
                         <dl>
@@ -260,7 +299,7 @@ export default function Profile () {
                             <h3 className="text-lg leading-6 font-medium text-gray-900">Education Details</h3>
 
                             <button data-modal-toggle="educationalDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600"><PencilIcon/></button>
-                            <EducationalDetails/>
+                            <EducationalDetails count={count} setCount={setCount} degreeSize={degreeSize} localProfileInfo={localProfileInfo} onChange={handleLocalChange} syncLocalGlobalData={syncLocalGlobalData} emptyFile={emptyFile} degrees={degrees} emptyFileDegree={emptyFileDegree}/>
                     </div>
                     <div className="border-t border-gray-300">
                         <dl className="py-3 border-t border-gray-200">
@@ -331,21 +370,21 @@ export default function Profile () {
                         </dl>
                     </div>
                     <div className="border-t border-gray-300">
-                        {degrees.map((Degree) => (
-                            <dl className="py-3 border-t border-gray-200" key={Degree.id}>
+                        { [...Array(degreeSize)].map((_, i) => (
+                            <dl className="py-3 border-t border-gray-200" key={degrees[i].id}>
                                 <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                     <dt className="text-sm font-medium text-gray-500">Degree</dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['1']}, {Degree['0']}</dd>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{degrees[i]['1']}, {degrees[i]['0']}</dd>
             
                                     <dt className="text-sm font-medium text-gray-500">Board/University</dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['2']}</dd>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{degrees[i]['2']}</dd>
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                     <dt className="text-sm font-medium text-gray-500">Percentage/CGPA</dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['5']}</dd>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{degrees[i]['5']}</dd>
 
                                     <dt className="text-sm font-medium text-gray-500">Year of Passing</dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Degree['3']}</dd>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{degrees[i]['3']}</dd>
                                 </div>  
                                 <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                     <dt className="text-sm font-medium text-gray-500">Attachments</dt>
@@ -356,7 +395,7 @@ export default function Profile () {
                                                 <span className="ml-2 flex-1 w-0 truncate">Gradesheet.pdf</span>
                                             </div>
                                             <div className="ml-4 flex-shrink-0">
-                                                <a href={Degree['8'] ? Degree['8'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                <a href={degrees[i]['8'] ? degrees[i]['8'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
                                                 View
                                                 </a>
                                             </div>
@@ -369,7 +408,7 @@ export default function Profile () {
                                                 <span className="ml-2 flex-1 w-0 truncate">Degree.pdf</span>
                                             </div>
                                             <div className="ml-4 flex-shrink-0">
-                                                <a href={Degree['9'] ? Degree['9'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                <a href={degrees[i]['9'] ? degrees[i]['9'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
                                                 View
                                                 </a>
                                             </div>

@@ -14,6 +14,7 @@ import SignInStartPage from './components/SignIn_SignUp/SignInStartPage'
 import MyApplications from './components/Applicant/MyApplications'
 import ApplicantHomePage from './components/Applicant/ApplicantHomePage'
 import ApplicantionDetails from './components/Applicant/ApplicationDetails'
+import ViewSubmittedApplication from './components/Applicant/ViewSubmittedApplication'
 import Courses from './components/Landing/Courses'
 import Info from './components/Landing/Info'
 
@@ -46,7 +47,8 @@ function App() {
 				<Route path="/home" element={<PrivateRoute><ApplicantHomePage/></PrivateRoute>} />
 				<Route path="/my-profile" element={<PrivateRoute><Profile/></PrivateRoute>} />
 				<Route path="/my-applications" element={<PrivateRoute><MyApplications/></PrivateRoute>} />
-				<Route path="/apply" element={<PrivateRoute><ApplicantionDetails /></PrivateRoute>} />
+				<Route path="/apply/:offering_id" element={<PrivateRoute><ApplicantionDetails /></PrivateRoute>} />
+				<Route path="/view/:application_id" element={<PrivateRoute><ViewSubmittedApplication /></PrivateRoute>} />
 				<Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
           
 				<Route element={<WithHeaderFooter/>}>

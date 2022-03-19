@@ -5,7 +5,7 @@ import Declaration from "./Declaration";
 import ApplicationFeeDetails from "./ApplicationFeeDetails";
 import Review from './Review.js';
 import Axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
 
@@ -15,6 +15,28 @@ function ApplicantionDetails() {
   const { handleSubmit } = useForm();
   const [full_name, setFullName] = useState("");
   const [category, setCategory] = useState("");
+  const params = useParams();
+
+  const init_application_details = () => {
+    const array = Array.from({length: 21},()=>'');
+    let date = new Date();
+    // console.log(date)
+    // console.log(date.getDate() + '-' + (date.getMonth()+1) + '-' + date.getFullYear())
+    // date = date.toISOString().split('T')[0];
+    // array[0]='GEN';
+
+    let month = date.getMonth()+1;
+    if(month.length === 1) month = '0' + month;
+    
+    date = date.getFullYear() + '-0' + month + '-' + date.getDate();
+    
+    array[6]='GATE';
+    // array[7]='CS';
+    array[5] = date;
+    array[19] = date;
+    array[20] = params.offering_id
+    return array;
+  }
 
   Axios.get("http://localhost:8080/check-applicant-info", {
         headers: {
@@ -31,28 +53,6 @@ function ApplicantionDetails() {
         }
       })
     .catch(err => console.log(err));
-
-
-  const init_application_details = () => {
-    const array = Array.from({length: 20},()=>'');
-    let date = new Date();
-    // console.log(date)
-    // console.log(date.getDate() + '-' + (date.getMonth()+1) + '-' + date.getFullYear())
-    // date = date.toISOString().split('T')[0];
-    // array[0]='GEN';
-
-    let month = date.getMonth()+1;
-    if(month.length === 1) month = '0' + month;
-    
-    date = date.getFullYear() + '-0' + month + '-' + date.getDate();
-    
-    array[6]='GATE';
-    // array[7]='CS';
-    array[5] = date;
-    array[19] = date;
-    return array;
-  }
-
 
   const [applicant_details, setApplicantDetails] = useState(init_application_details());
 
@@ -106,15 +106,14 @@ function ApplicantionDetails() {
         }
       })
       .catch(err => console.log(err));
-
   }
 
-  function increasePageNumber(){
+  function increasePageNumber() {
     // console.log(applicant_details);
     setPage(page + 1);
   }
 
-  function decreasePageNumber(){
+  function decreasePageNumber() {
     setPage(page - 1);
   }
 

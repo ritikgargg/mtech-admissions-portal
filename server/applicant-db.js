@@ -257,9 +257,9 @@ const get_profile_info = async (req, res) => {
    const results = await pool.query("SELECT full_name, fathers_name, profile_image_url, date_of_birth, aadhar_card_number, \
                               category, is_pwd, marital_status, category_certificate_url, nationality, gender, communication_address, communication_city, \
                               communication_state, communication_pincode, permanent_address, permanent_city, permanent_state, \
-                              permanent_pincode, mobile_number, alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_value_10th, \
-                              year_of_passing_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_value_12th, \
-                              year_of_passing_12th, marksheet_12th_url, degrees from applicants \
+                              permanent_pincode, mobile_number, alternate_mobile_number, email_id, degree_10th, board_10th, percentage_cgpa_format_10th,percentage_cgpa_value_10th, \
+                              year_of_passing_10th, remarks_10th, marksheet_10th_url, degree_12th, board_12th, percentage_cgpa_format_12th, percentage_cgpa_value_12th, \
+                              year_of_passing_12th, remarks_12th, marksheet_12th_url, degrees, other_remarks, is_last_degree_completed from applicants \
                               WHERE email_id = $1;", [email]);
     
     return res.send(results.rows[0]);
@@ -326,10 +326,29 @@ const save_application_info = async (req, res) => {
 
   await pool.query("INSERT INTO applications(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
                     branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
-                    remarks, date_of_declaration, place_of_declaration) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
-                    $13, $14, $15, $16);", [email, app_details[1], app_details[2], app_details[3], app_details[5], app_details[6], 
+                    remarks, date_of_declaration, place_of_declaration, offering_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
+                    $13, $14, $15, $16, $17);", [email, app_details[1], app_details[2], app_details[3], app_details[5], app_details[6], 
                     app_details[7], app_details[8], app_details[9], app_details[10], app_details[11], app_details[12], app_details[13], 
-                    app_details[15], app_details[19], app_details[18]]);
+                    app_details[15], app_details[19], app_details[18], app_details[20]]);
+  
+  await pool.query("UPDATE applications SET \
+    full_name = a.full_name, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
+    date_of_birth = a.date_of_birth, aadhar_card_number = a.aadhar_card_number, category = a.category, \
+    category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd, marital_status = a.marital_status, \
+    nationality = a.nationality, gender = a.gender, \
+    communication_address = a.communication_address, communication_city = a.communication_city, \
+    communication_state = a.communication_state, communication_pincode = a.communication_pincode, \
+    permanent_address = a.permanent_address, permanent_city = a.permanent_state, \
+    permanent_state = a.permanent_city, permanent_pincode = a.permanent_pincode, \
+    mobile_number = a.mobile_number, alternate_mobile_number = a.alternate_mobile_number, \
+    degree_10th = a.degree_10th, board_10th = a.board_10th, percentage_cgpa_format_10th = a.percentage_cgpa_format_10th, \
+    percentage_cgpa_value_10th = a.percentage_cgpa_value_10th, year_of_passing_10th = a.year_of_passing_10th, \
+    remarks_10th = a.remarks_10th, marksheet_10th_url = a.marksheet_10th_url, \
+    degree_12th = a.degree_12th, board_12th = a.board_12th, percentage_cgpa_format_12th = a.percentage_cgpa_format_12th, \
+    percentage_cgpa_value_12th = a.percentage_cgpa_value_12th, year_of_passing_12th = a.year_of_passing_12th, \
+    remarks_12th = a.remarks_12th, marksheet_12th_url = a.marksheet_12th_url,  degrees = a.degrees, \
+    other_remarks = a.other_remarks, is_last_degree_completed = a.is_last_degree_completed \
+    FROM applicants as a WHERE a.email_id = $1;", [email])
 
   let promises = []
   let vals = Object.values(req.files)
@@ -382,7 +401,7 @@ const save_application_info = async (req, res) => {
 }
 
 /**
- * 
+ * Get open positions
  */
 const get_open_positions = async (req, res) => {
 /**
@@ -409,7 +428,7 @@ const get_open_positions = async (req, res) => {
 }
 
 /**
- * 
+ * Get user info for navbar
  */
 const get_user_info = async (req, res) => {
   authToken = req.headers.authorization;
@@ -434,6 +453,58 @@ const get_user_info = async (req, res) => {
   return res.send(results.rows[0]);
 }
 
+/**
+ * Get offering info
+ */
+const get_offering_info = async (req, res) => {
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null
+
+  try {
+      verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+    
+  if(!verified) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+
+  let offering_id = req.headers.offering_id
+
+  const results = await pool.query("SELECT * FROM mtech_offerings WHERE offering_id = $1;", [offering_id]);
+
+  return res.send(results.rows[0]);
+}
+
+
+/**
+ * Get applications info for a user
+ */
+const get_application_info = async (req, res) => {
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null
+
+  try {
+      verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+    
+  if(!verified) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+
+  var email = jwt.decode(authToken).userEmail;
+
+  const results = await pool.query("SELECT application_id, department, specialization FROM applications, mtech_offerings WHERE email_id = $1 AND applications.offering_id = mtech_offerings.offering_id;", [email]);
+  
+  return res.send(results.rows);
+}
 
 module.exports = {
     save_personal_info,
@@ -443,5 +514,7 @@ module.exports = {
     check_applicant_info,
     save_application_info,
     get_open_positions,
-    get_user_info
+    get_user_info,
+    get_offering_info, 
+    get_application_info
 }

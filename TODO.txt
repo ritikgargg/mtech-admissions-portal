@@ -23,4 +23,4 @@ Educational Details autofill data
 
 /apply should not directly redirect applicant to application form [profile validation must be checked]
 
-alternate mobile number naatak
+On form submission, show some loading message until all the values are pushed into the database and gcp by server

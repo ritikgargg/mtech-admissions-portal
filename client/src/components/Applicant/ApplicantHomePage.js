@@ -145,52 +145,51 @@ export default function ApplicantHomePage () {
                                         {applications.length !== 0 && 
                                             <tbody className="bg-white divide-y divide-gray-200">
                                                 {applications.map((application) => (
-                                                    <>
-                                                        <tr key={application.offering_id}>
-                                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                                <div className="text-sm text-gray-500">{application.department}</div>
-                                                            </td>
-                                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                                <div className="text-sm text-gray-500">{application.specialization}</div>
-                                                            </td>
-                                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                                <div className="text-sm text-gray-500">{application.seats}</div>
-                                                            </td>
-                                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                                <ViewEligibility eligibility={application.eligibility}/>
-                                                            </td>
-                                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                                <div className="text-sm text-gray-500">
-                                                                <div tabIndex={0} className="collapse border border-base-300 bg-base-100 rounded-lg collapse-plus">
-                                                                    <div className="pl-4 collapse-title text-md font-medium">
-                                                                        Codes
-                                                                    </div>
-                                                                    <div className="collapse-content overflow-x-scroll"> 
-                                                                    <p>{application.gate_paper_codes}</p>
-                                                                    </div>
+                                                    <tr key={application.offering_id}>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-sm text-gray-500">{application.department}</div>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-sm text-gray-500">{application.specialization}</div>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-sm text-gray-500">{application.seats}</div>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <ViewEligibility eligibility={application.eligibility}/>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-sm text-gray-500">
+                                                            <div tabIndex={0} className="collapse border border-base-300 bg-base-100 rounded-lg collapse-plus">
+                                                                <div className="pl-4 collapse-title text-md font-medium">
+                                                                    Codes
                                                                 </div>
+                                                                <div className="collapse-content overflow-x-scroll"> 
+                                                                <p>{application.gate_paper_codes}</p>
                                                                 </div>
-                                                            </td>
-                                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                                <div className="text-sm text-gray-500">{new Date(application.deadline).toLocaleDateString('en-GB')}</div>
-                                                            </td>
-                                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                                Active
-                                                                </span>
-                                                            </td>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                                {isProfileComplete === 3 ?
-                                                                <Link to='/apply' className="text-indigo-600 hover:text-indigo-900">
-                                                                    Apply
-                                                                </Link>
-                                                                : <button className="text-gray-300" disabled onClick={handleCheck}>
-                                                                    Apply
-                                                                </button>
-                                                                }  
-                                                            </td>
-                                                        </tr>
-                                                    </>
+                                                            </div>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-sm text-gray-500">{new Date(application.deadline).toLocaleDateString('en-GB')}</div>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                            Active
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                            {isProfileComplete === 3 ?
+                                                            <Link to={"/apply/"+ application.offering_id} className="text-indigo-600 hover:text-indigo-900">
+                                                             {/* <Link to={{pathname: `/apply`, query: `${application.offering_id}`}} className="text-indigo-600 hover:text-indigo-900"> */}
+                                                                Apply
+                                                            </Link>
+                                                            : <button className="text-gray-300" disabled onClick={handleCheck}>
+                                                                Apply
+                                                            </button>
+                                                            }  
+                                                        </td>
+                                                    </tr>
                                                 ))}
                                             </tbody>
                                         }

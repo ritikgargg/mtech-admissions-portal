@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardNavBar from './DashboardNavBar';
 import {Link} from "react-router-dom";
 import DownloadIcon from '@mui/icons-material/Download';
+import Tooltip from '@mui/material/Tooltip';
+import axios from 'axios'
+import { getToken } from "../SignIn_SignUp/Sessions"
+import { useNavigate } from "react-router-dom"
+import ViewSubmittedApplication from "./ViewSubmittedApplication"
 
-function MyApplications() {
-    const applications = [
-        {
-          id: 1,
-          department: 'Computer Science and Engineering',
-          specialization: "AI"
-        },
-        {
-          id: 2,
-          department: 'Electrical Engineering',
-          specialization: "VSLI"
-        }, 
-    ]
+function MyApplications(props) {
+    const navigate = useNavigate();
+    const [applications, setApplications] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/get-application-info", {
+          headers: {
+            Authorization: getToken()
+          }
+        })
+        .then(response => {
+            if(response.data === 1) {
+              navigate("/logout");
+            }
+            else {
+                console.log(response.data);
+                setApplications(response.data);
+            }
+          })
+        .catch(err => console.log(err));
+      },[]);
 
     return(
         <>
@@ -63,34 +76,51 @@ function MyApplications() {
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody className="bg-white divide-y divide-gray-200">
-                                            {applications.map((application) => (
-                                                <tr key={application.id}>
+
+                                        {applications.length === 0 && 
+                                            <tbody>
+                                                <tr>
                                                     <td className="px-6 py-4 whitespace-nowrap">
-                                                        <div className="text-sm text-gray-500">{application.department}</div>
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap">
-                                                        <div className="text-sm text-gray-500">{application.specialization}</div>
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap">
-                                                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                        Active
-                                                        </span>
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap font-medium">
-                                                        <Link to="/apply" className="text-indigo-600 hover:text-indigo-900">
-                                                        View
-                                                        </Link>
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-right font-medium">
-                                                        <Link to="/apply" className="text-indigo-600 hover:text-indigo-900">
-                                                        {/* Download */}
-                                                        <DownloadIcon></DownloadIcon>
-                                                        </Link>
+                                                        <div className="text-sm text-gray-500">No submitted applications!</div>
                                                     </td>
                                                 </tr>
-                                            ))}
-                                        </tbody>
+                                            </tbody>
+                                        }
+                                        
+                                        {applications.length !== 0 && 
+                                            <tbody className="bg-white divide-y divide-gray-200">
+                                                {applications.map((application) => (
+                                                    <tr key={application.application_id}>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-sm text-gray-500">{application.department}</div>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <div className="text-sm text-gray-500">{application.specialization}</div>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                            Active
+                                                            </span>
+                                                        </td>
+
+                                                        <td className="px-6 py-4 whitespace-nowrap font-medium">
+                                                            <Link to="/view/" className="text-indigo-600 hover:text-indigo-900">
+                                                                View
+                                                            </Link>
+                                                        </td>
+                                                        <td className="px-6 py-4 whitespace-nowrap text-right font-medium">
+                                                            <Link to="/apply" className="text-indigo-600 hover:text-indigo-900">
+                                                                <Tooltip 
+                                                                    title="Download" 
+                                                                    arrow>
+                                                                        <DownloadIcon></DownloadIcon>
+                                                                </Tooltip>
+                                                            </Link>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        }
                                     </table>
                                 </div>
                             </div>

@@ -71,10 +71,9 @@ CREATE TABLE applications(
   application_id SERIAL,
 
   -- Application information
-  department TEXT,
-  specialization TEXT,
-  offering_id TEXT,
+  offering_id INT,
   email_id TEXT,
+  if_submitted BOOLEAN,
 
   -- Personal Details
   full_name TEXT,
@@ -123,7 +122,7 @@ CREATE TABLE applications(
   degrees TEXT[][],
 
   other_remarks TEXT,
-  is_last_degree_completed TEXT
+  is_last_degree_completed TEXT,
 
   -- Fee details
   amount TEXT,
