@@ -206,6 +206,8 @@ function PersonalInfo(props) {
                               <DatePicker
                                 onChange={(event)=>props.onChange(event, 'date_of_birth')}
                                 value={props.localProfileInfo.date_of_birth}
+                                
+                                
                                 />
                             </div>
 

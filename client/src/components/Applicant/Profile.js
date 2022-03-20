@@ -134,6 +134,8 @@ export default function Profile () {
                     assign(copy, "remarks_10th", null);
                 if(copy.remarks_12th === "null")
                     assign(copy, "remarks_12th", null);
+                if(copy.other_remarks === "null")
+                    assign(copy, "other_remarks", null);
                 setProfileInfo(copy)
                 setLocalProfileInfo(copy)
                 let copyDegrees = convert2dArrayToJsonObjectArray(response.data.degrees)
