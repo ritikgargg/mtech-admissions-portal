@@ -14,23 +14,24 @@ import DefaultProfilePicture from "../../images/default-profile-picture.png"
 export default function Profile () {
   const navigate = useNavigate();
     
-    let temp = {
-        'id' : 0,
-         '0': '',
-         '1': '',
-         '2': '',
-         '3': '',
-         '4': '',
-         '5': '',
-         '6': '',
-         '7': '',
-         '8': '',
-         '9': '',
-        }
+    
 
     function initDegrees(){
         let result = []
         for(let i = 0;i < 5; i++){
+            let temp = {
+                'id' : 0,
+                 '0': '',
+                 '1': '',
+                 '2': '',
+                 '3': '',
+                 '4': '',
+                 '5': '',
+                 '6': '',
+                 '7': '',
+                 '8': '',
+                 '9': '',
+            }
             temp['id'] = i;
             result.push(temp);
         }
@@ -66,6 +67,7 @@ export default function Profile () {
     }
 
     const getDegreeSize = (degrees) => {
+      if(degrees === null) return 0;
       let cnt = 0;
       for(var i = 0; i< degrees.length;i++){
         if(degrees[i][0] !== ""){
@@ -132,6 +134,7 @@ export default function Profile () {
                 setLocalDegrees(copyDegrees)
                 setDegreeSize(getDegreeSize(response.data.degrees))
                 setCount(Math.max(1,getDegreeSize(response.data.degrees)))
+                console.log(response.data)
                 
             }
           })
@@ -146,8 +149,12 @@ export default function Profile () {
 
     const handleLocalChangeDegrees = (index, key, event) => {
         let copy = [...localDegrees]
-        assign(copy[index], key, event.target.value);
+        let temp = copy[index]
+        // copy[index][key] = event.target.value;
+        assign(temp, key, event.target.value);
+        copy[index] = temp;
         setLocalDegrees(copy);
+        console.log(copy);
     };
 
     const removeLocalDegree = (index) => {

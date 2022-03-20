@@ -7,7 +7,7 @@ Responsive UI
 
 Do something with applicant ID - not sure if required?
 
-Disable apply button(only if corresponding application filled)
+DONE: { REMOVED THE APPLICATION FROM HOME PAGE ON SUBMITTING } Disable apply button(only if corresponding application filled)
 
 Prefill values in the application form corresponding to the applicantion selected, must (Branch and Specialization), also add the same in the application table
 
