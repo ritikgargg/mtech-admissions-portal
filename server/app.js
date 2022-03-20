@@ -62,6 +62,8 @@ app.get('/get-user-info', applicantdB.get_user_info);
 
 app.get('/get-offering-info', applicantdB.get_offering_info);
 
+app.get('/get-applications', applicantdB.get_applications);
+
 app.get('/get-application-info', applicantdB.get_application_info);
 
 app.post('/save-application-info',

@@ -422,7 +422,9 @@ const get_open_positions = async (req, res) => {
       return res.send("1"); /** Error, logout on user side */
   }
 
-  const results = await pool.query("SELECT * from mtech_offerings;");
+  var email = jwt.decode(authToken).userEmail;
+
+  const results = await pool.query("SELECT * FROM mtech_offerings WHERE offering_id NOT IN (SELECT offering_id from applications WHERE email_id = $1);", [email]);
 
   return res.send(results.rows);
 }
@@ -479,11 +481,10 @@ const get_offering_info = async (req, res) => {
   return res.send(results.rows[0]);
 }
 
-
 /**
  * Get applications info for a user
  */
-const get_application_info = async (req, res) => {
+const get_applications = async (req, res) => {
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
@@ -506,6 +507,46 @@ const get_application_info = async (req, res) => {
   return res.send(results.rows);
 }
 
+/**
+ * Get info for a particular application
+ */
+const get_application_info = async (req, res) => {
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null
+
+  try {
+      verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+    
+  if(!verified) {
+      return res.send("1"); /** Error, logout on user side */
+  }
+  
+  var application_id = req.headers.application_id;
+  var email = jwt.decode(authToken).userEmail;
+
+  const query_result = await pool.query("SELECT email_id FROM applications WHERE application_id = $1", [application_id]);
+  
+  if(query_result.rows.length === 0) {
+    return res.send("1");
+  }
+  
+  // console.log(query_result.rows)
+  email_corresponding_to_application = query_result.rows[0].email_id
+  
+  if(email_corresponding_to_application !== email) {
+    return res.send("1");
+  }
+
+  const results = await pool.query("SELECT * FROM applications, mtech_offerings WHERE applications.offering_id = mtech_offerings.offering_id AND applications.application_id = $1;", [application_id]);
+  
+  return res.send(results.rows[0]);
+}
+
 module.exports = {
     save_personal_info,
     save_communication_details,
@@ -516,5 +557,6 @@ module.exports = {
     get_open_positions,
     get_user_info,
     get_offering_info, 
+    get_applications,
     get_application_info
 }

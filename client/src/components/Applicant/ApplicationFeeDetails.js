@@ -199,6 +199,13 @@ function ApplicationFeeDetails(props) {
                     </div>
                     
                     <div className="my-4 grid grid-cols-6 gap-6">
+                    <button
+                          type="button"
+                          onClick={() => props.decreasePageNumber()}
+                          className="col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          Back
+                        </button>
                       <button
                         type="submit"
                         className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

@@ -39,6 +39,7 @@ export default function Profile () {
     const [profileInfo, setProfileInfo] = useState(0);
     const [localProfileInfo, setLocalProfileInfo] = useState(0);
     const [degrees, setDegrees] = useState(initDegrees());
+    const [localDegrees, setLocalDegrees] = useState(initDegrees());
     const [degreeSize, setDegreeSize] = useState(0);
     const [count, setCount] = useState(1);
 
@@ -125,24 +126,37 @@ export default function Profile () {
                 if(copy.category_certificate_url === "null")
                     assign(copy, "category_certificate_url", null);
                 setProfileInfo(copy)
-                setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
+                setLocalProfileInfo(copy)
+                let copyDegrees = convert2dArrayToJsonObjectArray(response.data.degrees)
+                setDegrees(copyDegrees)
+                setLocalDegrees(copyDegrees)
                 setDegreeSize(getDegreeSize(response.data.degrees))
                 setCount(Math.max(1,getDegreeSize(response.data.degrees)))
-                setLocalProfileInfo(copy)
+                
             }
           })
         .catch(err => console.log(err));
     },[]);
 
     const handleLocalChange = (event, key) => {
-        // console.log(event.target.value)
-        // console.log(key);
-        // console.log(localProfileInfo)
         let copy = {...localProfileInfo}
         assign(copy, key, event.target.value);
         setLocalProfileInfo(copy);
-        // console.log(copy)
     };
+
+    const handleLocalChangeDegrees = (index, key, event) => {
+        let copy = [...localDegrees]
+        assign(copy[index], key, event.target.value);
+        setLocalDegrees(copy);
+    };
+
+    const removeLocalDegree = (index) => {
+        let copy = [...localDegrees]
+        for (let i = 0; i < 10; i++) {
+          copy[index][String(i)] = '';
+        }
+        setLocalDegrees(copy);
+      }
 
     const onChangeNationality = (val) => {
         let copy = {...localProfileInfo};
@@ -182,33 +196,33 @@ export default function Profile () {
                             <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Full name</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.full_name ? profileInfo.full_name : 'Your Full Name'}</dd>
-                            </div>
-                            <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            {/* </div>
+                            <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6"> */}
                                 <dt className="text-sm font-medium text-gray-500">Father's Name</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.fathers_name ? profileInfo.fathers_name : 'Your Father\'s Name'}</dd>
                             </div>
-                            <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Date of Birth</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.date_of_birth ? profileInfo.date_of_birth : 'Your Date of Birth'}</dd>
 
                                 <dt className="text-sm font-medium text-gray-500">Gender</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.gender ? profileInfo.gender : 'Your Gender'}</dd>
                             </div>  
-                            <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Nationality</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.nationality ? profileInfo.nationality : 'Your Nationality'}</dd>
 
                                 <dt className="text-sm font-medium text-gray-500">Category</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.category ? profileInfo.category : 'Your Category'}</dd>   
                             </div>
-                            <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Aadhaar Card Number</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.aadhar_card_number ? profileInfo.aadhar_card_number : 'Your Aadhar Card Number'}</dd>
 
                                 <dt className="text-sm font-medium text-gray-500">Marital Status</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.marital_status ? profileInfo.marital_status : 'Your Marital Status'}</dd>
                             </div>
-                            <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                            <div className="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Belongs to PWD</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profileInfo.is_pwd ? profileInfo.is_pwd : 'Your PWD Status'}</dd>    
                             </div>
@@ -220,7 +234,7 @@ export default function Profile () {
                                     <div className="mr-4 flex items-center justify-between text-sm">
                                         <div className="w-0 flex-1 flex items-center">
                                             <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                            <span className="ml-2 flex-1 w-0 truncate">Category_Certificate.pdf</span>
+                                            <span className="ml-2 flex-1 w-0 truncate">Category_Certificate</span>
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
                                             <a href={profileInfo.category_certificate_url ? profileInfo.category_certificate_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -299,7 +313,7 @@ export default function Profile () {
                             <h3 className="text-lg leading-6 font-medium text-gray-900">Education Details</h3>
 
                             <button data-modal-toggle="educationalDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600"><PencilIcon/></button>
-                            <EducationalDetails count={count} setCount={setCount} degreeSize={degreeSize} localProfileInfo={localProfileInfo} onChange={handleLocalChange} syncLocalGlobalData={syncLocalGlobalData} emptyFile={emptyFile} degrees={degrees} emptyFileDegree={emptyFileDegree}/>
+                            <EducationalDetails count={count} setCount={setCount} localDegrees={localDegrees} localProfileInfo={localProfileInfo} onChange={handleLocalChange} onChangeDegrees={handleLocalChangeDegrees} syncLocalGlobalData={syncLocalGlobalData} emptyFile={emptyFile} emptyFileDegree={emptyFileDegree} removeLocalDegree={removeLocalDegree}/>
                     </div>
                     <div className="border-t border-gray-300">
                         <dl className="py-3 border-t border-gray-200">
@@ -323,7 +337,7 @@ export default function Profile () {
                                     <div className="mr-4 flex items-center justify-between text-sm">
                                         <div className="w-0 flex-1 flex items-center">
                                             <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                            <span className="ml-2 flex-1 w-0 truncate">10th_marksheet.pdf</span>
+                                            <span className="ml-2 flex-1 w-0 truncate">10th_marksheet</span>
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
                                             <a href={profileInfo.marksheet_10th_url ? profileInfo.marksheet_10th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -357,7 +371,7 @@ export default function Profile () {
                                     <div className="pr-4 flex items-center justify-between text-sm">
                                         <div className="w-0 flex-1 flex items-center">
                                             <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                            <span className="ml-2 flex-1 w-0 truncate">12th_marksheet.pdf</span>
+                                            <span className="ml-2 flex-1 w-0 truncate">12th_marksheet</span>
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
                                             <a href={profileInfo.marksheet_12th_url ? profileInfo.marksheet_12th_url : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -392,7 +406,7 @@ export default function Profile () {
                                         <div className="pr-4 flex items-center justify-between text-sm">
                                             <div className="w-0 flex-1 flex items-center">
                                                 <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                <span className="ml-2 flex-1 w-0 truncate">Gradesheet.pdf</span>
+                                                <span className="ml-2 flex-1 w-0 truncate">Gradesheet</span>
                                             </div>
                                             <div className="ml-4 flex-shrink-0">
                                                 <a href={degrees[i]['8'] ? degrees[i]['8'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -405,7 +419,7 @@ export default function Profile () {
                                         <div className="pr-4 flex items-center justify-between text-sm">
                                             <div className="w-0 flex-1 flex items-center">
                                                 <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                <span className="ml-2 flex-1 w-0 truncate">Degree.pdf</span>
+                                                <span className="ml-2 flex-1 w-0 truncate">Degree</span>
                                             </div>
                                             <div className="ml-4 flex-shrink-0">
                                                 <a href={degrees[i]['9'] ? degrees[i]['9'] : '#'} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">

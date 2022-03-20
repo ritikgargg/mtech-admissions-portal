@@ -8,64 +8,67 @@ import crossPic from "../../images/red_cross.png"
 function EducationalDetails(props) {
   const navigate = useNavigate();
 
-  // const [count, setCount] = useState(Math.max(1, props.getDegreeSize(props.degrees)));
-
   const [marksheet_10th, setMarksheet_10th] = useState(null);
   const [marksheet_12th, setMarksheet_12th] = useState(null);
   const [percentage_cgpa_pattern, setPercentageCgpaPattern] = useState(Array.from({length: 5}, ()=>"(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"));
   
-  const [degrees, setDegrees] = useState(Array.from({length: 5},()=> Array.from({length: 10}, () => '')))
-  // const [degrees, setDegrees] = useState([
-  //   ['','','','','','','','',null,null],
-  //   ['','','','','','','','',null,null],
-  //   ['','','','','','','','',null,null],
-  //   ['','','','','','','','',null,null],
-  //   ['','','','','','','','',null,null]
-  // ]);
+  const [degreesFiles, setDegreesFiles] = useState(Array.from({length: 5},()=> Array.from({length: 2}, () => '')))
 
-  const handleChange = (row, column, event) => {
-    let copy = [...degrees];
-    copy[row][column] = event.target.value;
-    setDegrees(copy);
-    // console.log(degrees[row][column])
-  };
+  const clearFiles = (row,column) => {
+    let copy = [...degreesFiles];
+    copy[row][column] = null;
+    setDegreesFiles(copy);
+  }
 
-  const onSubmit = (data) => {
+  function convertJsonObjectArrayTo2dArray(degrees){
+    let result = Array.from({length: 5},()=> Array.from({length: 10}, () => ''))
+    for(let i = 0; i<degrees.length; i++){
+      let j = 0;
+      for(const key in degrees[i]){
+        if(key === 'id') continue;
+        result[i][j] = degrees[i][key];
+        j++;
+      }
+    }
+    return result;
+  }
+
+  const onSubmit = () => {
     const formData = new FormData();
-    formData.append("degrees", JSON.stringify(degrees));
+    formData.append("degrees", JSON.stringify(convertJsonObjectArrayTo2dArray(props.localDegrees)));
 
-    formData.append("degree_10th", data.degree_10th);
-    formData.append("board_10th", data.board_10th);
-    formData.append("percentage_cgpa_format_10th", data.percentage_cgpa_format_10th);
-    formData.append("percentage_cgpa_value_10th", data.percentage_cgpa_value_10th);
-    formData.append("year_of_passing_10th", data.year_of_passing_10th);
-    formData.append("remarks_10th", data.remarks_10th);
+    formData.append("degree_10th", props.localProfileInfo.degree_10th);
+    formData.append("board_10th", props.localProfileInfo.board_10th);
+    formData.append("percentage_cgpa_format_10th", props.localProfileInfo.percentage_cgpa_format_10th);
+    formData.append("percentage_cgpa_value_10th", props.localProfileInfo.percentage_cgpa_value_10th);
+    formData.append("year_of_passing_10th", props.localProfileInfo.year_of_passing_10th);
+    formData.append("remarks_10th", props.localProfileInfo.remarks_10th);
    
 
-    formData.append("degree_12th", data.degree_12th);
-    formData.append("board_12th", data.board_12th);
-    formData.append("percentage_cgpa_format_12th", data.percentage_cgpa_format_12th);
-    formData.append("percentage_cgpa_value_12th", data.percentage_cgpa_value_12th);
-    formData.append("year_of_passing_12th", data.year_of_passing_12th);
-    formData.append("remarks_12th", data.remarks_12th);
+    formData.append("degree_12th", props.localProfileInfo.degree_12th);
+    formData.append("board_12th", props.localProfileInfo.board_12th);
+    formData.append("percentage_cgpa_format_12th", props.localProfileInfo.percentage_cgpa_format_12th);
+    formData.append("percentage_cgpa_value_12th", props.localProfileInfo.percentage_cgpa_value_12th);
+    formData.append("year_of_passing_12th", props.localProfileInfo.year_of_passing_12th);
+    formData.append("remarks_12th", props.localProfileInfo.remarks_12th);
    
 
-    formData.append("other_remarks", data.other_remarks);
-    formData.append("is_last_degree_completed", data.is_last_degree_completed);
+    formData.append("other_remarks", props.localProfileInfo.other_remarks);
+    formData.append("is_last_degree_completed", props.localProfileInfo.is_last_degree_completed);
 
     // Append Files
     formData.append("marksheet_10th_url", marksheet_10th);
     formData.append("marksheet_12th_url", marksheet_12th);
-    formData.append("upload_marksheet0", degrees[0][8]);
-    formData.append("upload_degree0", degrees[0][9]);
-    formData.append("upload_marksheet1", degrees[1][8]);
-    formData.append("upload_degree1", degrees[1][9]);
-    formData.append("upload_marksheet2", degrees[2][8]);
-    formData.append("upload_degree2", degrees[2][9]);
-    formData.append("upload_marksheet3", degrees[3][8]);
-    formData.append("upload_degree3", degrees[3][9]);
-    formData.append("upload_marksheet4", degrees[4][8]);
-    formData.append("upload_degree4", degrees[4][9]);
+    formData.append("upload_marksheet0", degreesFiles[0][0]);
+    formData.append("upload_degree0", degreesFiles[0][1]);
+    formData.append("upload_marksheet1", degreesFiles[1][0]);
+    formData.append("upload_degree1", degreesFiles[1][1]);
+    formData.append("upload_marksheet2", degreesFiles[2][0]);
+    formData.append("upload_degree2", degreesFiles[2][1]);
+    formData.append("upload_marksheet3", degreesFiles[3][0]);
+    formData.append("upload_degree3", degreesFiles[3][1]);
+    formData.append("upload_marksheet4", degreesFiles[4][0]);
+    formData.append("upload_degree4", degreesFiles[4][1]);
 
     Axios.post("http://localhost:8080/save-education-details", formData, {
       headers: {
@@ -91,9 +94,9 @@ function EducationalDetails(props) {
         alert(error);
     }
     else {
-      let copy = [...degrees];
+      let copy = [...degreesFiles];
       copy[row][column] = file;
-      setDegrees(copy);
+      setDegreesFiles(copy);
     }
   }
 
@@ -132,19 +135,13 @@ function EducationalDetails(props) {
     // console.log(percentage_cgpa_pattern);
   }
 
-  const removeDegree = (index) => {
-    let copy = [...degrees]
-    for (let i = 0; i < 10; i++) {
-      copy[index][i] = '';
-    }
-    setDegrees(copy);
-    // console.log(degrees)
-  }
-
   function closeEducationDetails () {
-    console.log("educational details closed!!");
     setMarksheet_12th(null);
     setMarksheet_10th(null);
+    for(let i = 0;i<5;i++){
+      degreesFiles[i][0] = null;
+      degreesFiles[i][1] = null;
+    }
     props.syncLocalGlobalData();
   }
 
@@ -337,7 +334,7 @@ function EducationalDetails(props) {
                                     <br/>
                                     <div className="mt-1">
                                     <span className="font-semibold">Recommended File Name Format:</span> 
-                                    <span> Photograph_&lt;your_email_id&gt; <br/>Example: Photograph_abc@gmail.com</span>
+                                    <span> Marksheet10th_&lt;your_email_id&gt; <br/>Example: Marksheet10th_abc@gmail.com</span>
                                     </div>
                                   </div>                             
                                 </>
@@ -576,7 +573,7 @@ function EducationalDetails(props) {
                             </div>
                             
                             { [...Array(props.count)].map((_, i) => (
-                              <CollegeDegreeSection key={i} id={i} handleChange={handleChange} handleFileSubmit={handleFileSubmitDegree} handleSelectChange={handleSelectChange} percentage_cgpa_pattern={percentage_cgpa_pattern} degrees={props.degrees} localDegrees={degrees} emptyFileDegree={props.emptyFileDegree}/>
+                              <CollegeDegreeSection key={i} id={i} handleChange={props.onChangeDegrees} handleFileSubmit={handleFileSubmitDegree} handleSelectChange={handleSelectChange} percentage_cgpa_pattern={percentage_cgpa_pattern} localDegrees={props.localDegrees} degreesFiles={degreesFiles} emptyFileDegree={props.emptyFileDegree} clearFiles={clearFiles}/>
                             ))}
 
                             <div className="flex mb-4 col-span-4">
@@ -594,7 +591,7 @@ function EducationalDetails(props) {
                                 ) : (
                                   <button
                                     type="button"
-                                    onClick={() => {removeDegree(props.count-1);props.setCount(props.count - 1);}}
+                                    onClick={() => {props.removeLocalDegree(props.count-1);props.setCount(props.count - 1);}}
                                     className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
                                   >
                                     Remove Section
@@ -670,7 +667,14 @@ function EducationalDetails(props) {
                       
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                        <button data-modal-toggle="educationalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
+                        {/* <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={
+                          () => {
+                            console.log(props.localProfileInfo)
+                            console.log(props.localDegrees)
+                            console.log(degreesFiles)
+                          }
+                        }>Print</button> */}
+                        <button onClick={closeEducationDetails} data-modal-toggle="educationalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
                       </div>
                     </form>
                   </div>

@@ -1,7 +1,22 @@
 import React from 'react';
 import crossPic from "../../images/red_cross.png"
 import HelpIcon from '@mui/icons-material/Help';
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}));
 
 function QualifyingExamDetails(props){
 
@@ -160,12 +175,7 @@ function QualifyingExamDetails(props){
                             className="block text-sm font-medium text-gray-700"
                           >
                             GATE Score<span style={{ color: "#ff0000" }}> * </span>
-                            <Tooltip 
-                              title="Are you Sure? You have to select the best of your last 3-year GATE scores. For example, if your GATE score last year was 750 and this  
-                              year it is 600, then, you should enter your last year's GATE score. You cannot edit your application once submitted. Be careful!" 
-                              arrow>
-                              <HelpIcon fontSize="small"></HelpIcon>
-                            </Tooltip>
+
                           </label>
                           <input
                             type="number"
@@ -292,16 +302,66 @@ function QualifyingExamDetails(props){
                           Any other relevant information (like publications, patents or any other relevant information not already mentioned)
                           </p>
                         </div>
+                        <div className="col-span-full sm:col-span-full">
+                          <label
+                            htmlFor="has_given_multiple_gates"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Have you given multiple GATE exams?<span style={{ color: "#ff0000" }}> *</span>
+                          </label>
+                          <select
+                            id="has_given_multiple_gates"
+                            name="has_given_multiple_gates"
+                            required
+                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          >
+                            <option value="">-- Select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                          </select>
+                        </div>
+
+                        <div className="col-span-full sm:col-span-full">
+                          <label
+                            htmlFor="has_filled_highest_gate"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Are you sure you have filled your highest valid GATE attempt information?<span style={{ color: "#ff0000" }}> *</span>
+                            <HtmlTooltip
+                              title={
+                                <React.Fragment>
+                                  <Typography color="inherit">Tooltip with HTML</Typography>
+                                  <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
+                                  {"It's very engaging. Right?"}
+                                </React.Fragment>
+                              }
+                            >
+                              <HelpIcon fontSize="small"></HelpIcon>
+                            </HtmlTooltip>
+                          
+                          </label>
+                          <select
+                            id="has_filled_highest_gate"
+                            name="has_filled_highest_gate"
+                            required
+                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          >
+                            <option value="">-- Select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                          </select>
+                        </div>
+
                       </div>
                       
                       <div className="my-4 grid grid-cols-6 gap-6">
-                        <button
+                        {/* <button
                           type="button"
                           onClick={() => props.decreasePageNumber()}
                           className="col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                           Back
-                        </button>
+                        </button> */}
 
                         <button
                           type="submit"

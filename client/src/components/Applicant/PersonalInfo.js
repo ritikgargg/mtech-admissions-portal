@@ -55,29 +55,6 @@ function PersonalInfo(props) {
     }
   }
 
-  // const handleDateChange = (value) => {
-  //   updateDateOfBirth(value);
-  // };
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:8080/get-personal-info", {
-  //       headers: {
-  //           Authorization: getToken()
-  //       }
-  //   })
-  //   .then(response => {
-  //       if(response.data === 1) {
-  //         navigate("/logout");
-  //       }
-  //       else {
-  //           setPersonalInfo(response.data)
-  //       }
-  //     })
-  //   .catch(err => console.log(err));
-  // });
-  // const s_idx = props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1
-  // const e_idx = props.localProfileInfo.category_certificate_url.lastIndexOf('_')
-
   function closePersonalInfo () {
     console.log("educational details closed!!");
     setProfileImage(null);
@@ -209,7 +186,7 @@ function PersonalInfo(props) {
                                       readOnly
                                       />
                                   
-                                    <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFile('profile_image_url')}>
+                                    <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => {props.emptyFile('profile_image_url');setProfileImage(null)}}>
                                       <img className="w-6 h-6" src ={crossPic} alt="Cross"></img>
                                     </button>
                                   </div>
@@ -333,7 +310,7 @@ function PersonalInfo(props) {
                                       readOnly
                                       />
                                   
-                                    <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => props.emptyFile('category_certificate_url')}>
+                                    <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => {props.emptyFile('category_certificate_url');setCategoryCertificate(null)}}>
                                       <img className="w-6 h-6" src ={crossPic} alt="Cross"></img>
                                     </button>
                                   </div>

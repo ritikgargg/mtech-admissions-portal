@@ -7,7 +7,7 @@ Responsive UI
 
 Do something with applicant ID - not sure if required?
 
-Disable profile change button(even during filling a form), Disable apply button(only if corresponding application filled)
+Disable apply button(only if corresponding application filled)
 
 Prefill values in the application form corresponding to the applicantion selected, must (Branch and Specialization), also add the same in the application table
 
@@ -15,12 +15,11 @@ Success modal on form submission
 
 What to do if we go back after submitting, must be redirected to home and not allowed to revisit that page
 
-Cross and cacnel button are set to reload the window, find a better option
-
-\n in eligibility Not working
-
-Educational Details autofill data
+Cross and cancel button are set to reload the window, find a better option
 
 /apply should not directly redirect applicant to application form [profile validation must be checked]
 
 On form submission, show some loading message until all the values are pushed into the database and gcp by server
+
+Order change, gate codes drop down, help or something whatever, going back after submitting applications
+Add corresponding changes in the database for apply pages

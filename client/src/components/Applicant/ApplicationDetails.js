@@ -8,6 +8,7 @@ import Axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
+import {browserHistory} from 'react-router';
 
 function ApplicantionDetails() {
   const navigate = useNavigate();
@@ -123,8 +124,8 @@ function ApplicantionDetails() {
         <div className="mx-12 mb-12 mt-10 px-12 col-start-1 col-end-12">
             <ChevronDots
               steps={[
-                "Application Fee Details",
                 "Qualifying Exam Details",
+                "Application Fee Details",
                 "Declaration",
                 "Review",
               ]}
@@ -139,8 +140,8 @@ function ApplicantionDetails() {
 
       {
         {
-          1 : <ApplicationFeeDetails category={category} increasePageNumber = {increasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,                
-          2 : <QualifyingExamDetails increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,          
+          1 : <QualifyingExamDetails increasePageNumber = {increasePageNumber} details={applicant_details}  onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,   
+          2 : <ApplicationFeeDetails category={category} increasePageNumber = {increasePageNumber} decreasePageNumber={decreasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,                
           3 : <Declaration full_name = {full_name} increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,
           4 : <Review decreasePageNumber={decreasePageNumber} details={applicant_details} handleSubmit={handleSubmit} onSubmit={handleApplicationSubmit}/>,                    
         }[page]
