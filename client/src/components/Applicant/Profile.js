@@ -59,11 +59,10 @@ export default function Profile () {
 
     function syncLocalGlobalData(){
         let copy = {...profileInfo}
-        // console.log('copy', copy);
         setLocalProfileInfo(copy)
-        // console.log("sync ho raha hai");
-        // console.log("local profile info :" , localProfileInfo);
-        window.location.reload();
+        
+        copy = [...degrees]
+        setLocalDegrees(copy)
     }
 
     const getDegreeSize = (degrees) => {
@@ -127,6 +126,14 @@ export default function Profile () {
                     assign(copy, "alternate_mobile_number", null);
                 if(copy.category_certificate_url === "null")
                     assign(copy, "category_certificate_url", null);
+                if(copy.nationality === "null")
+                    assign(copy, "nationality", null);
+                if(copy.marital_status === "null")
+                    assign(copy, "marital_status", null);
+                if(copy.remarks_10th === "null")
+                    assign(copy, "remarks_10th", null);
+                if(copy.remarks_12th === "null")
+                    assign(copy, "remarks_12th", null);
                 setProfileInfo(copy)
                 setLocalProfileInfo(copy)
                 let copyDegrees = convert2dArrayToJsonObjectArray(response.data.degrees)

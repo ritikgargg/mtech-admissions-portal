@@ -190,7 +190,7 @@ function EducationalDetails(props) {
                                     id="degree_10th"
                                     required
                                     name="degree_10th"
-                                    defaultValue={props.localProfileInfo.degree_10th}
+                                    value={props.localProfileInfo.degree_10th}
                                     onChange={(event)=>props.onChange(event, 'degree_10th')}
                                 
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -213,7 +213,7 @@ function EducationalDetails(props) {
                                     required
                                     id="board_10th"
                                     name="board_10th"
-                                    defaultValue={props.localProfileInfo.board_10th}
+                                    value={props.localProfileInfo.board_10th}
                                     onChange={(event)=>props.onChange(event, 'board_10th')}
                                     
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -258,7 +258,7 @@ function EducationalDetails(props) {
                                     pattern = {percentage_cgpa_pattern[0]}
                                     id="percentage_cgpa_value_10th"
                                     name="percentage_cgpa_value_10th"
-                                    defaultValue={props.localProfileInfo.percentage_cgpa_value_10th}
+                                    value={props.localProfileInfo.percentage_cgpa_value_10th}
                                     onChange={(event)=>props.onChange(event, 'percentage_cgpa_value_10th')}
                                     
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -278,7 +278,7 @@ function EducationalDetails(props) {
                                     type="text"
                                     required
                                     name="year_of_passing_10th"
-                                    defaultValue={props.localProfileInfo.year_of_passing_10th}
+                                    value={props.localProfileInfo.year_of_passing_10th}
                                     onChange={(event)=>props.onChange(event, 'year_of_passing_10th')}
                                     id="year_of_passing_10th"
                                     pattern="[1-9]{1}[0-9]{3}"
@@ -299,7 +299,7 @@ function EducationalDetails(props) {
                                       id="remarks_10th"
                                       rows={2}
                                       name="remarks_10th"
-                                      defaultValue={props.localProfileInfo.remarks_10th}
+                                      value={props.localProfileInfo.remarks_10th}
                                       onChange={(event)=>props.onChange(event, 'remarks_10th')}
                                       className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                                    
@@ -349,7 +349,7 @@ function EducationalDetails(props) {
                                       id="profile_picture"
                                       name="profile_picture"
                                       type="text"
-                                      defaultValue={marksheet_10th ? marksheet_10th.name : props.localProfileInfo.marksheet_10th_url.substring(props.localProfileInfo.marksheet_10th_url.lastIndexOf('/') + 1, props.localProfileInfo.marksheet_10th_url.lastIndexOf('_'))}
+                                      value={marksheet_10th ? marksheet_10th.name : props.localProfileInfo.marksheet_10th_url.substring(props.localProfileInfo.marksheet_10th_url.lastIndexOf('/') + 1, props.localProfileInfo.marksheet_10th_url.lastIndexOf('_'))}
                                       readOnly
                                       />
                                   
@@ -376,7 +376,7 @@ function EducationalDetails(props) {
                                     id="degree_12th"
                                     required
                                     name="degree_12th"
-                                    defaultValue={props.localProfileInfo.degree_12th}
+                                    value={props.localProfileInfo.degree_12th}
                                     onChange={(event)=>{props.onChange(event, 'degree_12th');}}
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                   >
@@ -398,7 +398,7 @@ function EducationalDetails(props) {
                                     required
                                     id="board_12th"
                                     name="board_12th"
-                                    defaultValue={props.localProfileInfo.board_12th}
+                                    value={props.localProfileInfo.board_12th}
                                     onChange={(event)=>props.onChange(event, 'board_12th')}
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                   />
@@ -440,7 +440,7 @@ function EducationalDetails(props) {
                                     pattern={percentage_cgpa_pattern[1]}
                                     id="percentage_cgpa_value_12th"
                                     name="percentage_cgpa_value_12th"
-                                    defaultValue={props.localProfileInfo.percentage_cgpa_value_12th}
+                                    value={props.localProfileInfo.percentage_cgpa_value_12th}
                                     onChange={(event)=>props.onChange(event, 'percentage_cgpa_value_12th')}
                                     required
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -460,7 +460,7 @@ function EducationalDetails(props) {
                                     required
                                     id="year_of_passing_12th"
                                     name="year_of_passing_12th"
-                                    defaultValue={props.localProfileInfo.year_of_passing_12th}
+                                    value={props.localProfileInfo.year_of_passing_12th}
                                     onChange={(event)=>props.onChange(event, 'year_of_passing_12th')}
                                     pattern="[1-9]{1}[0-9]{3}"
                                     title="4 Digit Year (Example: 2020)"
@@ -479,7 +479,7 @@ function EducationalDetails(props) {
                                     <textarea
                                       id="remarks_12th"
                                       name="remarks_12th"
-                                      defaultValue={props.localProfileInfo.remarks_12th}
+                                      value={props.localProfileInfo.remarks_12th}
                                       onChange={(event)=>props.onChange(event, 'remarks_12th')}
                                       rows={2}
                                       className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
@@ -546,7 +546,7 @@ function EducationalDetails(props) {
                                       id="marksheet_12th"
                                       name="marksheet_12th"
                                       type="text"
-                                      defaultValue={marksheet_12th ? marksheet_12th.name : props.localProfileInfo.marksheet_12th_url.substring(props.localProfileInfo.marksheet_12th_url.lastIndexOf('/') + 1, props.localProfileInfo.marksheet_12th_url.lastIndexOf('_'))}
+                                      value={marksheet_12th ? marksheet_12th.name : props.localProfileInfo.marksheet_12th_url.substring(props.localProfileInfo.marksheet_12th_url.lastIndexOf('/') + 1, props.localProfileInfo.marksheet_12th_url.lastIndexOf('_'))}
                                       readOnly
                                       />
                                   
@@ -614,7 +614,7 @@ function EducationalDetails(props) {
                                 <div className="mt-1">
                                   <textarea
                                     id="other_remarks"
-                                    defaultValue={props.localProfileInfo.other_remarks}
+                                    value={props.localProfileInfo.other_remarks}
                                     onChange={(event)=>props.onChange(event, 'other_remarks')}
                                     rows={3}
                                     className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
@@ -669,13 +669,13 @@ function EducationalDetails(props) {
                       
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={
+                        {/* <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={
                           () => {
                             console.log(props.localProfileInfo)
                             console.log(props.localDegrees)
                             console.log(degreesFiles)
                           }
-                        }>Print</button>
+                        }>Print</button> */}
                         <button onClick={closeEducationDetails} data-modal-toggle="educationalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
                       </div>
                     </form>

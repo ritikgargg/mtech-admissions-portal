@@ -10,7 +10,6 @@ export default function Review(props) {
 
   const [profileInfo, setProfileInfo] = useState(0);
   const [degrees, setDegrees] = useState([]);
-  const [offering, setOffering] = useState([]);
 
   function convert2dArrayToJsonObjectArray(degrees) {
       if(degrees === null) return []
@@ -44,22 +43,6 @@ export default function Review(props) {
         }
       })
     .catch(err => console.log(err));
-
-    axios.get("http://localhost:8080/get-offering-info", {
-      headers: {
-        Authorization: getToken(),
-        offering_id: props.details[20]
-      }
-    })
-    .then(response => {
-        if(response.data === 1) {
-          navigate("/logout");
-        }
-        else {
-          setOffering(response.data);
-        }
-      })
-    .catch(err => console.log(err));
   },[]);
 
   return (
@@ -74,11 +57,11 @@ export default function Review(props) {
           <dl>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Department</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{offering.department}</dd>
+              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.offering.department}</dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Specialization</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{offering.specialization}</dd>
+              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{props.offering.specialization}</dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Amount</dt>

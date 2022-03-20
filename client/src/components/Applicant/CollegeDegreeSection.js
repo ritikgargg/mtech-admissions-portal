@@ -37,7 +37,7 @@ function CollegeDegreeSection(props) {
             type="text"
             name="branch"
             id="branch"
-            defaultValue={props.localDegrees[props.id]['1']} 
+            value={props.localDegrees[props.id]['1']} 
             onChange={(event) => props.handleChange(props.id,'1',event)}
             required
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -57,7 +57,7 @@ function CollegeDegreeSection(props) {
             name="university"
             id="university"
             required
-            defaultValue={props.localDegrees[props.id]['2']} 
+            value={props.localDegrees[props.id]['2']} 
             onChange={(event) => props.handleChange(props.id,'2',event)}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           />
@@ -77,7 +77,7 @@ function CollegeDegreeSection(props) {
             pattern="[1-9]{1}[0-9]{3}"
             title="4 Digit Year (Example: 2020)"
             id="year-of-passing"
-            defaultValue={props.localDegrees[props.id]['3']} 
+            value={props.localDegrees[props.id]['3']} 
             required
             onChange={(event) => props.handleChange(props.id,'3',event)}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -118,7 +118,7 @@ function CollegeDegreeSection(props) {
             type="text"
             name="percentage-cgpa-value"
             id="percentage-cgpa-value"
-            defaultValue={props.localDegrees[props.id]['5']} 
+            value={props.localDegrees[props.id]['5']} 
             required
             pattern={props.percentage_cgpa_pattern[props.id+2]}
             title="Correct Format Percentage: 94.65, Correct Format CGPA: (8.23 if scale is 10), (3.45 if scale is 4)"
@@ -159,7 +159,7 @@ function CollegeDegreeSection(props) {
             <textarea
               id="remarks"
               name="remarks"
-              defaultValue={props.localDegrees[props.id]['7']} 
+              value={props.localDegrees[props.id]['7']} 
               onChange={(event) => props.handleChange(props.id,'7',event)}
               rows={2}
               className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
@@ -208,8 +208,8 @@ function CollegeDegreeSection(props) {
                   id="profile_picture"
                   name="profile_picture"
                   type="text"
-                  defaultValue={props.degreesFiles[props.id][0] ? props.degreesFiles[props.id][0].name : props.localDegrees[props.id]['8'].substring(props.localDegrees[props.id]['8'].lastIndexOf('/') + 1, props.localDegrees[props.id]['8'].lastIndexOf('_'))}
-                  // defaultValue={props.localDegrees[props.id]['8'].substring(props.localDegrees[props.id]['8'].lastIndexOf('/') + 1, props.localDegrees[props.id]['8'].lastIndexOf('_'))}
+                  value={props.degreesFiles[props.id][0] ? props.degreesFiles[props.id][0].name : props.localDegrees[props.id]['8'].substring(props.localDegrees[props.id]['8'].lastIndexOf('/') + 1, props.localDegrees[props.id]['8'].lastIndexOf('_'))}
+                  // value={props.localDegrees[props.id]['8'].substring(props.localDegrees[props.id]['8'].lastIndexOf('/') + 1, props.localDegrees[props.id]['8'].lastIndexOf('_'))}
                   readOnly
                   />
               
@@ -262,8 +262,8 @@ function CollegeDegreeSection(props) {
                   id="profile_picture"
                   name="profile_picture"
                   type="text"
-                  defaultValue={props.degreesFiles[props.id][1] ? props.degreesFiles[props.id][1].name : props.localDegrees[props.id]['9'].substring(props.localDegrees[props.id]['9'].lastIndexOf('/') + 1, props.localDegrees[props.id]['9'].lastIndexOf('_'))}
-                  // defaultValue={props.localDegrees[props.id]['9'].substring(props.localDegrees[props.id]['9'].lastIndexOf('/') + 1, props.localDegrees[props.id]['9'].lastIndexOf('_'))}
+                  value={props.degreesFiles[props.id][1] ? props.degreesFiles[props.id][1].name : props.localDegrees[props.id]['9'].substring(props.localDegrees[props.id]['9'].lastIndexOf('/') + 1, props.localDegrees[props.id]['9'].lastIndexOf('_'))}
+                  // value={props.localDegrees[props.id]['9'].substring(props.localDegrees[props.id]['9'].lastIndexOf('/') + 1, props.localDegrees[props.id]['9'].lastIndexOf('_'))}
                   readOnly
                   />
               

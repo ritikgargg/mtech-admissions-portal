@@ -19,7 +19,7 @@ const applicantBucket = gc.bucket("applicant-iit-ropar");
  */
 const save_communication_details = async (req, res) => {
   /**
-   * Verify using authToken
+   * Verify using authToken 
    */
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;

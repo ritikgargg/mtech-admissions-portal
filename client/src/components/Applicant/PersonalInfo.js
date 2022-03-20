@@ -112,7 +112,7 @@ function PersonalInfo(props) {
                               <input
                                 type="text"
                                 name = "full_name"
-                                defaultValue={props.localProfileInfo.full_name}
+                                value={props.localProfileInfo.full_name}
                                 id="name"
                                 onChange={(event)=>props.onChange(event, 'full_name')}
                                 required
@@ -132,7 +132,7 @@ function PersonalInfo(props) {
                               <input
                                 type="text"
                                 name= "fathers_name"
-                                defaultValue={props.localProfileInfo.fathers_name}
+                                value={props.localProfileInfo.fathers_name}
                                 onChange={(event)=>props.onChange(event, 'fathers_name')}
                                 id="father-name"  
                                 required
@@ -182,7 +182,7 @@ function PersonalInfo(props) {
                                       id="profile_picture"
                                       name="profile_picture"
                                       type="text"
-                                      defaultValue={profile_image ? profile_image.name : props.localProfileInfo.profile_image_url.substring(props.localProfileInfo.profile_image_url.lastIndexOf('/') + 1, props.localProfileInfo.profile_image_url.lastIndexOf('_'))}
+                                      value={profile_image ? profile_image.name : props.localProfileInfo.profile_image_url.substring(props.localProfileInfo.profile_image_url.lastIndexOf('/') + 1, props.localProfileInfo.profile_image_url.lastIndexOf('_'))}
                                       readOnly
                                       />
                                   
@@ -205,7 +205,7 @@ function PersonalInfo(props) {
                               </label>
                               <DatePicker
                                 onChange={(event)=>props.onChange(event, 'date_of_birth')}
-                                defaultValue={props.localProfileInfo.date_of_birth}
+                                value={props.localProfileInfo.date_of_birth}
                                 />
                             </div>
 
@@ -220,7 +220,7 @@ function PersonalInfo(props) {
                               </label>
                               <input
                                 type="text"
-                                defaultValue={props.localProfileInfo.aadhar_card_number}
+                                value={props.localProfileInfo.aadhar_card_number}
                                 onChange={(event)=>props.onChange(event, 'aadhar_card_number')}
                                 name = "aadhar_card_number"
                                 id="aadhar-number"
@@ -306,7 +306,7 @@ function PersonalInfo(props) {
                                       id="category-certificate"
                                       name="category-certificate"
                                       type="text"
-                                      defaultValue={categoryCertificate ? categoryCertificate.name : props.localProfileInfo.category_certificate_url.substring(props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1, props.localProfileInfo.category_certificate_url.lastIndexOf('_'))}
+                                      value={categoryCertificate ? categoryCertificate.name : props.localProfileInfo.category_certificate_url.substring(props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1, props.localProfileInfo.category_certificate_url.lastIndexOf('_'))}
                                       readOnly
                                       />
                                   

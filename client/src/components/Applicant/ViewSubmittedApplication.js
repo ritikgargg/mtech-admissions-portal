@@ -716,7 +716,7 @@ export default function ViewSubmittedApplication() {
                 ))}
                 </div>
             </div>
-            <div className="mb-10 flex space-x-4 do-not-print-me">
+            {/* <div className="mb-10 flex  space-x-4 do-not-print-me">
                 <button
                     type="button"
                     onClick={() => navigate('/my-applications')}
@@ -732,7 +732,7 @@ export default function ViewSubmittedApplication() {
                     >
                     Download
                 </button>
-            </div>
+            </div> */}
         </div>
         
         </>

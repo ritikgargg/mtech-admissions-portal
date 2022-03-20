@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChevronDots from "./ChevronDots.js";
 import QualifyingExamDetails from "./QualifyingExamDetails";
 import Declaration from "./Declaration";
@@ -8,7 +8,6 @@ import Axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
-import {browserHistory} from 'react-router';
 
 function ApplicantionDetails() {
   const navigate = useNavigate();
@@ -16,6 +15,7 @@ function ApplicantionDetails() {
   const { handleSubmit } = useForm();
   const [full_name, setFullName] = useState("");
   const [category, setCategory] = useState("");
+  const [offering, setOffering] = useState([]);
   const params = useParams();
 
   const init_application_details = () => {
@@ -39,6 +39,7 @@ function ApplicantionDetails() {
     return array;
   }
 
+  useEffect(() => {
   Axios.get("http://localhost:8080/check-applicant-info", {
         headers: {
             Authorization: getToken()
@@ -54,6 +55,25 @@ function ApplicantionDetails() {
         }
       })
     .catch(err => console.log(err));
+
+  
+
+    Axios.get("http://localhost:8080/get-offering-info", {
+      headers: {
+        Authorization: getToken(),
+        offering_id: params.offering_id
+      }
+    })
+    .then(response => {
+        if(response.data === 1) {
+          navigate("/logout");
+        }
+        else {
+          setOffering(response.data);
+        }
+      })
+    .catch(err => console.log(err));
+  },[]);
 
   const [applicant_details, setApplicantDetails] = useState(init_application_details());
 
@@ -103,7 +123,7 @@ function ApplicantionDetails() {
           navigate("/logout");
         }
         else {
-          navigate("/my-applications");
+          navigate("/success");
         }
       })
       .catch(err => console.log(err));
@@ -140,10 +160,10 @@ function ApplicantionDetails() {
 
       {
         {
-          1 : <QualifyingExamDetails increasePageNumber = {increasePageNumber} details={applicant_details}  onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,   
+          1 : <QualifyingExamDetails offering={offering} increasePageNumber = {increasePageNumber} details={applicant_details}  onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,   
           2 : <ApplicationFeeDetails category={category} increasePageNumber = {increasePageNumber} decreasePageNumber={decreasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,                
           3 : <Declaration full_name = {full_name} increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,
-          4 : <Review decreasePageNumber={decreasePageNumber} details={applicant_details} handleSubmit={handleSubmit} onSubmit={handleApplicationSubmit}/>,                    
+          4 : <Review offering={offering} decreasePageNumber={decreasePageNumber} details={applicant_details} handleSubmit={handleSubmit} onSubmit={handleApplicationSubmit}/>,                    
         }[page]
       }
 

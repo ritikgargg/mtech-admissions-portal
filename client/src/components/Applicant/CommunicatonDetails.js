@@ -81,7 +81,7 @@ function CommunicationDetails(props){
                                 <textarea
                                   id="communication_address"
                                   name="communication_address"
-                                  defaultValue={props.localProfileInfo.communication_address}
+                                  value={props.localProfileInfo.communication_address}
                                   onChange={(event)=>props.onChange(event, 'communication_address')}
                                   rows={4}
                                   className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
@@ -105,7 +105,7 @@ function CommunicationDetails(props){
                               <input
                                 type="text"
                                 id="communication_city"
-                                defaultValue={props.localProfileInfo.communication_city}
+                                value={props.localProfileInfo.communication_city}
                                 name="communication_city"
                                 onChange={(event)=>props.onChange(event, 'communication_city')}
                                 required
@@ -123,7 +123,7 @@ function CommunicationDetails(props){
                               </label>
                               <input
                                 type="text"
-                                defaultValue={props.localProfileInfo.communication_state}
+                                value={props.localProfileInfo.communication_state}
                                 name="communication_state"
                                 onChange={(event)=>props.onChange(event, 'communication_state')}
                                 id="communication_state"
@@ -143,7 +143,7 @@ function CommunicationDetails(props){
                               <input
                                 type="text"
                                 id="communication_pincode"
-                                defaultValue={props.localProfileInfo.communication_pincode}
+                                value={props.localProfileInfo.communication_pincode}
                                 name="communication_pincode"
                                 onChange={(event)=>props.onChange(event, 'communication_pincode')}
                                 required
@@ -166,7 +166,7 @@ function CommunicationDetails(props){
                                   id="permanent_address"
                                   rows={4}
                                   required
-                                  defaultValue={props.localProfileInfo.permanent_address}
+                                  value={props.localProfileInfo.permanent_address}
                                   onChange={(event)=>props.onChange(event, 'permanent_address')}
                                   name="permanent_address"
                                   className="resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
@@ -187,7 +187,7 @@ function CommunicationDetails(props){
                               </label>
                               <input
                                 type="text"
-                                defaultValue={props.localProfileInfo.permanent_city}
+                                value={props.localProfileInfo.permanent_city}
                                 onChange={(event)=>props.onChange(event, 'permanent_city')}
                                 name="permanent_city"
                                 id="permanent_city"
@@ -207,7 +207,7 @@ function CommunicationDetails(props){
                               <input
                                 type="text"
                                 id="permanent_state"
-                                defaultValue={props.localProfileInfo.permanent_state}
+                                value={props.localProfileInfo.permanent_state}
                                 onChange={(event)=>props.onChange(event, 'permanent_state')}
                                 name="permanent_state"
                                 required
@@ -227,7 +227,7 @@ function CommunicationDetails(props){
                                 type="text"
                                 required
                                 id="permanent_pincode"
-                                defaultValue={props.localProfileInfo.permanent_pincode}
+                                value={props.localProfileInfo.permanent_pincode}
                                 onChange={(event)=>props.onChange(event, 'permanent_pincode')}
                                 name="permanent_pincode"
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -249,7 +249,7 @@ function CommunicationDetails(props){
                                 pattern="[1-9]{1}[0-9]{9}"
                                 title="Mobile Number must be of 10 digits"
                                 required
-                                defaultValue={props.localProfileInfo.mobile_number}
+                                value={props.localProfileInfo.mobile_number}
                                 onChange={(event)=>props.onChange(event, 'mobile_number')}
                                 name="mobile_number"
                                 id="mobile_number"
@@ -268,7 +268,7 @@ function CommunicationDetails(props){
                                 type="text"
                                 pattern="[1-9]{1}[0-9]{9}"
                                 title="Mobile Number must be of 10 digits"
-                                defaultValue={props.localProfileInfo.alternate_mobile_number}
+                                value={props.localProfileInfo.alternate_mobile_number}
                                 onChange={(event)=>props.onChange(event, 'alternate_mobile_number')}
                                 name="alternate_mobile_number"
                                 id="alternate_mobile_number"
@@ -280,6 +280,9 @@ function CommunicationDetails(props){
                         </div>
                         <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                           <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                          {/* <button type="button" onClick={props.syncLocalGlobalData} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Print</button> */}
+                          {/* <button type="button" onClick={props.syncLocalGlobalData} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sync</button> */}
+                          
                           <button onClick={props.syncLocalGlobalData} data-modal-toggle="communicationDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
                         </div>
                     </form>

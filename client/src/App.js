@@ -17,6 +17,7 @@ import ApplicantionDetails from './components/Applicant/ApplicationDetails'
 import ViewSubmittedApplication from './components/Applicant/ViewSubmittedApplication'
 import Courses from './components/Landing/Courses'
 import Info from './components/Landing/Info'
+import Success from './components/Applicant/Success'
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -50,7 +51,8 @@ function App() {
 				<Route path="/apply/:offering_id" element={<PrivateRoute><ApplicantionDetails /></PrivateRoute>} />
 				<Route path="/view/:application_id" element={<PrivateRoute><ViewSubmittedApplication /></PrivateRoute>} />
 				<Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
-          
+				<Route path="/success" element={<Success/>}></Route>
+
 				<Route element={<WithHeaderFooter/>}>
 					<Route path="/" element={<HomePage/>}></Route>
 					<Route path="/how-to-apply" element={<HowToApply />}></Route>
@@ -60,7 +62,8 @@ function App() {
 					<Route path="/info" element={<Info />}></Route>
 					<Route path='/sign-in' element={<SpecialRoute><SignInStartPage/></SpecialRoute>} />
 					<Route path='/sign-up' element={<SpecialRoute><SignUpStartPage/></SpecialRoute>} />
-					<Route path="*" element={<Error/>}></Route>
+					
+					<Route path="/*" element={<Error/>}></Route>
     			</Route>
 
 			</Routes>

@@ -4,7 +4,6 @@ import HelpIcon from '@mui/icons-material/Help';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -46,9 +45,44 @@ function QualifyingExamDetails(props){
                   <div className="shadow overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
+                      <div className="col-span-6 sm:col-span-3">
+                          <label
+                            htmlFor="department"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Department<span style={{ color: "#ff0000" }}> *</span>
+                          </label>
+                          <input
+                            id="department"
+                            name="department"
+                            defaultValue={props.offering.department}
+                            readOnly
+                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          >
+                          </input>
+                        </div>
+
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="category"
+                            htmlFor="program_name"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Specialization<span style={{ color: "#ff0000" }}> *</span>
+                          </label>
+                          <input
+                            id="program_name"
+                            name="program_name"
+                            required
+                            defaultValue={props.offering.specialization}
+                            readOnly
+                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          >
+                          </input>
+                        </div>
+                        
+                        <div className="col-span-6 sm:col-span-3">
+                          <label
+                            htmlFor="qualifying_examination"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Qualifying Examination<span style={{ color: "#ff0000" }}> *</span>
@@ -330,9 +364,13 @@ function QualifyingExamDetails(props){
                             <HtmlTooltip
                               title={
                                 <React.Fragment>
-                                  <Typography color="inherit">Tooltip with HTML</Typography>
-                                  <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
-                                  {"It's very engaging. Right?"}
+                                  <Typography color="inherit">Consider The Case</Typography>
+                                  {/* <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '} */}
+                                  {"Suppose you have the following three valid GATE scores :"} <br/>
+                                  {`GATE score ${max_year-2} : `} <em>514</em> <br/>
+                                  {`GATE score ${max_year-1} : `} <em>724</em><br/>
+                                  {`GATE score ${max_year} : `} <em>612</em> <br/>
+                                  {"Then you must fill the details of year"} <b>{max_year-1}</b> {"as it has the highest GATE score"}
                                 </React.Fragment>
                               }
                             >
@@ -348,7 +386,6 @@ function QualifyingExamDetails(props){
                           >
                             <option value="">-- Select --</option>
                             <option value="Yes">Yes</option>
-                            <option value="No">No</option>
                           </select>
                         </div>
 
