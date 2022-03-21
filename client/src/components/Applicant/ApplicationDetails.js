@@ -77,6 +77,7 @@ function ApplicantionDetails() {
         }
         else {
           setOffering(response.data);
+          console.log(response.data);
         }
       })
     .catch(err => console.log(err));

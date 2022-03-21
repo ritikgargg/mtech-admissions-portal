@@ -67,7 +67,7 @@ CREATE TABLE applicants (
     is_last_degree_completed TEXT
 );
 
-CREATE TABLE applications(
+CREATE TABLE applications (
   application_id SERIAL,
 
   -- Application information
@@ -165,6 +165,20 @@ CREATE TABLE mtech_offerings(
   deadline TIMESTAMP
 );
 
+CREATE TABLE admins(
+  email TEXT PRIMARY KEY,
+  admin_type INT
+);
+-- 0 for super-admin, 1 for faculty-admins/supervisors
+
+CREATE TRIGGER trigger_insert_into_admins
+  AFTER INSERT
+  ON admins
+  FOR EACH ROW
+  EXECUTE PROCEDURE insert_into_login_verification();
+
+INSERT INTO admin(email, admin_type) VALUES('admin@admin', 0);
+
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
 VALUES('Chemical Engineering', 'Chemical Engineering', 12, 'CH', '2022-03-20', 'Candidates with BTech/BE/MSc with valid score of GATE.');
 
@@ -176,7 +190,6 @@ VALUES('Computer Science and Engineering', 'Artificial Intelligence', 20, 'CS', 
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
 VALUES('Mechanical Engineering', 'Mechanics and Design (MD)', 15, 'ME', '2022-03-31', 'Candidates with BTech/BE in Mechanical Engineering or relevant area. BTech from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE.');
-
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
   RETURNS TRIGGER 

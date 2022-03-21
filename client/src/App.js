@@ -18,6 +18,7 @@ import ViewSubmittedApplication from './components/Applicant/ViewSubmittedApplic
 import Courses from './components/Landing/Courses'
 import Info from './components/Landing/Info'
 import Success from './components/Applicant/Success'
+import AdminDashboard from './components/Admin/AdminDashboard'
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -52,6 +53,8 @@ function App() {
 				<Route path="/view/:application_id" element={<PrivateRoute><ViewSubmittedApplication /></PrivateRoute>} />
 				<Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
 				<Route path="/success" element={<PrivateRoute><Success/></PrivateRoute>}></Route>
+
+				<Route path="/admin" element={<PrivateRoute><AdminDashboard/></PrivateRoute>}></Route>
 
 				<Route element={<WithHeaderFooter/>}>
 					<Route path="/" element={<HomePage/>}></Route>
