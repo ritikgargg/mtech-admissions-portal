@@ -22,8 +22,8 @@ function CompleteProfile (props) {
             </div>
           </div>
           <div className="px-4 mt-2 mb-3 text-sm text-yellow-700 dark:text-yellow-800">
-                Mandatory details are to be filled in your profile. 
-                Please complete your profile to participate in the admission process.
+                Mandatory details must be filled in your profile. 
+                Please complete your profile first to participate in the admission process.
           </div>
       </div>
     </>

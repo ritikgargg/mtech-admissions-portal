@@ -174,9 +174,16 @@ export default function ApplicantHomePage () {
                                                             <div className="text-sm text-gray-500">{new Date(application.deadline).toLocaleDateString('en-GB')}</div>
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                            Active
-                                                            </span>
+                                                            {new Date(application.deadline) >= new Date() &&
+                                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                                Open
+                                                                </span>
+                                                            }
+                                                            {new Date(application.deadline) < new Date() &&
+                                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                                Closed
+                                                                </span>
+                                                            }
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                             {isProfileComplete === 3 ?

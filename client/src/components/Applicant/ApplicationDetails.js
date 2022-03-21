@@ -42,12 +42,19 @@ function ApplicantionDetails() {
   useEffect(() => {
   Axios.get("http://localhost:8080/check-applicant-info", {
         headers: {
-            Authorization: getToken()
+            Authorization: getToken(),
+            offering_id: params.offering_id
         }
     })
     .then(response => {
         if(response.data === 1) {
           navigate("/logout");
+        }
+        else if(response.data === 2) {
+          navigate("/home");
+        }
+        else if(response.data === 3) {
+          navigate("/my-applications")
         }
         else {
             setFullName(response.data.full_name);

@@ -14,8 +14,6 @@ import DefaultProfilePicture from "../../images/default-profile-picture.png"
 export default function Profile () {
   const navigate = useNavigate();
     
-    
-
     function initDegrees(){
         let result = []
         for(let i = 0;i < 5; i++){
@@ -143,8 +141,7 @@ export default function Profile () {
                 setLocalDegrees(copyDegrees)
                 setDegreeSize(getDegreeSize(response.data.degrees))
                 setCount(Math.max(1,getDegreeSize(response.data.degrees)))
-                console.log(response.data)
-                
+                // console.log(response.data)
             }
           })
         .catch(err => console.log(err));

@@ -73,7 +73,8 @@ CREATE TABLE applications(
   -- Application information
   offering_id INT,
   email_id TEXT,
-  if_submitted BOOLEAN,
+  status INT, 
+  -- 0 for reject, 1 for under review, 2 for select
 
   -- Personal Details
   full_name TEXT,
@@ -164,7 +165,7 @@ CREATE TABLE mtech_offerings(
 );
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
-VALUES('Chemical Engineering', 'Chemical Engineering', 12, 'CH', '2022-03-31', 'Candidates with BTech/BE/MSc with valid score of GATE.');
+VALUES('Chemical Engineering', 'Chemical Engineering', 12, 'CH', '2022-03-20', 'Candidates with BTech/BE/MSc with valid score of GATE.');
 
 INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
 VALUES('Civil Engineering', 'Water Resources and Environment', 15, 'AG, CE', '2022-03-31', 'Candidates with BTech/BE in Civil, Environmental, Water resources, Agricultural Engineering and related areas with valid score of GATE.');

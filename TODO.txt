@@ -17,11 +17,11 @@ DONE: { Cross and cancel button are set to reload the window, find a better opti
 
 DONE: { Order change, drop-downs added in apply }
 
-What to do if we go back after submitting, must be redirected to home and not allowed to revisit that page
+DONE: { What to do if we go back after submitting, must be redirected to home and not allowed to revisit that page }
 
-/apply should not directly redirect applicant to application form [profile validation must be checked]
+DONE: { /apply should not directly redirect applicant to application form [profile validation must be checked] }
 
 On form submission, show some loading message until all the values are pushed into the database and gcp by server
 
-gate codes, going back after submitting applications
+gate codes
 Add corresponding changes in the database for apply pages

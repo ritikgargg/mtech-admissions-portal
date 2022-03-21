@@ -51,7 +51,7 @@ function App() {
 				<Route path="/apply/:offering_id" element={<PrivateRoute><ApplicantionDetails /></PrivateRoute>} />
 				<Route path="/view/:application_id" element={<PrivateRoute><ViewSubmittedApplication /></PrivateRoute>} />
 				<Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
-				<Route path="/success" element={<Success/>}></Route>
+				<Route path="/success" element={<PrivateRoute><Success/></PrivateRoute>}></Route>
 
 				<Route element={<WithHeaderFooter/>}>
 					<Route path="/" element={<HomePage/>}></Route>

@@ -22,7 +22,6 @@ function MyApplications(props) {
               navigate("/logout");
             }
             else {
-                console.log(response.data);
                 setApplications(response.data);
             }
           })
@@ -94,9 +93,21 @@ function MyApplications(props) {
                                                             <div className="text-sm text-gray-500">{application.specialization}</div>
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                            Active
-                                                            </span>
+                                                            {application.status === 0 &&
+                                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                                    Rejected
+                                                                </span>
+                                                            }
+                                                            {application.status === 1 &&
+                                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                                    Under Review
+                                                                </span>
+                                                            }
+                                                            {application.status === 2 &&
+                                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                                    Selected
+                                                                </span>
+                                                            }
                                                         </td>
 
                                                         <td className="px-6 py-4 whitespace-nowrap font-medium">
