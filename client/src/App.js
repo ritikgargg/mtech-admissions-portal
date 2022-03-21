@@ -25,6 +25,7 @@ import Success from './components/Applicant/Success'
 // import Settings from "./components/Admin/views/admin/Settings";
 // import Tables from "./components/Admin/views/admin/Tables";
 import AdmissionCycles from './components/Admin/AdmissionCycles';
+import AdminDashboard from './components/Admin/AdminDashboard';
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -59,7 +60,9 @@ function App() {
 				<Route path="/view/:application_id" element={<PrivateRoute><ViewSubmittedApplication /></PrivateRoute>} />
 				<Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
 				<Route path="/success" element={<PrivateRoute><Success/></PrivateRoute>}></Route>
+				
 				<Route path="/admin/admission-cycles" element={<AdmissionCycles/>}></Route>
+				<Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
 
 				<Route element={<WithHeaderFooter/>}>
 					<Route path="/" element={<HomePage/>}></Route>
