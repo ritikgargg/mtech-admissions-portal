@@ -43,3 +43,5 @@ DONE: { Order change, drop-downs added in apply }
 DONE: { Prefill values in the application form corresponding to the applicantion selected, must (Branch and Specialization), also add the same in the application table}
 
 DONE: { REMOVED THE APPLICATION FROM HOME PAGE ON SUBMITTING } Disable apply button(only if corresponding application filled)
+
+DONE: {gate codes on apply page}

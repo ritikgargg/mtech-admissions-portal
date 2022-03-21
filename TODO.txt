@@ -7,10 +7,4 @@ Responsive UI
 
 On form submission, show some loading message until all the values are pushed into the database and gcp by server
 
-Error page not showing for path "/*"
-
 For textarea fields, check if the applicant do not only submit spaces
-
-gate codes on apply page, degrees also?, other eligibility checks?
-
-Add corresponding changes in the database for apply pages and also save them when we go back

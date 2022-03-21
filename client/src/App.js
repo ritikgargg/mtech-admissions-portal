@@ -18,7 +18,13 @@ import ViewSubmittedApplication from './components/Applicant/ViewSubmittedApplic
 import Courses from './components/Landing/Courses'
 import Info from './components/Landing/Info'
 import Success from './components/Applicant/Success'
-import AdminDashboard from './components/Admin/AdminDashboard'
+// Admin
+// import Admin from './components/Admin/layouts/Admin'
+// import Dashboard from "./components/Admin/views/admin/Dashboard";
+// import Maps from "./components/Admin/views/admin/Maps";
+// import Settings from "./components/Admin/views/admin/Settings";
+// import Tables from "./components/Admin/views/admin/Tables";
+import AdmissionCycles from './components/Admin/AdmissionCycles';
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -53,8 +59,7 @@ function App() {
 				<Route path="/view/:application_id" element={<PrivateRoute><ViewSubmittedApplication /></PrivateRoute>} />
 				<Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
 				<Route path="/success" element={<PrivateRoute><Success/></PrivateRoute>}></Route>
-
-				<Route path="/admin" element={<PrivateRoute><AdminDashboard/></PrivateRoute>}></Route>
+				<Route path="/admin/admission-cycles" element={<AdmissionCycles/>}></Route>
 
 				<Route element={<WithHeaderFooter/>}>
 					<Route path="/" element={<HomePage/>}></Route>
@@ -68,6 +73,13 @@ function App() {
 					
 					<Route path="/*" element={<Error/>}></Route>
     			</Route>
+
+				{/* <Route element={<Admin/>}>
+					<Route path="/admin/dashboard" element={<Dashboard/>} />
+					<Route path="/admin/maps" exact component={Maps} />
+					<Route path="/admin/settings" exact component={Settings} />
+					<Route path="/admin/tables" exact component={Tables} />
+				</Route> */}
 
 			</Routes>
 		</BrowserRouter>

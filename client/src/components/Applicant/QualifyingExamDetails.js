@@ -4,6 +4,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react'
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -17,8 +18,17 @@ const HtmlTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-function QualifyingExamDetails(props){
 
+function gatePaperCodesToArray(gatePaperCodes){
+  if(gatePaperCodes === undefined) return []
+  var gatePaperCodesArr = gatePaperCodes.split(',');
+  for(var i = 0; i < gatePaperCodesArr.length; i++){
+      gatePaperCodesArr[i] = gatePaperCodesArr[i].trim();
+  }
+  return gatePaperCodesArr;
+}
+
+function QualifyingExamDetails(props){
   const date = new Date();
   const max_year = date.getFullYear();
   const min_year = max_year - 2;
@@ -114,8 +124,7 @@ function QualifyingExamDetails(props){
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option value="">-- Select --</option>
-                            <option value="CS">CS</option>
-                            <option value="EE">EE</option>
+                            {gatePaperCodesToArray(props.offering.gate_paper_codes).map((gatePaperCode) => <option value={gatePaperCode}>{gatePaperCode}</option>)}
                           </select>
                         </div>
                           
@@ -346,6 +355,8 @@ function QualifyingExamDetails(props){
                           <select
                             id="has_given_multiple_gates"
                             name="has_given_multiple_gates"
+                            value={props.hasGivenMultipleGates}
+                            onChange={(event) => props.setHasGivenMultipleGates(event.target.value)}
                             required
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
@@ -382,6 +393,8 @@ function QualifyingExamDetails(props){
                             id="has_filled_highest_gate"
                             name="has_filled_highest_gate"
                             required
+                            value={props.hasFilledHighestGate}
+                            onChange={(event) => props.setHasFilledHighestGate(event.target.value)}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
                             <option value="">-- Select --</option>

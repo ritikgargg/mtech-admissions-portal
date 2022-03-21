@@ -17,14 +17,12 @@ function ApplicantionDetails() {
   const [category, setCategory] = useState("");
   const [offering, setOffering] = useState([]);
   const params = useParams();
+  const [hasFilledHighestGate, setHasFilledHighestGate] = useState("");
+  const [hasGivenMultipleGates, setHasGivenMultipleGates] = useState("");
 
   const init_application_details = () => {
     const array = Array.from({length: 21},()=>'');
     let date = new Date();
-    // console.log(date)
-    // console.log(date.getDate() + '-' + (date.getMonth()+1) + '-' + date.getFullYear())
-    // date = date.toISOString().split('T')[0];
-    // array[0]='GEN';
 
     let month = date.getMonth()+1;
     if(month.length === 1) month = '0' + month;
@@ -168,7 +166,7 @@ function ApplicantionDetails() {
 
       {
         {
-          1 : <QualifyingExamDetails offering={offering} increasePageNumber = {increasePageNumber} details={applicant_details}  onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,   
+          1 : <QualifyingExamDetails hasFilledHighestGate={hasFilledHighestGate} setHasFilledHighestGate={setHasFilledHighestGate} hasGivenMultipleGates={hasGivenMultipleGates} setHasGivenMultipleGates={setHasGivenMultipleGates} offering={offering} increasePageNumber = {increasePageNumber} details={applicant_details}  onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,   
           2 : <ApplicationFeeDetails category={category} increasePageNumber = {increasePageNumber} decreasePageNumber={decreasePageNumber} details={applicant_details} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,                
           3 : <Declaration full_name = {full_name} increasePageNumber = {increasePageNumber} details={applicant_details} decreasePageNumber={decreasePageNumber} onChange={handleApplicantDetailsChange} handleFileSubmit={handleFileSubmit} emptyFileIndex={emptyFileIndex}/>,
           4 : <Review offering={offering} decreasePageNumber={decreasePageNumber} details={applicant_details} handleSubmit={handleSubmit} onSubmit={handleApplicationSubmit}/>,                    
