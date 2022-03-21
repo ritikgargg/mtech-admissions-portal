@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import ViewEligibility  from './ViewEligibility';
+import ViewModal from './ViewModal';
 
 export default function ApplicantHomePage () {
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function ApplicantHomePage () {
     // 1 = not complete and show alert and transition
     // 2 = not complete and don't show alert
     // 3 = profile complete, open applications
-    const [isProfileComplete, setProfileComplete] = useState(1);
+    const [isProfileComplete, setProfileComplete] = useState(2);
 
     useEffect(() => {
         axios.get("http://localhost:8080/get-open-positions", {
@@ -156,7 +156,7 @@ export default function ApplicantHomePage () {
                                                             <div className="text-sm text-gray-500">{application.seats}</div>
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
-                                                            <ViewEligibility eligibility={application.eligibility}/>
+                                                            <ViewModal header={"Eligibility"} data={application.eligibility}/>
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="text-sm text-gray-500">

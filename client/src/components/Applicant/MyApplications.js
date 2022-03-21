@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import DashboardNavBar from './DashboardNavBar';
 import {Link} from "react-router-dom";
-// import DownloadIcon from '@mui/icons-material/Download';
-// import Tooltip from '@mui/material/Tooltip';
-import axios from 'axios'
-import { getToken } from "../SignIn_SignUp/Sessions"
-import { useNavigate } from "react-router-dom"
+import axios from 'axios';
+import { getToken } from "../SignIn_SignUp/Sessions";
+import { useNavigate } from "react-router-dom";
+import ViewModal from './ViewModal';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 function MyApplications(props) {
     const navigate = useNavigate();
@@ -67,6 +67,12 @@ function MyApplications(props) {
                                                     scope="col"
                                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                                 >
+                                                    Remarks
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                                >
                                                     {/* View */}
                                                 </th>
                                             </tr>
@@ -109,21 +115,15 @@ function MyApplications(props) {
                                                                 </span>
                                                             }
                                                         </td>
-
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <ViewModal header={"Remarks"} data={application.status_remark}/>
+                                                        </td>
                                                         <td className="px-6 py-4 whitespace-nowrap font-medium">
                                                             <Link to={"/view/" + application.application_id} className="text-indigo-600 hover:text-indigo-900">
-                                                                View
+                                                                {/* <img className="h-7 w-7 text-indigo-600" alt="eye-icon" src="https://cdn-icons-png.flaticon.com/512/535/535193.png"/> */}
+                                                                <VisibilityIcon/>
                                                             </Link>
                                                         </td>
-                                                        {/* <td className="px-6 py-4 whitespace-nowrap text-right font-medium">
-                                                            <button to="/apply" className="text-indigo-600 hover:text-indigo-900">
-                                                                <Tooltip 
-                                                                    title="Download" 
-                                                                    arrow>
-                                                                        <DownloadIcon></DownloadIcon>
-                                                                </Tooltip>
-                                                            </button>
-                                                        </td> */}
                                                     </tr>
                                                 ))}
                                             </tbody>

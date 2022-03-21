@@ -73,7 +73,8 @@ CREATE TABLE applications(
   -- Application information
   offering_id INT,
   email_id TEXT,
-  status INT, 
+  status INT,
+  status_remark TEXT, 
   -- 0 for reject, 1 for under review, 2 for select
 
   -- Personal Details

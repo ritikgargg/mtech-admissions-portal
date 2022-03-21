@@ -341,8 +341,8 @@ const save_application_info = async (req, res) => {
 
   await pool.query("INSERT INTO applications(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
                     branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
-                    remarks, date_of_declaration, place_of_declaration, offering_id, status) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
-                    $13, $14, $15, $16, $17, 1);", [email, app_details[1], app_details[2], app_details[3], app_details[5], app_details[6], 
+                    remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
+                    $13, $14, $15, $16, $17, 1, '');", [email, app_details[1], app_details[2], app_details[3], app_details[5], app_details[6], 
                     app_details[7], app_details[8], app_details[9], app_details[10], app_details[11], app_details[12], app_details[13], 
                     app_details[15], app_details[19], app_details[18], app_details[20]]);
   
@@ -517,7 +517,7 @@ const get_applications = async (req, res) => {
 
   var email = jwt.decode(authToken).userEmail;
 
-  const results = await pool.query("SELECT application_id, department, specialization, status FROM applications, mtech_offerings WHERE email_id = $1 AND applications.offering_id = mtech_offerings.offering_id;", [email]);
+  const results = await pool.query("SELECT application_id, department, specialization, status, status_remark FROM applications, mtech_offerings WHERE email_id = $1 AND applications.offering_id = mtech_offerings.offering_id;", [email]);
   
   return res.send(results.rows);
 }

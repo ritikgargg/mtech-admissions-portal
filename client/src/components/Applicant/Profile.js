@@ -177,7 +177,15 @@ export default function Profile () {
         setLocalProfileInfo(copy);
     }
 
-    var overlayHidden = false;
+    // const [showModalPersonalInfo, setShowModalPersonalInfo] = useState(false);
+
+    // const openModal = (setShowModal) => {
+    //     setShowModal(true);
+    //   };
+    
+    // const closeModal = (setShowModal) => {
+    //     setShowModal(false);  
+    // };
 
     return (
         <>
@@ -195,9 +203,8 @@ export default function Profile () {
                     <div className="flex space-x-3 px-4 py-5 sm:px-6">
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Personal Details</h3>
 
-                        <button data-modal-toggle="personalDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600" onClick={()=>{overlayHidden = !overlayHidden}}><PencilIcon/></button>
+                        <button data-modal-toggle="personalDetailsModal" data-tooltip-target="tooltip-animation" type="button" className="w-5 text-indigo-600" onClick={()=>{}}><PencilIcon/></button>
                         <PersonalInfo onChangeNationality={onChangeNationality} localProfileInfo={localProfileInfo} onChange={handleLocalChange} emptyFile={emptyFile} syncLocalGlobalData={syncLocalGlobalData}/>
-                        
                 
                         <div id="tooltip-animation" role="tooltip" className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
                             Edit Details

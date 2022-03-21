@@ -19,7 +19,7 @@ const style = {
   borderRadius: 5
 };
 
-export default function ViewEligibility(props) {
+export default function ViewModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -39,7 +39,7 @@ export default function ViewEligibility(props) {
           <Grid container>
             <Grid item xs={10}>
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                Eligibility
+                {props.header}
               </Typography>
             </Grid>
             <Grid item xs={2}>
@@ -49,7 +49,7 @@ export default function ViewEligibility(props) {
             </Grid>
           </Grid>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {String(props.eligibility)}
+            {props.data !== undefined ? String(props.data) : ""}
           </Typography>
         </Box>
       </Modal>
