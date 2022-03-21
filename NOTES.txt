@@ -5,3 +5,5 @@ Note: Images/file names are now unique(appended with timestamp), but before they
 Note: If you change the token in the session storage, you will be logged out if you make any request
 
 Note: When downloading application, links will work in "save as pdf" option only
+
+NOTE: what will happen if the user is in review on one side and changes data on another window: updated information will be used

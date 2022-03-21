@@ -27,3 +27,19 @@ Error page?
 Added help button on qualifying exam details
 
 alternate mobile number naatak
+
+DONE: { Do something with applicant ID - not sure if required? } [NO USE :) email op]
+
+DONE: { Success Page on form submission }
+
+DONE: { What to do if we go back after submitting, must be redirected to home and not allowed to revisit that page }
+
+DONE: { /apply should not directly redirect applicant to application form [profile validation must be checked] }
+
+DONE: { Cross and cancel button are set to reload the window, find a better option }
+
+DONE: { Order change, drop-downs added in apply }
+
+DONE: { Prefill values in the application form corresponding to the applicantion selected, must (Branch and Specialization), also add the same in the application table}
+
+DONE: { REMOVED THE APPLICATION FROM HOME PAGE ON SUBMITTING } Disable apply button(only if corresponding application filled)

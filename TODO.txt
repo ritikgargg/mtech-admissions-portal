@@ -5,23 +5,12 @@ Responsive UI
 4. Navbar
 5. Applicant pages
 
-DONE: { Do something with applicant ID - not sure if required? } [NO USE :) email op]
-
-DONE: { REMOVED THE APPLICATION FROM HOME PAGE ON SUBMITTING } Disable apply button(only if corresponding application filled)
-
-DONE: { Prefill values in the application form corresponding to the applicantion selected, must (Branch and Specialization), also add the same in the application table}
-
-DONE: { Success Page on form submission }
-
-DONE: { Cross and cancel button are set to reload the window, find a better option }
-
-DONE: { Order change, drop-downs added in apply }
-
-DONE: { What to do if we go back after submitting, must be redirected to home and not allowed to revisit that page }
-
-DONE: { /apply should not directly redirect applicant to application form [profile validation must be checked] }
-
 On form submission, show some loading message until all the values are pushed into the database and gcp by server
 
-gate codes
-Add corresponding changes in the database for apply pages
+Error page not showing for path "/*"
+
+For textarea fields, check if the applicant do not only submit spaces
+
+gate codes on apply page, degrees also?, other eligibility checks?
+
+Add corresponding changes in the database for apply pages and also save them when we go back
