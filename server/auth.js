@@ -85,7 +85,17 @@ const signin_verify = async (req, res) => {
                 userEmail: email,
             }
             const authToken = jwt.sign(data, jwtSecretKey);
-            return res.send({result:1,token:authToken});
+
+            let if_admin = await pool.query("SELECT * from admins where email_id = $1", [email]);
+            if(if_admin.rows.length === 0) {
+                return res.send({result:1,token:authToken});
+            }
+            else if(if_admin.rows[0].admin_type === 0) {
+                return res.send({result:4,token:authToken});
+            }
+            else if(if_admin.rows[0].admin_type === 1) {
+                return res.send({result:5,token:authToken});
+            }
         }
         else {
             return res.send({result:0});

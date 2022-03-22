@@ -26,6 +26,8 @@ import Success from './components/Applicant/Success'
 // import Tables from "./components/Admin/views/admin/Tables";
 import AdmissionCycles from './components/Admin/AdmissionCycles';
 import AdminDashboard from './components/Admin/AdminDashboard';
+import OfferingList from './components/Admin/OfferingList';
+import AdminNavbarWithSidebar from './components/Admin/AdminNavbarWithSidebar';
 
 function App() {
 	// Pages that can only be accessed if you are logged in
@@ -61,9 +63,10 @@ function App() {
 				<Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
 				<Route path="/success" element={<PrivateRoute><Success/></PrivateRoute>}></Route>
 				
-				<Route path="/admin/admission-cycles" element={<AdmissionCycles/>}></Route>
-				<Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
-
+				<Route path="/admin/admission-cycles" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<AdmissionCycles/>}/></PrivateRoute>}></Route>
+				<Route path="/admin/dashboard" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<AdminDashboard/>}/></PrivateRoute>}></Route>
+				<Route path="/admin/offerings" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<OfferingList/>}/></PrivateRoute>}></Route>
+				
 				<Route element={<WithHeaderFooter/>}>
 					<Route path="/" element={<HomePage/>}></Route>
 					<Route path="/how-to-apply" element={<HowToApply />}></Route>

@@ -53,6 +53,15 @@ function SignInStartPage() {
           setUserSession(response.data.token);
           navigate("/home");
         }
+        else if(response.data.result === 4) {
+          setUserSession(response.data.token);
+          navigate("/admin/dashboard");
+        }
+        else if(response.data.result === 5) {
+          setUserSession(response.data.token);
+          // change for faculty login
+          navigate("/admin/dashboard");
+        }
         else if(response.data.result === 2) {
           setMsgOtp("This OTP has expired.")
           setColorOTP(1);
