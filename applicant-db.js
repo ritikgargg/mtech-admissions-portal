@@ -62,7 +62,7 @@ const save_communication_details = async (req, res) => {
 /**
  * Update/save applicant education details
  */
-const save_education_details = async (req, res) => {
+const save_education_details = async (req, res, next) => {
   /**
    * Verify using authToken
    */
@@ -114,6 +114,7 @@ const save_education_details = async (req, res) => {
     stream.on('error', (err) => {
       f[0].cloudStorageError = err
       next(err)
+      console.log(err)
     })
 
     stream.end(f[0].buffer)
@@ -159,7 +160,7 @@ const save_education_details = async (req, res) => {
 /**
  * Update/save applicant personal info
  */
-const save_personal_info = async (req, res) => {
+const save_personal_info = async (req, res, next) => {
   /**
    * Verify using authToken
    */
@@ -206,6 +207,7 @@ const save_personal_info = async (req, res) => {
     stream.on('error', (err) => {
       f[0].cloudStorageError = err
       next(err)
+      console.log(err)
     })
 
     stream.end(f[0].buffer)
@@ -321,7 +323,7 @@ const get_profile_info = async (req, res) => {
 /**
  * Save application info
  */
-const save_application_info = async (req, res) => {
+const save_application_info = async (req, res, next) => {
   /**
    * Verify using authToken
    */
@@ -390,6 +392,7 @@ const save_application_info = async (req, res) => {
     stream.on('error', (err) => {
       f[0].cloudStorageError = err
       next(err)
+      console.log(err)
     })
 
     stream.end(f[0].buffer)
