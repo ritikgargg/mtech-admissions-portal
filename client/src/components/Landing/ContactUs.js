@@ -25,7 +25,7 @@ function ContactUs() {
         message: msgVal
       }
 
-      axios.post("http://localhost:8080/contact-us", msg).then(response => {
+      axios.post("/contact-us", msg).then(response => {
         setSuccessMsg(1)
         setErrorMsg(0)
         e.target.reset()

@@ -38,7 +38,7 @@ function ApplicantionDetails() {
   }
 
   useEffect(() => {
-  Axios.get("http://localhost:8080/check-applicant-info", {
+  Axios.get("/check-applicant-info", {
         headers: {
             Authorization: getToken(),
             offering_id: params.offering_id
@@ -63,7 +63,7 @@ function ApplicantionDetails() {
 
   
 
-    Axios.get("http://localhost:8080/get-offering-info", {
+    Axios.get("/get-offering-info", {
       headers: {
         Authorization: getToken(),
         offering_id: params.offering_id
@@ -119,7 +119,7 @@ function ApplicantionDetails() {
     formData.append("self_attested_copies", applicant_details[14]);
     formData.append("signature", applicant_details[17]);
 
-    Axios.post("http://localhost:8080/save-application-info", formData, {
+    Axios.post("/save-application-info", formData, {
       headers: {
         Authorization: getToken()
       }

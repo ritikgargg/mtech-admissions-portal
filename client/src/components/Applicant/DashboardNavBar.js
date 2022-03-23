@@ -22,7 +22,7 @@ function DashboardNavBar (props) {
   const [user, setUser] = useState({});
 
   useEffect(()=>{
-    axios.get("http://localhost:8080/get-user-info", {
+    axios.get("/get-user-info", {
         headers: {
             Authorization: getToken()
         }

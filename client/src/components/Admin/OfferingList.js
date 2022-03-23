@@ -12,7 +12,7 @@ export default function OfferingList() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:8080/get-open-positions", {
+    axios.get("/get-open-positions", {
         headers: {
             Authorization: getToken()
         }

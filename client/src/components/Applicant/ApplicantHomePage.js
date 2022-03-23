@@ -17,7 +17,7 @@ export default function ApplicantHomePage () {
     const [isProfileComplete, setProfileComplete] = useState(2);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/get-open-positions", {
+        axios.get("/get-open-positions", {
             headers: {
                 Authorization: getToken()
             }
@@ -35,7 +35,7 @@ export default function ApplicantHomePage () {
     },[]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/get-profile-info", {
+        axios.get("/get-profile-info", {
             headers: {
                 Authorization: getToken()
             }

@@ -12,7 +12,7 @@ function MyApplications(props) {
     const [applications, setApplications] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/get-applications", {
+        axios.get("/get-applications", {
           headers: {
             Authorization: getToken()
           }

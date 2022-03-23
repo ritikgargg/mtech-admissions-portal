@@ -28,7 +28,7 @@ export default function Review(props) {
   }
 
   useEffect(() => {
-    axios.get("http://localhost:8080/get-profile-info", {
+    axios.get("/get-profile-info", {
         headers: {
             Authorization: getToken()
         }

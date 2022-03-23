@@ -22,7 +22,7 @@ function CommunicationDetails(props){
     formData.append("mobile_number", props.localProfileInfo.mobile_number)
     formData.append("alternate_mobile_number", props.localProfileInfo.alternate_mobile_number)
 
-    Axios.post("http://localhost:8080/save-communication-details", formData, {
+    Axios.post("/save-communication-details", formData, {
       headers: {
         Authorization: getToken()
       }

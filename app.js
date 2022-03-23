@@ -7,7 +7,6 @@ const path = require("path")
 const multer = require("multer")
 const upload = multer()
 const applicantdB = require("./applicant-db")
-const dotenv = require('dotenv')
 var bodyParser = require("body-parser")
 
 const app = express();
@@ -15,8 +14,11 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 
-dotenv.config();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
+
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -74,6 +76,11 @@ app.post('/save-application-info',
           ]), 
           applicantdB.save_application_info);
 
+if(process.env.NODE_ENV === "production"){
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+  });
+}
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`)
 });

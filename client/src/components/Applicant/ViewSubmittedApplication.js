@@ -29,7 +29,7 @@ export default function ViewSubmittedApplication() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/get-application-info", {
+        axios.get("/get-application-info", {
             headers: {
                 Authorization: getToken(),
                 application_id: `${params.application_id}`

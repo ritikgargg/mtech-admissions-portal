@@ -70,7 +70,7 @@ function EducationalDetails(props) {
     formData.append("upload_marksheet4", degreesFiles[4][0]);
     formData.append("upload_degree4", degreesFiles[4][1]);
 
-    Axios.post("http://localhost:8080/save-education-details", formData, {
+    Axios.post("/save-education-details", formData, {
       headers: {
         Authorization: getToken()
       }

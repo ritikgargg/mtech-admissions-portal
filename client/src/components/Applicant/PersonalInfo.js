@@ -27,7 +27,7 @@ function PersonalInfo(props) {
     formData.append("profile_image", profile_image);
     formData.append("category_certificate", categoryCertificate);
 
-    Axios.post("http://localhost:8080/save-personal-info", formData, {
+    Axios.post("/save-personal-info", formData, {
       headers: {
         Authorization: getToken()
       }
