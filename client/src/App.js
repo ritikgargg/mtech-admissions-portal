@@ -65,7 +65,8 @@ function App() {
 				
 				<Route path="/admin/admission-cycles" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<AdmissionCycles/>}/></PrivateRoute>}></Route>
 				<Route path="/admin/dashboard" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<AdminDashboard/>}/></PrivateRoute>}></Route>
-				<Route path="/admin/offerings" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<OfferingList/>}/></PrivateRoute>}></Route>
+				{/* <Route path="/admin/offerings" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<OfferingList/>}/></PrivateRoute>}></Route> */}
+				<Route path="/admin/offerings" element={<AdminNavbarWithSidebar mainContent={<OfferingList/>}/>}></Route>
 				
 				<Route element={<WithHeaderFooter/>}>
 					<Route path="/" element={<HomePage/>}></Route>

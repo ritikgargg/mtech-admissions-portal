@@ -1,3 +1,5 @@
+Here, <your-app-name> = iit-ropar-admissions
+
 To login into your heroku account:
     heroku login
 
@@ -8,12 +10,19 @@ To add a psql database to your app:
     heroku addons:create heroku-postgresql:hobby-dev -a <your-app-name>
 (hobby-dev is used to avoid charges of using the database)
 
-heroku pg:psql -a <your-app-name>
 
-heroku git:remote -a <your-app-name>
+To run psql shell for your Heroku psql database associated with <your-app-name>:
+    heroku pg:psql -a <your-app-name>
+    heroku pg:psql -a iit-ropar-admissions
 
-git push heroku master
+To add heroku repository with your git repository of the app:
+    heroku git:remote -a <your-app-name>
+    heroku git:remote -a iit-ropar-admissions
 
-heroku open 
+To push and deploy the git changes of your 'main' branch to Heroku:
+    git push heroku main
+
+To open the heroku website of your app:
+    heroku open 
 
 heroku restart
