@@ -1,8 +1,12 @@
-heroku login
+To login into your heroku account:
+    heroku login
 
-heroku create <your-app-name>
+To create a new app:
+    heroku create <your-app-name>
 
-heroku addons:create heroku-postgresql:hobby-dev -a <your-app-name>
+To add a psql database to your app:
+    heroku addons:create heroku-postgresql:hobby-dev -a <your-app-name>
+(hobby-dev is used to avoid charges of using the database)
 
 heroku pg:psql -a <your-app-name>
 
