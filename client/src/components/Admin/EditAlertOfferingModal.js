@@ -24,6 +24,16 @@ export default function DeleteAlertModal(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  function changeDateFormat(deadline){
+    let date = new Date(deadline);
+
+    let month = date.getMonth()+1;
+    if(month.length === 1) month = '0' + month;
+    
+    date = date.getFullYear() + '-0' + month + '-' + date.getDate();
+    return date;
+  }
+
   return (
     <div>
       <Tooltip title="Edit">
@@ -52,28 +62,52 @@ export default function DeleteAlertModal(props) {
                   <form action="#">
                     <div className="grid grid-cols-6 gap-6">
                       <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="product-name" className="text-sm font-medium text-gray-900 block mb-2">Product Name</label>
-                        <input type="text" name="product-name" id="product-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Apple Imac 27”" required />
+                        <label htmlFor="product-name" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
+                        <input value={props.application.department} type="text" name="product-name" id="product-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Computer Science and Engineering" required />
                       </div>
                       <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="category" className="text-sm font-medium text-gray-900 block mb-2">Category</label>
-                        <input type="text" name="category" id="category" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Electronics" required />
+                        <label htmlFor="category" className="text-sm font-medium text-gray-900 block mb-2">Specialization</label>
+                        <input value={props.application.specialization} type="text" name="category" id="category" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Artificial Intelligence" required />
                       </div>
                       <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="brand" className="text-sm font-medium text-gray-900 block mb-2">Brand</label>
-                        <input type="text" name="brand" id="brand" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Apple" required />
+                        <label htmlFor="brand" className="text-sm font-medium text-gray-900 block mb-2">Seats</label>
+                        <input value={props.application.seats} type="text" name="brand" id="brand" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="20" required />
                       </div>
                       <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Price</label>
-                        <input type="number" name="price" id="price" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="$2300" required />
+                        <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Gate Paper Codes</label>
+                        <input value={props.application.gate_paper_codes} type="text" name="price" id="price" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="CS" required />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="brand" className="text-sm font-medium text-gray-900 block mb-2">Deadline</label>
+                        <input
+                            type="date"
+                            value={changeDateFormat(props.application.deadline)}
+                            required
+                            id="start-date"
+                            name="start-date"
+                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        />
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Status</label>
+                        
+                        <select
+                          id="degree"
+                          name="degree"
+                          required
+                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        >
+                          <option value="">- Select -</option>
+                          <option value="Open">Open</option>
+                          <option value="Closed">Closed</option>
+                        </select>
                       </div>
                       <div className="col-span-full">
-                        <label htmlFor="product-details" className="text-sm font-medium text-gray-900 block mb-2">Product Details</label>
-                        <textarea id="product-details" rows={6} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-4" placeholder="e.g. 3.8GHz 8-core 10th-generation Intel Core i7 processor, Turbo Boost up to 5.0GHz, Ram 16 GB DDR4 2300Mhz" defaultValue={""} />
+                        <label htmlFor="product-details" className="text-sm font-medium text-gray-900 block mb-2">Eligibility</label>
+                        <textarea value={props.application.eligibility} id="product-details" rows={6} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-4" placeholder="Candidates with BTech/BE/MCA in the appropriate area with the valid GATE score in Computer Science and Information Technology(CS)." defaultValue={""} />
                       </div>
                     </div>
-                  </form>
-                </div>
+                  </form></div>
                 <div className="p-6 border-t border-gray-200 rounded-b">
                   <button className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save all</button>
                 </div>
