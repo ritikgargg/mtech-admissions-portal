@@ -74,6 +74,7 @@ CREATE TABLE admins(
 );
 -- 0 for super-admin, 1 for faculty-admins/supervisors
 
+-- Do always
 INSERT INTO admins(email_id, admin_type) VALUES('admin@admin', 0);
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
@@ -325,7 +326,7 @@ SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name
 --   deadline TIMESTAMP
 -- );
 
--- INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
+-- INSERT INTO mtech_offerings_1(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
 -- VALUES('Chemical Engineering', 'Chemical Engineering', 12, 'CH', '2022-03-20', 'Candidates with BTech/BE/MSc with valid score of GATE.');
 
 -- INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 

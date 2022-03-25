@@ -3,40 +3,39 @@ import ViewModal from "../Applicant/ViewModal";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
-import DeleteAlertOfferingModal from "./DeleteAlertOfferingModal";
-import EditAlertOfferingModal from "./EditAlertOfferingModal";
-import AddOfferingModal from "./AddOfferingModal";
+// import DeleteAlertOfferingModal from "./DeleteAlertOfferingModal";
+// import EditAlertOfferingModal from "./EditAlertOfferingModal";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export default function OfferingList() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/get-open-positions", {
-        headers: {
-          Authorization: getToken(),
-        },
-      })
-      .then((response) => {
-        if (response.data === 1) {
-          navigate("/logout");
-        } else {
-          setApplications(response.data);
-          console.log(response.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  //   useEffect(() => {
+  //     axios.get("/get-applications", {
+  //         headers: {
+  //             Authorization: getToken()
+  //         }
+  //     })
+  //     .then(response => {
+  //         if(response.data === 1) {
+  //           navigate("/logout");
+  //         }
+  //         else {
+  //             setApplications(response.data)        }
+  //       })
+  //     .catch(err => console.log(err));
+  // },[]);
   return (
     <main>
       <div className="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
         <div className="mb-1 w-full">
-          {/* <div className="mb-4">
+          <div className="mb-4">
             <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
-              All Offerings
+              Applications
             </h1>
-          </div> */}
+          </div>
           <div className="block sm:flex items-center md:divide-x md:divide-gray-100">
             {/* <form className="sm:pr-3 mb-4 sm:mb-0" action="#" method="GET">
               <label htmlFor="products-search" className="sr-only">
@@ -53,11 +52,8 @@ export default function OfferingList() {
               </div>
             </form> */}
             <div className="flex items-center sm:justify-end w-full">
-              <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
-                All Offerings
-              </h1>
-              {/* <div className="hidden md:flex pl-2 space-x-1">
-                <a
+              {/* <div className="hidden md:flex pl-2 space-x-1"> */}
+              {/* <a
                   href="#"
                   className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center"
                 >
@@ -73,8 +69,8 @@ export default function OfferingList() {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
-                <a
+                </a> */}
+              {/* <a
                   href="#"
                   className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center"
                 >
@@ -90,8 +86,8 @@ export default function OfferingList() {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
-                <a
+                </a> */}
+              {/* <a
                   href="#"
                   className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center"
                 >
@@ -107,8 +103,8 @@ export default function OfferingList() {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
-                <a
+                </a> */}
+              {/* <a
                   href="#"
                   className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center"
                 >
@@ -120,13 +116,12 @@ export default function OfferingList() {
                   >
                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                   </svg>
-                </a>
-              </div> */}
+                </a> */}
+              {/* </div> */}
               {/* <button type="button" data-modal-toggle="add-product-modal" className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center rounded-lg text-sm px-3 py-2 text-center sm:ml-auto">
                     <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" /></svg>
                     Add product
                   </button> */}
-              <AddOfferingModal />
             </div>
           </div>
         </div>
@@ -142,38 +137,38 @@ export default function OfferingList() {
                       scope="col"
                       className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                     >
-                      Department
+                      Applicant Name
                     </th>
                     <th
                       scope="col"
                       className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                     >
-                      Specialization
+                      Email Address
                     </th>
                     <th
                       scope="col"
                       className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                     >
-                      Seats
+                      COAP Registration Number
                     </th>
                     <th
                       scope="col"
                       className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                     >
-                      Eligibility
+                      GATE Registration Number
                     </th>
                     <th
                       scope="col"
                       className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                     >
-                      Gate Paper Codes
+                      GATE Score
                     </th>
 
                     <th
                       scope="col"
                       className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                     >
-                      Deadline
+                      AIR
                     </th>
                     <th
                       scope="col"
@@ -189,7 +184,7 @@ export default function OfferingList() {
                     <tr>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-500">
-                          No positions open currently!
+                          No applications for this opening currently!
                         </div>
                       </td>
                     </tr>
@@ -200,7 +195,7 @@ export default function OfferingList() {
                     {applications.map((application) => (
                       <tr key={application.offering_id}>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {application.department}
+                          {application.full_name}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                           {application.specialization}
@@ -248,14 +243,13 @@ export default function OfferingList() {
                           )}
                         </td>
                         <td className="p-6 whitespace-nowrap space-x-2 flex">
-                          {/* <button type="button" data-modal-toggle="product-modal" className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
-                            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clipRule="evenodd" /></svg>
-                             </button> */}
-                          <EditAlertOfferingModal application={application} />
-                          {/* <button type="button" data-modal-toggle={"delete-product-modal"+ application.offering_id} className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
-                            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
-                          </button> */}
-                          <DeleteAlertOfferingModal />
+                          <Link
+                            to={"/view/" + application.application_id}
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
+                            {/* <img className="h-7 w-7 text-indigo-600" alt="eye-icon" src="https://cdn-icons-png.flaticon.com/512/535/535193.png"/> */}
+                            <VisibilityIcon />
+                          </Link>
                         </td>
                       </tr>
                     ))}
@@ -266,27 +260,86 @@ export default function OfferingList() {
           </div>
         </div>
       </div>
-      {/* <div className="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">
-            <div className="flex items-center mb-4 sm:mb-0">
-              <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-              </a>
-              <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center mr-2">
-                <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
-              </a>
-              <span className="text-sm font-normal text-gray-500">Showing <span className="text-gray-900 font-semibold">1-20</span> of <span className="text-gray-900 font-semibold">2290</span></span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <a href="#" className="flex-1 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center">
-                <svg className="-ml-1 mr-1 h-5 w-5"  fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                Previous
-              </a>
-              <a href="#" className="flex-1 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center">
-                Next
-                <svg className="-mr-1 ml-1 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
-              </a>
-            </div>
-          </div> */}
+      <div className="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">
+        <div className="flex items-center mb-4 sm:mb-0">
+          <a
+            href="#"
+            className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center"
+          >
+            <svg
+              className="w-7 h-7"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </a>
+          <a
+            href="#"
+            className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center mr-2"
+          >
+            <svg
+              className="w-7 h-7"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </a>
+          <span className="text-sm font-normal text-gray-500">
+            Showing <span className="text-gray-900 font-semibold">1-20</span> of{" "}
+            <span className="text-gray-900 font-semibold">2290</span>
+          </span>
+        </div>
+        <div className="flex items-center space-x-3">
+          <a
+            href="#"
+            className="flex-1 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center"
+          >
+            <svg
+              className="-ml-1 mr-1 h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Previous
+          </a>
+          <a
+            href="#"
+            className="flex-1 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center"
+          >
+            Next
+            <svg
+              className="-mr-1 ml-1 h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
       {/* <div className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="product-modal" aria-hidden="true">
             <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
               <div className="bg-white rounded-lg shadow relative">
