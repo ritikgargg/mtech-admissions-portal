@@ -6,58 +6,136 @@ import { Link } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Tooltip } from "@mui/material";
+import noDataPic from "../../images/no-data.jpg";
 
 export default function OfferingList() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
   const [startCount, setStartCount] = useState(1);
   const [limit, setLimit] = useState(2);
+  const [cycleName, setCycleName] = useState("Admission Cycle");
+  const [offeringName, setOfferingName] = useState("Offering");
   const params = useParams();
 
-    useEffect(() => {
-      axios.get("/get-offering-applications", {
-          headers: {
-              Authorization: getToken(),
-              cycle_id: params.cycle_id,
-              offering_id: params.offering_id
-          }
+  useEffect(() => {
+    axios
+      .get("/get-offering-applications", {
+        headers: {
+          Authorization: getToken(),
+          cycle_id: params.cycle_id,
+          offering_id: params.offering_id,
+        },
       })
-      .then(response => {
-          if(response.data === 1) {
-            navigate("/logout");
-          }
-          else {
-              setApplications(response.data)
-              console.log(response.data)
-              // if(response.data.length >= 0)
-              //   setStartCount(1)        
-            }
-        })
-      .catch(err => console.log(err));
-  },[]);
+      .then((response) => {
+        if (response.data === 1) {
+          navigate("/logout");
+        } else {
+          setApplications(response.data.applications);
+          setCycleName(response.data.cycle_name);
+          setOfferingName(response.data.offering_name);
+          console.log(response.data);
+          // if(response.data.length >= 0)
+          //   setStartCount(1)
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   function range(start, end) {
-    console.log(Array(end - start + 1).fill().map((_, idx) => start + idx))
-    return Array(end - start + 1).fill().map((_, idx) => start + idx);
+    console.log(
+      Array(end - start + 1)
+        .fill()
+        .map((_, idx) => start + idx)
+    );
+    return Array(end - start + 1)
+      .fill()
+      .map((_, idx) => start + idx);
   }
 
   const increaseStartCount = () => {
-    if(startCount + limit + 1 < applications.length) {
+    if (startCount + limit + 1 < applications.length) {
       setStartCount(startCount + limit + 1);
     }
-  }
+  };
 
   const decreaseStartCount = () => {
     setStartCount(Math.max(startCount - limit - 1, 1));
-  }
+  };
   return (
     <main>
       <div className="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
         <div className="mb-1 w-full">
           <div className="mb-4">
-            <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
-              Applications
-            </h1>
+            <div>
+              <style
+                dangerouslySetInnerHTML={{
+                  __html:
+                    "\n  .clip {\n    clip-path: polygon(0 0, 0% 100%, 100% 50%);\n  }\n",
+                }}
+              />
+              <nav className="flex" aria-label="Breadcrumb">
+                <ol className="flex overflow-hidden text-gray-700 border border-gray-200 rounded-lg">
+                  <li className="flex items-center">
+                    <Link
+                      className="flex items-center h-10 px-4 transition-colors bg-gray-100 hover:text-gray-900"
+                      to="/admin/admission-cycles"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        />
+                      </svg>
+                      <span className="ml-1.5 font-medium text-xs">
+                        {" "}
+                        {cycleName}{" "}
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="flex items-center">
+                    <Link
+                      className="flex items-center h-10 px-4 transition-colors bg-gray-100 hover:text-gray-900"
+                      to={"/admin/offerings/" + params.cycle_id}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        />
+                      </svg>
+                      <span className="ml-1.5 font-medium text-xs">
+                        {" "}
+                        {offeringName}{" "}
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="relative flex items-center">
+                    <span className="absolute inset-y-0 w-4 h-10 bg-gray-100 -left-px clip">
+                      {" "}
+                    </span>
+                    <div className="flex items-center h-10 pl-8 pr-4 text-xs font-medium transition-colors bg-white hover:text-gray-900">
+                      Applications
+                    </div>
+                  </li>
+                </ol>
+              </nav>
+            </div>
           </div>
           <div className="block sm:flex items-center md:divide-x md:divide-gray-100">
             {/* <form className="sm:pr-3 mb-4 sm:mb-0" action="#" method="GET">
@@ -202,20 +280,14 @@ export default function OfferingList() {
                     <th scope="col" className="p-4"></th>
                   </tr>
                 </thead>
-                {applications.length === 0 && (
-                  <tbody>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">
-                          No applications for this opening currently!
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                )}
                 {applications.length !== 0 && (
                   <tbody className="bg-white divide-y divide-gray-200">
-                    { [...range(startCount  - 1, Math.min(startCount + limit, applications.length) - 1)].map((i) => (
+                    {[
+                      ...range(
+                        startCount - 1,
+                        Math.min(startCount + limit, applications.length) - 1
+                      ),
+                    ].map((i) => (
                       <tr key={applications[i].application_id}>
                         <td className="p-4 w-1/6 text-left text-sm text-gray-500 tracking-wider font-bold">
                           <div className="break-all">
@@ -253,21 +325,39 @@ export default function OfferingList() {
                         </td>
                         <td className="p-6 whitespace-nowrap space-x-2 flex">
                           <Link
-                            to={"/admin/view/"+ params.cycle_id + "/"+ params.offering_id + "/" + applications[i].application_id}
+                            to={
+                              "/admin/view/" +
+                              params.cycle_id +
+                              "/" +
+                              params.offering_id +
+                              "/" +
+                              applications[i].application_id
+                            }
                             className="text-indigo-600 hover:text-indigo-900"
                           >
                             {/* <img className="h-7 w-7 text-indigo-600" alt="eye-icon" src="https://cdn-icons-png.flaticon.com/512/535/535193.png"/> */}
                             <Tooltip title="View Application">
-                            <VisibilityIcon />
+                              <VisibilityIcon />
                             </Tooltip>
                           </Link>
                         </td>
                       </tr>
-                    ))
-                      }
+                    ))}
                   </tbody>
                 )}
               </table>
+              {applications.length === 0 && (
+                <div className="pb-6 bg-white">
+                  <div className="w-3/5 mx-auto my-50 text-center">
+                    <img alt="No data" src={noDataPic} />
+                    <div className="h-5" />
+                    <p className="font-josefin-sans text-2xl font-semibold">
+                      No applications for this offering yet!
+                    </p>
+                    <div className="h-6" />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -309,8 +399,15 @@ export default function OfferingList() {
             </svg>
           </button>
           <span className="text-sm font-normal text-gray-500">
-            Showing <span className="text-gray-900 font-semibold">{startCount}-{Math.min(startCount + limit, applications.length)}</span> of
-            <span className="text-gray-900 font-semibold"> {applications.length}</span>
+            Showing{" "}
+            <span className="text-gray-900 font-semibold">
+              {startCount}-{Math.min(startCount + limit, applications.length)}
+            </span>{" "}
+            of
+            <span className="text-gray-900 font-semibold">
+              {" "}
+              {applications.length}
+            </span>
           </span>
         </div>
         <div className="flex items-center space-x-3">

@@ -28,16 +28,18 @@ export default function DeleteAlertModal(props) {
   return (
     <div>
       <Tooltip title="Delete">
-        <Button
+        <button
           onClick={handleOpen}
+          className="hover:bg-gray-100 rounded-lg"
           style={{
-            color: "rgb(184,184,184)",
             fontSize: "0.875rem",
             textTransform: "none",
+            width: "35px",
+            height: "35px",
           }}
         >
-          <img className="w-5 h-5" src={Delete} alt="Delete" />
-        </Button>
+          <img className="w-5 h-5 mx-auto" src={Delete} alt="Delete" />
+        </button>
       </Tooltip>
       <Modal
         open={open}
@@ -66,8 +68,7 @@ export default function DeleteAlertModal(props) {
               Are you sure you want to do that?
             </h2>
             <p className="mt-2 text-sm text-gray-500">
-              Doing that will delete all the data associated with the admission
-              cycle, are you 100% sure it's OK?
+              Are you 100% sure, it's OK?
             </p>
             <div className="flex items-center justify-end mt-8 text-xs">
               <button

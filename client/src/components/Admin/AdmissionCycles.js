@@ -6,6 +6,10 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import EditCurrentCycle from "./EditCurrentCycle";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Toggle from "./Toggle";
+import background from "../../images/background.jpg";
 
 function AdmissionCycles() {
   // baakki backend topatop
@@ -19,7 +23,12 @@ function AdmissionCycles() {
   const [addAdmissionCycle, setAddAdmissionCycle] = useState(false);
   const [cycleInfo, setCycleInfo] = useState(empty_cycle);
   const [previousCycles, setPreviousCycles] = useState([]);
+  const [makeCurrent, setMakeCurrent] = React.useState(false);
   const params = useParams();
+
+  const handleChangeCurrent = (event) => {
+    setMakeCurrent(event.target.checked);
+  };
 
   const months = [
     "Jan",
@@ -57,6 +66,7 @@ function AdmissionCycles() {
     formData.append("name", String(cycleInfo["name"]));
     formData.append("start", String(cycleInfo["duration_start"]));
     formData.append("end", String(cycleInfo["duration_end"]));
+    formData.append("make_current", makeCurrent);
 
     Axios.post("/add-admission-cycle", formData, {
       headers: {
@@ -89,26 +99,27 @@ function AdmissionCycles() {
   function handleDelete(list, setList, index) {
     let copy = [...list];
     let deletedCycle = copy.splice(index, 1);
-    setList(copy);
 
-    console.log("deteledCycleName: ", deletedCycle[0]["name"]);
-    console.log("deteledCycleStart: ", deletedCycle[0]["start"]);
-    console.log("deteledCycleEnd: ", deletedCycle[0]["end"]);
+    console.log("deletedCycle : ", deletedCycle[0].cycle_id);
 
-    // Axios.post("/delete-admission-cycle", deletedCycle.cycle_id, {
-    //   headers: {
-    //     Authorization: getToken(),
-    //   },
-    // })
-    //   .then((response) => {
-    //     if (response.data === 1) {
-    //       navigate("/logout");
-    //     } else {
-    //       window.location.reload();
-    //     }
-    //   })
-    //   .catch();
+    const formData = new FormData();
+    formData.append("cycle_id", deletedCycle[0].cycle_id);
+
+    Axios.post("/delete-admission-cycle", formData, {
+      headers: {
+        Authorization: getToken(),
+      },
+    })
+      .then((response) => {
+        if (response.data === 1) {
+          navigate("/logout");
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch();
   }
+
   useEffect(() => {
     Axios.get("/get-admission-cycles", {
       headers: {
@@ -121,7 +132,7 @@ function AdmissionCycles() {
         } else {
           let cc = [];
           let pc = [];
-          console.log(response.data);
+          // console.log(response.data);
           response.data.results.reverse().map((cycle) => {
             if (cycle.cycle_id === response.data.current_cycle_id) {
               cc.push(cycle);
@@ -137,8 +148,13 @@ function AdmissionCycles() {
   }, []);
 
   return (
-    <div className="min-h-[400px]">
-      <div className="mt-10 w-4/5 mx-auto sm:w-3/5 md:w-2/5">
+    <div
+      className="min-h-screen overflow-hidden"
+      style={{
+        backgroundImage: `url(${background})`,
+      }}
+    >
+      <div className="pt-10 w-4/5 mx-auto sm:w-3/5 md:w-2/5 overflow-y-auto">
         <div className="">Current Admission Cycles</div>
         <div className="mt-1 items-start h-[1px] bg-gray-300" />
         {addAdmissionCycle ? (
@@ -207,6 +223,18 @@ function AdmissionCycles() {
                     />
                   </div>
                 </div>
+                <div className="p-3">
+                  <FormControlLabel
+                    control={
+                      <Toggle
+                        checked={makeCurrent}
+                        onChange={handleChangeCurrent}
+                        sx={{ m: 1 }}
+                      />
+                    }
+                    label="Make Current Admission Cycle"
+                  />
+                </div>
                 <button
                   type="submit"
                   className="block w-full px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg"
@@ -231,7 +259,9 @@ function AdmissionCycles() {
                 alt="Plus"
               />
               <div className="col-span-7 text-left">
-                <h5 className="text-lg font-semibold text-gray-900">Add New</h5>
+                <h5 className="text-lg font-semibold text-gray-900 font-josefin-sans">
+                  Add New
+                </h5>
                 <p>Click to add a new admission cycle</p>
               </div>
             </div>
@@ -241,54 +271,64 @@ function AdmissionCycles() {
         <div className="mt-4 space-y-4">
           {currentCycles.length !== 0 &&
             currentCycles.map((cycle, ind) => (
-
-                <div className="bg-white h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
-                  <div className="grid grid-cols-10 items-center justify-center content-center text-gray-500 sm:pr-8">
-                    <Link className="col-span-9 grid grid-cols-9" to={"/admin/offerings/" + cycle.cycle_id}>
-                      <img
-                        className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
-                        src={Calendar}
-                        alt="Calendar"
-                      />
-                      <div className="col-span-7 text-left">
-                        <h5 className="text-lg font-semibold text-gray-900">
-                          {cycle.name}
-                        </h5>
-                        <p>
-                          {cycle.duration_start} - {cycle.duration_end}
-                        </p>
-                      </div>
-                    </Link>
-                    <DeleteAdmissionCycleModal
-                      className="col-span-1"
-                      onDelete={handleDelete}
-                      list={currentCycles}
-                      setList={setCurrentCycles}
-                      index={ind}
-                    />
-                  </div>
-                </div>
-            ))}
-        </div>
-      </div>
-
-      {previousCycles.length !== 0 && (
-        <div className="my-14 w-4/5 mx-auto sm:w-3/5 md:w-2/5">
-          <div className="">Previous Admission Cycles</div>
-          <div className="mt-1 items-start h-[1px] bg-gray-300" />
-
-          <div className=" mt-5 mx-auto space-y-4">
-            {previousCycles.map((previousCycle, ind) => (
-              <div className="bg-[#fcfcfc] h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
-                <div className="grid grid-cols-10 items-center justify-center content-center text-gray-500 sm:pr-8">
-                  <Link className="col-span-9 grid grid-cols-9" to={"/admin/offerings/" + previousCycle.cycle_id}>
+              <div className="bg-white h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
+                <div className="grid grid-cols-11 items-center justify-center content-center text-gray-500 sm:pr-8">
+                  <Link
+                    className="col-span-9 grid grid-cols-9"
+                    to={"/admin/offerings/" + cycle.cycle_id}
+                  >
                     <img
                       className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
                       src={Calendar}
                       alt="Calendar"
                     />
                     <div className="col-span-7 text-left">
-                      <h5 className=" text-lg font-semibold text-gray-900">
+                      <h5 className="text-lg font-semibold text-gray-900 font-josefin-sans">
+                        {cycle.name}
+                      </h5>
+                      <p>
+                        {cycle.duration_start} - {cycle.duration_end}
+                      </p>
+                    </div>
+                  </Link>
+                  <EditCurrentCycle
+                    className="col-span-1"
+                    cycle={cycle}
+                    is_current={true}
+                  />
+                  <DeleteAdmissionCycleModal
+                    className="col-span-1"
+                    onDelete={handleDelete}
+                    list={currentCycles}
+                    setList={setCurrentCycles}
+                    index={ind}
+                  />
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      {previousCycles.length !== 0 && (
+        <div className="py-14 w-4/5 mx-auto sm:w-3/5 md:w-2/5">
+          <div className="">Previous Admission Cycles</div>
+          <div className="mt-1 items-start h-[1px] bg-gray-300" />
+
+          <div className=" mt-5 mx-auto space-y-4">
+            {previousCycles.map((previousCycle, ind) => (
+              <div className="bg-[#fcfcfc] h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
+                <div className="grid grid-cols-11 items-center justify-center content-center text-gray-500 sm:pr-8">
+                  <Link
+                    className="col-span-9 grid grid-cols-9"
+                    to={"/admin/offerings/" + previousCycle.cycle_id}
+                  >
+                    <img
+                      className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
+                      src={Calendar}
+                      alt="Calendar"
+                    />
+                    <div className="col-span-7 text-left">
+                      <h5 className=" text-lg font-semibold text-gray-900 font-josefin-sans">
                         {previousCycle.name}
                       </h5>
                       <p>
@@ -297,6 +337,11 @@ function AdmissionCycles() {
                       </p>
                     </div>
                   </Link>
+                  <EditCurrentCycle
+                    className="col-span-1"
+                    cycle={previousCycle}
+                    is_current={false}
+                  />
                   <DeleteAdmissionCycleModal
                     className="col-span-1"
                     onDelete={handleDelete}

@@ -6,6 +6,7 @@ import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import ViewModal from "./ViewModal";
+import noDataPic from "../../images/no-data.jpg";
 
 export default function ApplicantHomePage() {
   const navigate = useNavigate();
@@ -139,18 +140,6 @@ export default function ApplicantHomePage() {
                       </tr>
                     </thead>
 
-                    {applications.length === 0 && (
-                      <tbody>
-                        <tr>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-500">
-                              No positions open currently!
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    )}
-
                     {applications.length !== 0 && (
                       <tbody className="bg-white divide-y divide-gray-200">
                         {applications.map((application) => (
@@ -237,6 +226,17 @@ export default function ApplicantHomePage() {
                       </tbody>
                     )}
                   </table>
+                  {applications.length === 0 && (
+                    <div className="bg-white">
+                      <div className="w-3/5 mx-auto my-50 text-center">
+                        <div className="h-5" />
+                        <img alt="No data" src={noDataPic} />
+                        <p className="font-josefin-sans text-2xl font-semibold mb-5">
+                          No positions open currently!
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

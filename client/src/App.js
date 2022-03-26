@@ -31,6 +31,8 @@ import OfferingList from "./components/Admin/OfferingList";
 import ApplicantList from "./components/Admin/ApplicationList";
 import AdminNavbarWithSidebar from "./components/Admin/AdminNavbarWithSidebar";
 import ViewSubmittedApplicationAdmin from "./components/Admin/ViewSubmittedApplicationAdmin";
+import ManageAdmins from "./components/Admin/ManageAdmins";
+import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 
 function App() {
   // Pages that can only be accessed if you are logged in
@@ -115,38 +117,42 @@ function App() {
           }
         ></Route>
 
-        <Route
-          path="/admin/admission-cycles"
-          element={
-            // <PrivateRoute>
-            <AdminNavbarWithSidebar mainContent={<AdmissionCycles />} />
-            // </PrivateRoute>
-          }
-        ></Route>
+        <Route element={<WithNavbarAndSidebar />}>
+          <Route
+            path="/admin/dashboard"
+            element={
+              // <PrivateRoute>
+              <AdminDashboard />
+              // </PrivateRoute>
+            }
+          ></Route>
 
-        <Route
-          path="/admin/dashboard"
-          element={
-            // <PrivateRoute>
-            <AdminNavbarWithSidebar mainContent={<AdminDashboard />} />
-            // </PrivateRoute>
-          }
-        ></Route>
+          <Route
+            path="/admin/offerings/:cycle_id"
+            element={<OfferingList />}
+          ></Route>
 
-        {/* <Route path="/admin/offerings" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<OfferingList/>}/></PrivateRoute>}></Route> */}
-        <Route
-          path="/admin/offerings/:cycle_id"
-          element={<AdminNavbarWithSidebar mainContent={<OfferingList />} />}
-        ></Route>
+          <Route
+            path="/admin/applications/:cycle_id/:offering_id"
+            element={<ApplicantList />}
+          ></Route>
 
-        <Route
-          path="/admin/applications/:cycle_id/:offering_id"
-          element={<AdminNavbarWithSidebar mainContent={<ApplicantList />} />}
-        ></Route>
-        <Route
-          path="/admin/view/:cycle_id/:offering_id/:application_id"
-          element={<AdminNavbarWithSidebar mainContent={<ViewSubmittedApplicationAdmin />} />}
-        />
+          <Route
+            path="/admin/view/:cycle_id/:offering_id/:application_id"
+            element={<ViewSubmittedApplicationAdmin />}
+          />
+
+          <Route path="/admin/manage-admins/" element={<ManageAdmins />} />
+
+          <Route
+            path="/admin/admission-cycles"
+            element={
+              // <PrivateRoute>
+              <AdmissionCycles />
+              // </PrivateRoute>
+            }
+          ></Route>
+        </Route>
 
         <Route element={<WithHeaderFooter />}>
           <Route path="/" element={<HomePage />}></Route>

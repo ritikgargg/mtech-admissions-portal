@@ -11,25 +11,27 @@ import AddOfferingModal from "./AddOfferingModal";
 import { Tooltip } from "@mui/material";
 // import groupPic from '../../images/group.png'
 import { UserGroupIcon } from "@heroicons/react/solid";
-
+import noDataPic from "../../images/no-data.jpg";
 
 export default function OfferingList() {
   const navigate = useNavigate();
   const params = useParams();
+  const [cycleName, setCycleName] = useState("Admission Cycle");
   const [applications, setApplications] = useState([]);
   useEffect(() => {
     axios
       .get("/get-offerings", {
         headers: {
           Authorization: getToken(),
-          cycle_id: params.cycle_id
+          cycle_id: params.cycle_id,
         },
       })
       .then((response) => {
         if (response.data === 1) {
           navigate("/logout");
         } else {
-          setApplications(response.data);
+          setApplications(response.data.offerings);
+          setCycleName(response.data.cycle_name);
           console.log(response.data);
         }
       })
@@ -60,10 +62,58 @@ export default function OfferingList() {
               </div>
             </form> */}
             <div className="flex justify-between">
-            {/* <div className="flex items-center sm:justify-end w-full"> */}
-              <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
+              {/* <div className="flex items-center sm:justify-end w-full"> */}
+              {/* <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
                 Offerings
-              </h1>
+              </h1> */}
+              <div>
+                <style
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "\n  .clip {\n    clip-path: polygon(0 0, 0% 100%, 100% 50%);\n  }\n",
+                  }}
+                />
+                <nav className="flex" aria-label="Breadcrumb">
+                  <ol className="flex overflow-hidden text-gray-700 border border-gray-200 rounded-lg">
+                    <li className="flex items-center">
+                      <Link
+                        className="flex items-center h-10 px-4 transition-colors bg-gray-100 hover:text-gray-900"
+                        to="/admin/admission-cycles"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                          />
+                        </svg>
+                        <span className="ml-1.5 font-medium text-xs">
+                          {" "}
+                          {cycleName}{" "}
+                        </span>
+                      </Link>
+                    </li>
+                    <li className="relative flex items-center">
+                      <span className="absolute inset-y-0 w-4 h-10 bg-gray-100 -left-px clip">
+                        {" "}
+                      </span>
+                      <div
+                        className="flex items-center h-10 pl-8 pr-4 text-xs font-medium transition-colors bg-white hover:text-gray-900"
+                        href="/collections/shirts"
+                      >
+                        Offerings
+                      </div>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
               {/* <div className="hidden md:flex pl-2 space-x-1">
                 <a
                   href="#"
@@ -134,7 +184,7 @@ export default function OfferingList() {
                     <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" /></svg>
                     Add product
                   </button> */}
-              <AddOfferingModal/>
+              <AddOfferingModal />
             </div>
           </div>
         </div>
@@ -192,17 +242,7 @@ export default function OfferingList() {
                     <th scope="col" className="p-4"></th>
                   </tr>
                 </thead>
-                {applications.length === 0 && (
-                  <tbody>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">
-                          No positions open currently!
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                )}
+
                 {applications.length !== 0 && (
                   <tbody className="bg-white divide-y divide-gray-200">
                     {applications.map((offering) => (
@@ -275,13 +315,20 @@ export default function OfferingList() {
                         </td>
 
                         <td className="p-6 whitespace-nowrap space-x-2 flex">
-                          <Link to={"/admin/applications/"+ params.cycle_id + "/" + offering.offering_id}>
+                          <Link
+                            to={
+                              "/admin/applications/" +
+                              params.cycle_id +
+                              "/" +
+                              offering.offering_id
+                            }
+                          >
                             <Tooltip title="View Applications">
                               <button
                                 type="button"
                                 className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
                               >
-                                <UserGroupIcon className="w-5 h-5"/>
+                                <UserGroupIcon className="w-5 h-5" />
                                 {/* <img className="w-5 h-5 text-white" src={groupPic}/> */}
                               </button>
                             </Tooltip>
@@ -295,13 +342,24 @@ export default function OfferingList() {
                             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
                           </button> */}
                           <DeleteAlertOfferingModal application={offering} />
-                          
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 )}
               </table>
+              {applications.length === 0 && (
+                <div className="bg-white">
+                  <div className="w-3/5 mx-auto my-50 text-center">
+                    <img alt="No data" src={noDataPic} />
+                    <div className="h-5" />
+                    <p className="font-josefin-sans text-2xl font-semibold">
+                      No positions open currently!
+                    </p>
+                    <div className="h-6" />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
