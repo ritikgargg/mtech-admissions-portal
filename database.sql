@@ -74,9 +74,6 @@ CREATE TABLE admins(
 );
 -- 0 for super-admin, 1 for faculty-admins/supervisors
 
--- Do always
-INSERT INTO admins(email_id, admin_type) VALUES('admin@admin', 0);
-
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
   RETURNS TRIGGER 
   LANGUAGE PLPGSQL
@@ -223,6 +220,9 @@ CREATE TRIGGER trigger_insert_into_admission_cycles
 
 -- Always executed because admin will only be allowed to update it
 INSERT INTO current_cycle(cycle_id) VALUES(1);
+
+-- Do always
+INSERT INTO admins(email_id, admin_type) VALUES('admin@admin', 0);
 
 -- To check triggers
 -- INSERT INTO admission_cycles(name) VALUES('AY2022-23');
