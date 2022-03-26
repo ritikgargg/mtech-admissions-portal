@@ -75,6 +75,8 @@ const save_education_details = async (req, res, next) => {
   /**
    * Verify using authToken
    */
+  console.log("huehue");
+  console.log(req.body);
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
@@ -395,7 +397,6 @@ const check_applicant_info = async (req, res) => {
     // console.log("No Offerings Yet");
     return res.send("2"); /** No offerings yet */
   }
-
 
   /** Check related to the existence of offering */
   const offering_exists_check = await pool.query(

@@ -107,6 +107,18 @@ app.post(
 
 app.get("/get-admission-cycles", admindB.get_admission_cycles);
 
+app.post(
+  "/delete-admission-cycle",
+  upload.fields([]),
+  admindB.delete_admission_cycle
+);
+
+app.post(
+  "/edit-admission-cycle",
+  upload.fields([]),
+  admindB.edit_admission_cycle
+);
+
 app.post("/add-offering", upload.fields([]), admindB.add_offering);
 
 app.post("/edit-offering", upload.fields([]), admindB.edit_offering);

@@ -28,6 +28,7 @@ const add_admission_cycle = async (req, res) => {
   let cycle_id = cycle.rows[0].cycle_id;
 
   let info = req.body;
+  console.log(info);
 
   const results = await pool.query(
     "INSERT INTO admission_cycles(name, duration_start, duration_end) VALUES($1, $2, $3) RETURNING cycle_id;",
@@ -36,10 +37,12 @@ const add_admission_cycle = async (req, res) => {
 
   var new_cycle_id = results.rows[0].cycle_id;
 
-  const change_current_cycle = await pool.query(
-    "UPDATE current_cycle SET cycle_id = $1;",
-    [new_cycle_id]
-  );
+  if (info.make_current === "true") {
+    const change_current_cycle = await pool.query(
+      "UPDATE current_cycle SET cycle_id = $1;",
+      [new_cycle_id]
+    );
+  }
 
   return res.send("Ok");
 };
@@ -70,6 +73,78 @@ const get_admission_cycles = async (req, res) => {
   const results = await pool.query("SELECT * from admission_cycles;");
 
   return res.send({ results: results.rows, current_cycle_id: cycle_id });
+};
+
+/** Delete admission cycle */
+const delete_admission_cycle = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  let cycle_id = req.body.cycle_id;
+  console.log(cycle_id);
+
+  const results = await pool.query(
+    "DELETE from admission_cycles WHERE cycle_id = $1",
+    [cycle_id]
+  );
+
+  const update_current_cycle = await pool.query(
+    "UPDATE current_cycle SET cycle_id = 0;"
+  );
+
+  return res.send("Ok");
+};
+
+/** Edit admission cycle */
+const edit_admission_cycle = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  let info = req.body;
+
+  const results = await pool.query(
+    "UPDATE admission_cycles SET name = $1, duration_start = $2, duration_end = $3 WHERE cycle_id = $4;",
+    [info.name, info.duration_start, info.duration_end, info.cycle_id]
+  );
+
+  if (info.make_current === "true") {
+    const make_current_cycle = await pool.query(
+      "UPDATE current_cycle SET cycle_id = $1;",
+      [info.cycle_id]
+    );
+  }
+
+  return res.send("Ok");
 };
 
 /** Add offering to a particular cycle  */
@@ -230,7 +305,19 @@ const get_offerings = async (req, res) => {
     "SELECT * FROM mtech_offerings_" + cycle_id + ";"
   );
 
-  return res.send(results.rows);
+  const cycle_name = await pool.query(
+    "SELECT NAME FROM admission_cycles WHERE cycle_id = $1;",
+    [cycle_id]
+  );
+
+  if (cycle_name.rows.length === 0) {
+    return res.send("1");
+  }
+
+  return res.send({
+    offerings: results.rows,
+    cycle_name: cycle_name.rows[0].name,
+  });
 };
 
 /** Get applications for an offering */
@@ -272,33 +359,56 @@ const get_offering_applications = async (req, res) => {
     [offering_id]
   );
 
-  return res.send(results.rows);
-};
+  const cycle_name = await pool.query(
+    "SELECT NAME FROM admission_cycles WHERE cycle_id = $1;",
+    [cycle_id]
+  );
 
+  if (cycle_name.rows.length === 0) {
+    return res.send("1");
+  }
+
+  const offering_name = await pool.query(
+    "SELECT specialization FROM mtech_offerings_" +
+      cycle_id +
+      " WHERE offering_id = $1;",
+    [offering_id]
+  );
+
+  if (offering_name.rows.length === 0) {
+    return res.send("1");
+  }
+
+  return res.send({
+    applications: results.rows,
+    cycle_name: cycle_name.rows[0].name,
+    offering_name: offering_name.rows[0].specialization,
+  });
+};
 
 /** Get application info for an submitted application */
 const get_application_info_admin = async (req, res) => {
   /**
    * Verify using authToken
    */
-   authToken = req.headers.authorization;
-   let jwtSecretKey = process.env.JWT_SECRET_KEY;
- 
-   var verified = null;
- 
-   try {
-     verified = jwt.verify(authToken, jwtSecretKey);
-   } catch (error) {
-     return res.send("1"); /** Error, logout on user side */
-   }
- 
-   if (!verified) {
-     return res.send("1"); /** Error, logout on user side */
-   }
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
-   cycle_id = req.headers.cycle_id;
-   application_id = req.headers.application_id;
-   
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  cycle_id = req.headers.cycle_id;
+  application_id = req.headers.application_id;
+
   /** Check if applications table exists **/
   const check_applications_table = await pool.query(
     "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
@@ -309,7 +419,7 @@ const get_application_info_admin = async (req, res) => {
   if (applications_table_exists === false) {
     return res.send("1"); /** No application table */
   }
-  
+
   /** Check if application exists */
   const query_result = await pool.query(
     "SELECT email_id FROM applications_" +
@@ -322,18 +432,27 @@ const get_application_info_admin = async (req, res) => {
     return res.send("1");
   }
 
-  const results = await pool.query("SELECT * FROM mtech_offerings_" + cycle_id +  " as MO, applications_" + cycle_id + " as A WHERE application_id = $1 AND MO.offering_id = A.offering_id;", [application_id]);
+  const results = await pool.query(
+    "SELECT * FROM mtech_offerings_" +
+      cycle_id +
+      " as MO, applications_" +
+      cycle_id +
+      " as A WHERE application_id = $1 AND MO.offering_id = A.offering_id;",
+    [application_id]
+  );
 
   return res.send(results.rows[0]);
-}
+};
 
 module.exports = {
   add_admission_cycle,
-  add_offering,
   get_admission_cycles,
+  delete_admission_cycle,
+  edit_admission_cycle,
+  add_offering,
   edit_offering,
   delete_offering,
   get_offerings,
   get_offering_applications,
-  get_application_info_admin
+  get_application_info_admin,
 };

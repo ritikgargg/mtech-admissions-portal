@@ -70,7 +70,8 @@ CREATE TABLE applicants (
 
 CREATE TABLE admins(
   email_id TEXT PRIMARY KEY,
-  admin_type INT NOT NULL
+  admin_type INT NOT NULL,
+  department TEXT
 );
 -- 0 for super-admin, 1 for faculty-admins/supervisors
 
