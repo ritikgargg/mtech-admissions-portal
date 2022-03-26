@@ -1,21 +1,28 @@
 import React from "react";
 import ViewModal from "../Applicant/ViewModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import DeleteAlertOfferingModal from "./DeleteAlertOfferingModal";
 import EditAlertOfferingModal from "./EditAlertOfferingModal";
 import AddOfferingModal from "./AddOfferingModal";
+// import Temp from "./Temp";
+import { Tooltip } from "@mui/material";
+// import groupPic from '../../images/group.png'
+import { UserGroupIcon } from "@heroicons/react/solid";
+
 
 export default function OfferingList() {
   const navigate = useNavigate();
+  const params = useParams();
   const [applications, setApplications] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/get-offerings", {
+      .get("/get-offerings", {
         headers: {
           Authorization: getToken(),
+          cycle_id: params.cycle_id
         },
       })
       .then((response) => {
@@ -37,7 +44,7 @@ export default function OfferingList() {
               All Offerings
             </h1>
           </div> */}
-          <div className="block sm:flex items-center md:divide-x md:divide-gray-100">
+          <div className="block items-center md:divide-x md:divide-gray-100">
             {/* <form className="sm:pr-3 mb-4 sm:mb-0" action="#" method="GET">
               <label htmlFor="products-search" className="sr-only">
                 Search
@@ -52,7 +59,8 @@ export default function OfferingList() {
                 />
               </div>
             </form> */}
-            <div className="flex items-center sm:justify-end w-full">
+            <div className="flex justify-between">
+            {/* <div className="flex items-center sm:justify-end w-full"> */}
               <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
                 Offerings
               </h1>
@@ -126,7 +134,7 @@ export default function OfferingList() {
                     <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" /></svg>
                     Add product
                   </button> */}
-              <AddOfferingModal />
+              <AddOfferingModal/>
             </div>
           </div>
         </div>
@@ -197,22 +205,22 @@ export default function OfferingList() {
                 )}
                 {applications.length !== 0 && (
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {applications.map((application) => (
-                      <tr key={application.offering_id}>
+                    {applications.map((offering) => (
+                      <tr key={offering.offering_id}>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {application.department}
+                          {offering.department}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {application.specialization}
+                          {offering.specialization}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {application.seats}
+                          {offering.seats}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                           {" "}
                           <ViewModal
                             header={"Eligibility"}
-                            data={application.eligibility}
+                            data={offering.eligibility}
                           />
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
@@ -225,30 +233,30 @@ export default function OfferingList() {
                                 Codes
                               </div>
                               <div className="collapse-content overflow-x-scroll">
-                                <p>{application.gate_paper_codes}</p>
+                                <p>{offering.gate_paper_codes}</p>
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {new Date(application.deadline).toLocaleDateString(
+                          {new Date(offering.deadline).toLocaleDateString(
                             "en-GB"
                           )}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {application.is_accepting_applications &&
-                            !application.is_draft_mode && (
+                          {offering.is_accepting_applications &&
+                            !offering.is_draft_mode && (
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 Open
                               </span>
                             )}
-                          {application.is_accepting_applications &&
-                            application.is_draft_mode && (
+                          {offering.is_accepting_applications &&
+                            offering.is_draft_mode && (
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                 Draft
                               </span>
                             )}
-                          {!application.is_accepting_applications && (
+                          {!offering.is_accepting_applications && (
                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                               Closed
                             </span>
@@ -267,14 +275,27 @@ export default function OfferingList() {
                         </td>
 
                         <td className="p-6 whitespace-nowrap space-x-2 flex">
+                          <Link to={"/admin/applications/"+ params.cycle_id + "/" + offering.offering_id}>
+                            <Tooltip title="View Applications">
+                              <button
+                                type="button"
+                                className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+                              >
+                                <UserGroupIcon className="w-5 h-5"/>
+                                {/* <img className="w-5 h-5 text-white" src={groupPic}/> */}
+                              </button>
+                            </Tooltip>
+                          </Link>
+
                           {/* <button type="button" data-modal-toggle="product-modal" className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clipRule="evenodd" /></svg>
                              </button> */}
-                          <EditAlertOfferingModal application={application} />
+                          <EditAlertOfferingModal application={offering} />
                           {/* <button type="button" data-modal-toggle={"delete-product-modal"+ application.offering_id} className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
                           </button> */}
-                          <DeleteAlertOfferingModal application={application} />
+                          <DeleteAlertOfferingModal application={offering} />
+                          
                         </td>
                       </tr>
                     ))}

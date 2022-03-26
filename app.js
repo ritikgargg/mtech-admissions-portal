@@ -115,6 +115,10 @@ app.post("/delete-offering", upload.fields([]), admindB.delete_offering);
 
 app.get("/get-offerings", admindB.get_offerings);
 
+app.get("/get-offering-applications", admindB.get_offering_applications);
+
+app.get("/get-application-info-admin", admindB.get_application_info_admin);
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

@@ -4,11 +4,10 @@ import Plus from "../../images/plus.png";
 import DeleteAdmissionCycleModal from "./DeleteAdmissionCycleModal";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function AdmissionCycles() {
-  // [DONE] new cycle add wale section se dates month mei lena hai
-  // [DONE] delete functionality dalni hai (locally)
   // baakki backend topatop
   const navigate = useNavigate();
   const [currentCycles, setCurrentCycles] = useState([]);
@@ -20,6 +19,7 @@ function AdmissionCycles() {
   const [addAdmissionCycle, setAddAdmissionCycle] = useState(false);
   const [cycleInfo, setCycleInfo] = useState(empty_cycle);
   const [previousCycles, setPreviousCycles] = useState([]);
+  const params = useParams();
 
   const months = [
     "Jan",
@@ -109,7 +109,6 @@ function AdmissionCycles() {
     //   })
     //   .catch();
   }
-
   useEffect(() => {
     Axios.get("/get-admission-cycles", {
       headers: {
@@ -242,30 +241,33 @@ function AdmissionCycles() {
         <div className="mt-4 space-y-4">
           {currentCycles.length !== 0 &&
             currentCycles.map((cycle, ind) => (
-              <button className="bg-white h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
-                <div className="grid grid-cols-10 items-center justify-center content-center text-gray-500 sm:pr-8">
-                  <img
-                    className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
-                    src={Calendar}
-                    alt="Calendar"
-                  />
-                  <div className="col-span-7 text-left">
-                    <h5 className="text-lg font-semibold text-gray-900">
-                      {cycle.name}
-                    </h5>
-                    <p>
-                      {cycle.duration_start} - {cycle.duration_end}
-                    </p>
+
+                <div className="bg-white h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
+                  <div className="grid grid-cols-10 items-center justify-center content-center text-gray-500 sm:pr-8">
+                    <Link className="col-span-9 grid grid-cols-9" to={"/admin/offerings/" + cycle.cycle_id}>
+                      <img
+                        className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
+                        src={Calendar}
+                        alt="Calendar"
+                      />
+                      <div className="col-span-7 text-left">
+                        <h5 className="text-lg font-semibold text-gray-900">
+                          {cycle.name}
+                        </h5>
+                        <p>
+                          {cycle.duration_start} - {cycle.duration_end}
+                        </p>
+                      </div>
+                    </Link>
+                    <DeleteAdmissionCycleModal
+                      className="col-span-1"
+                      onDelete={handleDelete}
+                      list={currentCycles}
+                      setList={setCurrentCycles}
+                      index={ind}
+                    />
                   </div>
-                  <DeleteAdmissionCycleModal
-                    className="col-span-1"
-                    onDelete={handleDelete}
-                    list={currentCycles}
-                    setList={setCurrentCycles}
-                    index={ind}
-                  />
                 </div>
-              </button>
             ))}
         </div>
       </div>
@@ -277,22 +279,24 @@ function AdmissionCycles() {
 
           <div className=" mt-5 mx-auto space-y-4">
             {previousCycles.map((previousCycle, ind) => (
-              <button className="bg-[#fcfcfc] h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
+              <div className="bg-[#fcfcfc] h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
                 <div className="grid grid-cols-10 items-center justify-center content-center text-gray-500 sm:pr-8">
-                  <img
-                    className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
-                    src={Calendar}
-                    alt="Calendar"
-                  />
-                  <div className="col-span-7 text-left">
-                    <h5 className=" text-lg font-semibold text-gray-900">
-                      {previousCycle.name}
-                    </h5>
-                    <p>
-                      {previousCycle.duration_start} -{" "}
-                      {previousCycle.duration_end}
-                    </p>
-                  </div>
+                  <Link className="col-span-9 grid grid-cols-9" to={"/admin/offerings/" + previousCycle.cycle_id}>
+                    <img
+                      className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
+                      src={Calendar}
+                      alt="Calendar"
+                    />
+                    <div className="col-span-7 text-left">
+                      <h5 className=" text-lg font-semibold text-gray-900">
+                        {previousCycle.name}
+                      </h5>
+                      <p>
+                        {previousCycle.duration_start} -{" "}
+                        {previousCycle.duration_end}
+                      </p>
+                    </div>
+                  </Link>
                   <DeleteAdmissionCycleModal
                     className="col-span-1"
                     onDelete={handleDelete}
@@ -301,7 +305,7 @@ function AdmissionCycles() {
                     index={ind}
                   />
                 </div>
-              </button>
+              </div>
             ))}
           </div>
         </div>

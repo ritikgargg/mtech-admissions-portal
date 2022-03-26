@@ -80,7 +80,7 @@ export default function AdminNavbarWithSidebar(props) {
                     </li> */}
                   <li>
                     <a
-                      href={window.location.origin + "/admin/dashboard"}
+                      href="/admin/dashboard"
                       className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                     >
                       <svg
@@ -97,7 +97,7 @@ export default function AdminNavbarWithSidebar(props) {
                   </li>
                   <li>
                     <a
-                      href={window.location.origin + "/admin/admission-cycles"}
+                      href="/admin/admission-cycles"
                       className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                     >
                       <svg
@@ -178,7 +178,7 @@ export default function AdminNavbarWithSidebar(props) {
                   </li> */}
                   <li>
                     <a
-                      href={window.location.origin + "/logout"}
+                      href="/logout"
                       className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                     >
                       <svg

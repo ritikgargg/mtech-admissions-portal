@@ -30,6 +30,7 @@ import AdminDashboard from "./components/Admin/AdminDashboard";
 import OfferingList from "./components/Admin/OfferingList";
 import ApplicantList from "./components/Admin/ApplicationList";
 import AdminNavbarWithSidebar from "./components/Admin/AdminNavbarWithSidebar";
+import ViewSubmittedApplicationAdmin from "./components/Admin/ViewSubmittedApplicationAdmin";
 
 function App() {
   // Pages that can only be accessed if you are logged in
@@ -134,14 +135,18 @@ function App() {
 
         {/* <Route path="/admin/offerings" element={<PrivateRoute><AdminNavbarWithSidebar mainContent={<OfferingList/>}/></PrivateRoute>}></Route> */}
         <Route
-          path="/admin/offerings"
+          path="/admin/offerings/:cycle_id"
           element={<AdminNavbarWithSidebar mainContent={<OfferingList />} />}
         ></Route>
 
         <Route
-          path="/admin/applications"
+          path="/admin/applications/:cycle_id/:offering_id"
           element={<AdminNavbarWithSidebar mainContent={<ApplicantList />} />}
         ></Route>
+        <Route
+          path="/admin/view/:cycle_id/:offering_id/:application_id"
+          element={<AdminNavbarWithSidebar mainContent={<ViewSubmittedApplicationAdmin />} />}
+        />
 
         <Route element={<WithHeaderFooter />}>
           <Route path="/" element={<HomePage />}></Route>

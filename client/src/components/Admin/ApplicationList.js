@@ -1,32 +1,55 @@
 import React from "react";
-import ViewModal from "../Applicant/ViewModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
-// import DeleteAlertOfferingModal from "./DeleteAlertOfferingModal";
-// import EditAlertOfferingModal from "./EditAlertOfferingModal";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { Tooltip } from "@mui/material";
 
 export default function OfferingList() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
-  //   useEffect(() => {
-  //     axios.get("/get-applications", {
-  //         headers: {
-  //             Authorization: getToken()
-  //         }
-  //     })
-  //     .then(response => {
-  //         if(response.data === 1) {
-  //           navigate("/logout");
-  //         }
-  //         else {
-  //             setApplications(response.data)        }
-  //       })
-  //     .catch(err => console.log(err));
-  // },[]);
+  const [startCount, setStartCount] = useState(1);
+  const [limit, setLimit] = useState(2);
+  const params = useParams();
+
+    useEffect(() => {
+      axios.get("/get-offering-applications", {
+          headers: {
+              Authorization: getToken(),
+              cycle_id: params.cycle_id,
+              offering_id: params.offering_id
+          }
+      })
+      .then(response => {
+          if(response.data === 1) {
+            navigate("/logout");
+          }
+          else {
+              setApplications(response.data)
+              console.log(response.data)
+              // if(response.data.length >= 0)
+              //   setStartCount(1)        
+            }
+        })
+      .catch(err => console.log(err));
+  },[]);
+
+  function range(start, end) {
+    console.log(Array(end - start + 1).fill().map((_, idx) => start + idx))
+    return Array(end - start + 1).fill().map((_, idx) => start + idx);
+  }
+
+  const increaseStartCount = () => {
+    if(startCount + limit + 1 < applications.length) {
+      setStartCount(startCount + limit + 1);
+    }
+  }
+
+  const decreaseStartCount = () => {
+    setStartCount(Math.max(startCount - limit - 1, 1));
+  }
   return (
     <main>
       <div className="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
@@ -192,67 +215,56 @@ export default function OfferingList() {
                 )}
                 {applications.length !== 0 && (
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {applications.map((application) => (
-                      <tr key={application.offering_id}>
-                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {application.full_name}
+                    { [...range(startCount  - 1, Math.min(startCount + limit, applications.length) - 1)].map((i) => (
+                      <tr key={applications[i].application_id}>
+                        <td className="p-4 w-1/6 text-left text-sm text-gray-500 tracking-wider font-bold">
+                          <div className="break-all">
+                            {applications[i].full_name}
+                          </div>
                         </td>
-                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {application.specialization}
-                        </td>
-                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {application.seats}
-                        </td>
-                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {" "}
-                          <ViewModal
-                            header={"Eligibility"}
-                            data={application.eligibility}
-                          />
-                        </td>
-                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          <div className="text-sm text-gray-500">
-                            <div
-                              tabIndex={0}
-                              className="collapse border border-base-300 bg-base-100 rounded-lg collapse-plus"
-                            >
-                              <div className="pl-4 collapse-title text-md font-medium">
-                                Codes
-                              </div>
-                              <div className="collapse-content overflow-x-scroll">
-                                <p>{application.gate_paper_codes}</p>
-                              </div>
-                            </div>
+                        <td className="p-4 w-1/5 text-left text-sm text-gray-500 tracking-wider">
+                          <div className="w-full break-all">
+                            {applications[i].email_id}
                           </div>
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {new Date(application.deadline).toLocaleDateString(
-                            "en-GB"
-                          )}
+                          {applications[i].coap_registeration_number}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {new Date(application.deadline) >= new Date() && (
+                          {applications[i].gate_enrollment_number}
+                        </td>
+                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                          {applications[i].gate_score}
+                        </td>
+                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                          {applications[i].all_india_rank}
+                        </td>
+                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                          {/* {new Date(applications[i].deadline) >= new Date() && (
                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                               Open
                             </span>
                           )}
-                          {new Date(application.deadline) < new Date() && (
+                          {new Date(applications[i].deadline) < new Date() && (
                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                               Closed
                             </span>
-                          )}
+                          )} */}
                         </td>
                         <td className="p-6 whitespace-nowrap space-x-2 flex">
                           <Link
-                            to={"/view/" + application.application_id}
+                            to={"/admin/view/"+ params.cycle_id + "/"+ params.offering_id + "/" + applications[i].application_id}
                             className="text-indigo-600 hover:text-indigo-900"
                           >
                             {/* <img className="h-7 w-7 text-indigo-600" alt="eye-icon" src="https://cdn-icons-png.flaticon.com/512/535/535193.png"/> */}
+                            <Tooltip title="View Application">
                             <VisibilityIcon />
+                            </Tooltip>
                           </Link>
                         </td>
                       </tr>
-                    ))}
+                    ))
+                      }
                   </tbody>
                 )}
               </table>
@@ -262,8 +274,8 @@ export default function OfferingList() {
       </div>
       <div className="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">
         <div className="flex items-center mb-4 sm:mb-0">
-          <a
-            href="#"
+          <button
+            onClick={decreaseStartCount}
             className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center"
           >
             <svg
@@ -278,9 +290,9 @@ export default function OfferingList() {
                 clipRule="evenodd"
               />
             </svg>
-          </a>
-          <a
-            href="#"
+          </button>
+          <button
+            onClick={increaseStartCount}
             className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center mr-2"
           >
             <svg
@@ -295,15 +307,15 @@ export default function OfferingList() {
                 clipRule="evenodd"
               />
             </svg>
-          </a>
+          </button>
           <span className="text-sm font-normal text-gray-500">
-            Showing <span className="text-gray-900 font-semibold">1-20</span> of{" "}
-            <span className="text-gray-900 font-semibold">2290</span>
+            Showing <span className="text-gray-900 font-semibold">{startCount}-{Math.min(startCount + limit, applications.length)}</span> of
+            <span className="text-gray-900 font-semibold"> {applications.length}</span>
           </span>
         </div>
         <div className="flex items-center space-x-3">
-          <a
-            href="#"
+          <button
+            onClick={decreaseStartCount}
             className="flex-1 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center"
           >
             <svg
@@ -319,9 +331,9 @@ export default function OfferingList() {
               />
             </svg>
             Previous
-          </a>
-          <a
-            href="#"
+          </button>
+          <button
+            onClick={increaseStartCount}
             className="flex-1 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center"
           >
             Next
@@ -337,7 +349,7 @@ export default function OfferingList() {
                 clipRule="evenodd"
               />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
       {/* <div className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="product-modal" aria-hidden="true">

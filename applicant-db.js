@@ -368,6 +368,7 @@ const check_applicant_info = async (req, res) => {
     profile_full_check_data.mobile_number === null ||
     profile_full_check_data.degree_10th === null
   ) {
+    console.log("Profile Not Complete");
     return res.send("2"); /** Profile not complete */
   }
 
@@ -391,8 +392,10 @@ const check_applicant_info = async (req, res) => {
   let offering_table_exists = check_offerings_table.rows[0].exists;
 
   if (offering_table_exists === false) {
+    // console.log("No Offerings Yet");
     return res.send("2"); /** No offerings yet */
   }
+
 
   /** Check related to the existence of offering */
   const offering_exists_check = await pool.query(
@@ -405,15 +408,21 @@ const check_applicant_info = async (req, res) => {
     return res.send("2"); /** No such offering */
   }
 
+  // console.log(2);
+
   /** If draft */
   if (offering_exists_check_data[0].is_draft_mode === true) {
     return res.send("2");
   }
 
+  // console.log(3);
+
   /** If not accepting applications */
-  if (offering_exists_check_data[0].is_accepting_applications === true) {
+  if (offering_exists_check_data[0].is_accepting_applications === false) {
     return res.send("2");
   }
+
+  console.log(4);
 
   /** Check if already applied */
   const application_filled_check = await pool.query(

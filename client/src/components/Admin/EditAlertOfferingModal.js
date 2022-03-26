@@ -8,7 +8,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import spinner from "../../images/SpinnerFinal2.gif";
+import spinner from "../../images/SpinnerWhite.gif";
 
 const style = {
   position: "absolute",
@@ -104,7 +104,7 @@ export default function EditAlertOfferingModal(props) {
         <button
           type="button"
           onClick={handleOpen}
-          className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           <svg
             className="h-5 w-5"

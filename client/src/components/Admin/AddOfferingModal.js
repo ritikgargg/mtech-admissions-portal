@@ -1,18 +1,43 @@
 import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import { Tooltip } from "@mui/material";
 import Toggle from "./Toggle";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import spinner from "../../images/SpinnerFinal2.gif";
+import spinner from "../../images/SpinnerWhite.gif";
 
-export default function AddOfferingModal() {
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "40%",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: 5,
+};
+
+export default function EditAlertOfferingModal(props) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const [applicationChecked, setApplicationChecked] = React.useState(false);
-  const [draftChecked, setDraftChecked] = React.useState(false);
+  const [applicationChecked, setApplicationChecked] = useState(
+    false
+  );
+  const [draftChecked, setDraftChecked] = useState(
+    false
+  );
   const { register, handleSubmit, reset } = useForm();
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    onClose();
+    setOpen(false);
+  };
 
   const handleChange1 = (event) => {
     setApplicationChecked(event.target.checked);
@@ -45,27 +70,28 @@ export default function AddOfferingModal() {
     formData.append("is_draft_mode", draftChecked);
 
     Axios.post("/add-offering", formData, {
-      headers: {
-        Authorization: getToken(),
-      },
-    })
-      .then((response) => {
-        if (response.data === 1) {
-          navigate("/logout");
-        } else {
-          window.location.reload();
-        }
+        headers: {
+          Authorization: getToken(),
+        },
       })
-      .catch((err) => console.log(err));
-  };
+        .then((response) => {
+          if (response.data === 1) {
+            navigate("/logout");
+          } else {
+            window.location.reload();
+          }
+        })
+        .catch((err) => console.log(err));
+    };
   return (
-    <>
-      <button
-        type="button"
-        data-modal-toggle="add-product-modal"
-        className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center rounded-lg text-sm px-3 py-2 text-center sm:ml-auto"
-      >
-        <svg
+    <div>
+      <Tooltip title="Edit">
+        <button
+          type="button"
+          onClick={handleOpen}
+          className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+        >
+            <svg
           className="-ml-1 mr-2 h-6 w-6"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -77,22 +103,29 @@ export default function AddOfferingModal() {
             clipRule="evenodd"
           />
         </svg>
-        Add offering
-      </button>
-      <div
+          Add Offering
+        </button>
+      </Tooltip>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        {/* <div
         className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
         id="add-product-modal"
         aria-hidden="true"
-      >
-        <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
+      > */}
+        <div id="modal-modal-description" className="relative w-full max-w-2xl h-full md:h-auto">
           <div className="bg-white rounded-lg shadow relative">
             <div className="flex items-start justify-between p-5 border-b rounded-t">
               <h3 className="text-xl font-semibold">Add offering</h3>
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                data-modal-toggle="add-product-modal"
               >
                 <svg
                   className="w-5 h-5"
@@ -272,7 +305,9 @@ export default function AddOfferingModal() {
             </div>
           </div>
         </div>
-      </div>
-    </>
+      {/* </div> */}
+        </Box>
+      </Modal>
+    </div>
   );
 }

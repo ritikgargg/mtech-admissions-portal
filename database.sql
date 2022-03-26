@@ -220,6 +220,7 @@ CREATE TRIGGER trigger_insert_into_admission_cycles
 
 -- Always executed because admin will only be allowed to update it
 INSERT INTO current_cycle(cycle_id) VALUES(1);
+-- INSERT INTO admission_cycles(name) VALUES('AY2022-23');
 
 -- Do always
 INSERT INTO admins(email_id, admin_type) VALUES('admin@admin', 0);
@@ -339,3 +340,13 @@ INSERT INTO admins(email_id, admin_type) VALUES('admin@admin', 0);
 
 -- INSERT INTO mtech_offerings(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
 -- VALUES('Mechanical Engineering', 'Mechanics and Design (MD)', 15, 'ME', '2022-03-31', 'Candidates with BTech/BE in Mechanical Engineering or relevant area. BTech from IITs with CGPA more than 8.0 (SC/ST 7.5) are eligible to apply without GATE.');
+
+-- INSERT INTO applicants (email_id) values ('hello@gmail.com');
+-- INSERT INTO applicants (email_id) values ('hello1@gmail.com');
+-- INSERT INTO applicants (email_id) values ('hello2@gmail.com');
+-- INSERT INTO applicants (email_id) values ('hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3@gmail.com');
+
+-- insert into applications_1 (full_name, offering_id, email_id) values('Anshul', 6, 'hello@gmail.com');
+-- insert into applications_1 (full_name, offering_id, email_id) values('Anshul', 6, 'hello1@gmail.com');
+-- insert into applications_1 (full_name, offering_id, email_id) values('Anshul', 6, 'hello2@gmail.com');
+-- insert into applications_1 (full_name, offering_id, email_id) values('Anshul', 6, 'hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3hello3@gmail.com');

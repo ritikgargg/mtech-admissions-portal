@@ -194,10 +194,7 @@ const delete_offering = async (req, res) => {
   return res.send("Ok");
 };
 
-/**
- * Get offerings
- * Add check for browser link
- */
+/** Get offerings */
 const get_offerings = async (req, res) => {
   /**
    * Verify using authToken
@@ -217,21 +214,17 @@ const get_offerings = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  var email = jwt.decode(authToken).userEmail;
+  let cycle_id = req.headers.cycle_id;
+  const check_offerings_table = await pool.query(
+    "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
+    ["mtech_offerings_" + cycle_id]
+  );
 
-  const cycle = await pool.query("SELECT cycle_id from current_cycle;");
-  let cycle_id = cycle.rows[0].cycle_id;
+  let offering_table_exists = check_offerings_table.rows[0].exists;
 
-  // const check_offerings_table = await pool.query(
-  //   "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
-  //   ["mtech_offerings_" + cycle_id]
-  // );
-
-  // let offering_table_exists = check_offerings_table.rows[0].exists;
-
-  // if (offering_table_exists === false) {
-  //   return res.send([]);
-  // }
+  if (offering_table_exists === false) {
+    return res.send("1");
+  }
 
   const results = await pool.query(
     "SELECT * FROM mtech_offerings_" + cycle_id + ";"
@@ -240,6 +233,100 @@ const get_offerings = async (req, res) => {
   return res.send(results.rows);
 };
 
+/** Get applications for an offering */
+const get_offering_applications = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  let cycle_id = req.headers.cycle_id;
+  let offering_id = req.headers.offering_id;
+
+  const check_offerings_table = await pool.query(
+    "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
+    ["applications_" + cycle_id]
+  );
+
+  let offering_table_exists = check_offerings_table.rows[0].exists;
+
+  if (offering_table_exists === false) {
+    return res.send("1");
+  }
+
+  const results = await pool.query(
+    "SELECT * FROM applications_" + cycle_id + " WHERE offering_id = $1;",
+    [offering_id]
+  );
+
+  return res.send(results.rows);
+};
+
+
+/** Get application info for an submitted application */
+const get_application_info_admin = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+   authToken = req.headers.authorization;
+   let jwtSecretKey = process.env.JWT_SECRET_KEY;
+ 
+   var verified = null;
+ 
+   try {
+     verified = jwt.verify(authToken, jwtSecretKey);
+   } catch (error) {
+     return res.send("1"); /** Error, logout on user side */
+   }
+ 
+   if (!verified) {
+     return res.send("1"); /** Error, logout on user side */
+   }
+
+   cycle_id = req.headers.cycle_id;
+   application_id = req.headers.application_id;
+   
+  /** Check if applications table exists **/
+  const check_applications_table = await pool.query(
+    "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
+    ["applications_" + cycle_id]
+  );
+  let applications_table_exists = check_applications_table.rows[0].exists;
+
+  if (applications_table_exists === false) {
+    return res.send("1"); /** No application table */
+  }
+  
+  /** Check if application exists */
+  const query_result = await pool.query(
+    "SELECT email_id FROM applications_" +
+      cycle_id +
+      " WHERE application_id = $1;",
+    [application_id]
+  );
+
+  if (query_result.rows.length === 0) {
+    return res.send("1");
+  }
+
+  const results = await pool.query("SELECT * FROM mtech_offerings_" + cycle_id +  " as MO, applications_" + cycle_id + " as A WHERE application_id = $1 AND MO.offering_id = A.offering_id;", [application_id]);
+
+  return res.send(results.rows[0]);
+}
+
 module.exports = {
   add_admission_cycle,
   add_offering,
@@ -247,4 +334,6 @@ module.exports = {
   edit_offering,
   delete_offering,
   get_offerings,
+  get_offering_applications,
+  get_application_info_admin
 };
