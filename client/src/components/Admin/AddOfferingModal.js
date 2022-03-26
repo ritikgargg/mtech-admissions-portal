@@ -1,28 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Toggle from "./Toggle";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import spinner from "../../images/SpinnerFinal2.gif";
 
 export default function AddOfferingModal() {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const [checked, setChecked] = React.useState(false);
+  const [applicationChecked, setApplicationChecked] = React.useState(false);
+  const [draftChecked, setDraftChecked] = React.useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const handleChange1 = (event) => {
+    setApplicationChecked(event.target.checked);
+  };
+
+  const handleChange2 = (event) => {
+    setDraftChecked(event.target.checked);
   };
 
   const onClose = () => {
     reset();
-    setChecked(false);
+    setApplicationChecked(false);
+    setDraftChecked(false);
   };
 
   const onSubmit = (data) => {
+    setIsLoading(true);
     console.log(data);
-    console.log(checked);
+    console.log(applicationChecked);
+    console.log(draftChecked);
     const formData = new FormData();
 
     formData.append("department", data.department);
@@ -31,7 +41,8 @@ export default function AddOfferingModal() {
     formData.append("gate_paper_codes", data.gate_paper_codes);
     formData.append("eligibility", data.eligibility);
     formData.append("deadline", data.deadline);
-    formData.append("is_accepting_applications", checked);
+    formData.append("is_accepting_applications", applicationChecked);
+    formData.append("is_draft_mode", draftChecked);
 
     Axios.post("/add-offering", formData, {
       headers: {
@@ -142,7 +153,7 @@ export default function AddOfferingModal() {
                       {...register("gate_paper_codes")}
                       id="gate_paper_codes"
                       pattern="([A-Z]+, *)*[A-Z]+$"
-                      title="Capital Alhpabets Seperated With A Space"
+                      title="Comma-separated Gate codes(in capital alphabets)"
                       className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                       required
                     />
@@ -219,21 +230,41 @@ export default function AddOfferingModal() {
                     <FormControlLabel
                       control={
                         <Toggle
-                          checked={checked}
-                          onChange={handleChange}
+                          checked={applicationChecked}
+                          onChange={handleChange1}
                           sx={{ m: 1 }}
                         />
                       }
                       label="Accept Applications"
                     />
+
                     {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
                   </div>
-                  <div className="p-3 border-t border-gray-200 rounded-b">
+
+                  <div className="p-3">
+                    <FormControlLabel
+                      control={
+                        <Toggle
+                          checked={draftChecked}
+                          onChange={handleChange2}
+                          sx={{ m: 1 }}
+                        />
+                      }
+                      label="Draft Mode"
+                    />
+
+                    {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
+                  </div>
+                  <div className="p-3 w-30 h-15 border-t border-gray-200 rounded-b">
                     <button
                       className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                       type="submit"
                     >
-                      Add offering
+                      {!isLoading ? (
+                        "Add Offering"
+                      ) : (
+                        <img className="w-5 h-5" alt="spinner" src={spinner} />
+                      )}
                     </button>
                   </div>
                 </div>

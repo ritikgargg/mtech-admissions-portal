@@ -94,6 +94,20 @@ function AdmissionCycles() {
     console.log("deteledCycleName: ", deletedCycle[0]["name"]);
     console.log("deteledCycleStart: ", deletedCycle[0]["start"]);
     console.log("deteledCycleEnd: ", deletedCycle[0]["end"]);
+
+    // Axios.post("/delete-admission-cycle", deletedCycle.cycle_id, {
+    //   headers: {
+    //     Authorization: getToken(),
+    //   },
+    // })
+    //   .then((response) => {
+    //     if (response.data === 1) {
+    //       navigate("/logout");
+    //     } else {
+    //       window.location.reload();
+    //     }
+    //   })
+    //   .catch();
   }
 
   useEffect(() => {

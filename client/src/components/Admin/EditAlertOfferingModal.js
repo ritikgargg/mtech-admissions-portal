@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Tooltip } from "@mui/material";
@@ -8,6 +8,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import spinner from "../../images/SpinnerFinal2.gif";
 
 const style = {
   position: "absolute",
@@ -21,8 +22,15 @@ const style = {
 };
 
 export default function EditAlertOfferingModal(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const [checked, setChecked] = React.useState(false); //TODO: props.is_accepting_applications
+  const [applicationChecked, setApplicationChecked] = useState(
+    props.application.is_accepting_applications
+  );
+  const [draftChecked, setDraftChecked] = useState(
+    props.application.is_draft_mode
+  );
+
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       ...props.application,
@@ -37,8 +45,12 @@ export default function EditAlertOfferingModal(props) {
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const handleChange1 = (event) => {
+    setApplicationChecked(event.target.checked);
+  };
+
+  const handleChange2 = (event) => {
+    setDraftChecked(event.target.checked);
   };
 
   function changeDateFormat(deadline) {
@@ -53,22 +65,23 @@ export default function EditAlertOfferingModal(props) {
 
   const onClose = () => {
     reset();
-    setChecked(false);
+    setDraftChecked(props.application.is_draft_mode);
+    setApplicationChecked(props.application.is_accepting_applications);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(checked);
+    setIsLoading(true);
     const formData = new FormData();
 
-    formData.append("offering_id", props.offering_id);
+    formData.append("offering_id", props.application.offering_id);
     formData.append("department", data.department);
     formData.append("specialization", data.specialization);
     formData.append("seats", data.seats);
     formData.append("gate_paper_codes", data.gate_paper_codes);
     formData.append("eligibility", data.eligibility);
     formData.append("deadline", data.deadline);
-    formData.append("is_accepting_applications", checked);
+    formData.append("is_accepting_applications", applicationChecked);
+    formData.append("is_draft_mode", draftChecked);
 
     Axios.post("/edit-offering", formData, {
       headers: {
@@ -185,6 +198,8 @@ export default function EditAlertOfferingModal(props) {
                         type="text"
                         {...register("gate_paper_codes")}
                         id="gate_paper_codes"
+                        pattern="([A-Z]+, *)*[A-Z]+$"
+                        title="Comma-separated Gate codes(in capital alphabets)"
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required
                       />
@@ -261,8 +276,8 @@ export default function EditAlertOfferingModal(props) {
                       <FormControlLabel
                         control={
                           <Toggle
-                            checked={checked}
-                            onChange={handleChange}
+                            checked={applicationChecked}
+                            onChange={handleChange1}
                             sx={{ m: 1 }}
                           />
                         }
@@ -270,12 +285,36 @@ export default function EditAlertOfferingModal(props) {
                       />
                       {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
                     </div>
+
+                    <div className="p-3">
+                      <FormControlLabel
+                        control={
+                          <Toggle
+                            checked={draftChecked}
+                            onChange={handleChange2}
+                            sx={{ m: 1 }}
+                          />
+                        }
+                        label="Draft Mode"
+                      />
+                      {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
+                    </div>
                     <div className="p-3 border-t border-gray-200 rounded-b">
                       <button
-                        className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                        className="text-white block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
                         type="submit"
                       >
-                        Edit offering
+                        <div className="w-20 h-5 mx-5 my-2.5">
+                          {!isLoading ? (
+                            <p>Edit offering</p>
+                          ) : (
+                            <img
+                              className="h-5 w-5 mx-auto"
+                              alt="spinner"
+                              src={spinner}
+                            />
+                          )}
+                        </div>
                       </button>
                     </div>
                   </div>

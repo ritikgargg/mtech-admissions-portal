@@ -105,9 +105,15 @@ app.post(
   admindB.add_admission_cycle
 );
 
+app.get("/get-admission-cycles", admindB.get_admission_cycles);
+
 app.post("/add-offering", upload.fields([]), admindB.add_offering);
 
-app.get("/get-admission-cycles", admindB.get_admission_cycles);
+app.post("/edit-offering", upload.fields([]), admindB.edit_offering);
+
+app.post("/delete-offering", upload.fields([]), admindB.delete_offering);
+
+app.get("/get-offerings", admindB.get_offerings);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

@@ -125,7 +125,9 @@ BEGIN
         seats TEXT,
         gate_paper_codes TEXT,
         eligibility TEXT,
-        deadline TIMESTAMP
+        deadline TIMESTAMP,
+        is_accepting_applications BOOLEAN,
+        is_draft_mode BOOLEAN
       );', 'mtech_offerings_' || NEW.cycle_id);
     
     EXECUTE format('
@@ -223,10 +225,10 @@ CREATE TRIGGER trigger_insert_into_admission_cycles
 INSERT INTO current_cycle(cycle_id) VALUES(1);
 
 -- To check triggers
-INSERT INTO admission_cycles(name) VALUES('AY2022-23');
+-- INSERT INTO admission_cycles(name) VALUES('AY2022-23');
 
 -- Will be used when there are no offerings_ and applications_ tables
-SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = 'applications_1');
+-- SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = 'applications_1');
 
 -- CREATE TABLE applications (
 --   application_id SERIAL,
