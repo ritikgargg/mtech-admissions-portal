@@ -329,7 +329,7 @@ export default function OfferingList() {
                   <div className="w-3/5 mx-auto my-50 text-center">
                     <img alt="No data" src={noDataPic} />
                     <div className="h-5" />
-                    <p className="font-josefin-sans text-2xl font-semibold">
+                    <p className="text-2xl font-semibold">
                       No applications for this offering yet!
                     </p>
                     <div className="h-6" />

@@ -212,7 +212,7 @@ export default function EditAlertOfferingModal(props) {
                       htmlFor="deadline"
                       className="text-sm font-medium text-gray-900 block mb-2"
                     >
-                      Deadline Date
+                      Deadline
                     </label>
                     <input
                       type="date"

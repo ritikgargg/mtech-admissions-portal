@@ -43,7 +43,8 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
         </div>
 
         <div className="flex justify-between items-center w-full">
-          <h4 className="uppercase text-white font-bold text-sm tracking-wider mt-1">
+          {/* <h4 className="uppercase text-white font-bold text-sm tracking-wider mt-1"> */}
+          <h4 className=" text-white font-bold text-lg tracking-wider mt-1">
             {location.split("/")[2] === "dashboard"
               ? "Dashboard"
               : location.split("/")[2] === "manage-admins"

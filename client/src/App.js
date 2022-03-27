@@ -52,7 +52,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter className="font-cereal-font">
       <Routes>
         <Route
           path="/home"

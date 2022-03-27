@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "../../images/calendar_1.png";
 import Plus from "../../images/plus.png";
+import PlusWhite from "../../images/plus-white.png";
 import DeleteAdmissionCycleModal from "./DeleteAdmissionCycleModal";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
@@ -12,7 +13,6 @@ import Toggle from "./Toggle";
 import background from "../../images/background.jpg";
 
 function AdmissionCycles() {
-  // baakki backend topatop
   const navigate = useNavigate();
   const [currentCycles, setCurrentCycles] = useState([]);
   const empty_cycle = {
@@ -155,7 +155,7 @@ function AdmissionCycles() {
       }}
     >
       <div className="pt-10 w-4/5 mx-auto sm:w-3/5 md:w-2/5 overflow-y-auto">
-        <div className="">Current Admission Cycles</div>
+        <div className="font-medium">Current Admission Cycles</div>
         <div className="mt-1 items-start h-[1px] bg-gray-300" />
         {addAdmissionCycle ? (
           <div className="mt-5 space-y-4 ">
@@ -259,15 +259,36 @@ function AdmissionCycles() {
                 alt="Plus"
               />
               <div className="col-span-7 text-left">
-                <h5 className="text-lg font-semibold text-gray-900 font-josefin-sans">
+                <h5 className="text-lg font-semibold text-gray-900">
                   Add New
                 </h5>
                 <p>Click to add a new admission cycle</p>
               </div>
             </div>
-          </button>
+          </button>          
         )}
-
+        {/* <button
+            className="bg-gradient-to-tr from-[#000000] to-[#090909] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
+            onClick={() => {
+              setCycleInfo(empty_cycle);
+              setAddAdmissionCycle(true);
+            }}
+          >
+            <div className="grid grid-cols-10 items-center justify-center content-center text-white sm:pr-8">
+              <img
+                className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
+                src={PlusWhite}
+                alt="Plus"
+              />
+              <div className="col-span-7 text-left">
+                <h5 className="text-lg font-semibold text-white">
+                  Add New
+                </h5>
+                <p className="font-thin">Click to add a new admission cycle</p>
+              </div>
+            </div>
+          </button> */}
+        
         <div className="mt-4 space-y-4">
           {currentCycles.length !== 0 &&
             currentCycles.map((cycle, ind) => (
@@ -283,7 +304,7 @@ function AdmissionCycles() {
                       alt="Calendar"
                     />
                     <div className="col-span-7 text-left">
-                      <h5 className="text-lg font-semibold text-gray-900 font-josefin-sans">
+                      <h5 className="text-lg font-semibold text-gray-900">
                         {cycle.name}
                       </h5>
                       <p>
@@ -311,7 +332,7 @@ function AdmissionCycles() {
 
       {previousCycles.length !== 0 && (
         <div className="py-14 w-4/5 mx-auto sm:w-3/5 md:w-2/5">
-          <div className="">Previous Admission Cycles</div>
+          <div className="font-medium">Previous Admission Cycles</div>
           <div className="mt-1 items-start h-[1px] bg-gray-300" />
 
           <div className=" mt-5 mx-auto space-y-4">
@@ -328,7 +349,7 @@ function AdmissionCycles() {
                       alt="Calendar"
                     />
                     <div className="col-span-7 text-left">
-                      <h5 className=" text-lg font-semibold text-gray-900 font-josefin-sans">
+                      <h5 className=" text-lg font-semibold text-gray-900">
                         {previousCycle.name}
                       </h5>
                       <p>
