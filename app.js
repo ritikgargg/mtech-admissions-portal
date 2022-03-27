@@ -131,6 +131,14 @@ app.get("/get-offering-applications", admindB.get_offering_applications);
 
 app.get("/get-application-info-admin", admindB.get_application_info_admin);
 
+app.post("/add-admin", upload.fields([]), admindB.add_admin);
+
+app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
+
+app.post("/delete-admin", upload.fields([]), admindB.delete_admin);
+
+app.get("/get-admins", upload.fields([]), admindB.get_admins);
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

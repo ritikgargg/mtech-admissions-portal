@@ -444,6 +444,42 @@ const get_application_info_admin = async (req, res) => {
   return res.send(results.rows[0]);
 };
 
+/** Add admin */
+const add_admin = async (req, res) => {
+  /**
+   * 1. Perform jwt authentication
+   * 2. Add admin (check that no applicant or admin has already this id)
+   * 3. May need to edit signup_verification code
+   */
+};
+
+/** Edit admin */
+const edit_admin = async (req, res) => {
+  /**
+   * 1. Perform jwt authentication
+   * 2. Edit admin info
+   * 3. If email is changed, change the corresponding entry in the login_verification table
+   * 4. Similar checks of add_admin
+   */
+};
+
+/** Get admins */
+const get_admins = async (req, res) => {
+  /**
+   * 1. Perform jwt auth
+   * 2. Return all the admins (except this one, so that he cannot delete himself)
+   */
+};
+
+/** Delete admins */
+const delete_admin = async (req, res) => {
+  /**
+   * 1. Perform jwt auth
+   * 2. Delete the given admin
+   * 3. Delete the correpsonding entry from the login_verification table
+   */
+};
+
 module.exports = {
   add_admission_cycle,
   get_admission_cycles,
@@ -455,4 +491,8 @@ module.exports = {
   get_offerings,
   get_offering_applications,
   get_application_info_admin,
+  add_admin,
+  edit_admin,
+  get_admins,
+  delete_admin,
 };

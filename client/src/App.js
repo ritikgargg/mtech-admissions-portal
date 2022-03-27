@@ -20,16 +20,10 @@ import Info from "./components/Landing/Info";
 import Success from "./components/Applicant/Success";
 
 // Admin
-// import Admin from './components/Admin/layouts/Admin'
-// import Dashboard from "./components/Admin/views/admin/Dashboard";
-// import Maps from "./components/Admin/views/admin/Maps";
-// import Settings from "./components/Admin/views/admin/Settings";
-// import Tables from "./components/Admin/views/admin/Tables";
 import AdmissionCycles from "./components/Admin/AdmissionCycles";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import OfferingList from "./components/Admin/OfferingList";
 import ApplicantList from "./components/Admin/ApplicationList";
-import AdminNavbarWithSidebar from "./components/Admin/AdminNavbarWithSidebar";
 import ViewSubmittedApplicationAdmin from "./components/Admin/ViewSubmittedApplicationAdmin";
 import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
@@ -121,35 +115,54 @@ function App() {
           <Route
             path="/admin/dashboard"
             element={
-              // <PrivateRoute>
-              <AdminDashboard />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <AdminDashboard />
+              </PrivateRoute>
             }
           ></Route>
 
           <Route
             path="/admin/offerings/:cycle_id"
-            element={<OfferingList />}
+            element={
+              <PrivateRoute>
+                <OfferingList />
+              </PrivateRoute>
+            }
           ></Route>
 
           <Route
             path="/admin/applications/:cycle_id/:offering_id"
-            element={<ApplicantList />}
+            element={
+              <PrivateRoute>
+                <ApplicantList />
+              </PrivateRoute>
+            }
           ></Route>
 
           <Route
             path="/admin/view/:cycle_id/:offering_id/:application_id"
-            element={<ViewSubmittedApplicationAdmin />}
+            element={
+              <PrivateRoute>
+                <ViewSubmittedApplicationAdmin />
+              </PrivateRoute>
+            }
           />
 
-          <Route path="/admin/manage-admins/" element={<ManageAdmins />} />
+          <Route
+            path="/admin/manage-admins/"
+            element={
+              <PrivateRoute>
+                <ManageAdmins />
+              </PrivateRoute>
+            }
+          />
 
           <Route
             path="/admin/admission-cycles"
             element={
-              // <PrivateRoute>
-              <AdmissionCycles />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <AdmissionCycles />
+              </PrivateRoute>
             }
           ></Route>
         </Route>
@@ -180,13 +193,6 @@ function App() {
 
           <Route path="/*" element={<Error />}></Route>
         </Route>
-
-        {/* <Route element={<Admin/>}>
-					<Route path="/admin/dashboard" element={<Dashboard/>} />
-					<Route path="/admin/maps" exact component={Maps} />
-					<Route path="/admin/settings" exact component={Settings} />
-					<Route path="/admin/tables" exact component={Tables} />
-				</Route> */}
       </Routes>
     </BrowserRouter>
   );

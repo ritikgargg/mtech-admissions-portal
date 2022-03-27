@@ -1,17 +1,12 @@
 import { useLocation } from "react-router-dom";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
-import NavbarInput from "@material-tailwind/react/NavbarInput";
-import Image from "@material-tailwind/react/Image";
-import Dropdown from "@material-tailwind/react/Dropdown";
-import DropdownItem from "@material-tailwind/react/DropdownItem";
-import LogoutPic from '../../images/power-off.png'
+import LogoutPic from "../../images/power-off.png";
 import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
-// import ProfilePicture from "assets/img/team-1-800x800.jpg";
 
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
-  // const location = useLocation().pathname;
+  const location = useLocation().pathname;
 
   return (
     <nav className="bg-gradient-to-tr from-[#000000] to-[#090909] md:ml-64 py-6 px-3">
@@ -48,15 +43,20 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
         </div>
 
         <div className="flex justify-between items-center w-full">
-          {/* <h4 className="uppercase text-white text-sm tracking-wider mt-1">
-            {location === "/"
+          <h4 className="uppercase text-white font-bold text-sm tracking-wider mt-1">
+            {location.split("/")[2] === "dashboard"
+              ? "Dashboard"
+              : location.split("/")[2] === "manage-admins"
+              ? "Admins"
+              : "Admissions"}
+            {/* {location === "/"
               ? "DASHBOARD"
-              : location.toUpperCase().replace("/", "")}
-          </h4> */}
+              : location.toUpperCase().replace("/", "")} */}
+          </h4>
           <Tooltip title="Logout">
-          <Link className="ml-auto" to="/logout">
-            <img alt="Logout" src={LogoutPic} className="w-6 h-6"/>
-          </Link>
+            <Link className="ml-auto" to="/logout">
+              <img alt="Logout" src={LogoutPic} className="w-6 h-6" />
+            </Link>
           </Tooltip>
           {/* <div className="flex">
             <NavbarInput placeholder="Search" />
