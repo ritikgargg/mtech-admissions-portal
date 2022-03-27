@@ -83,7 +83,7 @@ export default function EditAlertOfferingModal(props) {
     formData.append("is_accepting_applications", applicationChecked);
     formData.append("is_draft_mode", draftChecked);
 
-    Axios.post("/edit-offering", formData, {
+    Axios.post("http://localhost:8080/edit-offering", formData, {
       headers: {
         Authorization: getToken(),
       },

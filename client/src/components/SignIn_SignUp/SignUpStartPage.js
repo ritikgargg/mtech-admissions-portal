@@ -17,7 +17,7 @@ function SignUpStartPage() {
   const [colorOTP, setColorOTP] = useState(0);
 
   const emailSubmit = () => {
-      axios.post('/auth/signup/otp', {email: email}).then(response => {
+      axios.post('http://localhost:8080/auth/signup/otp', {email: email}).then(response => {
         if(response.data === 0) {
           setMsgSignin("Please enter your email.")
           setColorEmail(1)
@@ -42,13 +42,13 @@ function SignUpStartPage() {
   }
 
   const resendOTP = () => {
-    axios.post('/auth/signup/otp', {email: email});
+    axios.post('http://localhost:8080/auth/signup/otp', {email: email});
     setMsgOtp("OTP has been resent to your mail account.");
     setColorOTP(2);
   }
 
   const handleSubmit = () => {
-    axios.post('/auth/signup/verify', {email: email, otp: otp}).then(response => {
+    axios.post('http://localhost:8080/auth/signup/verify', {email: email, otp: otp}).then(response => {
         if(response.data.result === 1) {
           setUserSession(response.data.token);
           navigate("/home");

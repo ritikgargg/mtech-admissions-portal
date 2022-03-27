@@ -94,7 +94,7 @@ export default function DeleteAlertModal(props) {
     formData.append("cycle_id", props.cycle.cycle_id);
     formData.append("make_current", makeCurrent);
 
-    Axios.post("/edit-admission-cycle", formData, {
+    Axios.post("http://localhost:8080/edit-admission-cycle", formData, {
       headers: {
         Authorization: getToken(),
       },

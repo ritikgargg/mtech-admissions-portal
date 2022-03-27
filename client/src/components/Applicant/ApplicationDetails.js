@@ -119,7 +119,7 @@ function ApplicantionDetails() {
     formData.append("self_attested_copies", applicant_details[14]);
     formData.append("signature", applicant_details[17]);
 
-    Axios.post("/save-application-info", formData, {
+    Axios.post("http://localhost:8080/save-application-info", formData, {
       headers: {
         Authorization: getToken()
       }

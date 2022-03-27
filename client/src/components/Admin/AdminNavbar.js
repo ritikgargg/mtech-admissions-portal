@@ -5,13 +5,16 @@ import NavbarInput from "@material-tailwind/react/NavbarInput";
 import Image from "@material-tailwind/react/Image";
 import Dropdown from "@material-tailwind/react/Dropdown";
 import DropdownItem from "@material-tailwind/react/DropdownItem";
+import LogoutPic from '../../images/power-off.png'
+import { Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
 // import ProfilePicture from "assets/img/team-1-800x800.jpg";
 
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
-  const location = useLocation().pathname;
+  // const location = useLocation().pathname;
 
   return (
-    <nav className="bg-gradient-to-tr from-[#1E3A8A] to-light-blue-700 md:ml-64 py-6 px-3">
+    <nav className="bg-gradient-to-tr from-[#000000] to-[#090909] md:ml-64 py-6 px-3">
       <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8 md:pl-10">
         <div className="md:hidden">
           <Button
@@ -45,12 +48,16 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
         </div>
 
         <div className="flex justify-between items-center w-full">
-          <h4 className="uppercase text-white text-sm tracking-wider mt-1">
+          {/* <h4 className="uppercase text-white text-sm tracking-wider mt-1">
             {location === "/"
               ? "DASHBOARD"
               : location.toUpperCase().replace("/", "")}
-          </h4>
-
+          </h4> */}
+          <Tooltip title="Logout">
+          <Link className="ml-auto" to="/logout">
+            <img alt="Logout" src={LogoutPic} className="w-6 h-6"/>
+          </Link>
+          </Tooltip>
           {/* <div className="flex">
             <NavbarInput placeholder="Search" />
 

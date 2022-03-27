@@ -10,7 +10,9 @@ module.exports = {
       },
       fontFamily: {
         'montserrat': ['Montserrat'],
-        'josefin-sans' : ['Josefin Sans']
+        'josefin-sans' : ['Josefin Sans'],
+        'work-sans' : ['Work Sans'],
+        'cereal-font' : ['Cereal Font']
       }
     },
   },

@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import AdminNavbar from "./AdminNavbar";
 import Icon from "@material-tailwind/react/Icon";
 import H6 from "@material-tailwind/react/Heading6";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 export default function AdminNavbarWithSidebar(props) {
   const location = useLocation().pathname;
@@ -36,7 +38,7 @@ export default function AdminNavbarWithSidebar(props) {
                   className={
                     location !== "/admin/dashboard"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#1E3A8A] to-light-blue-700 text-white shadow-md"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                   }
                 >
                   <Icon name="dashboard" size="2xl" />
@@ -80,10 +82,10 @@ export default function AdminNavbarWithSidebar(props) {
                   className={
                     location !== "/admin/admission-cycles"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#1E3A8A] to-light-blue-700 text-white shadow-md"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                   }
                 >
-                  <Icon name="web" size="2xl" />
+                  <CalendarTodayIcon size="2xl" />
                   Admissions
                 </NavLink>
               </li>
@@ -105,10 +107,10 @@ export default function AdminNavbarWithSidebar(props) {
                   className={
                     location !== "/admin/manage-admins"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#1E3A8A] to-light-blue-700 text-white shadow-md"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                   }
                 >
-                  <Icon name="web" size="2xl" />
+                  <AdminPanelSettingsIcon size="2xl" />
                   Admins
                 </NavLink>
               </li>
@@ -121,10 +123,10 @@ export default function AdminNavbarWithSidebar(props) {
                   className={
                     !logout
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#1E3A8A] to-light-blue-700 text-white shadow-md"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                   }
                 >
-                  <Icon name="web" size="2xl" />
+                  <Icon name="logout" size="2xl" />
                   Logout
                 </NavLink>
               </li>

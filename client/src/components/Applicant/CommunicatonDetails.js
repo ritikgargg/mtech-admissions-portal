@@ -43,7 +43,7 @@ function CommunicationDetails(props) {
       props.localProfileInfo.alternate_mobile_number
     );
 
-    Axios.post("/save-communication-details", formData, {
+    Axios.post("http://localhost:8080/save-communication-details", formData, {
       headers: {
         Authorization: getToken(),
       },

@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 
 function HomePage() {
   return (
-    <div className="w-full">
+    <div className="w-full font-cereal-font">
       <div className=" flex bg-white" style={{ height: "690px" }}>
         <div className="flex-auto items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2 sm:pt-8">
           <div>
