@@ -137,7 +137,7 @@ function MyApplications(props) {
                       <div className="w-2/5 mx-auto my-50 text-center">
                         <div className="h-5" />
                         <img alt="No data" src={noDataGirlPic} />
-                        <p className="font-josefin-sans text-2xl font-semibold">
+                        <p className="text-2xl font-semibold">
                           No applications submitted yet!
                         </p>
                         <div className="h-6"></div>

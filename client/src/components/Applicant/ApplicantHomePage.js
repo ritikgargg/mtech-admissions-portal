@@ -231,7 +231,7 @@ export default function ApplicantHomePage() {
                       <div className="w-3/5 mx-auto my-50 text-center">
                         <div className="h-5" />
                         <img alt="No data" src={noDataPic} />
-                        <p className="font-josefin-sans text-2xl font-semibold mb-5">
+                        <p className="text-2xl font-semibold mb-5">
                           No positions open currently!
                         </p>
                       </div>
