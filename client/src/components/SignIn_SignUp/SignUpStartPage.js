@@ -21,22 +21,20 @@ function SignUpStartPage() {
   const [colorOTP, setColorOTP] = useState(0);
 
   const emailSubmit = () => {
-    axios
-      .post("http://localhost:8080/auth/signup/otp", { email: email })
-      .then((response) => {
-        if (response.data === 0) {
-          setMsgSignin("Please enter your email.");
-          setColorEmail(1);
-        } else if (response.data === 1) {
-          setMsgSignin(
-            "An account is already associated with this email-id. Sign-in or sign-up with different email-id."
-          );
-          setColorEmail(1);
-        } else {
-          setotpSent(!otpSent);
-          setColorOTP(2);
-        }
-      });
+    axios.post("/auth/signup/otp", { email: email }).then((response) => {
+      if (response.data === 0) {
+        setMsgSignin("Please enter your email.");
+        setColorEmail(1);
+      } else if (response.data === 1) {
+        setMsgSignin(
+          "An account is already associated with this email-id. Sign-in or sign-up with different email-id."
+        );
+        setColorEmail(1);
+      } else {
+        setotpSent(!otpSent);
+        setColorOTP(2);
+      }
+    });
   };
 
   const updateEmail = (e) => {
@@ -48,14 +46,14 @@ function SignUpStartPage() {
   };
 
   const resendOTP = () => {
-    axios.post("http://localhost:8080/auth/signup/otp", { email: email });
+    axios.post("/auth/signup/otp", { email: email });
     setMsgOtp("OTP has been resent to your mail account.");
     setColorOTP(2);
   };
 
   const handleSubmit = () => {
     axios
-      .post("http://localhost:8080/auth/signup/verify", {
+      .post("/auth/signup/verify", {
         email: email,
         otp: otp,
       })

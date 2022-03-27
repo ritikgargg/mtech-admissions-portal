@@ -44,8 +44,8 @@ function EducationalDetails(props) {
 
   const onSubmit = () => {
     const formData = new FormData();
-    console.log(props.localDegrees);
-    console.log(props.localProfileInfo);
+    // console.log(props.localDegrees);
+    // console.log(props.localProfileInfo);
     formData.append(
       "degrees",
       JSON.stringify(convertJsonObjectArrayTo2dArray(props.localDegrees))
@@ -89,9 +89,9 @@ function EducationalDetails(props) {
       props.localProfileInfo.is_last_degree_completed
     );
 
-    for (var value of formData.values()) {
-      console.log(value);
-    }
+    // for (var value of formData.values()) {
+    //   console.log(value);
+    // }
 
     // Append Files
     formData.append("marksheet_10th_url", marksheet_10th);
@@ -914,7 +914,7 @@ function EducationalDetails(props) {
                         >
                           Save
                         </button>
-                        <button
+                        {/* <button
                           type="button"
                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           onClick={() => {
@@ -924,7 +924,7 @@ function EducationalDetails(props) {
                           }}
                         >
                           Print
-                        </button>
+                        </button> */}
                         <button
                           onClick={closeEducationDetails}
                           data-modal-toggle="educationalDetailsModal"

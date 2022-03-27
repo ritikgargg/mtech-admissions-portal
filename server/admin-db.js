@@ -28,7 +28,6 @@ const add_admission_cycle = async (req, res) => {
   let cycle_id = cycle.rows[0].cycle_id;
 
   let info = req.body;
-  console.log(info);
 
   const results = await pool.query(
     "INSERT INTO admission_cycles(name, duration_start, duration_end) VALUES($1, $2, $3) RETURNING cycle_id;",
@@ -96,7 +95,6 @@ const delete_admission_cycle = async (req, res) => {
   }
 
   let cycle_id = req.body.cycle_id;
-  console.log(cycle_id);
 
   const results = await pool.query(
     "DELETE from admission_cycles WHERE cycle_id = $1",

@@ -68,7 +68,7 @@ function AdmissionCycles() {
     formData.append("end", String(cycleInfo["duration_end"]));
     formData.append("make_current", makeCurrent);
 
-    Axios.post("http://localhost:8080/add-admission-cycle", formData, {
+    Axios.post("/add-admission-cycle", formData, {
       headers: {
         Authorization: getToken(),
       },
@@ -100,12 +100,12 @@ function AdmissionCycles() {
     let copy = [...list];
     let deletedCycle = copy.splice(index, 1);
 
-    console.log("deletedCycle : ", deletedCycle[0].cycle_id);
+    // console.log("deletedCycle : ", deletedCycle[0].cycle_id);
 
     const formData = new FormData();
     formData.append("cycle_id", deletedCycle[0].cycle_id);
 
-    Axios.post("http://localhost:8080/delete-admission-cycle", formData, {
+    Axios.post("/delete-admission-cycle", formData, {
       headers: {
         Authorization: getToken(),
       },

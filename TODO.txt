@@ -8,5 +8,3 @@ Responsive UI
 On form submission, show some loading message until all the values are pushed into the database and gcp by server
 
 For textarea fields, check if the applicant do not only submit spaces
-
-Changed TODO

@@ -1,7 +1,5 @@
 const express = require("express");
-const { format } = require("util");
 const cors = require("cors");
-const pool = require("./db");
 const auth = require("./auth");
 const path = require("path");
 const multer = require("multer");
@@ -9,16 +7,19 @@ const upload = multer();
 const applicantdB = require("./applicant-db");
 const admindB = require("./admin-db");
 var bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+dotenv.config();
+
 const PORT = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
 app.get("/", (req, res) => {
@@ -95,7 +96,7 @@ app.post(
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"));
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
   });
 }
 

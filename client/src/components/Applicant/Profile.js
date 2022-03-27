@@ -52,7 +52,7 @@ export default function Profile() {
     let copy = [...degrees];
     copy[id][String(index)] = null;
     setDegrees(copy);
-    console.log(copy);
+    // console.log(copy);
   }
 
   function syncLocalGlobalData() {
@@ -159,7 +159,7 @@ export default function Profile() {
     assign(temp, key, event.target.value);
     copy[index] = temp;
     setLocalDegrees(copy);
-    console.log(copy);
+    // console.log(copy);
   };
 
   const removeLocalDegree = (index) => {
@@ -185,8 +185,8 @@ export default function Profile() {
   // const closeModal = (setShowModal) => {
   //     setShowModal(false);
   // };
-  console.log(localProfileInfo);
-  console.log(profileInfo);
+  // console.log(localProfileInfo);
+  // console.log(profileInfo);
   return (
     <>
       <DashboardNavBar currentFlag={2} />

@@ -140,15 +140,6 @@ function App() {
           ></Route>
 
           <Route
-            path="/admin/view/:cycle_id/:offering_id/:application_id"
-            element={
-              <PrivateRoute>
-                <ViewSubmittedApplicationAdmin />
-              </PrivateRoute>
-            }
-          />
-
-          <Route
             path="/admin/manage-admins/"
             element={
               <PrivateRoute>
@@ -166,6 +157,15 @@ function App() {
             }
           ></Route>
         </Route>
+
+        <Route
+          path="/admin/view/:cycle_id/:offering_id/:application_id"
+          element={
+            <PrivateRoute>
+              <ViewSubmittedApplicationAdmin />
+            </PrivateRoute>
+          }
+        />
 
         <Route element={<WithHeaderFooter />}>
           <Route path="/" element={<HomePage />}></Route>

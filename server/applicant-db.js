@@ -75,8 +75,6 @@ const save_education_details = async (req, res, next) => {
   /**
    * Verify using authToken
    */
-  console.log("huehue");
-  console.log(req.body);
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
@@ -370,7 +368,7 @@ const check_applicant_info = async (req, res) => {
     profile_full_check_data.mobile_number === null ||
     profile_full_check_data.degree_10th === null
   ) {
-    console.log("Profile Not Complete");
+    // console.log("Profile Not Complete");
     return res.send("2"); /** Profile not complete */
   }
 
@@ -423,7 +421,7 @@ const check_applicant_info = async (req, res) => {
     return res.send("2");
   }
 
-  console.log(4);
+  // console.log(4);
 
   /** Check if already applied */
   const application_filled_check = await pool.query(

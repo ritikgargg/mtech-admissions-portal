@@ -7,9 +7,8 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Tooltip } from "@mui/material";
 import noDataPic from "../../images/no-data.jpg";
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
-
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -36,7 +35,7 @@ export default function OfferingList() {
           setApplications(response.data.applications);
           setCycleName(response.data.cycle_name);
           setOfferingName(response.data.offering_name);
-          console.log(response.data);
+          // console.log(response.data);
           // if(response.data.length >= 0)
           //   setStartCount(1)
         }
@@ -45,11 +44,11 @@ export default function OfferingList() {
   }, []);
 
   function range(start, end) {
-    console.log(
-      Array(end - start + 1)
-        .fill()
-        .map((_, idx) => start + idx)
-    );
+    // console.log(
+    //   Array(end - start + 1)
+    //     .fill()
+    //     .map((_, idx) => start + idx)
+    // );
     return Array(end - start + 1)
       .fill()
       .map((_, idx) => start + idx);
@@ -83,7 +82,7 @@ export default function OfferingList() {
                       className="flex items-center h-10 px-4 transition-colors bg-gray-100 hover:text-gray-900"
                       to="/admin/admission-cycles"
                     >
-                      <CalendarTodayOutlinedIcon fontSize="small"/>
+                      <CalendarTodayOutlinedIcon fontSize="small" />
                       <span className="ml-1.5 font-medium text-xs">
                         {" "}
                         {cycleName}{" "}
@@ -95,7 +94,7 @@ export default function OfferingList() {
                       className="flex items-center h-10 px-4 transition-colors bg-gray-100 hover:text-gray-900"
                       to={"/admin/offerings/" + params.cycle_id}
                     >
-                      <AssignmentOutlinedIcon fontSize="small"/>
+                      <AssignmentOutlinedIcon fontSize="small" />
                       <span className="ml-1.5 font-medium text-xs">
                         {" "}
                         {offeringName}{" "}
@@ -106,7 +105,7 @@ export default function OfferingList() {
                     <span className="absolute inset-y-0 w-4 h-10 bg-gray-100 -left-px clip">
                       {" "}
                     </span>
-                  
+
                     <div className="flex items-center h-10 pl-8 pr-4 text-xs font-medium transition-colors bg-white hover:text-gray-900">
                       Applications
                     </div>

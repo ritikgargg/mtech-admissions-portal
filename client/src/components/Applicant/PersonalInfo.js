@@ -3,22 +3,25 @@ import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
-import { useNavigate } from "react-router-dom"
-import crossPic from "../../images/red_cross.png"
+import { useNavigate } from "react-router-dom";
+import crossPic from "../../images/red_cross.png";
 
 function PersonalInfo(props) {
   const navigate = useNavigate();
 
   const [profile_image, setProfileImage] = useState(null);
   const [categoryCertificate, setCategoryCertificate] = useState(null);
-  
+
   const onSubmit = () => {
     const formData = new FormData();
-    
+
     formData.append("full_name", props.localProfileInfo.full_name);
-    formData.append("fathers_name", props.localProfileInfo.fathers_name);    
+    formData.append("fathers_name", props.localProfileInfo.fathers_name);
     formData.append("date_of_birth", props.localProfileInfo.date_of_birth);
-    formData.append("aadhar_card_number", props.localProfileInfo.aadhar_card_number);
+    formData.append(
+      "aadhar_card_number",
+      props.localProfileInfo.aadhar_card_number
+    );
     formData.append("category", props.localProfileInfo.category);
     formData.append("is_pwd", props.localProfileInfo.is_pwd);
     formData.append("marital_status", props.localProfileInfo.marital_status);
@@ -27,60 +30,77 @@ function PersonalInfo(props) {
     formData.append("profile_image", profile_image);
     formData.append("category_certificate", categoryCertificate);
 
-    Axios.post("http://localhost:8080/save-personal-info", formData, {
+    Axios.post("/save-personal-info", formData, {
       headers: {
-        Authorization: getToken()
-      }
+        Authorization: getToken(),
+      },
     })
-      .then(response => {
-        if(response.data === 1) {
+      .then((response) => {
+        if (response.data === 1) {
           navigate("/logout");
-        }
-        else {
+        } else {
           window.location.reload();
         }
       })
-      .catch(err => console.log(err));
-  }
+      .catch((err) => console.log(err));
+  };
 
   const handleFileSubmit = (e, maxSize, setVariable) => {
     const file = e.target.files[0];
-    if (file.size > maxSize*1000000){
-        e.target.value = null;
-        const error = "File size cannot exceed more than " + maxSize.toString() + "MB";
-        alert(error);
+    if (file.size > maxSize * 1000000) {
+      e.target.value = null;
+      const error =
+        "File size cannot exceed more than " + maxSize.toString() + "MB";
+      alert(error);
+    } else {
+      setVariable(file);
     }
-    else {
-        setVariable(file);
-    }
-  }
+  };
 
-  function closePersonalInfo () {
-    console.log("educational details closed!!");
+  function closePersonalInfo() {
+    // console.log("educational details closed!!");
     setProfileImage(null);
     setCategoryCertificate(null);
     props.syncLocalGlobalData();
   }
-  
+
   return (
-    <div id="personalDetailsModal" aria-hidden="true" className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
+    <div
+      id="personalDetailsModal"
+      aria-hidden="true"
+      className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0"
+    >
       <div className="relative overflow-y-auto overflow-x-hidden object-center  overscroll-none px-4 w-full max-w-7xl h-5/6">
         {/* Modal content */}
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-
           {/* Modal header and Cross button */}
           <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
-            <button onClick={closePersonalInfo} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="personalDetailsModal">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>  
+            <button
+              onClick={closePersonalInfo}
+              type="button"
+              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-toggle="personalDetailsModal"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </button>
           </div>
-        
+
           {/* Personal Info Content */}
           <div>
             <div className="px-6 py-6 mx-8 bg-[#f3f4f6]">
               <div className="mt-10 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
-
                   {/* Personal Details Heading and Sub Heading  */}
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
@@ -100,21 +120,23 @@ function PersonalInfo(props) {
                       <div className="shadow overflow-hidden sm:rounded-md">
                         <div className="px-4 py-5 bg-white sm:p-6">
                           <div className="grid grid-cols-6 gap-6">
-
                             {/* Applicant's Name */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
                                 htmlFor="name"
                                 className="block text-sm font-medium text-gray-700"
                               >
-                                Full Name<span style={{ color: "#ff0000" }}> *</span>
+                                Full Name
+                                <span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <input
                                 type="text"
-                                name = "full_name"
+                                name="full_name"
                                 value={props.localProfileInfo.full_name}
                                 id="name"
-                                onChange={(event)=>props.onChange(event, 'full_name')}
+                                onChange={(event) =>
+                                  props.onChange(event, "full_name")
+                                }
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
@@ -131,10 +153,12 @@ function PersonalInfo(props) {
                               </label>
                               <input
                                 type="text"
-                                name= "fathers_name"
+                                name="fathers_name"
                                 value={props.localProfileInfo.fathers_name}
-                                onChange={(event)=>props.onChange(event, 'fathers_name')}
-                                id="father-name"  
+                                onChange={(event) =>
+                                  props.onChange(event, "fathers_name")
+                                }
+                                id="father-name"
                                 required
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
@@ -146,10 +170,12 @@ function PersonalInfo(props) {
                                 className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                                 htmlFor="profile_picture"
                               >
-                                Upload your recent photograph<span style={{ color: "#ff0000" }}> *</span>
+                                Upload your recent photograph
+                                <span style={{ color: "#ff0000" }}> *</span>
                               </label>
-                              
-                              {(!props.localProfileInfo.profile_image_url && !profile_image)?
+
+                              {!props.localProfileInfo.profile_image_url &&
+                              !profile_image ? (
                                 <>
                                   <input
                                     className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -158,23 +184,36 @@ function PersonalInfo(props) {
                                     type="file"
                                     required
                                     accept=".jpeg, .jpg, .png"
-                                    onChange={(e) => handleFileSubmit(e, 2, setProfileImage)}
-                                    />
+                                    onChange={(e) =>
+                                      handleFileSubmit(e, 2, setProfileImage)
+                                    }
+                                  />
                                   <div
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="profile-picture-desc"
                                   >
-                                    <span className="font-semibold">Maximum file size:</span> 2 MB,  <span className="font-semibold">Allowed file formats:</span> .jpg, .png, .jpeg 
-                                    <br/>
+                                    <span className="font-semibold">
+                                      Maximum file size:
+                                    </span>{" "}
+                                    2 MB,{" "}
+                                    <span className="font-semibold">
+                                      Allowed file formats:
+                                    </span>{" "}
+                                    .jpg, .png, .jpeg
+                                    <br />
                                     <div className="mt-1">
-                                    <span className="font-semibold">Recommended File Name Format:</span> 
-                                    <span> Photograph_&lt;your_email_id&gt; <br/>Example: Photograph_abc@gmail.com</span>
+                                      <span className="font-semibold">
+                                        Recommended File Name Format:
+                                      </span>
+                                      <span>
+                                        {" "}
+                                        Photograph_&lt;your_email_id&gt; <br />
+                                        Example: Photograph_abc@gmail.com
+                                      </span>
                                     </div>
-                                  </div>                             
+                                  </div>
                                 </>
-                              
-                                :
-
+                              ) : (
                                 <>
                                   <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     <input
@@ -182,16 +221,38 @@ function PersonalInfo(props) {
                                       id="profile_picture"
                                       name="profile_picture"
                                       type="text"
-                                      value={profile_image ? profile_image.name : props.localProfileInfo.profile_image_url.substring(props.localProfileInfo.profile_image_url.lastIndexOf('/') + 1, props.localProfileInfo.profile_image_url.lastIndexOf('_'))}
+                                      value={
+                                        profile_image
+                                          ? profile_image.name
+                                          : props.localProfileInfo.profile_image_url.substring(
+                                              props.localProfileInfo.profile_image_url.lastIndexOf(
+                                                "/"
+                                              ) + 1,
+                                              props.localProfileInfo.profile_image_url.lastIndexOf(
+                                                "_"
+                                              )
+                                            )
+                                      }
                                       readOnly
-                                      />
-                                  
-                                    <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => {props.emptyFile('profile_image_url');setProfileImage(null)}}>
-                                      <img className="w-6 h-6" src ={crossPic} alt="Cross"></img>
+                                    />
+
+                                    <button
+                                      type="button"
+                                      className="flex items-center ml-2 mr-2 justify-center"
+                                      onClick={() => {
+                                        props.emptyFile("profile_image_url");
+                                        setProfileImage(null);
+                                      }}
+                                    >
+                                      <img
+                                        className="w-6 h-6"
+                                        src={crossPic}
+                                        alt="Cross"
+                                      ></img>
                                     </button>
                                   </div>
                                 </>
-                              }
+                              )}
                             </div>
 
                             {/* Date of Birth */}
@@ -204,11 +265,11 @@ function PersonalInfo(props) {
                                 <span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <DatePicker
-                                onChange={(event)=>props.onChange(event, 'date_of_birth')}
+                                onChange={(event) =>
+                                  props.onChange(event, "date_of_birth")
+                                }
                                 value={props.localProfileInfo.date_of_birth}
-                                
-                                
-                                />
+                              />
                             </div>
 
                             {/* Aadhar Card Number */}
@@ -222,9 +283,13 @@ function PersonalInfo(props) {
                               </label>
                               <input
                                 type="text"
-                                value={props.localProfileInfo.aadhar_card_number}
-                                onChange={(event)=>props.onChange(event, 'aadhar_card_number')}
-                                name = "aadhar_card_number"
+                                value={
+                                  props.localProfileInfo.aadhar_card_number
+                                }
+                                onChange={(event) =>
+                                  props.onChange(event, "aadhar_card_number")
+                                }
+                                name="aadhar_card_number"
                                 id="aadhar-number"
                                 pattern="[1-9]{1}[0-9]{11}"
                                 title="12 digit number"
@@ -239,13 +304,16 @@ function PersonalInfo(props) {
                                 htmlFor="category"
                                 className="block text-sm font-medium text-gray-700"
                               >
-                                Category<span style={{ color: "#ff0000" }}> *</span>
+                                Category
+                                <span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <select
                                 id="category"
                                 name="category"
                                 value={props.localProfileInfo.category}
-                                onChange={(event)=>props.onChange(event, 'category')}
+                                onChange={(event) =>
+                                  props.onChange(event, "category")
+                                }
                                 required
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
@@ -266,8 +334,10 @@ function PersonalInfo(props) {
                               >
                                 Category Certificate (SC/ST/OBC/PwD/EWS)
                               </label>
-                              
-                              {(!props.localProfileInfo.category_certificate_url && !categoryCertificate)?
+
+                              {!props.localProfileInfo
+                                .category_certificate_url &&
+                              !categoryCertificate ? (
                                 <>
                                   <input
                                     className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -275,32 +345,50 @@ function PersonalInfo(props) {
                                     id="category-certificate"
                                     type="file"
                                     accept=".jpeg, .jpg, .png"
-                                  
-                                    onChange={(e) => handleFileSubmit(e, 2, setCategoryCertificate)}
-                                    />
+                                    onChange={(e) =>
+                                      handleFileSubmit(
+                                        e,
+                                        2,
+                                        setCategoryCertificate
+                                      )
+                                    }
+                                  />
                                   <div
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="category-certificate-desc"
                                   >
-                                    <span className="font-semibold"> Maximum file size: </span>2 MB
+                                    <span className="font-semibold">
+                                      {" "}
+                                      Maximum file size:{" "}
+                                    </span>
+                                    2 MB
                                   </div>
                                   <div
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="category-certificate-desc"
                                   >
-                                    <span className="font-semibold">Allowed file formats:</span> .jpg, .jpeg, .png
+                                    <span className="font-semibold">
+                                      Allowed file formats:
+                                    </span>{" "}
+                                    .jpg, .jpeg, .png
                                   </div>
                                   <div
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="category-certificate-desc"
                                   >
-                                    <span className="font-semibold">Recommended File Name Format:</span> 
-                                    <span> Category_Certificate_&lt;your_email_id&gt;<br/>Example: Category_Certificate_abc@gmail.com</span>
+                                    <span className="font-semibold">
+                                      Recommended File Name Format:
+                                    </span>
+                                    <span>
+                                      {" "}
+                                      Category_Certificate_&lt;your_email_id&gt;
+                                      <br />
+                                      Example:
+                                      Category_Certificate_abc@gmail.com
+                                    </span>
                                   </div>
                                 </>
-                              
-                                :
-                              
+                              ) : (
                                 <>
                                   <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     <input
@@ -308,18 +396,42 @@ function PersonalInfo(props) {
                                       id="category-certificate"
                                       name="category-certificate"
                                       type="text"
-                                      value={categoryCertificate ? categoryCertificate.name : props.localProfileInfo.category_certificate_url.substring(props.localProfileInfo.category_certificate_url.lastIndexOf('/') + 1, props.localProfileInfo.category_certificate_url.lastIndexOf('_'))}
+                                      value={
+                                        categoryCertificate
+                                          ? categoryCertificate.name
+                                          : props.localProfileInfo.category_certificate_url.substring(
+                                              props.localProfileInfo.category_certificate_url.lastIndexOf(
+                                                "/"
+                                              ) + 1,
+                                              props.localProfileInfo.category_certificate_url.lastIndexOf(
+                                                "_"
+                                              )
+                                            )
+                                      }
                                       readOnly
-                                      />
-                                  
-                                    <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => {props.emptyFile('category_certificate_url');setCategoryCertificate(null)}}>
-                                      <img className="w-6 h-6" src ={crossPic} alt="Cross"></img>
+                                    />
+
+                                    <button
+                                      type="button"
+                                      className="flex items-center ml-2 mr-2 justify-center"
+                                      onClick={() => {
+                                        props.emptyFile(
+                                          "category_certificate_url"
+                                        );
+                                        setCategoryCertificate(null);
+                                      }}
+                                    >
+                                      <img
+                                        className="w-6 h-6"
+                                        src={crossPic}
+                                        alt="Cross"
+                                      ></img>
                                     </button>
                                   </div>
                                 </>
-                              }
+                              )}
                             </div>
-                          
+
                             {/* PWD Category */}
                             <div className="col-span-6 sm:col-span-3">
                               <label
@@ -333,7 +445,9 @@ function PersonalInfo(props) {
                                 id="pwd-category"
                                 required
                                 value={props.localProfileInfo.is_pwd}
-                                onChange={(event)=>props.onChange(event, 'is_pwd')}
+                                onChange={(event) =>
+                                  props.onChange(event, "is_pwd")
+                                }
                                 name="is_pwd"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
@@ -354,7 +468,9 @@ function PersonalInfo(props) {
                               <select
                                 id="marital-status"
                                 value={props.localProfileInfo.marital_status}
-                                onChange={(event)=>props.onChange(event, 'marital_status')}
+                                onChange={(event) =>
+                                  props.onChange(event, "marital_status")
+                                }
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               >
                                 <option value="">Select Status</option>
@@ -374,7 +490,9 @@ function PersonalInfo(props) {
                               <CountryDropdown
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 value={props.localProfileInfo.nationality}
-                                onChange={(val)=>props.onChangeNationality(val)}
+                                onChange={(val) =>
+                                  props.onChangeNationality(val)
+                                }
                               />
                             </div>
 
@@ -384,11 +502,14 @@ function PersonalInfo(props) {
                                 htmlFor="gender"
                                 className="block text-sm font-medium text-gray-700"
                               >
-                                Gender<span style={{ color: "#ff0000" }}> *</span>
+                                Gender
+                                <span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <select
                                 value={props.localProfileInfo.gender}
-                                onChange={(event)=>props.onChange(event, 'gender')}
+                                onChange={(event) =>
+                                  props.onChange(event, "gender")
+                                }
                                 id="gender"
                                 name="gender"
                                 required
@@ -401,7 +522,7 @@ function PersonalInfo(props) {
                             </div>
                           </div>
                         </div>
-                        
+
                         {/* <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                           <button
                             type="button"
@@ -411,11 +532,22 @@ function PersonalInfo(props) {
                             Next
                           </button>
                         </div> */}
-
                       </div>
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
-                        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                        <button onClick={closePersonalInfo} data-modal-toggle="personalDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button>
+                        <button
+                          type="submit"
+                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={closePersonalInfo}
+                          data-modal-toggle="personalDetailsModal"
+                          type="button"
+                          className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                        >
+                          Cancel
+                        </button>
                       </div>
                     </form>
                   </div>

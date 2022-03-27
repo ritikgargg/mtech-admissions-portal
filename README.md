@@ -25,5 +25,3 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 In the `.env` file in the server directory, update your details.
 
 Happy Coding :)
-
-1. Change your .env file.

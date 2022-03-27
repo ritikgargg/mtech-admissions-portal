@@ -12,7 +12,7 @@ import { Tooltip } from "@mui/material";
 // import groupPic from '../../images/group.png'
 import { UserGroupIcon } from "@heroicons/react/solid";
 import noDataPic from "../../images/no-data.jpg";
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function OfferingList() {
         } else {
           setApplications(response.data.offerings);
           setCycleName(response.data.cycle_name);
-          console.log(response.data);
+          // console.log(response.data);
         }
       })
       .catch((err) => console.log(err));
@@ -81,7 +81,7 @@ export default function OfferingList() {
                         className="flex items-center h-10 px-4 transition-colors bg-gray-100 hover:text-gray-900"
                         to="/admin/admission-cycles"
                       >
-                        <CalendarTodayOutlinedIcon fontSize="small"/>
+                        <CalendarTodayOutlinedIcon fontSize="small" />
                         <span className="ml-1.5 font-medium text-xs">
                           {" "}
                           {cycleName}{" "}
