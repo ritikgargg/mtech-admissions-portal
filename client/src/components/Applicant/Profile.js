@@ -60,8 +60,8 @@ export default function Profile() {
     setLocalProfileInfo(copy);
 
     let copy2 = [...degrees];
-    console.log("Degrees:")
-    console.log(degrees)
+    console.log("Degrees:");
+    console.log(degrees);
     setLocalDegrees(copy2);
   }
 
@@ -133,11 +133,29 @@ export default function Profile() {
           if (copy.remarks_12th === "null") assign(copy, "remarks_12th", null);
           if (copy.other_remarks === "null")
             assign(copy, "other_remarks", null);
+
+          let copy2 = { ...response.data };
+          if (copy2.alternate_mobile_number === "null")
+            assign(copy2, "alternate_mobile_number", null);
+          if (copy2.category_certificate_url === "null")
+            assign(copy2, "category_certificate_url", null);
+          if (copy2.nationality === "null") assign(copy2, "nationality", null);
+          if (copy2.marital_status === "null")
+            assign(copy2, "marital_status", null);
+          if (copy2.remarks_10th === "null")
+            assign(copy2, "remarks_10th", null);
+          if (copy2.remarks_12th === "null")
+            assign(copy2, "remarks_12th", null);
+          if (copy2.other_remarks === "null")
+            assign(copy2, "other_remarks", null);
+
           setProfileInfo(copy);
-          setLocalProfileInfo(copy);
+          setLocalProfileInfo(copy2);
 
           setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees));
-          setLocalDegrees(convert2dArrayToJsonObjectArray(response.data.degrees));
+          setLocalDegrees(
+            convert2dArrayToJsonObjectArray(response.data.degrees)
+          );
           setDegreeSize(getDegreeSize(response.data.degrees));
           setCount(Math.max(1, getDegreeSize(response.data.degrees)));
           // console.log(response.data)

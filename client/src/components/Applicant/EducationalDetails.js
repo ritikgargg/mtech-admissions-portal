@@ -106,7 +106,7 @@ function EducationalDetails(props) {
     formData.append("upload_degree3", degreesFiles[3][1]);
     formData.append("upload_marksheet4", degreesFiles[4][0]);
     formData.append("upload_degree4", degreesFiles[4][1]);
-    
+
     Axios.post("/save-education-details", formData, {
       headers: {
         Authorization: getToken(),
@@ -914,7 +914,7 @@ function EducationalDetails(props) {
                         >
                           Save
                         </button>
-                        {/* <button
+                        <button
                           type="button"
                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           onClick={() => {
@@ -924,7 +924,7 @@ function EducationalDetails(props) {
                           }}
                         >
                           Print
-                        </button> */}
+                        </button>
                         <button
                           onClick={closeEducationDetails}
                           data-modal-toggle="educationalDetailsModal"
