@@ -58,7 +58,8 @@ export default function Profile() {
   function syncLocalGlobalData() {
     let copy = { ...profileInfo };
     setLocalProfileInfo(copy);
-
+    console.log("Profile:");
+    console.log(profileInfo);
     let copy2 = [...degrees];
     console.log("Degrees:");
     console.log(degrees);
@@ -158,7 +159,18 @@ export default function Profile() {
           );
           setDegreeSize(getDegreeSize(response.data.degrees));
           setCount(Math.max(1, getDegreeSize(response.data.degrees)));
-          // console.log(response.data)
+          console.log("####IN PROFILE####");
+          console.log("response.data");
+          console.log(response.data);
+          console.log("profileInfo");
+          console.log(profileInfo);
+          console.log("localProfileInfo");
+          console.log(localProfileInfo);
+          console.log("degrees");
+          console.log(degrees);
+          console.log("localDegrees");
+          console.log(localDegrees);
+          console.log("#####END#######");
         }
       })
       .catch((err) => console.log(err));

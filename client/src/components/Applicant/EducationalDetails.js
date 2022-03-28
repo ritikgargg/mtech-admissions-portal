@@ -176,10 +176,12 @@ function EducationalDetails(props) {
   function closeEducationDetails() {
     setMarksheet_12th(null);
     setMarksheet_10th(null);
+    let copy = [...degreesFiles];
     for (let i = 0; i < 5; i++) {
-      degreesFiles[i][0] = null;
-      degreesFiles[i][1] = null;
+      copy[i][0] = null;
+      copy[i][1] = null;
     }
+    setDegreesFiles(copy);
     props.syncLocalGlobalData();
   }
 
