@@ -154,7 +154,7 @@ function AdmissionCycles() {
         backgroundImage: `url(${background})`,
       }}
     >
-      <div className="pt-10 w-4/5 mx-auto sm:w-3/5 md:w-2/5 overflow-y-auto">
+      <div className="pt-14 pb-14 w-4/5 mx-auto sm:w-3/5 md:w-2/5">
         <div className="font-medium">Current Admission Cycles</div>
         <div className="mt-1 items-start h-[1px] bg-gray-300" />
         {addAdmissionCycle ? (
@@ -169,7 +169,7 @@ function AdmissionCycles() {
                       setCycleInfo(empty_cycle);
                       setAddAdmissionCycle(false);
                     }}
-                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     <svg
                       className="w-5 h-5"
@@ -237,7 +237,7 @@ function AdmissionCycles() {
                 </div>
                 <button
                   type="submit"
-                  className="block w-full px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg"
+                  className="block w-full focus:outline-none px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg"
                 >
                   Add new cycle
                 </button>
@@ -246,7 +246,8 @@ function AdmissionCycles() {
           </div>
         ) : (
           <button
-            className="bg-white mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
+            // className="bg-gradient-to-tr from-[#000000] to-[#090909] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
+            className="bg-white mt-4 focus:outline-none h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
             onClick={() => {
               setCycleInfo(empty_cycle);
               setAddAdmissionCycle(true);
@@ -268,7 +269,8 @@ function AdmissionCycles() {
           </button>          
         )}
         {/* <button
-            className="bg-gradient-to-tr from-[#000000] to-[#090909] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
+            // className="bg-gradient-to-tr from-[#000000] to-[#090909] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
+            className="focus:outline-none bg-gradient-to-tr from-[#1E3A8A] to-[#1E3A8A] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
             onClick={() => {
               setCycleInfo(empty_cycle);
               setAddAdmissionCycle(true);
@@ -289,10 +291,10 @@ function AdmissionCycles() {
             </div>
           </button> */}
         
-        <div className="mt-4 space-y-4">
+        <div className="mt-4 mx-auto space-y-4">
           {currentCycles.length !== 0 &&
             currentCycles.map((cycle, ind) => (
-              <div className="bg-white h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
+              <div className="bg-[#fcfcfc] h-auto block py-5 pl-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200">
                 <div className="grid grid-cols-11 items-center justify-center content-center text-gray-500 sm:pr-8">
                   <Link
                     className="col-span-9 grid grid-cols-9"
@@ -304,11 +306,12 @@ function AdmissionCycles() {
                       alt="Calendar"
                     />
                     <div className="col-span-7 text-left">
-                      <h5 className="text-lg font-semibold text-gray-900">
+                      <h5 className=" text-lg font-semibold text-gray-900">
                         {cycle.name}
                       </h5>
                       <p>
-                        {cycle.duration_start} - {cycle.duration_end}
+                        {cycle.duration_start} -{" "}
+                        {cycle.duration_end}
                       </p>
                     </div>
                   </Link>
@@ -331,7 +334,7 @@ function AdmissionCycles() {
       </div>
 
       {previousCycles.length !== 0 && (
-        <div className="py-14 w-4/5 mx-auto sm:w-3/5 md:w-2/5">
+        <div className="pt-4 pb-14 w-4/5 mx-auto sm:w-3/5 md:w-2/5">
           <div className="font-medium">Previous Admission Cycles</div>
           <div className="mt-1 items-start h-[1px] bg-gray-300" />
 

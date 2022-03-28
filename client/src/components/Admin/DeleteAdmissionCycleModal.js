@@ -13,7 +13,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "40%",
+  width: "30%",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -30,7 +30,7 @@ export default function DeleteAlertModal(props) {
       <Tooltip title="Delete">
         <button
           onClick={handleOpen}
-          className="hover:bg-gray-100 rounded-lg"
+          className="focus:outline-none hover:bg-gray-100 rounded-lg"
           style={{
             fontSize: "0.875rem",
             textTransform: "none",
@@ -51,11 +51,11 @@ export default function DeleteAlertModal(props) {
           <Grid container>
             <Grid item xs={11}>
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                {props.header}
+
               </Typography>
             </Grid>
             <Grid item xs={1}>
-              <IconButton aria-label="Close" onClick={handleClose}>
+              <IconButton className="focus:outline-none" aria-label="Close" onClick={handleClose}>
                 <Close />
               </IconButton>
             </Grid>
@@ -64,11 +64,11 @@ export default function DeleteAlertModal(props) {
             className="pl-5 bg-white rounded-lg"
             id="modal-modal-description"
           >
-            <h2 className="text-lg font-bold">
-              Are you sure you want to do that?
+            <h2 className="text-xl font-bold">
+              Are you sure you want to do that ?
             </h2>
             <p className="mt-2 text-sm text-gray-500">
-              Are you 100% sure, it's OK?
+              You will not be able to view or make changes to the applications or offerings of this admission cycle
             </p>
             <div className="flex items-center justify-end mt-8 text-xs">
               <button
@@ -77,14 +77,14 @@ export default function DeleteAlertModal(props) {
                   props.onDelete(props.list, props.setList, props.index);
                   handleClose();
                 }}
-                className="px-4 py-2 font-medium text-green-600 rounded bg-green-50"
+                className="focus:outline-none px-4 py-2 font-medium text-red-600 rounded bg-red-50"
               >
                 Yes, I'm sure
               </button>
               <button
                 type="button"
                 onClick={handleClose}
-                className="px-4 py-2 ml-2 font-medium text-gray-600 rounded bg-gray-50"
+                className="focus-outline-none px-4 py-2 ml-2 font-medium text-gray-600 rounded bg-gray-50"
               >
                 No, go back
               </button>

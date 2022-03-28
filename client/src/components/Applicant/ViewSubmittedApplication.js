@@ -328,14 +328,14 @@ export default function ViewSubmittedApplication() {
                         Marital Status
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {applicationInfo.marital_status}
+                        {applicationInfo.marital_status === "null" ? "" : applicationInfo.marital_status}
                     </dd>
                     </div>
 
                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">Nationality</dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {applicationInfo.nationality}
+                        {applicationInfo.nationality === "null" ? "" : applicationInfo.nationality}
                     </dd>
                     </div>
 
@@ -488,7 +488,7 @@ export default function ViewSubmittedApplication() {
                             Alternate Mobile Number
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {applicationInfo.alternate_mobile_number}
+                            {applicationInfo.alternate_mobile_number === "null" ? "" : applicationInfo.alternate_mobile_number}
                         </dd>
                         </div>
                     </dl>

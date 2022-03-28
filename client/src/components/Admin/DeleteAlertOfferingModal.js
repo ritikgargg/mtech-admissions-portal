@@ -49,7 +49,7 @@ export default function DeleteAlertModal(props) {
         <button
           onClick={handleOpen}
           type="button"
-          className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="text-white focus:outline-none bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           <svg
             className="h-5 w-5"
@@ -81,7 +81,7 @@ export default function DeleteAlertModal(props) {
                 <button
                   onClick={handleClose}
                   type="button"
-                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                  className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                 >
                   <svg
                     className="w-5 h-5"
@@ -117,7 +117,7 @@ export default function DeleteAlertModal(props) {
                 </h3>
                 <button
                   onClick={handleDelete}
-                  className="w-50 h-12 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
+                  className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
                 >
                   <div className="w-24 h-auto">
                     {!isLoading ? (

@@ -49,9 +49,9 @@ export default function Profile() {
   }
 
   function emptyFileDegree(index, id) {
-    let copy = [...degrees];
+    let copy = [...localDegrees];
     copy[id][String(index)] = null;
-    setDegrees(copy);
+    setLocalDegrees(copy);
     // console.log(copy);
   }
 
@@ -59,8 +59,10 @@ export default function Profile() {
     let copy = { ...profileInfo };
     setLocalProfileInfo(copy);
 
-    copy = [...degrees];
-    setLocalDegrees(copy);
+    let copy2 = [...degrees];
+    console.log("Degrees:")
+    console.log(degrees)
+    setLocalDegrees(copy2);
   }
 
   const getDegreeSize = (degrees) => {
@@ -133,11 +135,9 @@ export default function Profile() {
             assign(copy, "other_remarks", null);
           setProfileInfo(copy);
           setLocalProfileInfo(copy);
-          let copyDegrees = convert2dArrayToJsonObjectArray(
-            response.data.degrees
-          );
-          setDegrees(copyDegrees);
-          setLocalDegrees(copyDegrees);
+
+          setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees));
+          setLocalDegrees(convert2dArrayToJsonObjectArray(response.data.degrees));
           setDegreeSize(getDegreeSize(response.data.degrees));
           setCount(Math.max(1, getDegreeSize(response.data.degrees)));
           // console.log(response.data)
@@ -217,7 +217,7 @@ export default function Profile() {
               data-modal-toggle="personalDetailsModal"
               data-tooltip-target="tooltip-animation"
               type="button"
-              className="w-5 text-indigo-600"
+              className="w-5 text-indigo-600 focus:outline-none"
               onClick={() => {}}
             >
               <PencilIcon />
@@ -371,7 +371,7 @@ export default function Profile() {
               data-modal-toggle="communicationDetailsModal"
               data-tooltip-target="tooltip-animation"
               type="button"
-              className="w-5 text-indigo-600"
+              className="w-5 text-indigo-600 focus:outline-none"
             >
               <PencilIcon />
             </button>
@@ -493,7 +493,7 @@ export default function Profile() {
               data-modal-toggle="educationalDetailsModal"
               data-tooltip-target="tooltip-animation"
               type="button"
-              className="w-5 text-indigo-600"
+              className="w-5 text-indigo-600 focus:outline-none"
             >
               <PencilIcon />
             </button>

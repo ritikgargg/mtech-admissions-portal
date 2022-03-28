@@ -67,7 +67,7 @@ function Declaration(props){
                               type="file"
                               required
                               accept=".pdf, .png, .jpeg, .jpg, .gif"
-                              onChange={(e) => props.handleFileSubmit(e, 2, 17)}
+                              onChange={(e) => props.handleFileSubmit(e, 1, 17)}
                               />
                             
                             <div

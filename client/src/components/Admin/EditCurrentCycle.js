@@ -118,7 +118,7 @@ export default function DeleteAlertModal(props) {
       <Tooltip title="Delete">
         <button
           onClick={handleOpen}
-          className="hover:bg-gray-100 rounded-lg"
+          className="hover:bg-gray-100 focus:outline-none rounded-lg"
           style={{
             fontSize: "0.875rem",
             textTransform: "none",
@@ -150,7 +150,7 @@ export default function DeleteAlertModal(props) {
                 //   //   setCycleInfo(empty_cycle);
                 //   //   setAddAdmissionCycle(false);
                 // }}
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 <svg
                   className="w-5 h-5"
@@ -221,7 +221,7 @@ export default function DeleteAlertModal(props) {
             </div>
             <button
               type="submit"
-              className="block w-full px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg"
+              className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
             >
               <div>
                 {!isLoading ? (

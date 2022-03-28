@@ -105,7 +105,7 @@ export default function EditAlertOfferingModal(props) {
         <button
           type="button"
           onClick={handleOpen}
-          className="text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="focus:outline-none text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           <svg
             className="h-5 w-5"
@@ -139,7 +139,7 @@ export default function EditAlertOfferingModal(props) {
                 <button
                   onClick={handleClose}
                   type="button"
-                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                  className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                 >
                   <svg
                     className="w-5 h-5"

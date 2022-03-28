@@ -186,7 +186,7 @@ function CollegeDegreeSection(props) {
             type="file"
             accept=".pdf"
             required
-            onChange={(e) => props.handleFileSubmit(e, 2, props.id, 0)}
+            onChange={(e) => props.handleFileSubmit(e, 5, props.id, 0)}
           />
           <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -213,7 +213,7 @@ function CollegeDegreeSection(props) {
                   readOnly
                   />
               
-                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => {props.emptyFileDegree(8,props.id);props.clearFiles(props.id,0)}}>
+                <button type="button" className="flex focus:outline-none items-center ml-2 mr-2 justify-center" onClick={() => {props.emptyFileDegree(8,props.id);props.clearFiles(props.id,0)}}>
                   <img className="w-6 h-6" src ={crossPic} alt="Cross"></img>
                 </button>
               </div>
@@ -240,7 +240,7 @@ function CollegeDegreeSection(props) {
             type="file"
             accept=".pdf"
             required
-            onChange={(e) => props.handleFileSubmit(e, 2, props.id, 1)}
+            onChange={(e) => props.handleFileSubmit(e, 5, props.id, 1)}
           />
           <div
             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -267,7 +267,7 @@ function CollegeDegreeSection(props) {
                   readOnly
                   />
               
-                <button type="button" className="flex items-center ml-2 mr-2 justify-center" onClick={() => {props.emptyFileDegree(9,props.id);props.clearFiles(props.id,1)}}>
+                <button type="button" className="flex focus:outline-none items-center ml-2 mr-2 justify-center" onClick={() => {props.emptyFileDegree(9,props.id);props.clearFiles(props.id,1)}}>
                   <img className="w-6 h-6" src ={crossPic} alt="Cross"></img>
                 </button>
               </div>

@@ -106,8 +106,8 @@ function EducationalDetails(props) {
     formData.append("upload_degree3", degreesFiles[3][1]);
     formData.append("upload_marksheet4", degreesFiles[4][0]);
     formData.append("upload_degree4", degreesFiles[4][1]);
-
-    Axios.post("http://localhost:8080/save-education-details", formData, {
+    
+    Axios.post("/save-education-details", formData, {
       headers: {
         Authorization: getToken(),
       },
@@ -197,7 +197,7 @@ function EducationalDetails(props) {
             <button
               onClick={closeEducationDetails}
               type="button"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-toggle="educationalDetailsModal"
             >
               <svg
@@ -476,7 +476,7 @@ function EducationalDetails(props) {
 
                                         <button
                                           type="button"
-                                          className="flex items-center ml-2 mr-2 justify-center"
+                                          className="flex focus:outline-none items-center ml-2 mr-2 justify-center"
                                           onClick={() => {
                                             props.emptyFile(
                                               "marksheet_10th_url"
@@ -752,7 +752,7 @@ function EducationalDetails(props) {
 
                                         <button
                                           type="button"
-                                          className="flex items-center ml-2 mr-2 justify-center"
+                                          className="flex focus:outline-none items-center ml-2 mr-2 justify-center"
                                           onClick={() => {
                                             props.emptyFile(
                                               "marksheet_12th_url"
@@ -811,7 +811,7 @@ function EducationalDetails(props) {
                                   onClick={() => {
                                     props.setCount(props.count + 1);
                                   }}
-                                  className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
+                                  className="border focus:outline-none border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
                                 >
                                   Add Section
                                 </button>
@@ -825,7 +825,7 @@ function EducationalDetails(props) {
                                     props.removeLocalDegree(props.count - 1);
                                     props.setCount(props.count - 1);
                                   }}
-                                  className="border border-teal-500 text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
+                                  className="border border-teal-500 focus:outline-none text-teal-500 block rounded-sm font-bold py-2 px-4 mr-2 items-center hover:bg-teal-500 hover:text-white"
                                 >
                                   Remove Section
                                 </button>
@@ -910,7 +910,7 @@ function EducationalDetails(props) {
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                         <button
                           type="submit"
-                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
                           Save
                         </button>
@@ -929,7 +929,7 @@ function EducationalDetails(props) {
                           onClick={closeEducationDetails}
                           data-modal-toggle="educationalDetailsModal"
                           type="button"
-                          className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                          className="text-gray-500 focus:outline-none bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
                         >
                           Cancel
                         </button>

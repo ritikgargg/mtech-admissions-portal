@@ -27,7 +27,7 @@ export default function ViewModal(props) {
   return (
     <div>
       <Tooltip title="View Eligibility">
-        <Button onClick={handleOpen} style={{color: "rgb(88 80 236)", fontSize: "0.875rem", textTransform: "none"}}>View</Button>
+        <Button className="focus:outline-none" onClick={handleOpen} style={{color: "rgb(88 80 236)", fontSize: "0.875rem", textTransform: "none"}}>View</Button>
       </Tooltip>
       <Modal
         open={open}
@@ -43,7 +43,7 @@ export default function ViewModal(props) {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <IconButton aria-label="Close" onClick={handleClose}>
+              <IconButton className="focus:outline-none" aria-label="Close" onClick={handleClose}>
                 <Close />
               </IconButton>
             </Grid>
