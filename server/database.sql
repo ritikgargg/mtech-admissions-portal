@@ -224,6 +224,7 @@ INSERT INTO current_cycle(cycle_id) VALUES(0);
 
 -- Do always
 INSERT INTO admins(email_id, admin_type) VALUES('admin@admin', 0);
+-- INSERT INTO admins(email_id, admin_type) VALUES('2019csb1106@iitrpr.ac.in', 0);
 
 -- To check triggers
 -- INSERT INTO admission_cycles(name) VALUES('AY2022-23');

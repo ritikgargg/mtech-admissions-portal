@@ -98,9 +98,14 @@ const delete_admission_cycle = async (req, res) => {
     [cycle_id]
   );
 
-  const update_current_cycle = await pool.query(
-    "UPDATE current_cycle SET cycle_id = 0;"
-  );
+  const cycle = await pool.query("SELECT cycle_id from current_cycle;");
+  let current_cycle_id = cycle.rows[0].cycle_id;
+
+  if (current_cycle_id === cycle_id) {
+    const update_current_cycle = await pool.query(
+      "UPDATE current_cycle SET cycle_id = 0;"
+    );
+  }
 
   return res.send("Ok");
 };
@@ -131,10 +136,10 @@ const edit_admission_cycle = async (req, res) => {
     "UPDATE admission_cycles SET name = $1, duration_start = $2, duration_end = $3 WHERE cycle_id = $4;",
     [info.name, info.duration_start, info.duration_end, info.cycle_id]
   );
-  
+
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
   let current_cycle_id = cycle.rows[0].cycle_id;
-  
+
   /** Making a non-current cycle -> Current cycle */
   if (info.make_current === "true") {
     const make_current_cycle = await pool.query(
@@ -144,7 +149,10 @@ const edit_admission_cycle = async (req, res) => {
   }
 
   /** Making current active cycle -> non-current */
-  if(info.cycle_id === String(current_cycle_id) && info.make_current === "false") {
+  if (
+    info.cycle_id === String(current_cycle_id) &&
+    info.make_current === "false"
+  ) {
     const remove_current_cycle = await pool.query(
       "UPDATE current_cycle SET cycle_id = 0;"
     );
