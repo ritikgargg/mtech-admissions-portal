@@ -10,7 +10,6 @@ To add a psql database to your app:
     heroku addons:create heroku-postgresql:hobby-dev -a <your-app-name>
 (hobby-dev is used to avoid charges of using the database)
 
-
 To run psql shell for your Heroku psql database associated with <your-app-name>:
     heroku pg:psql -a <your-app-name>
     heroku pg:psql -a iit-ropar-admissions

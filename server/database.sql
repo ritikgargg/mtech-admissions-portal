@@ -221,7 +221,6 @@ CREATE TRIGGER trigger_insert_into_admission_cycles
 
 -- Always executed because admin will only be allowed to update it
 INSERT INTO current_cycle(cycle_id) VALUES(0);
--- INSERT INTO admission_cycles(name) VALUES('AY2022-23');
 
 -- Do always
 INSERT INTO admins(email_id, admin_type) VALUES('admin@admin', 0);

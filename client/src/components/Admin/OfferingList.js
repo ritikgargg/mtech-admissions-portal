@@ -338,13 +338,13 @@ export default function OfferingList() {
                                 Open
                               </span>
                             )}
-                          {offerings[i].is_accepting_applications &&
+                          {
                             offerings[i].is_draft_mode && (
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                 Draft
                               </span>
                             )}
-                          {!offerings[i].is_accepting_applications && (
+                          {!offerings[i].is_accepting_applications && !offerings[i].is_draft_mode &&(
                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                               Closed
                             </span>

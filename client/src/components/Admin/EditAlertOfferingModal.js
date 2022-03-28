@@ -57,9 +57,12 @@ export default function EditAlertOfferingModal(props) {
     let date = new Date(deadline);
 
     let month = date.getMonth() + 1;
+    let day = String(date.getDate());
+    if (day.length === 1) day = "0"+day;
     if (month.length === 1) month = "0" + month;
 
-    date = date.getFullYear() + "-0" + month + "-" + date.getDate();
+    date = date.getFullYear() + "-0" + month + "-" + day;
+    // console.log(day)
     return date;
   }
 

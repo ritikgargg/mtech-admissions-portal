@@ -112,9 +112,13 @@ export default function DeleteAlertModal(props) {
                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
-                  Are you sure you want to delete this product?
+                <h3 className="text-xl font-normal text-gray-500 mt-5 mb-1">
+                  Are you sure you want to delete
                 </h3>
+                <h3 className="text-xl font-bold text-gray-500 mt-1 mb-6">
+                  {props.application.specialization}?
+                </h3>
+                
                 <button
                   onClick={handleDelete}
                   className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
