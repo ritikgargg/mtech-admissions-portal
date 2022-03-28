@@ -24,4 +24,7 @@ To push and deploy the git changes of your 'main' branch to Heroku:
 To open the heroku website of your app:
     heroku open 
 
+To print logs
+    heroku logs --app=iit-ropar-admissions
+
 heroku restart

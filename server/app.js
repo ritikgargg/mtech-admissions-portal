@@ -7,14 +7,14 @@ const upload = multer();
 const applicantdB = require("./applicant-db");
 const admindB = require("./admin-db");
 var bodyParser = require("body-parser");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-dotenv.config();
+// dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 
@@ -94,12 +94,6 @@ app.post(
   applicantdB.save_application_info
 );
 
-if (process.env.NODE_ENV === "production") {
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
-  });
-}
-
 app.post(
   "/add-admission-cycle",
   upload.fields([]),
@@ -139,6 +133,12 @@ app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
 app.post("/delete-admin", upload.fields([]), admindB.delete_admin);
 
 app.get("/get-admins", upload.fields([]), admindB.get_admins);
+
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
