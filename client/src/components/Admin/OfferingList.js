@@ -17,8 +17,10 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 export default function OfferingList() {
   const navigate = useNavigate();
   const params = useParams();
+  const [startCount, setStartCount] = useState(1);
+  const [limit, setLimit] = useState(5);
   const [cycleName, setCycleName] = useState("Admission Cycle");
-  const [applications, setApplications] = useState([]);
+  const [offerings, setOfferings] = useState([]);
   useEffect(() => {
     axios
       .get("/get-offerings", {
@@ -31,13 +33,29 @@ export default function OfferingList() {
         if (response.data === 1) {
           navigate("/logout");
         } else {
-          setApplications(response.data.offerings);
+          setOfferings(response.data.offerings);
           setCycleName(response.data.cycle_name);
           // console.log(response.data);
         }
       })
       .catch((err) => console.log(err));
   }, []);
+
+  function range(start, end) {
+    return Array(end - start + 1)
+      .fill()
+      .map((_, idx) => start + idx);
+  }
+
+  const increaseStartCount = () => {
+    if (startCount + limit <= offerings.length) {
+      setStartCount(startCount + limit);
+    }
+  };
+
+  const decreaseStartCount = () => {
+    setStartCount(Math.max(startCount - limit, 1));
+  };
   return (
     <main>
       <div className="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
@@ -102,6 +120,7 @@ export default function OfferingList() {
                   </ol>
                 </nav>
               </div>
+
               {/* <div className="hidden md:flex pl-2 space-x-1">
                 <a
                   href="#"
@@ -172,7 +191,43 @@ export default function OfferingList() {
                     <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" /></svg>
                     Add product
                   </button> */}
-              <AddOfferingModal />
+              <AddOfferingModal cycle_id = {params.cycle_id}/>
+            </div>
+
+            <div className="flex">
+            <span className="mr-2 mt-7 text-sm">
+                Show
+            </span>
+            <div className="mt-4 w-20">
+              <label
+                htmlFor="limit"
+                className="block text-sm font-medium text-gray-700"
+              >
+              </label>
+              <select
+                id="limit"
+                name="limit"
+                value={limit}
+                onChange={(event) => {
+                  setStartCount(1)
+                  setLimit(parseInt(event.target.value))
+                console.log(parseInt(event.target.value))}
+                }
+                required
+                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              >
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+            <span className="ml-2 mt-7 text-sm">
+                entries
+            </span>
             </div>
           </div>
         </div>
@@ -231,24 +286,29 @@ export default function OfferingList() {
                   </tr>
                 </thead>
 
-                {applications.length !== 0 && (
+                {offerings.length !== 0 && (
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {applications.map((offering) => (
-                      <tr key={offering.offering_id}>
+                    {[
+                      ...range(
+                        startCount - 1,
+                        Math.min(startCount + limit - 1, offerings.length) - 1
+                      ),
+                    ].map((i) => (
+                      <tr key={offerings[i].offering_id}>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {offering.department}
+                          {offerings[i].department}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {offering.specialization}
+                          {offerings[i].specialization}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {offering.seats}
+                          {offerings[i].seats}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                           {" "}
                           <ViewModal
                             header={"Eligibility"}
-                            data={offering.eligibility}
+                            data={offerings[i].eligibility}
                           />
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
@@ -261,30 +321,30 @@ export default function OfferingList() {
                                 Codes
                               </div>
                               <div className="collapse-content overflow-x-scroll">
-                                <p>{offering.gate_paper_codes}</p>
+                                <p>{offerings[i].gate_paper_codes}</p>
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {new Date(offering.deadline).toLocaleDateString(
+                          {new Date(offerings[i].deadline).toLocaleDateString(
                             "en-GB"
                           )}
                         </td>
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          {offering.is_accepting_applications &&
-                            !offering.is_draft_mode && (
+                          {offerings[i].is_accepting_applications &&
+                            !offerings[i].is_draft_mode && (
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 Open
                               </span>
                             )}
-                          {offering.is_accepting_applications &&
-                            offering.is_draft_mode && (
+                          {offerings[i].is_accepting_applications &&
+                            offerings[i].is_draft_mode && (
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                 Draft
                               </span>
                             )}
-                          {!offering.is_accepting_applications && (
+                          {!offerings[i].is_accepting_applications && (
                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                               Closed
                             </span>
@@ -308,7 +368,7 @@ export default function OfferingList() {
                               "/admin/applications/" +
                               params.cycle_id +
                               "/" +
-                              offering.offering_id
+                              offerings[i].offering_id
                             }
                           >
                             <Tooltip title="View Applications">
@@ -325,18 +385,18 @@ export default function OfferingList() {
                           {/* <button type="button" data-modal-toggle="product-modal" className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clipRule="evenodd" /></svg>
                              </button> */}
-                          <EditAlertOfferingModal application={offering} />
+                          <EditAlertOfferingModal application={offerings[i]} cycle_id={params.cycle_id}/>
                           {/* <button type="button" data-modal-toggle={"delete-product-modal"+ application.offering_id} className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
                           </button> */}
-                          <DeleteAlertOfferingModal application={offering} />
+                          <DeleteAlertOfferingModal application={offerings[i]} cycle_id={params.cycle_id}/>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 )}
               </table>
-              {applications.length === 0 && (
+              {offerings.length === 0 && (
                 <div className="bg-white">
                   <div className="w-3/5 mx-auto my-50 text-center">
                     <img alt="No data" src={noDataPic} />
@@ -350,6 +410,93 @@ export default function OfferingList() {
               )}
             </div>
           </div>
+        </div>
+      </div>
+      <div className="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">
+        <div className="flex items-center mb-4 sm:mb-0">
+          <button
+            onClick={decreaseStartCount}
+            className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center"
+          >
+            <svg
+              className="w-7 h-7"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          <button
+            onClick={increaseStartCount}
+            className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center mr-2"
+          >
+            <svg
+              className="w-7 h-7"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          <span className="text-sm font-normal text-gray-500">
+            Showing{" "}
+            <span className="text-gray-900 font-semibold">
+              {startCount}-{Math.min(startCount + limit - 1, offerings.length)}
+            </span>{" "}
+            of
+            <span className="text-gray-900 font-semibold">
+              {" "}
+              {offerings.length}
+            </span>
+          </span>
+        </div>
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={decreaseStartCount}
+            className="flex-1 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center"
+          >
+            <svg
+              className="-ml-1 mr-1 h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Previous
+          </button>
+          <button
+            onClick={increaseStartCount}
+            className="flex-1 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center"
+          >
+            Next
+            <svg
+              className="-mr-1 ml-1 h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
         </div>
       </div>
       {/* <div className="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">

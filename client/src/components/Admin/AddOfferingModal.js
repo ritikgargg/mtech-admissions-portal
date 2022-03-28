@@ -64,6 +64,7 @@ export default function EditAlertOfferingModal(props) {
     formData.append("deadline", data.deadline);
     formData.append("is_accepting_applications", applicationChecked);
     formData.append("is_draft_mode", draftChecked);
+    formData.append("cycle_id", props.cycle_id);
 
     Axios.post("/add-offering", formData, {
       headers: {

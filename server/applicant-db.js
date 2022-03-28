@@ -8,7 +8,8 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 const gc = new Storage({
-  credentials: JSON.parse(process.env.GCP_KEYFILE),
+  // credentials: JSON.parse(process.env.GCP_KEYFILE),
+  keyFilename: path.join(__dirname, "./phd-pg-admission-iit-ropar-0aa094c57f3e.json"),
   projectId: "phd-pg-admission-iit-ropar",
 });
 const applicantBucket = gc.bucket("applicant-iit-ropar");

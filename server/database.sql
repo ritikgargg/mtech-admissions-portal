@@ -220,7 +220,7 @@ CREATE TRIGGER trigger_insert_into_admission_cycles
   EXECUTE PROCEDURE create_offerings_and_applications_tables();
 
 -- Always executed because admin will only be allowed to update it
-INSERT INTO current_cycle(cycle_id) VALUES(1);
+INSERT INTO current_cycle(cycle_id) VALUES(0);
 -- INSERT INTO admission_cycles(name) VALUES('AY2022-23');
 
 -- Do always

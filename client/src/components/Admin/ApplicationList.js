@@ -14,7 +14,7 @@ export default function OfferingList() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
   const [startCount, setStartCount] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(10);
   const [cycleName, setCycleName] = useState("Admission Cycle");
   const [offeringName, setOfferingName] = useState("Offering");
   const params = useParams();
@@ -44,24 +44,19 @@ export default function OfferingList() {
   }, []);
 
   function range(start, end) {
-    // console.log(
-    //   Array(end - start + 1)
-    //     .fill()
-    //     .map((_, idx) => start + idx)
-    // );
     return Array(end - start + 1)
       .fill()
       .map((_, idx) => start + idx);
   }
 
   const increaseStartCount = () => {
-    if (startCount + limit + 1 < applications.length) {
-      setStartCount(startCount + limit + 1);
+    if (startCount + limit <= applications.length) {
+      setStartCount(startCount + limit);
     }
   };
 
   const decreaseStartCount = () => {
-    setStartCount(Math.max(startCount - limit - 1, 1));
+    setStartCount(Math.max(startCount - limit, 1));
   };
   return (
     <main>
@@ -113,6 +108,45 @@ export default function OfferingList() {
                 </ol>
               </nav>
             </div>
+            
+            <div className="flex">
+            <span className="mr-2 mt-7 text-sm">
+                Show
+            </span>
+            <div className="mt-4 w-20">
+              <label
+                htmlFor="limit"
+                className="block text-sm font-medium text-gray-700"
+              >
+              </label>
+              <select
+                id="limit"
+                name="limit"
+                value={limit}
+                onChange={(event) => {
+                  setStartCount(1)
+                  setLimit(parseInt(event.target.value))
+                console.log(parseInt(event.target.value))}
+                }
+                required
+                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              >
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+            <span className="ml-2 mt-7 text-sm">
+                entries
+            </span>
+            </div>
+
+
+
           </div>
           <div className="block sm:flex items-center md:divide-x md:divide-gray-100">
             {/* <form className="sm:pr-3 mb-4 sm:mb-0" action="#" method="GET">
@@ -262,7 +296,7 @@ export default function OfferingList() {
                     {[
                       ...range(
                         startCount - 1,
-                        Math.min(startCount + limit, applications.length) - 1
+                        Math.min(startCount + limit - 1, applications.length) - 1
                       ),
                     ].map((i) => (
                       <tr key={applications[i].application_id}>
@@ -378,7 +412,7 @@ export default function OfferingList() {
           <span className="text-sm font-normal text-gray-500">
             Showing{" "}
             <span className="text-gray-900 font-semibold">
-              {startCount}-{Math.min(startCount + limit, applications.length)}
+              {startCount}-{Math.min(startCount + limit - 1, applications.length)}
             </span>{" "}
             of
             <span className="text-gray-900 font-semibold">

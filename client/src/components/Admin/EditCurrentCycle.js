@@ -88,11 +88,15 @@ export default function DeleteAlertModal(props) {
 
     const formData = new FormData();
 
+    console.log(handleMonthChange(data.duration_start));
+    console.log(handleMonthChange(data.duration_end));
+
     formData.append("name", data.name);
     formData.append("duration_start", handleMonthChange(data.duration_start));
     formData.append("duration_end", handleMonthChange(data.duration_end));
     formData.append("cycle_id", props.cycle.cycle_id);
     formData.append("make_current", makeCurrent);
+    // formData.append("cycle_id", props.cycle_id);
 
     Axios.post("/edit-admission-cycle", formData, {
       headers: {
@@ -188,8 +192,8 @@ export default function DeleteAlertModal(props) {
                   required
                   id="start-date"
                   {...register("duration_start")}
-                  //   onChange={(e) => handleMonthChange(e, "duration_start")}
-                  name="start-date"
+                  // onChange={(e) => console.log(e.target.value)}
+                  // name="start-date"
                   className="w-full p-4 mr-2 text-sm border-gray-200 rounded-lg shadow-sm-2"
                 />
                 <input
@@ -198,7 +202,7 @@ export default function DeleteAlertModal(props) {
                   id="end-date"
                   {...register("duration_end")}
                   //   onChange={(e) => handleMonthChange(e, "duration_end")}
-                  name="end-date"
+                  // name="end-date"
                   className="w-full p-4 ml-2 text-sm border-gray-200 rounded-lg shadow-sm"
                 />
               </div>
