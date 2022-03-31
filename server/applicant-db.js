@@ -42,6 +42,12 @@ const save_communication_details = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
+  }
+
   /** Get email */
   var email = jwt.decode(authToken).userEmail;
 
@@ -89,6 +95,12 @@ const save_education_details = async (req, res, next) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
   }
 
   /** Get email */
@@ -214,6 +226,12 @@ const save_personal_info = async (req, res, next) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
+  }
+
   /** Get email */
   var email = jwt.decode(authToken).userEmail;
 
@@ -315,6 +333,12 @@ const get_profile_info = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
+  }
+
   /** Get email */
   var email = jwt.decode(authToken).userEmail;
 
@@ -352,6 +376,12 @@ const check_applicant_info = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
   }
 
   /** Get email */
@@ -465,6 +495,12 @@ const save_application_info = async (req, res, next) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
   }
 
   /** Get email */
@@ -617,6 +653,12 @@ const get_open_positions = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
+  }
+
   var email = jwt.decode(authToken).userEmail;
 
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
@@ -664,6 +706,12 @@ const get_user_info = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
+  }
+
   var email = jwt.decode(authToken).userEmail;
 
   const results = await pool.query(
@@ -691,6 +739,12 @@ const get_offering_info = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
   }
 
   let offering_id = req.headers.offering_id;
@@ -734,6 +788,12 @@ const get_applications = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
   }
 
   var email = jwt.decode(authToken).userEmail;
@@ -785,6 +845,12 @@ const get_application_info = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 2) {
+    return res.send("1");
   }
 
   var application_id = req.headers.application_id;

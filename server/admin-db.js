@@ -24,6 +24,12 @@ const add_admission_cycle = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
   let info = req.body;
 
   const results = await pool.query(
@@ -63,6 +69,12 @@ const get_admission_cycles = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
   let cycle_id = cycle.rows[0].cycle_id;
 
@@ -89,6 +101,12 @@ const delete_admission_cycle = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
   }
 
   let cycle_id = req.body.cycle_id;
@@ -128,6 +146,12 @@ const edit_admission_cycle = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
   }
 
   let info = req.body;
@@ -181,6 +205,12 @@ const add_offering = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
   let info = req.body;
 
   var cycle_id = info.cycle_id;
@@ -222,6 +252,12 @@ const edit_offering = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
   }
 
   let info = req.body;
@@ -268,6 +304,12 @@ const delete_offering = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
   let info = req.body;
 
   var cycle_id = info.cycle_id;
@@ -298,6 +340,12 @@ const get_offerings = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
   }
 
   let cycle_id = req.headers.cycle_id;
@@ -350,6 +398,12 @@ const get_offering_applications = async (req, res) => {
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
   }
 
   let cycle_id = req.headers.cycle_id;
@@ -418,6 +472,12 @@ const get_application_info_admin = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
   cycle_id = req.headers.cycle_id;
   application_id = req.headers.application_id;
 
@@ -470,9 +530,46 @@ const get_application_info_admin = async (req, res) => {
 const add_admin = async (req, res) => {
   /**
    * 1. Perform jwt authentication
-   * 2. Add admin (check that no applicant or admin has already this id)
-   * 3. May need to edit signup_verification code
+   * 2. Add admin (before that check that no other admin has already this id)
    */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+
+  /** Check if this email is already an admin */
+  const check = await pool.query("SELECT * FROM admins WHERE email_id = $1;", [info.email_id]);
+
+  if(check.rows.length !== 0) {
+    return res.send("2"); /** Email ID already exists */
+  }
+
+  /** Add email_id */
+  const add = await pool.query("INSERT INTO admins(name, email_id, admin_type, department) VALUES($1, $2, $3, $4);", [info.name, info.email_id, info.admin_type, info.department]);
+
+  return res.send("Ok");
 };
 
 /** Edit admin */
@@ -480,9 +577,38 @@ const edit_admin = async (req, res) => {
   /**
    * 1. Perform jwt authentication
    * 2. Edit admin info
-   * 3. If email is changed, change the corresponding entry in the login_verification table
-   * 4. Similar checks of add_admin
    */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+
+  /** Edit admin_info */
+  const edit = await pool.query("UPDATE admins SET name = $1, admin_type = $2, department = $3 WHERE email_id = $4;", [info.name, info.admin_type, info.department, info.email_id]);
+
+  return res.send("Ok");
 };
 
 /** Get admins */
@@ -491,6 +617,37 @@ const get_admins = async (req, res) => {
    * 1. Perform jwt auth
    * 2. Return all the admins (except this one, so that he cannot delete himself)
    */
+
+   /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail;
+
+  const results = await pool.query("SELECT * from admins WHERE email_id <> $1;", [email]);
+
+  return res.send(results.rows);
 };
 
 /** Delete admins */
@@ -500,6 +657,39 @@ const delete_admin = async (req, res) => {
    * 2. Delete the given admin
    * 3. Delete the correpsonding entry from the login_verification table
    */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+
+  console.log(info);
+
+  const delete_from_admins_table = await pool.query("DELETE FROM admins WHERE email_id = $1;", [info.email_id]);  
+  const delete_from_login_verification_table = await pool.query("DELETE FROM login_verification WHERE email_id = $1;", [info.email_id]);
+
+  return res.send("Ok");
 };
 
 module.exports = {

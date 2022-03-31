@@ -13,11 +13,13 @@ import { Tooltip } from "@mui/material";
 import { UserGroupIcon } from "@heroicons/react/solid";
 import noDataPic from "../../images/no-data.jpg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import screenSpinner from "../../images/2300-spinner.gif";
 
 export default function OfferingList() {
   const navigate = useNavigate();
   const params = useParams();
   const [startCount, setStartCount] = useState(1);
+  const [isFetching, setIsFetching] = useState(true);
   const [limit, setLimit] = useState(5);
   const [cycleName, setCycleName] = useState("Admission Cycle");
   const [offerings, setOfferings] = useState([]);
@@ -35,6 +37,7 @@ export default function OfferingList() {
         } else {
           setOfferings(response.data.offerings);
           setCycleName(response.data.cycle_name);
+          setIsFetching(false);
           // console.log(response.data);
         }
       })
@@ -396,7 +399,11 @@ export default function OfferingList() {
                   </tbody>
                 )}
               </table>
-              {offerings.length === 0 && (
+
+              {(isFetching)?
+              <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
+              :
+              offerings.length === 0 && (
                 <div className="bg-white">
                   <div className="w-3/5 mx-auto my-50 text-center">
                     <img alt="No data" src={noDataPic} />

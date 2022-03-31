@@ -132,7 +132,7 @@ app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
 
 app.post("/delete-admin", upload.fields([]), admindB.delete_admin);
 
-app.get("/get-admins", upload.fields([]), admindB.get_admins);
+app.get("/get-admins", admindB.get_admins);
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {

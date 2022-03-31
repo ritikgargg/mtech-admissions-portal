@@ -9,12 +9,14 @@ import { Tooltip } from "@mui/material";
 import noDataPic from "../../images/no-data.jpg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import screenSpinner from "../../images/2300-spinner.gif";
 
 export default function OfferingList() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
   const [startCount, setStartCount] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [isFetching, setIsFetching] = useState(true);
   const [cycleName, setCycleName] = useState("Admission Cycle");
   const [offeringName, setOfferingName] = useState("Offering");
   const params = useParams();
@@ -35,6 +37,7 @@ export default function OfferingList() {
           setApplications(response.data.applications);
           setCycleName(response.data.cycle_name);
           setOfferingName(response.data.offering_name);
+          setIsFetching(false);
           // console.log(response.data);
           // if(response.data.length >= 0)
           //   setStartCount(1)
@@ -357,7 +360,10 @@ export default function OfferingList() {
                   </tbody>
                 )}
               </table>
-              {applications.length === 0 && (
+              {(isFetching)?
+              <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
+              :
+              applications.length === 0 && (
                 <div className="pb-6 bg-white">
                   <div className="w-3/5 mx-auto my-50 text-center">
                     <img alt="No data" src={noDataPic} />

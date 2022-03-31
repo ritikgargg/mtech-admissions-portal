@@ -24,6 +24,13 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+/**
+ * Auth role tokens:
+ * 0 for super-admin
+ * 1 for faculty-admins/supervisors
+ * 2 for applicants
+ */
+
 const signin_otp = async (req, res) => {
     email = req.body.email;
 
@@ -83,17 +90,25 @@ const signin_verify = async (req, res) => {
             let jwtSecretKey = process.env.JWT_SECRET_KEY;
             let data = {
                 userEmail: email,
+                userRole: null,
+                department: null
             }
-            const authToken = jwt.sign(data, jwtSecretKey);
 
             let if_admin = await pool.query("SELECT * from admins where email_id = $1", [email]);
             if(if_admin.rows.length === 0) {
+                data.userRole = 2;
+                const authToken = jwt.sign(data, jwtSecretKey);
                 return res.send({result:1,token:authToken});
             }
             else if(if_admin.rows[0].admin_type === 0) {
+                data.userRole = 0;
+                const authToken = jwt.sign(data, jwtSecretKey);
                 return res.send({result:4,token:authToken});
             }
             else if(if_admin.rows[0].admin_type === 1) {
+                data.userRole = 1;
+                data.department = if_admin.rows[0].department;
+                const authToken = jwt.sign(data, jwtSecretKey);
                 return res.send({result:5,token:authToken});
             }
         }
@@ -174,6 +189,8 @@ const signup_verify = async (req, res) => {
             let jwtSecretKey = process.env.JWT_SECRET_KEY;
             let data = {
                 userEmail: email,
+                userRole: 2,
+                department: null
             }
             const authToken = jwt.sign(data, jwtSecretKey);
             return res.send({result:1,token:authToken});

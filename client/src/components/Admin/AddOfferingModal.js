@@ -21,7 +21,7 @@ const style = {
   borderRadius: 5,
 };
 
-export default function EditAlertOfferingModal(props) {
+export default function AddOfferingModal(props) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [applicationChecked, setApplicationChecked] = useState(false);
@@ -82,7 +82,7 @@ export default function EditAlertOfferingModal(props) {
   };
   return (
     <div>
-      <Tooltip title="Edit">
+      <Tooltip title="Add">
         <button
           type="button"
           onClick={handleOpen}
