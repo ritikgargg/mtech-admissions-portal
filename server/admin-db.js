@@ -730,6 +730,45 @@ const get_admin_profile = async (req, res) => {
   return res.send(results.rows[0]);
 };
 
+/** Edit admin */
+const edit_admin_profile = async (req, res) => {
+  /**
+   * 1. Perform jwt authentication
+   * 2. Edit admin info
+   */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if(userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+
+  /** Edit admin_info */
+  const edit = await pool.query("UPDATE admins SET name = $1 WHERE email_id = $2;", [info.name, info.email_id]);
+
+  return res.send("Ok");
+};
+
 
 module.exports = {
   add_admission_cycle,
@@ -747,4 +786,5 @@ module.exports = {
   get_admins,
   delete_admin,
   get_admin_profile,
+  edit_admin_profile,
 };

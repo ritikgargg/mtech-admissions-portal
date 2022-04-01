@@ -220,6 +220,15 @@ CREATE TRIGGER trigger_insert_into_admission_cycles
   FOR EACH ROW
   EXECUTE PROCEDURE create_offerings_and_applications_tables();
 
+-- Type = 'application' || 'offering' || 'admin'
+CREATE TABLE templates (
+  email_id TEXT,
+  name TEXT,
+  type TEXT,
+  column_list TEXT[],
+  PRIMARY KEY(email_id, name);
+);
+
 -- Always executed because admin will only be allowed to update it
 INSERT INTO current_cycle(cycle_id) VALUES(0);
 

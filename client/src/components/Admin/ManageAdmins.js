@@ -37,7 +37,7 @@ export default function ManageAdmin() {
     },[]);
   
 
-  return <>
+  return <div className="p-10 bg-gray-100">
   {sessionStorage.getItem("alert") === "1" ? (
     <div
       id="alert"
@@ -84,7 +84,7 @@ export default function ManageAdmin() {
   ) : (
     <></>
   )}
-  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 m-10 min-h-screen">
+  <div className="bg-white shadow-xl rounded-lg p-4 sm:p-6 xl:p-8 min-h-screen">
       <div className="flex justify-between">
         <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
           List of Admins
@@ -145,5 +145,5 @@ export default function ManageAdmin() {
         {(isFetching)? <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> : ""}
       </div>
     </div>
-  </>;
+  </div>;
 }
