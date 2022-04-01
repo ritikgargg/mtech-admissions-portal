@@ -27,6 +27,11 @@ import ApplicantList from "./components/Admin/ApplicationList";
 import ViewSubmittedApplicationAdmin from "./components/Admin/ViewSubmittedApplicationAdmin";
 import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
+// import AdminProfile from "./components/Admin/AdminProfile";
+import AdminProfile from "./components/Admin/Temp";
+
+// TO BE DELETED
+import TagPicker from "./components/Admin/TagPicker"
 
 function App() {
   // Pages that can only be accessed if you are logged in
@@ -122,6 +127,15 @@ function App() {
           ></Route>
 
           <Route
+            path="/admin/profile"
+            element={
+              <PrivateRoute>
+                <AdminProfile />
+              </PrivateRoute>
+            }
+          ></Route>
+
+          <Route
             path="/admin/offerings/:cycle_id"
             element={
               <PrivateRoute>
@@ -166,6 +180,10 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* DELETE KARNA HAI BAADMEI */}
+          <Route path="/lmao" element={<TagPicker/>}/>
+        {/* DELETE KARNA HAI BAADMEI */}
 
         <Route element={<WithHeaderFooter />}>
           <Route path="/" element={<HomePage />}></Route>

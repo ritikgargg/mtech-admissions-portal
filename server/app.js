@@ -6,6 +6,7 @@ const multer = require("multer");
 const upload = multer();
 const applicantdB = require("./applicant-db");
 const admindB = require("./admin-db");
+const excelGenerator = require("./excel-generator");
 var bodyParser = require("body-parser");
 // const dotenv = require("dotenv");
 
@@ -133,6 +134,10 @@ app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
 app.post("/delete-admin", upload.fields([]), admindB.delete_admin);
 
 app.get("/get-admins", admindB.get_admins);
+
+app.get("/get-admin-profile", admindB.get_admin_profile);
+
+app.get('/get-applicants-in-excel', excelGenerator.get_applicants_in_excel);
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {

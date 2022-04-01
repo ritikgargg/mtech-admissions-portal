@@ -145,7 +145,7 @@ export default function AddOfferingModal(props) {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
-                      <label
+                      {/* <label
                         htmlFor="department"
                         className="text-sm font-medium text-gray-900 block mb-2"
                       >
@@ -157,7 +157,25 @@ export default function AddOfferingModal(props) {
                         id="department"
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required
-                      />
+                      /> */}
+                      <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
+                        
+                        <select
+                          id="department"
+                          {...register("department")}
+                          required
+                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        >
+                          <option value="">- Select -</option>
+                          {/* <option value="Academics">Academics</option> */}
+                          <option value="Chemical Engineering">Chemical Engineering</option>
+                          <option value="Civil Engineering">Civil Engineering</option>
+                          <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                          <option value="Electrical Engineering">Electrical Engineering</option>
+                          <option value="Mechanical Engineering">Mechanical Engineering</option>
+                          <option value="Biomedical Engineering">Biomedical Engineering</option>
+
+                        </select>
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label

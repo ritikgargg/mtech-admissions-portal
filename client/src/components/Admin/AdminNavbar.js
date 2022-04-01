@@ -49,7 +49,9 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
               ? "Dashboard"
               : location.split("/")[2] === "manage-admins"
               ? "Admins"
-              : "Admissions"}
+              : location.split("/")[2] === "profile"
+              ? "Profile"
+              :"Admissions"}
             {/* {location === "/"
               ? "DASHBOARD"
               : location.toUpperCase().replace("/", "")} */}

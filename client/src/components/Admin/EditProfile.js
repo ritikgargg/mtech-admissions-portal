@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Tooltip } from "@mui/material";
-import Toggle from "./Toggle";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
+import { PencilIcon } from "@heroicons/react/outline";
 
 const style = {
   position: "absolute",
@@ -21,11 +20,24 @@ const style = {
   borderRadius: 5,
 };
 
-export default function AddAdminModal(props) {
+export default function EditProfile(props) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { register, handleSubmit, reset } = useForm();
-  const [error, setError] = useState(0);
+
+  function convertRole(admin_type){
+    if(admin_type === 0){
+        return "SUPER ADMIN"
+    }else{
+        return "FACULTY"
+    }
+  }
+
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+     ...props.profile,
+     admin_type: convertRole(props.profile.admin_type)
+    },
+  });
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -41,9 +53,9 @@ export default function AddAdminModal(props) {
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    console.log(data);
-
     const formData = new FormData();
+
+    console.log(data)
 
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
@@ -51,7 +63,7 @@ export default function AddAdminModal(props) {
     else formData.append("admin_type", 1);
     formData.append("department", data.department);
 
-    Axios.post("/add-admin", formData, {
+    Axios.post("/edit-admin", formData, {
       headers: {
         Authorization: getToken(),
       },
@@ -59,44 +71,42 @@ export default function AddAdminModal(props) {
       .then((response) => {
         if (response.data === 1) {
           navigate("/logout");
-        }
-        else if (response.data === 2) {
-          //show error message
-          setError(1);
-          setIsLoading(false);
-        } 
-        else {
-          sessionStorage.setItem("alert", "1");
-          setError(0);
+        } else {
           window.location.reload();
         }
       })
       .catch((err) => console.log(err));
   };
 
-
   return (
     <div>
-      <Tooltip title="Add">
+      <Tooltip title="Edit">
         <button
           type="button"
           onClick={handleOpen}
-          className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="focus:outline-none text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           <svg
-            className="-ml-1 mr-2 h-6 w-6"
+            className="h-5 w-5"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
             <path
               fillRule="evenodd"
-              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
               clipRule="evenodd"
             />
           </svg>
-          Add admin
         </button>
+        {/* <button
+              type="button"
+              className="w-5 text-indigo-600 focus:outline-none"
+              onClick={handleOpen}
+            >
+              <PencilIcon />
+            </button> */}
       </Tooltip>
       <Modal
         open={open}
@@ -116,7 +126,7 @@ export default function AddAdminModal(props) {
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
-                <h3 className="text-xl font-semibold">Add admin</h3>
+                <h3 className="text-xl font-semibold">Edit admin</h3>
                 <button
                   onClick={handleClose}
                   type="button"
@@ -166,15 +176,10 @@ export default function AddAdminModal(props) {
                         type="email"
                         {...register("email_id")}
                         id="email_id"
-                        onChange = {() => setError(0)}
-                        className= {error === 1 ? 
-                          "shadow-sm bg-red-50 border border-red-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:bg-red-50 focus:border-red-600 block w-full p-2.5"
-                          :
-                          "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        }
+                        disabled
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required
                       />
-                      {error === 1 ? <p className="pl-1 pt-1 text-red-500 text-sm">E-mail address already exists</p> : <></>}
                     </div>
                     
                     {/* <div className="col-span-6 sm:col-span-3">
@@ -187,17 +192,17 @@ export default function AddAdminModal(props) {
                         
                         <select
                           id="admin_type"
-                          {...register("admin_type")}
                           required
+                          {...register("admin_type")}
                           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         >
                           <option value="">- Select -</option>
                           <option value="SUPER ADMIN">SUPER ADMIN</option>
-                          <option value="DEPARTMENT ADMIN">DEPARTMENT ADMIN</option>
+                          <option value="FACULTY">FACULTY</option>
                         </select>
                       </div>
                     <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
+                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
                         
                         <select
                           id="department"
@@ -228,7 +233,7 @@ export default function AddAdminModal(props) {
                       >
                         <div className="w-20 h-5 mx-5 my-2.5">
                           {!isLoading ? (
-                            <p>Add admin</p>
+                            <p>Edit admin</p>
                           ) : (
                             <img
                               className="h-5 w-5 mx-auto"

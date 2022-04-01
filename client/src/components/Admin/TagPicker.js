@@ -43,12 +43,13 @@ const options = [{
 }]
 
 return (
-	<div style={{
-	display: 'block', width: 600, paddingLeft: 30,position: 'relative'
-	}}>
-	<h4>React Suite TagPicker Component</h4>
-	<TagPicker style={{width:300}}
-				placeholder="Select Weekday" data={options} />
+	<div style={{display: 'block', width: 600, paddingLeft: 30,position: 'relative'}}>
+		<h4>React Suite TagPicker Component</h4>
+		<TagPicker 
+			style={{width:300}}
+			placeholder="Select Weekday" 
+			data={options} 
+		/>
 	</div>
 );
 }

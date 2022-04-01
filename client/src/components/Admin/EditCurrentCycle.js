@@ -115,7 +115,7 @@ export default function DeleteAlertModal(props) {
 
   return (
     <div>
-      <Tooltip title="Delete">
+      <Tooltip title="Edit">
         <button
           onClick={handleOpen}
           className="hover:bg-gray-100 focus:outline-none rounded-lg"

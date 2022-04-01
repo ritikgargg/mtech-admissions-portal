@@ -6,6 +6,7 @@ import Icon from "@material-tailwind/react/Icon";
 import H6 from "@material-tailwind/react/Heading6";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function AdminNavbarWithSidebar(props) {
   const location = useLocation().pathname;
@@ -103,6 +104,21 @@ export default function AdminNavbarWithSidebar(props) {
                   Profile Page
                 </a>
               </li> */}
+              <li className="rounded-lg mb-2 text-gray-700">
+                <NavLink
+                  to="/admin/profile"
+                  exact
+                  className={
+                    location !== "/admin/profile"
+                      ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                  }
+                >
+
+                  <AccountCircleIcon size="2xl" />
+                  Profile
+                </NavLink>
+              </li>
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/manage-admins"

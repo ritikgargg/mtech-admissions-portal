@@ -26,10 +26,10 @@ export default function EditAdminModal(props) {
   console.log(props.admin)
 
   function convertRole(admin_type){
-    if(admin_type === '0'){
+    if(admin_type === 0){
         return "SUPER ADMIN"
     }else{
-        return "DEPARTMENT ADMIN"
+        return "FACULTY"
     }
   }
 
@@ -192,7 +192,7 @@ export default function EditAdminModal(props) {
                         >
                           <option value="">- Select -</option>
                           <option value="SUPER ADMIN">SUPER ADMIN</option>
-                          <option value="DEPARTMENT ADMIN">DEPARTMENT ADMIN</option>
+                          <option value="FACULTY">FACULTY</option>
                         </select>
                       </div>
                     <div className="col-span-full sm:col-span-full">
@@ -205,7 +205,7 @@ export default function EditAdminModal(props) {
                           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         >
                           <option value="">- Select -</option>
-                          <option value="Super Admin">Academics</option>
+                          <option value="Academics">Academics</option>
                           <option value="Chemical Engineering">Chemical Engineering</option>
                           <option value="Civil Engineering">Civil Engineering</option>
                           <option value="Computer Science and Engineering">Computer Science and Engineering</option>
