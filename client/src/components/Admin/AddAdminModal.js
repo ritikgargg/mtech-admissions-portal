@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Tooltip } from "@mui/material";
-import Toggle from "./Toggle";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
@@ -193,7 +191,7 @@ export default function AddAdminModal(props) {
                         >
                           <option value="">- Select -</option>
                           <option value="SUPER ADMIN">SUPER ADMIN</option>
-                          <option value="DEPARTMENT ADMIN">DEPARTMENT ADMIN</option>
+                          <option value="FACULTY">FACULTY</option>
                         </select>
                       </div>
                     <div className="col-span-full sm:col-span-full">

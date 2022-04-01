@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Chart } from 'chart.js';
+import Chart from 'chart.js/auto';
 import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
@@ -60,7 +60,7 @@ export default function ChartBar() {
                     position: 'bottom',
                 },
                 scales: {
-                    xAxes: [
+                    xAxes:
                         {
                             display: false,
                             scaleLabel: {
@@ -76,8 +76,7 @@ export default function ChartBar() {
                                 zeroLineBorderDashOffset: [2],
                             },
                         },
-                    ],
-                    yAxes: [
+                    yAxes:
                         {
                             display: true,
                             scaleLabel: {
@@ -94,13 +93,13 @@ export default function ChartBar() {
                                 zeroLineBorderDashOffset: [2],
                             },
                         },
-                    ],
                 },
             },
         };
         let ctx = document.getElementById('bar-chart').getContext('2d');
         window.myBar = new Chart(ctx, config);
     }, []);
+    
     return (
         <Card>
             <CardHeader color="pink" contentPosition="left">

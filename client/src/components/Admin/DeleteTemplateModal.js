@@ -16,7 +16,7 @@ const style = {
   boxShadow: 24,
 };
 
-export default function DeleteAlertModal(props) {
+export default function DeleteTemplateModal(props) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -26,9 +26,8 @@ export default function DeleteAlertModal(props) {
   const handleDelete = () => {
     setIsLoading(true);
     const formData = new FormData();
-    // formData.append("offering_id", props.application.offering_id);
-    formData.append("email_id", props.email_id);
-    Axios.post("/delete-admin", formData, {
+    formData.append("template_id", props.template.template_id);
+    Axios.post("/delete-template", formData, {
       headers: {
         Authorization: getToken(),
       },
@@ -45,11 +44,35 @@ export default function DeleteAlertModal(props) {
 
   return (
     <div>
-      <Tooltip title="Delete">
+
+          {(props.isActive) 
+          ? 
+          <Tooltip title="Delete">
+            <button
+            onClick={handleOpen}
+            type="button"
+            className="text-white focus:outline-none bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+            >
+            <svg
+                className="h-5 w-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                fillRule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clipRule="evenodd"
+                />
+            </svg>
+            </button>
+        </Tooltip>
+        :
         <button
           onClick={handleOpen}
           type="button"
-          className="text-white focus:outline-none bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="cursor-not-allowed text-white focus:outline-none bg-gray-400 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          disabled
         >
           <svg
             className="h-5 w-5"
@@ -64,7 +87,8 @@ export default function DeleteAlertModal(props) {
             />
           </svg>
         </button>
-      </Tooltip>
+        }
+        
       <Modal
         open={open}
         onClose={handleClose}
@@ -116,7 +140,7 @@ export default function DeleteAlertModal(props) {
                   Are you sure you want to delete
                 </h3>
                 <h3 className="text-xl font-bold text-gray-500 mt-1 mb-6">
-                  {props.email_id} ?
+                  {props.template.name} ?
                 </h3>
                 
                 <button

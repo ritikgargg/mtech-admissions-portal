@@ -26,7 +26,7 @@ const add_template = async (req, res) => {
 
     /** Get role */
     var userRole = jwt.decode(authToken).userRole;
-    if(userRole !== 0 || userRole !== 1) {
+    if(userRole !== 0 && userRole !== 1) {
         return res.send("1");
     }
 
@@ -68,16 +68,16 @@ const delete_template = async (req, res) => {
  
      /** Get role */
      var userRole = jwt.decode(authToken).userRole;
-     if(userRole !== 0 || userRole !== 1) {
+     if(userRole !== 0 && userRole !== 1) {
          return res.send("1");
      }
  
      /** Get email */
      var email = jwt.decode(authToken).userEmail;
  
-    let info = req.body;
+     let info = req.body;
 
-     const delete_template = await pool.query("DELETE FROM templates WHERE email_id = $1 AND name = $2;", [email, info.name]);
+     const delete_template = await pool.query("DELETE FROM templates WHERE template_id = $1", [info.template_id]);
  
      return res.send("Ok");
 };
@@ -104,14 +104,14 @@ const get_templates = async (req, res) => {
  
      /** Get role */
      var userRole = jwt.decode(authToken).userRole;
-     if(userRole !== 0 || userRole !== 1) {
+     if(userRole !== 0 && userRole !== 1) {
          return res.send("1");
      }
  
      /** Get email */
      var email = jwt.decode(authToken).userEmail;
  
-     const select_templates = await pool.query("SELECT * FROM templates WHERE email_id = $1;", [email]);
+     const select_templates = await pool.query("SELECT * FROM templates WHERE email_id = $1 OR email_id = 'global@template' OR email_id = 'default@template';", [email]);
  
      return res.send(select_templates.rows);
 };

@@ -146,7 +146,7 @@ app.post("/delete-template", upload.fields([]), templates.delete_template);
 
 app.get("/get-templates", templates.get_templates);
 
-app.get('/get-applicants-in-excel', excelGenerator.get_applicants_in_excel);
+app.get('/get-applications-in-excel', excelGenerator.get_applications_in_excel);
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {

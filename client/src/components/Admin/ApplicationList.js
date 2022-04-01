@@ -10,6 +10,8 @@ import noDataPic from "../../images/no-data.jpg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import screenSpinner from "../../images/2300-spinner.gif";
+import Axios from "axios";
+import fileSaver from 'file-saver';
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -45,6 +47,29 @@ export default function OfferingList() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const onExport = (template_id) => {
+
+    Axios.get("/get-applications-in-excel", { 
+      responseType: 'arraybuffer',
+      headers: {
+        Authorization: getToken(),
+        template_id: 1,
+        cycle_id: params.cycle_id,
+        offering_id: params.offering_id,
+      },
+    })
+      .then((response) => {
+        if (response.data === 1) {
+          navigate("/logout");
+        } else {
+          var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+          fileSaver.saveAs(blob, "List.xlsx");
+          window.location.reload();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   function range(start, end) {
     return Array(end - start + 1)
@@ -112,40 +137,49 @@ export default function OfferingList() {
               </nav>
             </div>
             
-            <div className="flex">
-            <span className="mr-2 mt-7 text-sm">
-                Show
-            </span>
-            <div className="mt-4 w-20">
-              <label
-                htmlFor="limit"
-                className="block text-sm font-medium text-gray-700"
-              >
-              </label>
-              <select
-                id="limit"
-                name="limit"
-                value={limit}
-                onChange={(event) => {
-                  setStartCount(1)
-                  setLimit(parseInt(event.target.value))
-                console.log(parseInt(event.target.value))}
-                }
-                required
-                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              >
-                <option value="2">2</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-              </select>
-            </div>
-            <span className="ml-2 mt-7 text-sm">
-                entries
-            </span>
+            <div className="flex justify-between">
+              <div className="flex">
+              <span className="mr-2 mt-7 text-sm">
+                  Show
+              </span>
+              <div className="mt-4 w-20">
+                <label
+                  htmlFor="limit"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                </label>
+                <select
+                  id="limit"
+                  name="limit"
+                  value={limit}
+                  onChange={(event) => {
+                    setStartCount(1)
+                    setLimit(parseInt(event.target.value))
+                  console.log(parseInt(event.target.value))}
+                  }
+                  required
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="2">2</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+              <span className="ml-2 mt-7 text-sm">
+                  entries
+              </span>
+              </div>
+
+              <button onClick={() => onExport()} className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd" />
+                </svg>
+                Export
+              </button>
             </div>
 
 
