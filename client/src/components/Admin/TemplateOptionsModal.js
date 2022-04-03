@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Tooltip } from "@mui/material";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
+import fileSaver from 'file-saver';
 
 const style = {
   position: "absolute",
@@ -25,23 +25,52 @@ export default function TemplateOptionsModal(props) {
   const [templateList, setTemplateList] = useState([]);
   const navigate = useNavigate();
 
-//   useEffect(()=>{
-//     Axios.get("/get-templates", {
-//         headers: {
-//         Authorization: getToken(),
-//         },
-//     })
-//     .then((response) => {
-//     if (response.data === 1) {
-//         navigate("/logout");
-//     } else {
-//         console.log(response.data)
-//         setTemplateList(response.data);
-//         // setIsFetching(false);
-//     }
-//     })
-//     .catch((err) => console.log(err))
-// },[]);
+  useEffect(()=>{
+
+    Axios.get("/get-templates", {
+        headers: {
+        Authorization: getToken(),
+        },
+    })
+    .then((response) => {
+    if (response.data === 1) {
+        navigate("/logout");
+    } else {
+        console.log(response.data)
+        setTemplateList(response.data);
+        // setIsFetching(false);
+    }
+    })
+    .catch((err) => console.log(err))
+
+},[]);
+
+
+const onExport = (template_id) => {
+  console.log(template_id)
+  Axios.get("/get-applications-in-excel", { 
+    responseType: 'arraybuffer',
+    headers: {
+      Authorization: getToken(),
+      template_id: parseInt(template_id),
+      cycle_id: props.cycle_id,
+      offering_id: props.offering_id,
+    },
+  })
+    .then((response) => {
+      if (response.data === 1) {
+        navigate("/logout");
+      } else {
+        var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+        let fileName = "Applications_List_" + props.offeringName + "_" + props.cycleName;
+        fileSaver.saveAs(blob, fileName);
+        onClose();
+        setIsLoading(false);
+        setOpen(false);
+      }
+    })
+    .catch((err) => console.log(err));
+};
 
 
   const [open, setOpen] = useState(false);
@@ -56,24 +85,11 @@ export default function TemplateOptionsModal(props) {
     setSelectedTemplate("");
   };
 
-  const onSubmit = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
     setIsLoading(true);
-    const formData = new FormData();
-    // formData.append("name", data.name);
-
-    Axios.post("/edit-admin", formData, {
-      headers: {
-        Authorization: getToken(),
-      },
-    })
-      .then((response) => {
-        if (response.data === 1) {
-          navigate("/logout");
-        } else {
-          window.location.reload();
-        }
-      })
-      .catch((err) => console.log(err));
+    console.log(selectedTemplate)
+    onExport(selectedTemplate);
   };
 
   return (
@@ -111,7 +127,7 @@ export default function TemplateOptionsModal(props) {
                 <h3 className="text-xl font-semibold">Choose Template</h3>
                 <button
                   onClick={handleClose}
-                  type="button"
+                  // type="button"
                   className="text-gray-400 bg-transparent focus:outline-none hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                 >
                   <svg
@@ -148,13 +164,28 @@ export default function TemplateOptionsModal(props) {
                           required
                           name = "template"
                           value = {selectedTemplate}
+                          onChange={(e) => {setSelectedTemplate(e.target.value);console.log(e.target.value)}}
                           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         >
-                          <option value="">- Select -</option>
+                          {/* <option value="">- Select -</option>
                           <option value="SUPER ADMIN">SUPER ADMIN</option>
-                          <option value="FACULTY">FACULTY</option>
+                          <option value="FACULTY">FACULTY</option> */}
+                          <option value="">- Select -</option>
+                          {templateList.map(item => {
+                              return (<option value={item.template_id}>{item.name}</option>);
+                          })}
                         </select>
-                      </div>                     
+                        <div className="mt-4 text-sm text-gray-500 dark:text-gray-300">
+                          <p>To manage (add/view/delete) templates, please visit the
+                          <span className="italic font-semibold">
+                          {" "} Templates   {" "}                         
+                          </span>
+                           page.
+                           </p>
+                        </div> 
+                      </div>
+                      
+                                       
                   </div>
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />

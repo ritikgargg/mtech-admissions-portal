@@ -231,7 +231,7 @@ CREATE TABLE templates (
 );
 
 -- PERMANENT INSERT
-INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES('admin@admin', 'Default Applicant List', 'APPLICANT LIST', ARRAY['full_name', 'fathers_name', 'profile_image_url', 'date_of_birth', 'aadhar_card_number',
+INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES('default@template', 'Default Applicant List', 'APPLICANT LIST', ARRAY['full_name', 'fathers_name', 'profile_image_url', 'date_of_birth', 'aadhar_card_number',
 'category', 'is_pwd', 'marital_status', 'nationality', 'category_certificate_url','gender', 'communication_address', 'communication_city',
 'communication_state', 'communication_pincode', 'permanent_address', 'permanent_city', 'permanent_state',
 'permanent_pincode', 'mobile_number', 'alternate_mobile_number', 'email_id', 'degree_10th', 'board_10th', 'percentage_cgpa_format_10th','percentage_cgpa_value_10th',

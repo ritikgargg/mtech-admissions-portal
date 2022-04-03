@@ -68,7 +68,12 @@ async function generate_applications_in_excel(info) {
         let columnIndex = 1;
         for(var i = 0; i < column_list.length; i++) {
             if(element[column_list[i]] !== null && element[column_list[i]] != 'null')
-                worksheet.cell(rowCount, columnIndex).string(String(element[column_list[i]])).style(style);
+                if(column_list[i] === 'aadhar_card_number') {
+                    worksheet.cell(rowCount, columnIndex).number(+element[column_list[i]]).style(style);
+                }
+                else {
+                    worksheet.cell(rowCount, columnIndex).string(String(element[column_list[i]])).style(style);
+                }
             columnIndex++;
         }
         rowCount++;
@@ -99,6 +104,9 @@ const get_applications_in_excel = async (req, res) => {
     /**
      * Verify using authToken
      */
+
+    console.log(req.headers);
+
     authToken = req.headers.authorization;
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
 

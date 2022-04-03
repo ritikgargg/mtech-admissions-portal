@@ -42,7 +42,8 @@ function EducationalDetails(props) {
     return result;
   }
 
-  const onSubmit = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
     const formData = new FormData();
     // console.log(props.localDegrees);
     // console.log(props.localProfileInfo);
