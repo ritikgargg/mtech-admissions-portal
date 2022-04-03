@@ -561,7 +561,7 @@ const save_application_info = async (req, res, next) => {
     percentage_cgpa_value_12th = a.percentage_cgpa_value_12th, year_of_passing_12th = a.year_of_passing_12th, \
     remarks_12th = a.remarks_12th, marksheet_12th_url = a.marksheet_12th_url,  degrees = a.degrees, \
     other_remarks = a.other_remarks, is_last_degree_completed = a.is_last_degree_completed \
-    FROM applicants as a WHERE a.email_id = $1;",
+    FROM applicants as a WHERE a.email_id = $1 AND applications_" + cycle_id + ".email_id = a.email_id;",
     [email]
   );
 

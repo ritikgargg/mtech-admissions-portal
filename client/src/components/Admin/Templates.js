@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import AddTemplateModal from './AddTemplateModal';
+import AddTemplateCard from './AddTemplateCard';
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 import DeleteTemplateModal from './DeleteTemplateModal';
 import ViewTemplateModal from "./ViewTemplateModal"
+import { Tooltip } from "@mui/material";
 // import TagPicker from './TagPicker';
 
 export default function Templates () {
@@ -16,6 +17,7 @@ export default function Templates () {
     const navigate = useNavigate();
     const [templateList, setTemplateList] = useState([]);
     const [isFetching, setIsFetching] = useState(true);
+    const [isAddingTemplate, setIsAddingTemplate] = useState(false);
 
     useEffect(()=>{
         Axios.get("/get-templates", {
@@ -42,8 +44,36 @@ export default function Templates () {
                     <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
                     List of Templates
                     </h3>
-                    <AddTemplateModal/>
+                  
+                    <Tooltip title="Add">
+                        <button
+                        type="button"
+                        onClick={() => setIsAddingTemplate(true)}
+                        className="focus:outline-none h-11 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+                        >
+                        <svg
+                            className="-ml-1 mr-2 h-6 w-6"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                            fillRule="evenodd"
+                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                            clipRule="evenodd"
+                            />
+                        </svg>
+                        Add template
+                        </button>
+                    </Tooltip>
                 </div>
+                {(isAddingTemplate)
+                ? 
+                <div className="mx-auto m-5 w-1/2">
+                <AddTemplateCard setIsAddingTemplate={setIsAddingTemplate}/>
+                </div>
+                : 
+                "" }
                 <div className="block w-full overflow-x-auto">
                     <table className="items-center w-full bg-transparent border-collapse">
                     <thead>
@@ -81,7 +111,7 @@ export default function Templates () {
                             </td>
                             <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">       
                                 <div className="flex gap-2 justify-end">  
-                                    <ViewTemplateModal/>
+                                    <ViewTemplateModal template={template}/>
                                     {(template.email_id === "default@template") ? <DeleteTemplateModal template ={template} isActive={false}/> : <DeleteTemplateModal template ={template} isActive={true}/>}
                                 </div>
                             </td>

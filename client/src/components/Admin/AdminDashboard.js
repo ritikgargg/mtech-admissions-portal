@@ -1,15 +1,100 @@
-import React from "react";
+import React, { useState } from "react";
 import ChartBar from "./ChartBar";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 export default function AdminDashboard() {
-  return (
-    <>
-        <div className="px-3 md:px-8 h-40" />
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [open, setOpen] = useState(false);
+    
+    console.log("open", open);
 
-        <div className="px-3 md:px-8 -mt-24">
+    const handleClick = (event) => {
+        console.log("clicked");
+        setAnchorEl(event.currentTarget);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        console.log("closed");
+        setAnchorEl(null);
+        setOpen(false);
+    };
+    // const [isOpenAdmissionCycle, setOpenAdmissionCycle] = useState(false);
+
+    // const admissionCycles = [
+    //     {
+    //         value: "Admission Cycles 2022-23",
+    //         label: "Admission Cycles 2022-23"
+    //     },
+    //     {
+    //         value: "Admission Cycles 1922-23",
+    //         label: "Admission Cycles 1922-23"
+    //     },
+    //     {
+    //         value: "Admission Cycles 1822-23",
+    //         label: "Admission Cycles 1822-23"
+    //     }
+    // ]
+
+  return (
+    <div className="bg-gray-100">
+        {/* Filter div */}
+        <div className="flex justify-around items-center h-40 border border-red-900">
+
+            {/* Admission Cycles Filter */}
+            <div 
+                id="basic-button"
+                className="flex justify-between p-4 items-center bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}>
+
+                {/* Display Content */}
+                <div>
+                    <h2 className="font-semibold text-lg">Admission Cycles</h2>
+                    <p className="text-gray-500">2 Cycles Selected</p>
+                </div>                
+
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Menu>
+
+            </div>
+
+            {/* Offerings Filter */}
+            <div className="bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100">
+                <div className="m-4">
+                    <h2 className="font-semibold text-lg">Offerings</h2>
+                    <p className="text-gray-500">3 Offerings Selected</p>
+                </div>
+            </div>
+
+            {/* Category Filter */}
+            <div className="bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100">
+                <div className="m-4">
+                    <h2 className="font-semibold text-lg">Categories</h2>
+                    <p className="text-gray-500">5 Categories Selected</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div className="px-3 md:px-8 mt-12">
             <div className="container mx-auto max-w-full">
                 <div className="grid grid-cols-1 xl:grid-cols-5">
-                    <div className="xl:col-start-1 xl:col-end-4 px-4 mb-14">
+                    <div className="xl:col-start-1 xl:col-end-4 px-4">
                         {/* <ChartLine /> */}
                         <ChartBar />
                     </div>
@@ -79,6 +164,6 @@ export default function AdminDashboard() {
                 </div>
             </div>
         </div> */}
-    </>
+    </div>
   );
 }

@@ -9,4 +9,6 @@ On form submission, show some loading message until all the values are pushed in
 
 For textarea fields, check if the applicant do not only submit spaces
 
+To set default cgpa scale in degrees
+
 *User specific templates*

@@ -14,7 +14,7 @@ const style = {
   borderRadius: 5,
 };
 
-export default function EditAdminModal(props) {
+export default function ViewTemplateModal(props) {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -25,24 +25,15 @@ export default function EditAdminModal(props) {
 
   return (
     <div>
-      <Tooltip title="Edit">
+      <Tooltip title="View">
         <button
           type="button"
           onClick={handleOpen}
-          className="focus:outline-none text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
-          <svg
-            className="h-5 w-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-            <path
-              fillRule="evenodd"
-              d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-              clipRule="evenodd"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
           </svg>
         </button>
       </Tooltip>
@@ -64,7 +55,7 @@ export default function EditAdminModal(props) {
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
-                <h3 className="text-xl font-semibold">View Template</h3>
+                <h3 className="text-xl font-semibold">{props.template.name}</h3>
                 <button
                   onClick={handleClose}
                   type="button"
@@ -84,7 +75,17 @@ export default function EditAdminModal(props) {
                   </svg>
                 </button>
               </div>
-              <div className="px-6 pt-6 pb-2 space-y-6">
+              <div className="px-6 py-6 space-y-6">
+              <div class="flex justify-center">
+                <ul class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900 h-[250px] overflow-y-auto">
+                  {props.template.column_list_compact.map((column) => (<li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">{column}</li>)) }
+                  {/* <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">An item</li>
+                  <li class="px-6 py-2 border-b border-gray-200 w-full">A second item</li>
+                  <li class="px-6 py-2 border-b border-gray-200 w-full">A third item</li>
+                  <li class="px-6 py-2 border-b border-gray-200 w-full">A fourth item</li>
+                  <li class="px-6 py-2 w-full rounded-b-lg">And a fifth one</li> */}
+                </ul>
+              </div>
                 
               </div>
             </div>

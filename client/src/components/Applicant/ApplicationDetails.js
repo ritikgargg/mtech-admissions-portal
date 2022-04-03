@@ -20,19 +20,26 @@ function ApplicantionDetails() {
   const [hasFilledHighestGate, setHasFilledHighestGate] = useState("");
   const [hasGivenMultipleGates, setHasGivenMultipleGates] = useState("");
 
-  const init_application_details = () => {
-    const array = Array.from({ length: 21 }, () => "");
+  function changeDateFormat() {
     let date = new Date();
 
     let month = date.getMonth() + 1;
+    let day = String(date.getDate());
+    if (day.length === 1) day = "0"+day;
     if (month.length === 1) month = "0" + month;
 
-    date = date.getFullYear() + "-0" + month + "-" + date.getDate();
+    date = date.getFullYear() + "-0" + month + "-" + day;
+    // console.log(day)
+    return date;
+  }
+
+  const init_application_details = () => {
+    const array = Array.from({ length: 21 }, () => "");
 
     array[6] = "GATE";
     // array[7]='CS';
-    array[5] = date;
-    array[19] = date;
+    array[5] = changeDateFormat();
+    array[19] = changeDateFormat();
     array[20] = params.offering_id;
     return array;
   };

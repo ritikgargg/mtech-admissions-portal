@@ -226,17 +226,18 @@ CREATE TABLE templates (
   email_id TEXT,
   name TEXT,
   type TEXT,
-  column_list TEXT[]
+  column_list TEXT[],
+  column_list_compact TEXT[]
 );
 
 -- PERMANENT INSERT
-INSERT INTO TEMPLATES(email_id,name,type,column_list) VALUES('admin@admin', 'Default Applicant List', 'APPLICANT LIST', ARRAY['application_id', 'full_name', 'fathers_name', 'profile_image_url', 'date_of_birth', 'aadhar_card_number',
+INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES('admin@admin', 'Default Applicant List', 'APPLICANT LIST', ARRAY['full_name', 'fathers_name', 'profile_image_url', 'date_of_birth', 'aadhar_card_number',
 'category', 'is_pwd', 'marital_status', 'nationality', 'category_certificate_url','gender', 'communication_address', 'communication_city',
 'communication_state', 'communication_pincode', 'permanent_address', 'permanent_city', 'permanent_state',
 'permanent_pincode', 'mobile_number', 'alternate_mobile_number', 'email_id', 'degree_10th', 'board_10th', 'percentage_cgpa_format_10th','percentage_cgpa_value_10th',
 'year_of_passing_10th', 'remarks_10th', 'marksheet_10th_url', 'degree_12th', 'board_12th', 'percentage_cgpa_format_12th', 'percentage_cgpa_value_12th',
 'year_of_passing_12th', 'remarks_12th', 'marksheet_12th_url', 'degrees', 'other_remarks', 'is_last_degree_completed', 'amount', 'transaction_id', 'bank', 
-'date_of_transaction', 'qualifying_examination', 'branch_code', 'year', 'gate_enrollment_number', 'coap_registeration_number', 'all_india_rank', 'gate_score', 'valid_upto', 'remarks', 'date_of_declaration', 'place_of_declaration']);
+'date_of_transaction', 'qualifying_examination', 'branch_code', 'year', 'gate_enrollment_number', 'coap_registeration_number', 'all_india_rank', 'gate_score', 'valid_upto','self_attested_copies_url', 'remarks','signature_url', 'date_of_declaration', 'place_of_declaration'], ARRAY[]::text[]);
 
 -- 'full_name', 'fathers_name', 'profile_image_url', 'date_of_birth', 'aadhar_card_number',
 -- 'category', 'is_pwd', 'marital_status', 'nationality', 'category_certificate_url','gender', 'communication_address', 'communication_city',

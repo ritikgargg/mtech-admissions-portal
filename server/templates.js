@@ -31,17 +31,22 @@ const add_template = async (req, res) => {
     }
 
     let info = req.body;
+    console.log(info)
 
     /** Get email */
     var email = jwt.decode(authToken).userEmail;
 
+    if(info.scope === "GLOBAL"){
+        email = "global@template";
+    }
+
     const check = await pool.query("SELECT name FROM templates WHERE email_id = $1 AND name = $2;", [email, info.name]);
 
-    if(check.rows.length === 0) {
+    if(check.rows.length !== 0) {
         return res.send("2");
     }
 
-    const insert_template = await pool.query("INSERT INTO templates(email_id, name, type, column_list) VALUES($1, $2, $3, $4);", [email, info.name, info.type, JSON.parse(info.column_list)]);
+    const insert_template = await pool.query("INSERT INTO templates(email_id, name, type, column_list, column_list_compact) VALUES($1, $2, $3, $4, $5);", [email, info.name, info.type, JSON.parse(info.column_list), JSON.parse(info.column_list_compact)]);
 
     return res.send("Ok");
 };
