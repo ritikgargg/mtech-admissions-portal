@@ -1,14 +1,32 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import { Tooltip } from "@mui/material";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import spinner from "../../images/SpinnerWhite.gif";
+import crossPic from "../../images/red_cross.png";
+import CollegeDegreeSection from "./CollegeDegreeSection.js";
+import { PencilIcon } from "@heroicons/react/outline";
 
-function CommunicationDetails(props) {
-  const navigate = useNavigate();
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  height: "87%",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: 5,
+};
 
-  const { handleSubmit } = useForm();
-  const onSubmit = (data) => {
+export default function AddAdminModal(props) {
+    const navigate = useNavigate();
+  const onSubmit = (event) => {
+    event.preventDefault();
     const formData = new FormData();
 
     formData.append(
@@ -53,44 +71,73 @@ function CommunicationDetails(props) {
           navigate("/logout");
         } else {
           window.location.reload();
+          console.log("Mai Reload nahi hua")
+        //   handleClose()
         }
       })
       .catch((err) => console.log(err));
   };
+  
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <div
-      id="communicationDetailsModal"
-      aria-hidden="true"
-      className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0"
-    >
-      <div className="relative object-center overflow-y-auto overflow-x-hidden overscroll-none px-4 w-full max-w-7xl h-5/6">
-        {/* Modal content */}
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          {/* Modal header */}
-          <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
-            <button
-              onClick={props.syncLocalGlobalData}
-              type="button"
-              className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="communicationDetailsModal"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-          </div>
-          {/* Modal body */}
-          <div>
+    <div>
+      <Tooltip title="Edit Details">
+        <button
+          type="button"
+          onClick={handleOpen}
+          className="w-5 text-indigo-600 focus:outline-none"
+        //   className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+        >
+          <PencilIcon />
+        </button>
+      </Tooltip>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        {/* className="overflow-y-auto overflow-x-hidden overscroll-none" */}
+        <Box sx={style} >
+          {/* <div
+        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
+        id="add-product-modal"
+        aria-hidden="true"
+      > */}
+          <div
+            id="modal-modal-description"
+            className="relative w-full h-full"
+          >
+            
+            <div className="flex items-start justify-between py-3 px-5 border-b rounded-t">
+                {/* <h3 className="text-xl font-semibold">hue hue</h3> */}
+                <button
+                  onClick={() => {props.syncLocalGlobalData();handleClose()}}
+                  type="button"
+                  className="text-gray-400 bg-transparent focus:outline-none hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+            <div className="overflow-y-auto overflow-x-hidden overscroll-none h-5/6">
             <div className="px-6 py-6 mx-10 bg-[#f3f4f6]">
               <div className="mt-10 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -105,7 +152,7 @@ function CommunicationDetails(props) {
                     </div>
                   </div>
                   <div className="mt-5 md:mt-0 md:col-span-2">
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={onSubmit}>
                       <div className="shadow overflow-hidden sm:rounded-md">
                         <div className="px-4 py-5 bg-white sm:p-6">
                           <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
@@ -366,8 +413,8 @@ function CommunicationDetails(props) {
                         {/* <button type="button" onClick={props.syncLocalGlobalData} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sync</button> */}
 
                         <button
-                          onClick={props.syncLocalGlobalData}
-                          data-modal-toggle="communicationDetailsModal"
+                          onClick={() => {props.syncLocalGlobalData();handleClose()}}
+                        //   data-modal-toggle="communicationDetailsModal"
                           type="button"
                           className="text-gray-500 focus:outline-none bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
                         >
@@ -380,15 +427,10 @@ function CommunicationDetails(props) {
               </div>
             </div>
           </div>
-          {/* Modal footer */}
-          <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-            {/* <button data-modal-toggle="communicationDetailsModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-            <button data-modal-toggle="communicationDetailsModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Cancel</button> */}
           </div>
-        </div>
-      </div>
+          {/* </div> */}
+        </Box>
+      </Modal>
     </div>
   );
 }
-
-export default CommunicationDetails;

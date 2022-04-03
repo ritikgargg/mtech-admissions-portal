@@ -12,3 +12,5 @@ For textarea fields, check if the applicant do not only submit spaces
 To set default cgpa scale in degrees
 
 *User specific templates*
+
+Check in add templates if same name

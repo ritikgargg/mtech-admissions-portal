@@ -13,64 +13,15 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "30%",
+  width: "40%",
   bgcolor: "background.paper",
   boxShadow: 24,
   borderRadius: 5,
 };
 
-export default function TemplateOptionsModal(props) {
+export default function UploadResultModal() {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState("");
-  const [templateList, setTemplateList] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(()=>{
-
-    Axios.get("/get-templates", {
-        headers: {
-        Authorization: getToken(),
-        },
-    })
-    .then((response) => {
-    if (response.data === 1) {
-        navigate("/logout");
-    } else {
-        console.log(response.data)
-        setTemplateList(response.data);
-        // setIsFetching(false);
-    }
-    })
-    .catch((err) => console.log(err))
-
-},[]);
-
-
-const onExport = (template_id) => {
-  Axios.get("/get-applications-in-excel", { 
-    responseType: 'arraybuffer',
-    headers: {
-      Authorization: getToken(),
-      template_id: parseInt(template_id),
-      cycle_id: props.cycle_id,
-      offering_id: props.offering_id,
-    },
-  })
-    .then((response) => {
-      if (response.data === 1) {
-        navigate("/logout");
-      } else {
-        var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-        let fileName = "Applications_List_" + props.offeringName + "_" + props.cycleName;
-        fileSaver.saveAs(blob, fileName);
-        onClose();
-        setIsLoading(false);
-        setOpen(false);
-      }
-    })
-    .catch((err) => console.log(err));
-};
-
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -81,28 +32,29 @@ const onExport = (template_id) => {
 
 
   const onClose = () => {
-    setSelectedTemplate("");
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    console.log(selectedTemplate)
-    onExport(selectedTemplate);
+
   };
 
   return (
     <div>
-      <Tooltip title="Export">
+      <Tooltip title="Upload Result">
       <button
           onClick={handleOpen}
           type="button"
           className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+          {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd" />
+                </svg> */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                 </svg>
-                Export
+                Upload
         </button>
       </Tooltip>
       <Modal
@@ -123,7 +75,7 @@ const onExport = (template_id) => {
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
-                <h3 className="text-xl font-semibold">Choose Template</h3>
+                <h3 className="text-xl font-semibold">Upload Result</h3>
                 <button
                   onClick={handleClose}
                   // type="button"
@@ -156,35 +108,21 @@ const onExport = (template_id) => {
                       </div> */}
 
                       <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="admin_type" className="text-sm font-medium text-gray-900 block mb-2">Select Template</label>
-                        
-                        <select
-                          id="template"
-                          required
-                          name = "template"
-                          value = {selectedTemplate}
-                          onChange={(e) => {setSelectedTemplate(e.target.value);console.log(e.target.value)}}
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        >
-                          {/* <option value="">- Select -</option>
-                          <option value="SUPER ADMIN">SUPER ADMIN</option>
-                          <option value="FACULTY">FACULTY</option> */}
-                          <option value="">- Select -</option>
-                          {templateList.map(item => {
-                              return (<option value={item.template_id}>{item.name}</option>);
-                          })}
-                        </select>
-                        <div className="mt-4 text-sm text-gray-500 dark:text-gray-300">
-                          <p>To manage (add/view/delete) templates, please visit the
-                          <span className="italic font-semibold">
-                          {" "} Templates   {" "}                         
-                          </span>
-                           page.
-                           </p>
-                        </div> 
-                      </div>
-                      
-                                       
+                        <div className="max-w-xl">
+                            <label className="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                            <span className="flex items-center space-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
+                                <span className="font-medium text-gray-600">
+                                Drop a file to Upload, or {" "}
+                                <span className="text-blue-600 underline">browse</span>
+                                </span>
+                            </span>
+                            <input type="file" name="file_upload" className="hidden" />
+                            </label>
+                        </div>
+                    </div>           
                   </div>
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
@@ -195,7 +133,7 @@ const onExport = (template_id) => {
                       >
                         <div className="w-20 h-5 mx-5 my-2.5">
                           {!isLoading ? (
-                            <p>Download</p>
+                            <p>Upload</p>
                           ) : (
                             <img
                               className="h-5 w-5 mx-auto"

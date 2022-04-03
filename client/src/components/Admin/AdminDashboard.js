@@ -1,93 +1,158 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ChartBar from "./ChartBar";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { useTransition, animated } from "react-spring";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated'
+import Axios from "axios";
+import { getToken } from "../SignIn_SignUp/Sessions";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboard() {
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+    const animatedComponents = makeAnimated();
+    const [isAdmissionCycleModalVisible, setIsAdmissionCycleModalVisible] = useState(false);
+    const transition = useTransition(isAdmissionCycleModalVisible, {
+        from: { x: 0, y: 0, opacity: 0 },
+        enter: { x: 0, y: 0, opacity: 1 },
+        leave: { x: 0, y: 0, opacity: 0 }
+    });
     
-    console.log("open", open);
+    const [admissionCycles, setAdmissionCycles] = useState([]);                     // cycles fetched from server
+    const [selectedAdmissionCycles, setSelectedAdmissionCycles] = useState([]);     // cycles locally change on handleChange
+    const [finalSelectedAdmissionCycles, setFinalSelectedAdmissionCycles] = useState([]);   // final filtered cycles
 
-    const handleClick = (event) => {
-        console.log("clicked");
-        setAnchorEl(event.currentTarget);
-        setOpen(true);
+    const handleAdmissionCycleChange = (options) => {
+        setSelectedAdmissionCycles(options);
+    };
+    const handleAdmissionCycleSubmit = () => {
+        if (selectedAdmissionCycles.length != 0) {
+            setFinalSelectedAdmissionCycles(selectedAdmissionCycles);
+        }
+        else {
+            setFinalSelectedAdmissionCycles(admissionCycles);
+        }
     };
 
-    const handleClose = () => {
-        console.log("closed");
-        setAnchorEl(null);
-        setOpen(false);
-    };
-    // const [isOpenAdmissionCycle, setOpenAdmissionCycle] = useState(false);
 
-    // const admissionCycles = [
-    //     {
-    //         value: "Admission Cycles 2022-23",
-    //         label: "Admission Cycles 2022-23"
-    //     },
-    //     {
-    //         value: "Admission Cycles 1922-23",
-    //         label: "Admission Cycles 1922-23"
-    //     },
-    //     {
-    //         value: "Admission Cycles 1822-23",
-    //         label: "Admission Cycles 1822-23"
-    //     }
-    // ]
+    useEffect(() => {
+        Axios.get("/get-admission-cycles", {
+          headers: {
+            Authorization: getToken(),
+          },
+        })
+          .then((response) => {
+            if (response.data === 1) {
+              navigate("/logout");
+            } else {
+                let c = [];
+                response.data.results.map((cycle)=>{
+                    c.push({
+                        label: cycle.name,
+                        value: cycle.cycle_id,
+                    });
+                });
+                setAdmissionCycles(c);
+            }
+          })
+          .catch();
+      }, []);
+
+    // TODO : FETCH INFORMATION IF ANY DATA IS CHANGED "OR" RELOAD PAGE ?
+
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+          /**
+           * Alert if clicked on outside of element
+           */
+          function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setIsAdmissionCycleModalVisible(false);
+            }
+          }
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+          };
+        }, [ref]);
+    }
+
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 pt-10">
         {/* Filter div */}
-        <div className="flex justify-around items-center h-40 border border-red-900">
+        <div className="flex justify-around h-40">
 
             {/* Admission Cycles Filter */}
-            <div 
-                id="basic-button"
-                className="flex justify-between p-4 items-center bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}>
+            <div>
+                <button 
+                    className="focus:outline-none p-4 text-left items-center bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100"
+                    onClick={() => {
+                        setIsAdmissionCycleModalVisible((v) => !v);
+                    }}>
+                    <div>
+                        <h2 className="font-semibold text-lg">Admission Cycles</h2>
+                        <p className="text-gray-500">
+                            { admissionCycles.length === finalSelectedAdmissionCycles.length ? "All Cycles" : `${finalSelectedAdmissionCycles.length} Cycles Selected`}
+                        </p>
+                    </div>                
+                </button>
 
-                {/* Display Content */}
-                <div>
-                    <h2 className="font-semibold text-lg">Admission Cycles</h2>
-                    <p className="text-gray-500">2 Cycles Selected</p>
-                </div>                
-
-                <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                    }}
-                >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
-                </Menu>
-
+                {/* Multi Select : Admission Cycle Filter */}
+                {transition((style, item) =>
+                    item ?
+                    <animated.div ref={wrapperRef} style={style} className={isAdmissionCycleModalVisible ? "bg-white rounded-lg border z-50 border-gray-200" : "hidden"}>
+                        <Select
+                            // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+                            isClearable={false}
+                            styles={{
+                                control: (base, state) => ({
+                                    ...base,
+                                    ...style,
+                                    fontSize: "14px",
+                                    lineHeight: "20px",
+                                    borderRadius: "8px",
+                                    width: "235px",
+                                    padding: "5px",
+                                    outline: state.isFocused ? "none" : "",
+                                    border: "0px solid rgb(229 231 235)",
+                                    // boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)"
+                              })}}
+                            closeMenuOnSelect={false}
+                            components={animatedComponents}
+                            isMulti={true}
+                            options={admissionCycles}
+                            menuPortalTarget={document.body}
+                            onChange={handleAdmissionCycleChange}
+                            // maxMenuHeight={150}
+                        />
+                        <button className="rounded-b-lg h-8 w-full bg-indigo-500 hover:bg-indigo-600 text-white font-sm font-semibold" onClick={handleAdmissionCycleSubmit}>
+                            Submit
+                        </button>
+                    </animated.div>
+                    :
+                    ""
+                )}
             </div>
 
             {/* Offerings Filter */}
-            <div className="bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100">
+            {/* <div className="bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100">
                 <div className="m-4">
                     <h2 className="font-semibold text-lg">Offerings</h2>
                     <p className="text-gray-500">3 Offerings Selected</p>
                 </div>
-            </div>
+            </div> */}
 
             {/* Category Filter */}
-            <div className="bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100">
+            {/* <div className="bg-white h-18 w-60 rounded-lg shadow-lg border border-gray-100">
                 <div className="m-4">
                     <h2 className="font-semibold text-lg">Categories</h2>
                     <p className="text-gray-500">5 Categories Selected</p>
                 </div>
-            </div>
+            </div> */}
 
         </div>
 

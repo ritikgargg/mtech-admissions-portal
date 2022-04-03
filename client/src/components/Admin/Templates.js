@@ -10,10 +10,6 @@ import { Tooltip } from "@mui/material";
 // import TagPicker from './TagPicker';
 
 export default function Templates () {
-    // TODO 1: Add Template Modal change karna hai
-    // TODO 2: Delete Template same
-    // TODO 3: View Template change
-
     const navigate = useNavigate();
     const [templateList, setTemplateList] = useState([]);
     const [isFetching, setIsFetching] = useState(true);

@@ -1,225 +1,271 @@
 import React, { useState } from "react";
-import CollegeDegreeSection from "./CollegeDegreeSection.js";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import { Tooltip } from "@mui/material";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import spinner from "../../images/SpinnerWhite.gif";
 import crossPic from "../../images/red_cross.png";
+import CollegeDegreeSection from "./CollegeDegreeSection.js";
+import { PencilIcon } from "@heroicons/react/outline";
 
-function EducationalDetails(props) {
-  const navigate = useNavigate();
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  height: "87%",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: 5,
+};
 
-  const [marksheet_10th, setMarksheet_10th] = useState(null);
-  const [marksheet_12th, setMarksheet_12th] = useState(null);
-  const [percentage_cgpa_pattern, setPercentageCgpaPattern] = useState(
-    Array.from(
-      { length: 5 },
-      () => "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
-    )
-  );
+export default function AddAdminModal(props) {
+    const navigate = useNavigate();
 
-  const [degreesFiles, setDegreesFiles] = useState(
-    Array.from({ length: 5 }, () => Array.from({ length: 2 }, () => ""))
-  );
-
-  const clearFiles = (row, column) => {
-    let copy = [...degreesFiles];
-    copy[row][column] = null;
-    setDegreesFiles(copy);
-  };
-
-  function convertJsonObjectArrayTo2dArray(degrees) {
-    let result = Array.from({ length: 5 }, () =>
-      Array.from({ length: 10 }, () => "")
+    const [marksheet_10th, setMarksheet_10th] = useState(null);
+    const [marksheet_12th, setMarksheet_12th] = useState(null);
+    const [percentage_cgpa_pattern, setPercentageCgpaPattern] = useState(
+      Array.from(
+        { length: 5 },
+        () => "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
+      )
     );
-    for (let i = 0; i < degrees.length; i++) {
-      let j = 0;
-      for (const key in degrees[i]) {
-        if (key === "id") continue;
-        result[i][j] = degrees[i][key];
-        j++;
-      }
-    }
-    return result;
-  }
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    // console.log(props.localDegrees);
-    // console.log(props.localProfileInfo);
-    formData.append(
-      "degrees",
-      JSON.stringify(convertJsonObjectArrayTo2dArray(props.localDegrees))
+  
+    const [degreesFiles, setDegreesFiles] = useState(
+      Array.from({ length: 5 }, () => Array.from({ length: 2 }, () => ""))
     );
-
-    formData.append("degree_10th", props.localProfileInfo.degree_10th);
-    formData.append("board_10th", props.localProfileInfo.board_10th);
-    formData.append(
-      "percentage_cgpa_format_10th",
-      props.localProfileInfo.percentage_cgpa_format_10th
-    );
-    formData.append(
-      "percentage_cgpa_value_10th",
-      props.localProfileInfo.percentage_cgpa_value_10th
-    );
-    formData.append(
-      "year_of_passing_10th",
-      props.localProfileInfo.year_of_passing_10th
-    );
-    formData.append("remarks_10th", props.localProfileInfo.remarks_10th);
-
-    formData.append("degree_12th", props.localProfileInfo.degree_12th);
-    formData.append("board_12th", props.localProfileInfo.board_12th);
-    formData.append(
-      "percentage_cgpa_format_12th",
-      props.localProfileInfo.percentage_cgpa_format_12th
-    );
-    formData.append(
-      "percentage_cgpa_value_12th",
-      props.localProfileInfo.percentage_cgpa_value_12th
-    );
-    formData.append(
-      "year_of_passing_12th",
-      props.localProfileInfo.year_of_passing_12th
-    );
-    formData.append("remarks_12th", props.localProfileInfo.remarks_12th);
-
-    formData.append("other_remarks", props.localProfileInfo.other_remarks);
-    formData.append(
-      "is_last_degree_completed",
-      props.localProfileInfo.is_last_degree_completed
-    );
-
-    // for (var value of formData.values()) {
-    //   console.log(value);
-    // }
-
-    // Append Files
-    formData.append("marksheet_10th_url", marksheet_10th);
-    formData.append("marksheet_12th_url", marksheet_12th);
-    formData.append("upload_marksheet0", degreesFiles[0][0]);
-    formData.append("upload_degree0", degreesFiles[0][1]);
-    formData.append("upload_marksheet1", degreesFiles[1][0]);
-    formData.append("upload_degree1", degreesFiles[1][1]);
-    formData.append("upload_marksheet2", degreesFiles[2][0]);
-    formData.append("upload_degree2", degreesFiles[2][1]);
-    formData.append("upload_marksheet3", degreesFiles[3][0]);
-    formData.append("upload_degree3", degreesFiles[3][1]);
-    formData.append("upload_marksheet4", degreesFiles[4][0]);
-    formData.append("upload_degree4", degreesFiles[4][1]);
-
-    Axios.post("/save-education-details", formData, {
-      headers: {
-        Authorization: getToken(),
-      },
-    })
-      .then((response) => {
-        if (response.data === 1) {
-          navigate("/logout");
-        } else {
-          window.location.reload();
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleFileSubmitDegree = (e, maxSize, row, column) => {
-    const file = e.target.files[0];
-    if (file.size > maxSize * 1000000) {
-      e.target.value = null;
-      const error =
-        "File size cannot exceed more than " + maxSize.toString() + "MB";
-      alert(error);
-    } else {
+  
+    const clearFiles = (row, column) => {
       let copy = [...degreesFiles];
-      copy[row][column] = file;
+      copy[row][column] = null;
       setDegreesFiles(copy);
+    };
+  
+    function convertJsonObjectArrayTo2dArray(degrees) {
+      let result = Array.from({ length: 5 }, () =>
+        Array.from({ length: 10 }, () => "")
+      );
+      for (let i = 0; i < degrees.length; i++) {
+        let j = 0;
+        for (const key in degrees[i]) {
+          if (key === "id") continue;
+          result[i][j] = degrees[i][key];
+          j++;
+        }
+      }
+      return result;
     }
-  };
-
-  const handleFileSubmit = (e, maxSize, setVariable) => {
-    const file = e.target.files[0];
-    if (file.size > maxSize * 1000000) {
-      e.target.value = null;
-      const error =
-        "File size cannot exceed more than " + maxSize.toString() + "MB";
-      alert(error);
-    } else {
-      setVariable(file);
-    }
-  };
-
-  const handleSelectChange = (e, index) => {
-    let copy = [...percentage_cgpa_pattern];
-    if (e.target.value === "Percentage") {
-      copy[index] = "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)";
-      setPercentageCgpaPattern(copy);
-    } else if (e.target.value === "CGPA") {
-      copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
-      setPercentageCgpaPattern(copy);
-    } else if (
-      e.target.value === "10" &&
-      copy[index] !==
+  
+    const onSubmit = (event) => {
+      event.preventDefault();
+      const formData = new FormData();
+      // console.log(props.localDegrees);
+      // console.log(props.localProfileInfo);
+      formData.append(
+        "degrees",
+        JSON.stringify(convertJsonObjectArrayTo2dArray(props.localDegrees))
+      );
+  
+      formData.append("degree_10th", props.localProfileInfo.degree_10th);
+      formData.append("board_10th", props.localProfileInfo.board_10th);
+      formData.append(
+        "percentage_cgpa_format_10th",
+        props.localProfileInfo.percentage_cgpa_format_10th
+      );
+      formData.append(
+        "percentage_cgpa_value_10th",
+        props.localProfileInfo.percentage_cgpa_value_10th
+      );
+      formData.append(
+        "year_of_passing_10th",
+        props.localProfileInfo.year_of_passing_10th
+      );
+      formData.append("remarks_10th", props.localProfileInfo.remarks_10th);
+  
+      formData.append("degree_12th", props.localProfileInfo.degree_12th);
+      formData.append("board_12th", props.localProfileInfo.board_12th);
+      formData.append(
+        "percentage_cgpa_format_12th",
+        props.localProfileInfo.percentage_cgpa_format_12th
+      );
+      formData.append(
+        "percentage_cgpa_value_12th",
+        props.localProfileInfo.percentage_cgpa_value_12th
+      );
+      formData.append(
+        "year_of_passing_12th",
+        props.localProfileInfo.year_of_passing_12th
+      );
+      formData.append("remarks_12th", props.localProfileInfo.remarks_12th);
+  
+      formData.append("other_remarks", props.localProfileInfo.other_remarks);
+      formData.append(
+        "is_last_degree_completed",
+        props.localProfileInfo.is_last_degree_completed
+      );
+  
+      // for (var value of formData.values()) {
+      //   console.log(value);
+      // }
+  
+      // Append Files
+      formData.append("marksheet_10th_url", marksheet_10th);
+      formData.append("marksheet_12th_url", marksheet_12th);
+      formData.append("upload_marksheet0", degreesFiles[0][0]);
+      formData.append("upload_degree0", degreesFiles[0][1]);
+      formData.append("upload_marksheet1", degreesFiles[1][0]);
+      formData.append("upload_degree1", degreesFiles[1][1]);
+      formData.append("upload_marksheet2", degreesFiles[2][0]);
+      formData.append("upload_degree2", degreesFiles[2][1]);
+      formData.append("upload_marksheet3", degreesFiles[3][0]);
+      formData.append("upload_degree3", degreesFiles[3][1]);
+      formData.append("upload_marksheet4", degreesFiles[4][0]);
+      formData.append("upload_degree4", degreesFiles[4][1]);
+  
+      Axios.post("/save-education-details", formData, {
+        headers: {
+          Authorization: getToken(),
+        },
+      })
+        .then((response) => {
+          if (response.data === 1) {
+            navigate("/logout");
+          } else {
+            window.location.reload();
+            // handleClose();
+          }
+        })
+        .catch((err) => console.log(err));
+    };
+  
+    const handleFileSubmitDegree = (e, maxSize, row, column) => {
+      const file = e.target.files[0];
+      if (file.size > maxSize * 1000000) {
+        e.target.value = null;
+        const error =
+          "File size cannot exceed more than " + maxSize.toString() + "MB";
+        alert(error);
+      } else {
+        let copy = [...degreesFiles];
+        copy[row][column] = file;
+        setDegreesFiles(copy);
+      }
+    };
+  
+    const handleFileSubmit = (e, maxSize, setVariable) => {
+      const file = e.target.files[0];
+      if (file.size > maxSize * 1000000) {
+        e.target.value = null;
+        const error =
+          "File size cannot exceed more than " + maxSize.toString() + "MB";
+        alert(error);
+      } else {
+        setVariable(file);
+      }
+    };
+  
+    const handleSelectChange = (e, index) => {
+      let copy = [...percentage_cgpa_pattern];
+      if (e.target.value === "Percentage") {
+        copy[index] = "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)";
+        setPercentageCgpaPattern(copy);
+      } else if (e.target.value === "CGPA") {
+        copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
+        setPercentageCgpaPattern(copy);
+      } else if (
+        e.target.value === "10" &&
+        copy[index] !==
+          "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
+      ) {
+        copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
+        setPercentageCgpaPattern(copy);
+      } else if (
+        copy[index] !==
         "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
-    ) {
-      copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
-      setPercentageCgpaPattern(copy);
-    } else if (
-      copy[index] !==
-      "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
-    ) {
-      copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
-      setPercentageCgpaPattern(copy);
+      ) {
+        copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
+        setPercentageCgpaPattern(copy);
+      }
+      // console.log(percentage_cgpa_pattern);
+    };
+  
+    function closeEducationDetails() {
+      setMarksheet_12th(null);
+      setMarksheet_10th(null);
+      handleClose();
+      let copy = [...degreesFiles];
+      for (let i = 0; i < 5; i++) {
+        copy[i][0] = null;
+        copy[i][1] = null;
+      }
+      setDegreesFiles(copy);
+      props.syncLocalGlobalData();
     }
-    // console.log(percentage_cgpa_pattern);
-  };
+  
 
-  function closeEducationDetails() {
-    setMarksheet_12th(null);
-    setMarksheet_10th(null);
-    let copy = [...degreesFiles];
-    for (let i = 0; i < 5; i++) {
-      copy[i][0] = null;
-      copy[i][1] = null;
-    }
-    setDegreesFiles(copy);
-    props.syncLocalGlobalData();
-  }
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <div
-      id="educationalDetailsModal"
-      aria-hidden="true"
-      className="hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0"
-    >
-      <div className="relative object-center overflow-y-auto overflow-x-hidden overscroll-none px-4 w-full max-w-7xl h-5/6">
-        {/* Modal content */}
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          {/* Modal header */}
-          <div className="flex justify-between items-start rounded-t border-b dark:border-gray-600">
-            <button
-              onClick={closeEducationDetails}
-              type="button"
-              className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="educationalDetailsModal"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-          </div>
-          {/* Modal body */}
+    <div>
+      <Tooltip title="Edit Details">
+        <button
+          type="button"
+          onClick={handleOpen}
+          className="w-5 text-indigo-600 focus:outline-none"
+        //   className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+        >
+          <PencilIcon />
+        </button>
+      </Tooltip>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        {/* className="overflow-y-auto overflow-x-hidden overscroll-none" */}
+        <Box sx={style} >
+          {/* <div
+        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
+        id="add-product-modal"
+        aria-hidden="true"
+      > */}
+          <div
+            id="modal-modal-description"
+            className="relative w-full h-full"
+          >
+            
+            <div className="flex items-start justify-between py-3 px-5 border-b rounded-t">
+                {/* <h3 className="text-xl font-semibold">hue hue</h3> */}
+                <button
+                  onClick={closeEducationDetails}
+                  type="button"
+                  className="text-gray-400 bg-transparent focus:outline-none hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
 
-          <div>
+            <div className="overflow-y-auto overflow-x-hidden overscroll-none h-5/6">
             <div className="px-6 py-6 mx-10 bg-[#f3f4f6] ">
               <div className="mt-10 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -917,20 +963,21 @@ function EducationalDetails(props) {
                         >
                           Save
                         </button>
-                        <button
+                        {/* <button
                           type="button"
                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           onClick={() => {
                             console.log(props.localProfileInfo);
                             console.log(props.localDegrees);
                             console.log(degreesFiles);
+                         
                           }}
                         >
                           Print
-                        </button>
+                        </button> */}
                         <button
                           onClick={closeEducationDetails}
-                          data-modal-toggle="educationalDetailsModal"
+                          // data-modal-toggle="educationalDetailsModal"
                           type="button"
                           className="text-gray-500 focus:outline-none bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
                         >
@@ -943,10 +990,10 @@ function EducationalDetails(props) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+          </div>
+          {/* </div> */}
+        </Box>
+      </Modal>
     </div>
   );
 }
-
-export default EducationalDetails;

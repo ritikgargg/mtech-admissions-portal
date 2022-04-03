@@ -26,6 +26,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-select": "^5.2.2",
+    "react-spring": "^9.4.4",
     "rsuite": "^5.6.6"
   },
   "scripts": {

@@ -2,7 +2,7 @@ import React from "react";
 import { PaperClipIcon } from "@heroicons/react/solid";
 import { PencilIcon } from "@heroicons/react/outline";
 import PersonalInfo from "./PersonalInfo";
-import CommunicationDetails from "./CommunicatonDetails";
+import CommunicationDetails from "./CommunicationDetails";
 import EducationalDetails from "./EducationalDetails";
 import DashboardNavBar from "./DashboardNavBar";
 import { useState, useEffect } from "react";
@@ -60,7 +60,11 @@ export default function Profile() {
     setLocalProfileInfo(copy);
     console.log("Profile:");
     console.log(profileInfo);
-    let copy2 = [...degrees];
+    let copy2 = [];
+    for(let i = 0;i < 5; i++){
+        let temp = {...degrees[i]};
+        copy2.push(temp);
+    }
     console.log("Degrees:");
     console.log(degrees);
     setLocalDegrees(copy2);
@@ -123,32 +127,43 @@ export default function Profile() {
           navigate("/logout");
         } else {
           let copy = { ...response.data };
-          if (copy.alternate_mobile_number === "null")
-            assign(copy, "alternate_mobile_number", null);
-          if (copy.category_certificate_url === "null")
-            assign(copy, "category_certificate_url", null);
-          if (copy.nationality === "null") assign(copy, "nationality", null);
-          if (copy.marital_status === "null")
-            assign(copy, "marital_status", null);
-          if (copy.remarks_10th === "null") assign(copy, "remarks_10th", null);
-          if (copy.remarks_12th === "null") assign(copy, "remarks_12th", null);
-          if (copy.other_remarks === "null")
-            assign(copy, "other_remarks", null);
+
+          for (const key in copy) {
+            if(copy[key] === null || copy[key] === "null"){
+              copy[key] = '';
+            }
+          }
+          // if (copy.alternate_mobile_number === "null")
+          //   assign(copy, "alternate_mobile_number", null);
+          // if (copy.category_certificate_url === "null")
+          //   assign(copy, "category_certificate_url", null);
+          // if (copy.nationality === "null") assign(copy, "nationality", null);
+          // if (copy.marital_status === "null")
+          //   assign(copy, "marital_status", null);
+          // if (copy.remarks_10th === "null") assign(copy, "remarks_10th", null);
+          // if (copy.remarks_12th === "null") assign(copy, "remarks_12th", null);
+          // if (copy.other_remarks === "null")
+          //   assign(copy, "other_remarks", null);
 
           let copy2 = { ...response.data };
-          if (copy2.alternate_mobile_number === "null")
-            assign(copy2, "alternate_mobile_number", null);
-          if (copy2.category_certificate_url === "null")
-            assign(copy2, "category_certificate_url", null);
-          if (copy2.nationality === "null") assign(copy2, "nationality", null);
-          if (copy2.marital_status === "null")
-            assign(copy2, "marital_status", null);
-          if (copy2.remarks_10th === "null")
-            assign(copy2, "remarks_10th", null);
-          if (copy2.remarks_12th === "null")
-            assign(copy2, "remarks_12th", null);
-          if (copy2.other_remarks === "null")
-            assign(copy2, "other_remarks", null);
+          for (const key in copy2) {
+            if(copy2[key] === null || copy2[key] === "null"){
+              copy2[key] = '';
+            }
+          }
+          // if (copy2.alternate_mobile_number === "null")
+          //   assign(copy2, "alternate_mobile_number", null);
+          // if (copy2.category_certificate_url === "null")
+          //   assign(copy2, "category_certificate_url", null);
+          // if (copy2.nationality === "null") assign(copy2, "nationality", null);
+          // if (copy2.marital_status === "null")
+          //   assign(copy2, "marital_status", null);
+          // if (copy2.remarks_10th === "null")
+          //   assign(copy2, "remarks_10th", null);
+          // if (copy2.remarks_12th === "null")
+          //   assign(copy2, "remarks_12th", null);
+          // if (copy2.other_remarks === "null")
+          //   assign(copy2, "other_remarks", null);
 
           setProfileInfo(copy);
           setLocalProfileInfo(copy2);
@@ -180,6 +195,10 @@ export default function Profile() {
     let copy = { ...localProfileInfo };
     assign(copy, key, event.target.value);
     setLocalProfileInfo(copy);
+    console.log("Degrees in handle Local Change");
+    console.log(degrees);
+    console.log("Local Degrees in handle Local Change")
+    console.log(localDegrees);
   };
 
   const handleLocalChangeDegrees = (index, key, event) => {
@@ -189,6 +208,10 @@ export default function Profile() {
     assign(temp, key, event.target.value);
     copy[index] = temp;
     setLocalDegrees(copy);
+    console.log("Degrees");
+    console.log(degrees);
+    console.log("Local Degrees")
+    console.log(localDegrees);
     // console.log(copy);
   };
 
@@ -243,7 +266,7 @@ export default function Profile() {
               Personal Details
             </h3>
 
-            <button
+            {/* <button
               data-modal-toggle="personalDetailsModal"
               data-tooltip-target="tooltip-animation"
               type="button"
@@ -251,7 +274,7 @@ export default function Profile() {
               onClick={() => {}}
             >
               <PencilIcon />
-            </button>
+            </button> */}
             <PersonalInfo
               onChangeNationality={onChangeNationality}
               localProfileInfo={localProfileInfo}
@@ -397,14 +420,14 @@ export default function Profile() {
               Communication Details
             </h3>
 
-            <button
+            {/* <button
               data-modal-toggle="communicationDetailsModal"
               data-tooltip-target="tooltip-animation"
               type="button"
               className="w-5 text-indigo-600 focus:outline-none"
             >
               <PencilIcon />
-            </button>
+            </button> */}
             <CommunicationDetails
               localProfileInfo={localProfileInfo}
               onChange={handleLocalChange}
@@ -519,14 +542,14 @@ export default function Profile() {
               Education Details
             </h3>
 
-            <button
+            {/* <button
               data-modal-toggle="educationalDetailsModal"
               data-tooltip-target="tooltip-animation"
               type="button"
               className="w-5 text-indigo-600 focus:outline-none"
             >
               <PencilIcon />
-            </button>
+            </button> */}
             <EducationalDetails
               count={count}
               setCount={setCount}

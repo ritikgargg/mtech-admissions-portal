@@ -18,6 +18,10 @@ async function generate_applications_in_excel(info) {
         border: { outline: true }
     });
 
+    const link_style = workbook.createStyle({
+        font: { color: "#0000EE", size: 10 },
+    });
+
     const worksheet = workbook.addWorksheet("Sheet 1");
 
     /** For excel to keep track of rows */
@@ -63,17 +67,28 @@ async function generate_applications_in_excel(info) {
     /** All applications */
     let data = applications.rows;
 
+    /** Number fields */
+    let number_fields = ['aadhar_card_number', 'percentage_cgpa_value_10th', 'year_of_passing_10th', 'percentage_cgpa_value_12th', 
+                        'year_of_passing_12th', 'amount', 'year', 'all_india_rank', 'gate_score', 'valid_upto'];
+
+    /** Link fields */
+    let link_fields = ['profile_image_url', 'marksheet_10th_url', 'marksheet_12th_url', 'self_attested_copies_url', 'signature_url'];
+
     /** Write data */
     data.forEach((element, rowIndex) => {
         let columnIndex = 1;
         for(var i = 0; i < column_list.length; i++) {
-            if(element[column_list[i]] !== null && element[column_list[i]] != 'null')
-                if(column_list[i] === 'aadhar_card_number') {
+            if(element[column_list[i]] !== null && element[column_list[i]] != 'null') {
+                if(number_fields.indexOf(column_list[i]) > -1) {
                     worksheet.cell(rowCount, columnIndex).number(+element[column_list[i]]).style(style);
+                }
+                else if(link_fields.indexOf(column_list[i]) > -1) {
+                    worksheet.cell(rowCount, columnIndex).link(element[column_list[i]]).style(link_style);
                 }
                 else {
                     worksheet.cell(rowCount, columnIndex).string(String(element[column_list[i]])).style(style);
                 }
+            }
             columnIndex++;
         }
         rowCount++;
@@ -86,7 +101,17 @@ async function generate_applications_in_excel(info) {
             let columnIndex = 1 + column_list.length;
             for(var i = 0; i < 5; i++) {
                 for(var j = 0; j < 10; j++) {
-                    worksheet.cell(2 + rowIndex, columnIndex).string(String(degrees[i][j])).style(style);
+                    if(degrees[i][j] !== '') {
+                        if(j == 3 || j == 5 || j == 6) {
+                            worksheet.cell(2 + rowIndex, columnIndex).number(+degrees[i][j]).style(style);
+                        }
+                        else if(j == 8 || j == 9) {
+                            worksheet.cell(2 + rowIndex, columnIndex).link(degrees[i][j]).style(link_style);
+                        }
+                        else {
+                            worksheet.cell(2 + rowIndex, columnIndex).string(String(degrees[i][j])).style(style);
+                        }
+                    }
                     columnIndex++;
                 }
             }
@@ -104,8 +129,6 @@ const get_applications_in_excel = async (req, res) => {
     /**
      * Verify using authToken
      */
-
-    console.log(req.headers);
 
     authToken = req.headers.authorization;
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
