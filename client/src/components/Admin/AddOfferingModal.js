@@ -306,21 +306,33 @@ export default function AddOfferingModal(props) {
 
                       {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
                     </div>
-                    <div className="p-3 w-30 h-15 border-t border-gray-200 rounded-b">
-                      <button
-                        className="text-white focus:outline-none bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        type="submit"
-                      >
-                        {!isLoading ? (
-                          "Add Offering"
-                        ) : (
-                          <img
-                            className="w-5 h-5"
-                            alt="spinner"
-                            src={spinner}
-                          />
-                        )}
-                      </button>
+                    <div className="p-3 border-t border-gray-200 rounded-b">
+                      
+                          {!isLoading ? (
+                            <button
+                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                              type="submit"
+                            >
+                              <div className="w-25 h-5 mx-5 my-2.5">
+                            <p>Add Offering</p>
+                              </div>
+                        </button>
+                          ) : (
+                            <button
+                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                              type="submit"
+                              disabled
+                            >
+                              <div className="w-20 h-5 mx-5 my-2.5">
+                            <img
+                              className="h-5 w-5 mx-auto"
+                              alt="spinner"
+                              src={spinner}
+                            />
+                            </div>
+                        </button>
+                          )}
+                 
                     </div>
                   </div>
                 </form>

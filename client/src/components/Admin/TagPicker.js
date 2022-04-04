@@ -6,8 +6,7 @@ import { TagPicker } from 'rsuite';
 export default function App() {
 
 // Sample data
-const options = [{
-	"label": "Monday",
+const options = [{	"label": "Monday",
 	"value": "Monday",
 	"role": "Master",
 },

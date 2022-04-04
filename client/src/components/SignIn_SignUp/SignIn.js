@@ -1,4 +1,5 @@
 import React from 'react'
+import spinner from "../../images/SpinnerWhite.gif";
 
 export default function SignIn (props) {
   const handleSubmit = (event) => {
@@ -40,12 +41,37 @@ export default function SignIn (props) {
         </div>
 
         <div>
-          <button
+          {!props.isLoading ? 
+            (
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Get OTP
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                disabled
+              >
+                <div className="w-20 h-5 mx-5 my-2.5">
+                  <img
+                    className="h-5 w-5 mx-auto"
+                    alt="spinner"
+                    src={spinner}
+                  />
+                </div>
+              </button>
+            )
+          }
+
+          {/* <button
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Get OTP
-          </button>
+          </button> */}
         </div>
       </form>
     </>

@@ -16,6 +16,7 @@ function ApplicantionDetails() {
   const [full_name, setFullName] = useState("");
   const [category, setCategory] = useState("");
   const [offering, setOffering] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const [hasFilledHighestGate, setHasFilledHighestGate] = useState("");
   const [hasGivenMultipleGates, setHasGivenMultipleGates] = useState("");
@@ -115,6 +116,7 @@ function ApplicantionDetails() {
   };
 
   function handleApplicationSubmit() {
+    setIsLoading(true);
     const formData = new FormData();
 
     formData.append("applicant_details", JSON.stringify(applicant_details));
@@ -225,6 +227,7 @@ function ApplicantionDetails() {
               details={applicant_details}
               handleSubmit={handleSubmit}
               onSubmit={handleApplicationSubmit}
+              isLoading={isLoading}
             />
           ),
         }[page]

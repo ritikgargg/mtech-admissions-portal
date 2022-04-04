@@ -19,8 +19,11 @@ function SignInStartPage() {
   );
   const [colorEmail, setColorEmail] = useState(0);
   const [colorOTP, setColorOTP] = useState(0);
+  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
+  const [isLoadingOTP, setIsLoadingOTP] = useState(false);
 
   const emailSubmit = () => {
+    setIsLoadingEmail(true);
     axios.post("/auth/signin/otp", { email: email }).then((response) => {
       if (response.data === 0) {
         setMsgSignin("Please enter your email.");
@@ -33,6 +36,7 @@ function SignInStartPage() {
         setColorOTP(2);
       }
     });
+    setIsLoadingEmail(false)
   };
 
   const updateEmail = (e) => {
@@ -50,6 +54,7 @@ function SignInStartPage() {
   };
 
   const handleSubmit = () => {
+    setIsLoadingOTP(true)
     axios
       .post("/auth/signin/verify", {
         email: email,
@@ -77,6 +82,7 @@ function SignInStartPage() {
           setColorOTP(1);
         }
       });
+    setIsLoadingOTP(false)
   };
 
   return (
@@ -107,6 +113,7 @@ function SignInStartPage() {
                     updateData={updateEmail}
                     msg={msg_signin}
                     colorChange={colorEmail}
+                    isLoading={isLoadingEmail}
                   />
                 )}
                 {otpSent === true && (
@@ -116,6 +123,7 @@ function SignInStartPage() {
                     msg={msg_otp}
                     resendOTP={resendOTP}
                     colorChange={colorOTP}
+                    isLoading={isLoadingOTP}
                   />
                 )}
               </div>

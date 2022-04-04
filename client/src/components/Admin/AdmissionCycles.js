@@ -11,9 +11,12 @@ import EditCurrentCycle from "./EditCurrentCycle";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Toggle from "./Toggle";
 import background from "../../images/background.jpg";
+import spinner from "../../images/SpinnerWhite.gif";
 
 function AdmissionCycles() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [currentCycles, setCurrentCycles] = useState([]);
   const empty_cycle = {
     name: "",
@@ -62,6 +65,7 @@ function AdmissionCycles() {
   }
 
   const handleSubmit = () => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("name", String(cycleInfo["name"]));
     formData.append("start", String(cycleInfo["duration_start"]));
@@ -97,6 +101,7 @@ function AdmissionCycles() {
   }
 
   function handleDelete(list, setList, index) {
+    setIsDeleting(true);
     let copy = [...list];
     let deletedCycle = copy.splice(index, 1);
 
@@ -235,12 +240,25 @@ function AdmissionCycles() {
                     label="Make Current Admission Cycle"
                   />
                 </div>
-                <button
+                {!isLoading ? (<button
                   type="submit"
                   className="block w-full focus:outline-none px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg"
                 >
                   Add new cycle
-                </button>
+                </button>) : 
+                (<button
+                  type="button"
+                  disbaled
+                  className="block w-full focus:outline-none px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg"
+                >
+                  <img
+                      className="h-5 w-5 mx-auto"
+                      alt="spinner"
+                      src={spinner}
+                    />
+                </button>)
+                }
+                
               </form>
             </div>
           </div>
@@ -326,6 +344,7 @@ function AdmissionCycles() {
                     list={currentCycles}
                     setList={setCurrentCycles}
                     index={ind}
+                    isDeleting={isDeleting}
                   />
                 </div>
               </div>
@@ -372,6 +391,7 @@ function AdmissionCycles() {
                     list={previousCycles}
                     setList={setPreviousCycles}
                     index={ind}
+                    isDeleting={isDeleting}
                   />
                 </div>
               </div>

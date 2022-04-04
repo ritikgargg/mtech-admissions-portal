@@ -219,22 +219,29 @@ export default function DeleteAlertModal(props) {
                 label="Make Current Admission Cycle"
               />
             </div>
-            <button
-              type="submit"
-              className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
-            >
+            {!isLoading ? (
+              <button
+                type="submit"
+                className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
+              >
+                <div>
+                  Edit cycle
+                </div>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
+              >
               <div>
-                {!isLoading ? (
-                  "Edit cycle"
-                ) : (
-                  <img
-                    className="h-5 w-5 mx-auto"
-                    src={spinner}
-                    alt="Spinner"
-                  />
-                )}
+                <img
+                  className="h-5 w-5 mx-auto"
+                  src={spinner}
+                  alt="Spinner"
+                />
               </div>
             </button>
+            )}
           </form>
         </Box>
       </Modal>

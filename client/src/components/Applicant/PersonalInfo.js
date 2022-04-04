@@ -13,6 +13,7 @@ import { PencilIcon } from "@heroicons/react/outline";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
 
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -25,14 +26,16 @@ const style = {
   borderRadius: 5,
 };
 
-export default function AddAdminModal(props) {
+export default function PersonalInfo(props) {
     const navigate = useNavigate();
 
     const [profile_image, setProfileImage] = useState(null);
     const [categoryCertificate, setCategoryCertificate] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
   
     const onSubmit = (event) => {
       event.preventDefault();
+      setIsLoading(true);
       const formData = new FormData();
   
       formData.append("full_name", props.localProfileInfo.full_name);
@@ -580,12 +583,27 @@ export default function AddAdminModal(props) {
                         </div> */}
                       </div>
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
+                        {(!isLoading)
+                        ?
                         <button
                           type="submit"
                           className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
                           Save
                         </button>
+                        :
+                        <button
+                          disabled
+                          type="submit"
+                          className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          <img
+                              className="h-5 w-5 mx-auto"
+                              alt="spinner"
+                              src={spinner}
+                            />
+                        </button>
+                        }
                         {/* <button
                           onClick={() => {
                             console.log(props.localProfileInfo);

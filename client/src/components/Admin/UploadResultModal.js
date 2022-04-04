@@ -6,6 +6,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import spinner from "../../images/SpinnerWhite.gif";
+import crossPic from "../../images/red_cross.png";
 import fileSaver from 'file-saver';
 
 const style = {
@@ -13,7 +14,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "40%",
+  width: "35%",
   bgcolor: "background.paper",
   boxShadow: 24,
   borderRadius: 5,
@@ -21,6 +22,7 @@ const style = {
 
 export default function UploadResultModal() {
   const [isLoading, setIsLoading] = useState(false);
+  const [resultExcel,setResultExcel] = useState(null)
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -75,7 +77,7 @@ export default function UploadResultModal() {
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
-                <h3 className="text-xl font-semibold">Upload Result</h3>
+                <h3 className="text-xl font-semibold ml-4">Upload Result</h3>
                 <button
                   onClick={handleClose}
                   // type="button"
@@ -97,7 +99,7 @@ export default function UploadResultModal() {
               </div>
               <div className="px-6 pt-6 pb-2 space-y-6">
                 <form onSubmit={onSubmit}>
-                  <div className="grid grid-cols-6 gap-6">
+                  <div className="grid grid-cols-12 gap-6">
                     
                     {/* col-span-6 sm:col-span-3  */}
                     
@@ -107,42 +109,106 @@ export default function UploadResultModal() {
                         <Toggle/>
                       </div> */}
 
-                      <div className="col-span-full sm:col-span-full">
-                        <div className="max-w-xl">
-                            <label className="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-                            <span className="flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                </svg>
-                                <span className="font-medium text-gray-600">
-                                Drop a file to Upload, or {" "}
-                                <span className="text-blue-600 underline">browse</span>
-                                </span>
-                            </span>
-                            <input type="file" name="file_upload" className="hidden" />
-                            </label>
-                        </div>
-                    </div>           
+                      <div className="col-span-full mx-3">
+                              <label
+                                className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                                htmlFor="user_avatar"
+                              >
+                                Upload File
+                              </label>
+
+                              {!resultExcel ? (
+                                <>
+                                  <input
+                                    className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    aria-describedby="category-certificate-desc"
+                                    id="category-certificate"
+                                    type="file"
+                                    accept=".xls, .xlsx, .csv"
+                                    onChange={(e) => {setResultExcel(e.target.files[0])}}
+                                  />
+                             
+                                  <div
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="category-certificate-desc"
+                                  >
+                                    <span className="font-semibold">
+                                      Allowed file formats:
+                                    </span>{" "}
+                                    .xls, .xlsx, .csv
+                                  </div>
+                                  <div
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="category-certificate-desc"
+                                  >
+                                    
+                                    <p><span className="font-semibold">
+                                      Note:
+                                    </span>{" "}The uploaded excel file should necessarily contain the following fields, besides other fields(if any). </p>
+                                    <ol>
+                                      <li className="font-semibold italic">- Email Address</li>
+                                      <li className="font-semibold italic">- Status</li>
+                                      <li className="font-semibold italic">- Status Remarks</li>
+                                    </ol>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <input
+                                      className="border-none block w-full shadow-sm sm:text-sm"
+                                      id="category-certificate"
+                                      name="category-certificate"
+                                      type="text"
+                                      value={resultExcel.name}
+                                      readOnly
+                                    />
+
+                                    <button
+                                      type="button"
+                                      className="focus:outline-none flex items-center ml-2 mr-2 justify-center"
+                                      onClick={() => {
+                                        setResultExcel(null);
+                                      }}
+                                    >
+                                      <img
+                                        className="w-6 h-6"
+                                        src={crossPic}
+                                        alt="Cross"
+                                      ></img>
+                                    </button>
+                                  </div>
+                                </>
+                              )}
+                            </div>  
                   </div>
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
                   <div className="p-3 border-t border-gray-200 rounded-b">
-                      <button
-                        className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                        type="submit"
-                      >
-                        <div className="w-20 h-5 mx-5 my-2.5">
                           {!isLoading ? (
-                            <p>Upload</p>
+                            <button
+                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                              type="submit"
+                            >
+                              <div className="w-20 h-5 mx-5 my-2.5">
+                              <p>Upload</p>
+                              </div>
+                            </button>
                           ) : (
-                            <img
-                              className="h-5 w-5 mx-auto"
-                              alt="spinner"
-                              src={spinner}
-                            />
+                            <button
+                            className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                            type="submit"
+                            disabled
+                          >
+                            <div className="w-20 h-5 mx-5 my-2.5">
+                                <img
+                                  className="h-5 w-5 mx-auto"
+                                  alt="spinner"
+                                  src={spinner}
+                                />
+                              </div>
+                            </button>
                           )}
-                        </div>
-                      </button>
                     </div>
                 </form>
               </div>

@@ -23,9 +23,12 @@ const style = {
   borderRadius: 5,
 };
 
-export default function AddAdminModal(props) {
-    const navigate = useNavigate();
+export default function CommunicationDetails(props) {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const onSubmit = (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const formData = new FormData();
 
@@ -403,12 +406,22 @@ export default function AddAdminModal(props) {
                         </div>
                       </div>
                       <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
-                        <button
-                          type="submit"
-                          className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        >
-                          Save
-                        </button>
+                        { !isLoading ? 
+                          <button
+                            type="submit"
+                            className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            Save
+                          </button> 
+                          : 
+                            <button
+                            type="button"
+                            disabled
+                            className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            <img src={spinner} className="mx-auto h-5 w-5"/>
+                          </button> 
+                        } 
                         {/* <button type="button" onClick={props.syncLocalGlobalData} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Print</button> */}
                         {/* <button type="button" onClick={props.syncLocalGlobalData} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sync</button> */}
 

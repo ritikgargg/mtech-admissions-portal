@@ -6,6 +6,7 @@ import axios from "axios"
 import { getToken } from "../SignIn_SignUp/Sessions"
 import { useNavigate } from "react-router-dom"
 import DefaultProfilePicture from "../../images/default-profile-picture.png"
+import { Link } from "react-router-dom";
 
 const navigation = [
   { name: 'Home', to: '/home' },
@@ -55,9 +56,9 @@ function DashboardNavBar (props) {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                      <a
+                      <Link
                         key="Home"
-                        href="/home"
+                        to="/home"
                         className={classNames(
                           (0 === props.currentFlag)
                             ? 'bg-gray-900 text-white'
@@ -67,11 +68,11 @@ function DashboardNavBar (props) {
                         aria-current={0 === props.currentFlag ? 'page' : undefined}
                       >
                         Home
-                      </a>
+                      </Link>
 
-                      <a
+                      <Link
                         key="My Applications"
-                        href="/my-applications"
+                        to="/my-applications"
                         className={classNames(
                           (1 === props.currentFlag)
                             ? 'bg-gray-900 text-white'
@@ -81,11 +82,11 @@ function DashboardNavBar (props) {
                         aria-current={1 === props.currentFlag ? 'page' : undefined}
                       >
                         My Applications
-                      </a>
+                      </Link>
                       
-                      <a
+                      <Link
                         key="My Profile"
-                        href="/my-profile"
+                        to="/my-profile"
                         className={classNames(
                           (2 === props.currentFlag)
                             ? 'bg-gray-900 text-white'
@@ -95,7 +96,7 @@ function DashboardNavBar (props) {
                         aria-current={2 === props.currentFlag ? 'page' : undefined}
                       >
                         My Profile
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -157,18 +158,18 @@ function DashboardNavBar (props) {
             <Disclosure.Panel className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.to}
-                    className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'block px-3 py-2 rounded-md text-base font-medium'
-                    )}
-                    aria-current={item.current ? 'page' : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
+                  <Link to={item.to}>
+                    <Disclosure.Button
+                      key={item.name}
+                      className={classNames(
+                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'block px-3 py-2 rounded-md text-base font-medium'
+                      )}
+                      aria-current={item.current ? 'page' : undefined}
+                    >
+                      {item.name}
+                    </Disclosure.Button>
+                  </Link>
                 ))}
               </div>
               

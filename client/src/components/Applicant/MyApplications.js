@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 import ViewModal from "./ViewModal";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import noDataGirlPic from "../../images/no-data-girl.jpg";
+import screenSpinner from "../../images/2300-spinner.gif";
 
 function MyApplications(props) {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     axios
@@ -24,6 +26,7 @@ function MyApplications(props) {
           navigate("/logout");
         } else {
           setApplications(response.data);
+          setIsFetching(false);
         }
       })
       .catch((err) => console.log(err));
@@ -132,7 +135,10 @@ function MyApplications(props) {
                       </tbody>
                     )}
                   </table>
-                  {applications.length === 0 && (
+                  {(isFetching)?
+                    <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
+                    :
+                    applications.length === 0 && (
                     <div className="bg-white">
                       <div className="w-2/5 mx-auto my-50 text-center">
                         <div className="h-5" />

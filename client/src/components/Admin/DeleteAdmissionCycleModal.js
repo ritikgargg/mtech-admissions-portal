@@ -7,6 +7,7 @@ import { Tooltip, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import Delete from "../../images/delete.png";
+import spinner from "../../images/SpinnerWhite.gif";
 
 const style = {
   position: "absolute",
@@ -71,20 +72,30 @@ export default function DeleteAlertModal(props) {
               You will not be able to view or make changes to the applications or offerings of this admission cycle
             </p>
             <div className="flex items-center justify-end mt-8 text-xs">
-              <button
-                type="button"
-                onClick={() => {
-                  props.onDelete(props.list, props.setList, props.index);
-                  handleClose();
-                }}
-                className="focus:outline-none px-4 py-2 font-medium text-red-600 rounded bg-red-50"
-              >
-                Yes, I'm sure
-              </button>
+              { !props.isDeleting ? 
+                <button
+                  type="button"
+                  onClick={() => {
+                    props.onDelete(props.list, props.setList, props.index);
+                    // handleClose();
+                  }}
+                  className="hover:shadow-lg transition duration-200 border border-red-400 hover:bg-red-600 hover:text-white focus:outline-none w-28 px-4 py-2 font-medium text-red-600 rounded bg-red-50"
+                >
+                  Yes, I'm sure
+                </button>
+                :
+                <button
+                  type="button"
+                  disabled
+                  className="focus:outline-none w-28 px-4 py-2 font-medium text-white rounded bg-red-600"
+                >
+                  <img src={spinner} className="h-5 w-5 mx-auto"/>
+                </button>
+              }
               <button
                 type="button"
                 onClick={handleClose}
-                className="focus-outline-none px-4 py-2 ml-2 font-medium text-gray-600 rounded bg-gray-50"
+                className="border border-gray-400 transition duration-200 hover:bg-gray-600 hover:text-gray-50 focus-outline-none px-4 py-2 ml-2 font-medium text-gray-600 rounded bg-gray-50"
               >
                 No, go back
               </button>

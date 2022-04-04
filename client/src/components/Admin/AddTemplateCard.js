@@ -235,20 +235,28 @@ const options = [
                         // maxMenuHeight={150}
                     />
                 </div>
-                <button
-                type="submit"
-                className="block w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 focus:outline-none px-5 py-3 text-sm font-medium text-white rounded-lg"
-                >
+                
                     {!isLoading ? (
+                      <button
+                      type="submit"
+                      className="block w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 focus:outline-none px-5 py-3 text-sm font-medium text-white rounded-lg"
+                      >
                     <p>Add template</p>
+                    </button>
                     ) : (
+                      <button
+                      type="submit"
+                      disabled
+                      className="block w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 focus:outline-none px-5 py-3 text-sm font-medium text-white rounded-lg"
+                      >
                     <img
                         className="h-5 w-5 mx-auto"
                         alt="spinner"
                         src={spinner}
                     />
+                    </button>
                     )}
-                </button>
+             
             </form>
             </div>
         </div>

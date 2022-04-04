@@ -199,9 +199,9 @@ const save_education_details = async (req, res, next) => {
     );
   }
 
-  Promise.all(promises);
-
-  return res.status(200).send("Ok");
+  Promise.allSettled(promises).then(
+    res.status(200).send("Ok")
+  );
 };
 
 /**
@@ -305,9 +305,10 @@ const save_personal_info = async (req, res, next) => {
     );
   }
 
-  Promise.all(promises);
+  Promise.allSettled(promises).then(
+    res.status(200).send("Ok") /** Confirm, rerender */
+  );
 
-  return res.status(200).send("Ok"); /** Confirm, rerender */
 };
 
 /**
@@ -626,9 +627,9 @@ const save_application_info = async (req, res, next) => {
     );
   }
 
-  Promise.all(promises);
-
-  return res.status(200).send("Ok");
+  Promise.allSettled(promises).then(
+    res.status(200).send("Ok")
+  );
 };
 
 /**

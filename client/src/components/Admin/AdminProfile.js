@@ -117,23 +117,32 @@ export default function AdminProfile(){
                   </div>
                   <div>
                     <Tooltip title="Save">
-                    <button
-                      type="button"
-                      onClick={onSubmit}
-                      className="mr-2 focus:outline-none text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
-                    >
-                      {!isLoading ? 
+                   
+                      {!isLoading ? (
+                       <button
+                       type="button"
+                       onClick={onSubmit}
+                       className="mr-2 focus:outline-none text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+                     >
                       <img className="h-5 w-5" src={Tick} alt="Save"/>
+                      </button>
+                      )
                       :
                       (
+                        <button
+                      type="button"
+                      disabled
+                      className="mr-2 focus:outline-none text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+                    >
                         <img
                           className="h-5 w-5 mx-auto"
                           alt="spinner"
                           src={spinner}
                         />
+                         </button>
                         )
                       }
-                    </button>
+                   
                   </Tooltip>
                   <Tooltip title="Cancel">
                     <button

@@ -5,8 +5,25 @@ const saltRounds = 10;
 const pool = require("./db")
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
+var handlebars = require('handlebars');
+var fs = require('fs');
+var fs = require('fs');
+var path = require('path');
 
 dotenv.config();
+
+var readHTMLFile = function(path, callback) {
+    fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+        if (err) {
+           callback(err); 
+           throw err;
+            
+        }
+        else {
+            callback(null, html);
+        }
+    });
+};
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -119,6 +136,13 @@ const signin_verify = async (req, res) => {
 }
 
 const signup_otp = async (req, res) => {
+    const filePath = path.join(__dirname, 'email.html');
+    const html = fs.readFileSync(filePath, 'utf-8').toString();
+    var template = handlebars.compile(html);
+    var replacements = {
+        VERIFICATION_CODE: "John Doe"
+    };
+
     email = req.body.email;
 
     if(email === "") return res.send("0");
@@ -129,16 +153,19 @@ const signup_otp = async (req, res) => {
 
     otp = otpGenerator.generate(6, { specialChars: false });
 
+    replacements.VERIFICATION_CODE = otp;
+    var htmlToSend = template(replacements);
+
     var mailOptions = {
         from: 'IIT Ropar',
         to: 'email_id_to_send_otp', 
-        subject: 'OTP for Sign-up', 
-        text: 'Your OTP for Sign-up is ' 
+        subject: 'OTP for Sign-up',
+        html : htmlToSend
     };
 
     mailOptions.to = email;
-    mailOptions.text += otp;
-    mailOptions.text += ". This OTP is valid for only 10 minutes."
+    // mailOptions.text += otp;
+    // mailOptions.text += ". This OTP is valid for only 10 minutes."
     console.log(otp);
 
     const ifexists = await pool.query("select * from signup_verification where email_id = $1", [email]);

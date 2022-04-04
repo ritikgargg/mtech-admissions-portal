@@ -10,7 +10,6 @@ import noDataPic from "../../images/no-data.jpg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import screenSpinner from "../../images/2300-spinner.gif";
-import fileSaver from 'file-saver';
 import TemplateOptionsModal from './TemplateOptionsModal';
 import UploadResultModal from './UploadResultModal';
 

@@ -7,10 +7,12 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import ViewModal from "./ViewModal";
 import noDataPic from "../../images/no-data.jpg";
+import screenSpinner from "../../images/2300-spinner.gif";
 
 export default function ApplicantHomePage() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
 
   // 1 = not complete and show alert and transition
   // 2 = not complete and don't show alert
@@ -29,6 +31,7 @@ export default function ApplicantHomePage() {
           navigate("/logout");
         } else {
           setApplications(response.data);
+          setIsFetching(false);
           //   console.log(response.data);
         }
       })
@@ -226,7 +229,10 @@ export default function ApplicantHomePage() {
                       </tbody>
                     )}
                   </table>
-                  {applications.length === 0 && (
+                  {(isFetching)?
+                    <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
+                    :
+                  applications.length === 0 && (
                     <div className="bg-white">
                       <div className="w-3/5 mx-auto my-50 text-center">
                         <div className="h-5" />

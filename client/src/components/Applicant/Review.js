@@ -3,6 +3,7 @@ import React, { useState, useEffect }from 'react'
 import axios from 'axios'
 import { getToken } from "../SignIn_SignUp/Sessions"
 import { useNavigate } from "react-router-dom"
+import spinner from "../../images/SpinnerWhite.gif";
 
 export default function Review(props) {
 
@@ -38,8 +39,8 @@ export default function Review(props) {
           navigate("/logout");
         }
         else {
-            setProfileInfo(response.data)
-            setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
+          setProfileInfo(response.data)
+          setDegrees(convert2dArrayToJsonObjectArray(response.data.degrees))
         }
       })
     .catch(err => console.log(err));
@@ -426,12 +427,21 @@ export default function Review(props) {
               Back
             </button>
             
+            { !props.isLoading ? 
             <button
-                type="submit"
-                className="mr-5 col-start-6 col-end-7 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
+              type="submit"
+              className="mr-5 col-start-6 col-end-7 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
               Submit
+            </button> : 
+            <button
+              type="submit"
+              disabled
+              className="mr-5 col-start-6 col-end-7 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              <img src={spinner} className="h-5 w-5 mx-auto"/>
             </button>
+            }
           </div>
         </form>
       </div>

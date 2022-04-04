@@ -322,22 +322,30 @@ export default function EditAlertOfferingModal(props) {
                       {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
                     </div>
                     <div className="p-3 border-t border-gray-200 rounded-b">
-                      <button
-                        className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                        type="submit"
-                      >
-                        <div className="w-20 h-5 mx-5 my-2.5">
                           {!isLoading ? (
-                            <p>Edit offering</p>
+                            <button
+                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                              type="submit"
+                            >
+                                <div className="w-20 h-5 mx-5 my-2.5">
+                                    <p>Edit offering</p>
+                                </div>
+                            </button>
                           ) : (
-                            <img
-                              className="h-5 w-5 mx-auto"
-                              alt="spinner"
-                              src={spinner}
-                            />
+                            <button
+                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                              type="submit"
+                              disabled
+                            >
+                                <div className="w-20 h-5 mx-5 my-2.5">
+                                  <img
+                                    className="h-5 w-5 mx-auto"
+                                    alt="spinner"
+                                    src={spinner}
+                                  />
+                                  </div>
+                            </button>
                           )}
-                        </div>
-                      </button>
                     </div>
                   </div>
                 </form>
