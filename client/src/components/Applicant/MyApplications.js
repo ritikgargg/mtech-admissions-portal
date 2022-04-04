@@ -26,6 +26,7 @@ function MyApplications(props) {
           navigate("/logout");
         } else {
           setApplications(response.data);
+          console.log(response.data);
           setIsFetching(false);
         }
       })
@@ -99,26 +100,35 @@ function MyApplications(props) {
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              {application.status === 0 && (
-                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                  Rejected
-                                </span>
-                              )}
-                              {application.status === 1 && (
-                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                  Under Review
-                                </span>
-                              )}
-                              {application.status === 2 && (
-                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                  Selected
-                                </span>
-                              )}
+                              {(application.is_result_published === 1) 
+                                ?
+                                  (application.status === 0) 
+                                  ? 
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                      Rejected
+                                    </span>
+                                  :
+                                  (application.status === 1) 
+                                    ?
+                                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                        Under Review
+                                      </span>
+                                    :
+                                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Selected
+                                      </span>
+
+                              :
+
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                Under Review
+                              </span>
+                            }
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <ViewModal
                                 header={"Remarks"}
-                                data={application.status_remark}
+                                data={(application.is_result_published === 1) ? application.status_remark: 'The results are not out yet!'}
                               />
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap font-medium">

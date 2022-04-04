@@ -429,14 +429,14 @@ const get_offering_applications = async (req, res) => {
   //   return res.send("1");
   // }
 
-  const offering_name = await pool.query(
-    "SELECT specialization FROM mtech_offerings_" +
+  const offering_details = await pool.query(
+    "SELECT specialization, is_result_published FROM mtech_offerings_" +
       cycle_id +
       " WHERE offering_id = $1;",
     [offering_id]
   );
 
-  if (offering_name.rows.length === 0) {
+  if (offering_details.rows.length === 0) {
     return res.send("1");
   }
 
@@ -448,7 +448,8 @@ const get_offering_applications = async (req, res) => {
   return res.send({
     applications: results.rows,
     cycle_name: cycle_name.rows[0].name,
-    offering_name: offering_name.rows[0].specialization,
+    offering_name: offering_details.rows[0].specialization,
+    is_result_published: offering_details.rows[0].is_result_published
   });
 };
 
@@ -769,6 +770,51 @@ const edit_admin_profile = async (req, res) => {
   return res.send("Ok");
 };
 
+/**
+   * Publish/Unpublish Results
+   */
+const publish_unpublish_results = async(req, res) => {
+  /**
+   * Verify using authToken
+   */
+   authToken = req.headers.authorization;
+   let jwtSecretKey = process.env.JWT_SECRET_KEY;
+ 
+   var verified = null;
+ 
+   try {
+     verified = jwt.verify(authToken, jwtSecretKey);
+   } catch (error) {
+     return res.send("1"); /** Error, logout on user side */
+   }
+ 
+   if (!verified) {
+     return res.send("1"); /** Error, logout on user side */
+   }
+ 
+   /** Get role */
+   var userRole = jwt.decode(authToken).userRole;
+   if(userRole !== 0) {
+     return res.send("1");
+   }
+ 
+   let info = req.body;
+ 
+   var cycle_id = info.cycle_id;
+ 
+   const results = await pool.query(
+     "UPDATE mtech_offerings_" +
+       cycle_id +
+       " SET is_result_published = $1 WHERE offering_id = $2",
+     [
+       info.is_result_published,
+       info.offering_id,
+     ]
+   );
+ 
+   return res.send("Ok");
+
+}
 
 module.exports = {
   add_admission_cycle,
@@ -787,4 +833,5 @@ module.exports = {
   delete_admin,
   get_admin_profile,
   edit_admin_profile,
+  publish_unpublish_results
 };

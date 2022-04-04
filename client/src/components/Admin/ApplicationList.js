@@ -12,6 +12,7 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import screenSpinner from "../../images/2300-spinner.gif";
 import TemplateOptionsModal from './TemplateOptionsModal';
 import UploadResultModal from './UploadResultModal';
+import PublishResultsModal from "./PublishResultsModal";
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function OfferingList() {
   const [isFetching, setIsFetching] = useState(true);
   const [cycleName, setCycleName] = useState("Admission Cycle");
   const [offeringName, setOfferingName] = useState("Offering");
+  const [isResultPublished, setIsResultPublished] = useState(0);
   const params = useParams();
 
   useEffect(() => {
@@ -39,6 +41,8 @@ export default function OfferingList() {
           setApplications(response.data.applications);
           setCycleName(response.data.cycle_name);
           setOfferingName(response.data.offering_name);
+          setIsResultPublished(response.data.is_result_published)
+          console.log(response.data)
           setIsFetching(false);
           // console.log(response.data);
           // if(response.data.length >= 0)
@@ -175,8 +179,9 @@ export default function OfferingList() {
               </span>
               </div>
               <div className="flex gap-2">
-              <UploadResultModal />
-              <TemplateOptionsModal cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
+                <PublishResultsModal  cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} isResultPublished={isResultPublished}/>
+                <UploadResultModal cycle_id={params.cycle_id} offering_id={params.offering_id}/>
+                <TemplateOptionsModal cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
               </div>
               {/* <button onClick={() => onExport()} className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">

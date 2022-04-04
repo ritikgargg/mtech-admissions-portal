@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from "react";
+import React, { useState} from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Tooltip } from "@mui/material";
@@ -7,7 +7,6 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import spinner from "../../images/SpinnerWhite.gif";
 import crossPic from "../../images/red_cross.png";
-import fileSaver from 'file-saver';
 
 const style = {
   position: "absolute",
@@ -20,7 +19,7 @@ const style = {
   borderRadius: 5,
 };
 
-export default function UploadResultModal() {
+export default function UploadResultModal(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [resultExcel,setResultExcel] = useState(null)
   const navigate = useNavigate();
@@ -40,6 +39,25 @@ export default function UploadResultModal() {
     event.preventDefault();
     setIsLoading(true);
 
+    const formData = new FormData();
+
+    formData.append("cycle_id", props.cycle_id);
+    formData.append("offering_id", props.offering_id);
+    formData.append("result_excel", resultExcel);
+
+    Axios.post("/upload-result", formData, {
+      headers: {
+        Authorization: getToken(),
+      },
+    })
+      .then((response) => {
+        if (response.data === 1) {
+          navigate("/logout");
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -48,12 +66,12 @@ export default function UploadResultModal() {
       <button
           onClick={handleOpen}
           type="button"
-          className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
+          className="focus:outline-none w-1/2 text-white bg-black focus:ring-4 focus:ring-gray-200 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
         >
           {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd" />
                 </svg> */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                 </svg>
                 Upload
@@ -112,7 +130,7 @@ export default function UploadResultModal() {
                       <div className="col-span-full mx-3">
                               <label
                                 className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                                htmlFor="user_avatar"
+                                htmlFor="result_excel"
                               >
                                 Upload File
                               </label>
@@ -121,34 +139,35 @@ export default function UploadResultModal() {
                                 <>
                                   <input
                                     className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    aria-describedby="category-certificate-desc"
-                                    id="category-certificate"
+                                    aria-describedby="result_excel_desc"
+                                    id="result_excel"
                                     type="file"
-                                    accept=".xls, .xlsx, .csv"
+                                    accept=".xls, .xlsx"
                                     onChange={(e) => {setResultExcel(e.target.files[0])}}
+                                    required
                                   />
                              
                                   <div
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                    id="category-certificate-desc"
+                                    id="result_excel_desc"
                                   >
                                     <span className="font-semibold">
                                       Allowed file formats:
                                     </span>{" "}
-                                    .xls, .xlsx, .csv
+                                    .xls, .xlsx
                                   </div>
                                   <div
                                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                    id="category-certificate-desc"
+                                    id="result_excel_desc"
                                   >
                                     
                                     <p><span className="font-semibold">
                                       Note:
                                     </span>{" "}The uploaded excel file should necessarily contain the following fields, besides other fields(if any). </p>
                                     <ol>
-                                      <li className="font-semibold italic">- Email Address</li>
+                                      <li className="font-semibold italic">- Email ID</li>
                                       <li className="font-semibold italic">- Status</li>
-                                      <li className="font-semibold italic">- Status Remarks</li>
+                                      <li className="font-semibold italic">- Status Remark</li>
                                     </ol>
                                   </div>
                                 </>
@@ -157,8 +176,8 @@ export default function UploadResultModal() {
                                   <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     <input
                                       className="border-none block w-full shadow-sm sm:text-sm"
-                                      id="category-certificate"
-                                      name="category-certificate"
+                                      id="result_excel"
+                                      name="result_excel"
                                       type="text"
                                       value={resultExcel.name}
                                       readOnly

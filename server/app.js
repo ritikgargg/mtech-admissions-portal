@@ -7,6 +7,7 @@ const upload = multer();
 const applicantdB = require("./applicant-db");
 const admindB = require("./admin-db");
 const excelGenerator = require("./excel-generator");
+const results = require("./results");
 const templates = require("./templates");
 var bodyParser = require("body-parser");
 // const dotenv = require("dotenv");
@@ -128,6 +129,14 @@ app.get("/get-offering-applications", admindB.get_offering_applications);
 
 app.get("/get-application-info-admin", admindB.get_application_info_admin);
 
+app.post(
+  "/upload-result",
+  upload.fields([
+    { name: "result_excel", maxCount: 1 }
+  ]),
+  results.upload_results
+);
+
 app.post("/add-admin", upload.fields([]), admindB.add_admin);
 
 app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
@@ -139,6 +148,8 @@ app.post("/edit-admin-profile", upload.fields([]), admindB.edit_admin_profile);
 app.get("/get-admins", admindB.get_admins);
 
 app.get("/get-admin-profile", admindB.get_admin_profile);
+
+app.post("/publish-unpublish-results", upload.fields([]), admindB.publish_unpublish_results);
 
 app.post("/add-template", upload.fields([]), templates.add_template);
 

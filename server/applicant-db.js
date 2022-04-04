@@ -814,7 +814,7 @@ const get_applications = async (req, res) => {
   }
 
   const results = await pool.query(
-    "SELECT application_id, department, specialization, status, status_remark FROM applications_" +
+    "SELECT application_id, department, specialization, status, status_remark, is_result_published FROM applications_" +
       cycle_id +
       ", mtech_offerings_" +
       cycle_id +

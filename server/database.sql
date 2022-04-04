@@ -126,7 +126,8 @@ BEGIN
         eligibility TEXT,
         deadline TIMESTAMP,
         is_accepting_applications BOOLEAN,
-        is_draft_mode BOOLEAN
+        is_draft_mode BOOLEAN,
+        is_result_published INT DEFAULT 0
       );', 'mtech_offerings_' || NEW.cycle_id);
     
     EXECUTE format('
@@ -356,7 +357,8 @@ INSERT INTO admins(name, email_id, admin_type) VALUES('Piyush Presannan', 'admin
 --   seats TEXT,
 --   gate_paper_codes TEXT,
 --   eligibility TEXT,
---   deadline TIMESTAMP
+--   deadline TIMESTAMP,
+--   is_result_published INT
 -- );
 
 -- INSERT INTO mtech_offerings_1(department, specialization, seats, gate_paper_codes, deadline, eligibility) 
