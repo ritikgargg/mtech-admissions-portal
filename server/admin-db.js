@@ -816,6 +816,90 @@ const publish_unpublish_results = async(req, res) => {
 
 }
 
+/**
+   * Publish all results
+   */
+const publish_all_results = async(req, res) => {
+  /**
+   * Verify using authToken
+   */
+   authToken = req.headers.authorization;
+   let jwtSecretKey = process.env.JWT_SECRET_KEY;
+ 
+   var verified = null;
+ 
+   try {
+     verified = jwt.verify(authToken, jwtSecretKey);
+   } catch (error) {
+     return res.send("1"); /** Error, logout on user side */
+   }
+ 
+   if (!verified) {
+     return res.send("1"); /** Error, logout on user side */
+   }
+ 
+   /** Get role */
+   var userRole = jwt.decode(authToken).userRole;
+   if(userRole !== 0) {
+     return res.send("1");
+   }
+ 
+   let info = req.body;
+ 
+   var cycle_id = info.cycle_id;
+ 
+   const results = await pool.query(
+     "UPDATE mtech_offerings_" +
+       cycle_id +
+       " SET is_result_published = 1"
+   );
+ 
+   return res.send("Ok");
+
+}
+
+/**
+   * Unpublish all results
+   */
+const unpublish_all_results = async(req, res) => {
+  /**
+   * Verify using authToken
+   */
+   authToken = req.headers.authorization;
+   let jwtSecretKey = process.env.JWT_SECRET_KEY;
+ 
+   var verified = null;
+ 
+   try {
+     verified = jwt.verify(authToken, jwtSecretKey);
+   } catch (error) {
+     return res.send("1"); /** Error, logout on user side */
+   }
+ 
+   if (!verified) {
+     return res.send("1"); /** Error, logout on user side */
+   }
+ 
+   /** Get role */
+   var userRole = jwt.decode(authToken).userRole;
+   if(userRole !== 0) {
+     return res.send("1");
+   }
+ 
+   let info = req.body;
+ 
+   var cycle_id = info.cycle_id;
+ 
+   const results = await pool.query(
+     "UPDATE mtech_offerings_" +
+       cycle_id +
+       " SET is_result_published = 0",
+   );
+ 
+   return res.send("Ok");
+
+}
+
 module.exports = {
   add_admission_cycle,
   get_admission_cycles,
@@ -833,5 +917,7 @@ module.exports = {
   delete_admin,
   get_admin_profile,
   edit_admin_profile,
-  publish_unpublish_results
+  publish_unpublish_results,
+  publish_all_results,
+  unpublish_all_results
 };

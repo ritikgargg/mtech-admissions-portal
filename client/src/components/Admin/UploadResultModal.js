@@ -7,6 +7,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import spinner from "../../images/SpinnerWhite.gif";
 import crossPic from "../../images/red_cross.png";
+import fileSaver from 'file-saver';
 
 const style = {
   position: "absolute",
@@ -27,12 +28,7 @@ export default function UploadResultModal(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    onClose();
     setOpen(false);
-  };
-
-
-  const onClose = () => {
   };
 
   const onSubmit = (event) => {
@@ -46,6 +42,7 @@ export default function UploadResultModal(props) {
     formData.append("result_excel", resultExcel);
 
     Axios.post("/upload-result", formData, {
+      responseType: 'arraybuffer',
       headers: {
         Authorization: getToken(),
       },
@@ -54,7 +51,11 @@ export default function UploadResultModal(props) {
         if (response.data === 1) {
           navigate("/logout");
         } else {
-          window.location.reload();
+          var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+          fileSaver.saveAs(blob, "Report");
+          setIsLoading(false);
+          setResultExcel(null);
+          handleClose();
         }
       })
       .catch((err) => console.log(err));

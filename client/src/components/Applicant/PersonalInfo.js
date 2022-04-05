@@ -5,10 +5,8 @@ import { Tooltip } from "@mui/material";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
 import crossPic from "../../images/red_cross.png";
-import CollegeDegreeSection from "./CollegeDegreeSection.js";
 import { PencilIcon } from "@heroicons/react/outline";
 import DatePicker from "./DatePicker";
 import { CountryDropdown } from "react-country-region-selector";
@@ -368,7 +366,7 @@ export default function PersonalInfo(props) {
                               >
                                 <option value="">Select Category</option>
                                 <option value="GEN">GEN</option>
-                                <option value="GEN-EWS">GEN-EWS</option>
+                                <option value="EWS">EWS</option>
                                 <option value="OBC">OBC</option>
                                 <option value="SC">SC</option>
                                 <option value="ST">ST</option>
@@ -535,8 +533,10 @@ export default function PersonalInfo(props) {
                                 className="block text-sm font-medium text-gray-700"
                               >
                                 Nationality
+                                <span style={{ color: "#ff0000" }}> *</span>
                               </label>
                               <CountryDropdown
+                                required
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 value={props.localProfileInfo.nationality}
                                 onChange={(val) =>

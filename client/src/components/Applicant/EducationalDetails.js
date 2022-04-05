@@ -5,7 +5,6 @@ import { Tooltip } from "@mui/material";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
 import crossPic from "../../images/red_cross.png";
 import CollegeDegreeSection from "./CollegeDegreeSection.js";
@@ -23,18 +22,58 @@ const style = {
   borderRadius: 5,
 };
 
-export default function AddAdminModal(props) {
+export default function EducationalDetails(props) {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
     const [marksheet_10th, setMarksheet_10th] = useState(null);
     const [marksheet_12th, setMarksheet_12th] = useState(null);
+
+    const init_percentage_cgpa_pattern = () => {
+      let result = [];
+      if(props.localProfileInfo.percentage_cgpa_format_10th === "Percentage"){
+        result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
+      }
+      else{
+        result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
+      }
+
+      if(props.localProfileInfo.percentage_cgpa_format_12th === "Percentage"){
+        result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
+      }
+      else{
+        result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
+      }
+      
+      for(let i = 0; i < 5; i++){
+        if(props.localDegrees[i]['4'] === "Percentage"){
+          result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
+        }
+        else{
+           if(props.localDegrees[i]['6'] === '10'){
+              result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
+           }
+           else if(props.localDegrees[i]['6'] === '5'){
+              result.push("^(([0-4]{1})|([0-4]{1}\\.\\d{1,2}))|5\\.00|5\\.0|5")
+           }
+           else{
+              result.push("^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4")
+           }
+        }
+      }
+      console.log("result")
+      console.log(result)
+      return result;
+    }
+
     const [percentage_cgpa_pattern, setPercentageCgpaPattern] = useState(
-      Array.from(
-        { length: 5 },
-        () => "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
-      )
+      // Array.from(
+      //   { length: 5 },
+      //   () => "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
+      // )
+      init_percentage_cgpa_pattern()
     );
+    console.log(percentage_cgpa_pattern)
   
     const [degreesFiles, setDegreesFiles] = useState(
       Array.from({ length: 5 }, () => Array.from({ length: 2 }, () => ""))
@@ -172,6 +211,7 @@ export default function AddAdminModal(props) {
   
     const handleSelectChange = (e, index) => {
       let copy = [...percentage_cgpa_pattern];
+      console.log(e.target.value)
       if (e.target.value === "Percentage") {
         copy[index] = "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)";
         setPercentageCgpaPattern(copy);
@@ -189,6 +229,7 @@ export default function AddAdminModal(props) {
         copy[index] !==
         "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
       ) {
+        console.log("Print 4")
         copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
         setPercentageCgpaPattern(copy);
       }
@@ -356,7 +397,7 @@ export default function AddAdminModal(props) {
                                       );
                                       handleSelectChange(event, 0);
                                     }}
-                                    pattern={percentage_cgpa_pattern}
+                                    pattern={percentage_cgpa_pattern[0]}
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                   >
                                     <option value="">- Select -</option>
@@ -569,7 +610,8 @@ export default function AddAdminModal(props) {
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                   >
                                     <option value="">- Select -</option>
-                                    <option>12th</option>
+                                    <option value="12th">12th</option>
+                                    <option value="Diploma">Diploma</option>
                                   </select>
                                 </div>
 

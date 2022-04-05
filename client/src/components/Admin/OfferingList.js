@@ -14,6 +14,8 @@ import { UserGroupIcon } from "@heroicons/react/solid";
 import noDataPic from "../../images/no-data.jpg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import screenSpinner from "../../images/2300-spinner.gif";
+import PublishAllResultsModal from "./PublishAllResultsModal";
+import UnpublishAllResultsModal from "./UnpublishAllResultsModal";
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -196,41 +198,46 @@ export default function OfferingList() {
                   </button> */}
               <AddOfferingModal cycle_id = {params.cycle_id}/>
             </div>
-
+            <div className="flex justify-between">
             <div className="flex">
-            <span className="mr-2 mt-7 text-sm">
-                Show
-            </span>
-            <div className="mt-4 w-20">
-              <label
-                htmlFor="limit"
-                className="block text-sm font-medium text-gray-700"
-              >
-              </label>
-              <select
-                id="limit"
-                name="limit"
-                value={limit}
-                onChange={(event) => {
-                  setStartCount(1)
-                  setLimit(parseInt(event.target.value))
-                console.log(parseInt(event.target.value))}
-                }
-                required
-                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              >
-                <option value="2">2</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-              </select>
-            </div>
-            <span className="ml-2 mt-7 text-sm">
-                entries
-            </span>
+              <span className="mr-2 mt-7 text-sm">
+                  Show
+              </span>
+              <div className="mt-4 w-20">
+                <label
+                  htmlFor="limit"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                </label>
+                <select
+                  id="limit"
+                  name="limit"
+                  value={limit}
+                  onChange={(event) => {
+                    setStartCount(1)
+                    setLimit(parseInt(event.target.value))
+                  console.log(parseInt(event.target.value))}
+                  }
+                  required
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="2">2</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+                <span className="ml-2 mt-7 text-sm">
+                    entries
+                </span>
+              </div>
+              <div className="flex">
+                <PublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
+                <UnpublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
+              </div>
             </div>
           </div>
         </div>
@@ -284,6 +291,12 @@ export default function OfferingList() {
                       className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                     >
                       Status
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
+                    >
+                      Results
                     </th>
                     <th scope="col" className="p-4"></th>
                   </tr>
@@ -363,6 +376,17 @@ export default function OfferingList() {
                               Closed
                             </span>
                           )} */}
+                        </td>
+
+                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                        {/* <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Default</span>
+<span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Dark</span> */}
+                          { offerings[i].is_result_published === 1 && (
+                            <span className="bg-blue-100 inline-flex text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Published</span>
+                          )}
+                          {offerings[i].is_result_published === 0  && (
+                            <span className="bg-gray-100 inline-flex text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Not Published</span>
+                          )}
                         </td>
 
                         <td className="p-6 whitespace-nowrap space-x-2 flex">

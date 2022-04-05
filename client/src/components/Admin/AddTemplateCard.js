@@ -42,6 +42,7 @@ export default function AddTemplateCard(props) {
   const animatedComponents = makeAnimated();
   const { register, handleSubmit, reset } = useForm();
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [error, setError] = useState(0);
   const handleChange = (options) => {
     setSelectedOptions(options);
     console.log(selectedOptions);
@@ -138,7 +139,11 @@ const options = [
       .then((response) => {
         if (response.data === 1) {
           navigate("/logout");
+        } else if(response.data === 2){
+            setError(1);
+            setIsLoading(false);
         } else {
+          setError(0);
           window.location.reload();
         }
       })
@@ -181,10 +186,16 @@ const options = [
                         type="text"
                         id="name"
                         {...register("name")}
-                        className="w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                        onChange = {() => setError(0)}
+                        className={error === 1 ? 
+                        "w-full p-3 pr-12 text-sm border-red-200 rounded-lg shadow-sm" 
+                        :
+                        "w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"}
+                        // className="w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                         // placeholder="Name of the template"
                         required
                         />
+                        {error === 1 ? <p className="pl-1 pt-1 text-red-500 text-sm">A template with the given name already exists in the same scope</p> : <></>}
                     </div>
                 </div>
                 <div>

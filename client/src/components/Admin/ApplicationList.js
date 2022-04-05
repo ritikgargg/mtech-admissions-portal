@@ -10,7 +10,7 @@ import noDataPic from "../../images/no-data.jpg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import screenSpinner from "../../images/2300-spinner.gif";
-import TemplateOptionsModal from './TemplateOptionsModal';
+import ExportExcelModal from './ExportExcelModal';
 import UploadResultModal from './UploadResultModal';
 import PublishResultsModal from "./PublishResultsModal";
 
@@ -181,7 +181,7 @@ export default function OfferingList() {
               <div className="flex gap-2">
                 <PublishResultsModal  cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} isResultPublished={isResultPublished}/>
                 <UploadResultModal cycle_id={params.cycle_id} offering_id={params.offering_id}/>
-                <TemplateOptionsModal cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
+                <ExportExcelModal cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
               </div>
               {/* <button onClick={() => onExport()} className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">

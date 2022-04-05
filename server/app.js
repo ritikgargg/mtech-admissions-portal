@@ -151,6 +151,10 @@ app.get("/get-admin-profile", admindB.get_admin_profile);
 
 app.post("/publish-unpublish-results", upload.fields([]), admindB.publish_unpublish_results);
 
+app.post("/publish-all-results", upload.fields([]), admindB.publish_all_results);
+
+app.post("/unpublish-all-results", upload.fields([]), admindB.unpublish_all_results);
+
 app.post("/add-template", upload.fields([]), templates.add_template);
 
 app.post("/delete-template", upload.fields([]), templates.delete_template);

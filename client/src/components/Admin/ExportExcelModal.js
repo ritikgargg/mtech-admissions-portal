@@ -19,7 +19,7 @@ const style = {
   borderRadius: 5,
 };
 
-export default function TemplateOptionsModal(props) {
+export default function ExportExcelModal(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [templateList, setTemplateList] = useState([]);
@@ -171,7 +171,7 @@ const onExport = (template_id) => {
                           <option value="FACULTY">FACULTY</option> */}
                           <option value="">- Select -</option>
                           {templateList.map(item => {
-                              return (<option value={item.template_id}>{item.name}</option>);
+                              return (<option value={item.template_id}>{item.name} - {item.email_id === "default@template" ? 'DEFAULT' : (item.email_id === "global@template") ? 'GLOBAL' : 'PERSONAL'}</option>);
                           })}
                         </select>
                         <div className="mt-4 text-sm text-gray-500 dark:text-gray-300">

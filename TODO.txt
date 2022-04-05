@@ -5,12 +5,10 @@ Responsive UI
 4. Navbar
 5. Applicant pages
 
-On form submission, show some loading message until all the values are pushed into the database and gcp by server
+On form submission, show some loading message until all the values are pushed into the database and gcp by server (DONE)
 
 For textarea fields, check if the applicant do not only submit spaces
 
 To set default cgpa scale in degrees
 
-*User specific templates*
-
-Check in add templates if same name
+*User specific templates* (DONE)

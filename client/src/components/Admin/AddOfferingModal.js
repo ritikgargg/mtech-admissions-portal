@@ -266,6 +266,7 @@ export default function AddOfferingModal(props) {
                         Eligibility
                       </label>
                       <textarea
+                        required
                         {...register("eligibility")}
                         id="eligibility"
                         rows={6}

@@ -22,7 +22,13 @@ function CollegeDegreeSection(props) {
           >
             <option value="">- Select -</option>
             <option value="B.E.">B.E.</option>
-            <option value="B-Tech">B-Tech</option>
+            <option value="B.Tech.">B.Tech.</option>
+            <option value="MCA">MCA</option>
+            <option value="B.Sc.">B.Sc.</option>
+            <option value="M.Sc.">M.Sc.</option>
+            <option value="AMIE">AMIE</option>
+            <option value="IETE">IETE</option>
+            <option value="Other's">Other's</option>
           </select>
         </div>
 
@@ -144,6 +150,7 @@ function CollegeDegreeSection(props) {
           >
             <option value="">- None -</option>
             <option value="10">10</option>
+            <option value="5">5</option>
             <option value="4">4</option>
           </select>
         </div>

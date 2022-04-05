@@ -105,7 +105,7 @@ function MyApplications(props) {
                                   (application.status === 0) 
                                   ? 
                                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                      Rejected
+                                      Not Selected
                                     </span>
                                   :
                                   (application.status === 1) 
