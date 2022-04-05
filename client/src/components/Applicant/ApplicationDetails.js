@@ -8,6 +8,7 @@ import Axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 function ApplicantionDetails() {
   const navigate = useNavigate();
@@ -163,8 +164,8 @@ function ApplicantionDetails() {
           />
         </div>
 
-        <a
-          href="/home"
+        <Link
+          to="/home"
           className="col-start-12 col-end-13 justify-center lg:w-12 lg:h-12 w-8 h-8 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
         >
           <svg
@@ -179,7 +180,7 @@ function ApplicantionDetails() {
               clipRule="evenodd"
             />
           </svg>
-        </a>
+        </Link>
       </div>
 
       {
