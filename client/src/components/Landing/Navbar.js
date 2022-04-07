@@ -10,7 +10,8 @@ const navigation = [
   { name : "Courses", to: "/courses" },
   { name: "More Info", to: '/info' },
   { name : "FAQs", to: "/faqs" },
-  { name: "Contact us", to: "/contact-us" }
+  { name: "Contact us", to: "/contact-us" },
+  { name: "Team", to: "/meet-the-team" }
 ];
 
 function Navbar() {

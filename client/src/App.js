@@ -29,6 +29,7 @@ import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
 import Templates from "./components/Admin/Templates"
+import MeetTheTeam from "./components/Landing/MeetTheTeam";
 
 function App() {
   // Pages that can only be accessed if you are logged in
@@ -193,6 +194,7 @@ function App() {
           <Route path="/faqs" element={<FAQs />}></Route>
           <Route path="/courses" element={<Courses />}></Route>
           <Route path="/info" element={<Info />}></Route>
+          <Route path="/meet-the-team" element={<MeetTheTeam />}></Route>
           <Route
             path="/sign-in"
             element={
