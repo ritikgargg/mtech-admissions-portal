@@ -253,7 +253,7 @@ INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES
 INSERT INTO current_cycle(cycle_id) VALUES(0);
 
 -- Do always
-INSERT INTO admins(name, email_id, admin_type) VALUES('Piyush Presannan', 'admin@admin', 0);
+INSERT INTO admins(name, email_id, admin_type, department) VALUES('Piyush Presannan', 'admin@admin', 0, 'Academics');
 -- INSERT INTO admins(email_id, admin_type) VALUES('2019csb1106@iitrpr.ac.in', 0);
 
 -- To check triggers

@@ -16,7 +16,7 @@ const style = {
   boxShadow: 24,
 };
 
-export default function DeleteAlertModal(props) {
+export default function DeleteApplicationModal(props) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -26,9 +26,8 @@ export default function DeleteAlertModal(props) {
   const handleDelete = () => {
     setIsLoading(true);
     const formData = new FormData();
-    // formData.append("offering_id", props.application.offering_id);
-    formData.append("email_id", props.email_id);
-    Axios.post("/delete-admin", formData, {
+    formData.append("application_id", props.application_id);
+    Axios.post("/delete-application", formData, {
       headers: {
         Authorization: getToken(),
       },
@@ -112,13 +111,13 @@ export default function DeleteAlertModal(props) {
                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <h3 className="text-xl font-normal text-gray-500 mt-5 mb-1">
-                  Are you sure you want to delete
+                <h3 className="text-lg font-normal text-gray-500 mt-5 mb-1">
+                  Are you sure you want to delete the application of
                 </h3>
-                <h3 className="text-xl font-bold text-gray-500 mt-1 mb-6">
+                <h3 className="text-xl font-bold text-gray-500 mt-1 mb-2">
                   {props.email_id}?
                 </h3>
-                
+                <p className="italic text-base mb-6">Caution: It cannot be recovered later</p>
                     {!isLoading ? (
                       <button
                         onClick={handleDelete}

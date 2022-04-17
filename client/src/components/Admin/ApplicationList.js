@@ -13,6 +13,7 @@ import screenSpinner from "../../images/2300-spinner.gif";
 import ExportExcelModal from './ExportExcelModal';
 import UploadResultModal from './UploadResultModal';
 import PublishResultsModal from "./PublishResultsModal";
+import DeleteApplicationModal from "./DeleteApplicationModal"
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -370,9 +371,18 @@ export default function OfferingList() {
                           >
                             {/* <img className="h-7 w-7 text-indigo-600" alt="eye-icon" src="https://cdn-icons-png.flaticon.com/512/535/535193.png"/> */}
                             <Tooltip title="View Application">
-                              <VisibilityIcon />
-                            </Tooltip>
+                                <button
+                                  type="button"
+                                  className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                  </svg>
+                                </button>
+                          </Tooltip>
                           </Link>
+                          <DeleteApplicationModal application_id={applications[i].application_id} email_id={applications[i].email_id}/>
                         </td>
                       </tr>
                     ))}
