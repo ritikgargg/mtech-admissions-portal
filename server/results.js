@@ -75,7 +75,7 @@ const upload_results = async (req, res) => {
 
     /** Get role */
     var userRole = jwt.decode(authToken).userRole;
-    if(userRole !== 0) {
+    if(userRole !== 0 && userRole !== 1) {
         return res.send("1");
     }
 

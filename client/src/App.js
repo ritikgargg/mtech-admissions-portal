@@ -176,16 +176,16 @@ function App() {
                 <Templates/>
               </PrivateRoute>
             }/>
-        </Route>
 
-        <Route
-          path="/admin/view/:cycle_id/:offering_id/:application_id"
-          element={
-            <PrivateRoute>
-              <ViewSubmittedApplicationAdmin />
-            </PrivateRoute>
-          }
-        />
+          <Route
+            path="/admin/view/:cycle_id/:offering_id/:application_id"
+            element={
+              <PrivateRoute>
+                <ViewSubmittedApplicationAdmin />
+              </PrivateRoute>
+            }
+          />
+        </Route>
 
         <Route element={<WithHeaderFooter />}>
           <Route path="/" element={<HomePage />}></Route>

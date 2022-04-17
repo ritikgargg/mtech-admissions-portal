@@ -9,7 +9,8 @@ import spinner from "../../images/SpinnerWhite.gif";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import publishIcon from '../../images/publish.png'
+import publishIcon from '../../images/publish.png';
+import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -29,6 +30,7 @@ export default function PublishAllResultsModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const admin_type = getAdminType()
 
   const publishAllResults = () => {
     setIsLoading(true);
@@ -92,7 +94,11 @@ export default function PublishAllResultsModal(props) {
             Are you sure you want to publish the results for all offerings in <span className="italic font-semibold">{props.cycleName}</span>?
             </h2>
             <p className="mt-2 text-sm text-gray-500">
-              The results of all the offerings will be shown to the corresponding applicants.
+              {(admin_type === "0")
+              ? 
+              "The results of all the offerings will be shown to the corresponding applicants." 
+              : 
+              "The results of all the offerings will be published to the Academic Section." }
             </p>
             <div className="flex items-center justify-end mt-8 text-xs">
               { !isLoading ? 

@@ -11,6 +11,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
+import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -30,6 +31,7 @@ export default function PublishResultsModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const admin_type = getAdminType()
 
   const publishResults = () => {
     setIsLoading(true);
@@ -37,7 +39,12 @@ export default function PublishResultsModal(props) {
 
     formData.append("cycle_id", props.cycle_id);
     formData.append("offering_id", props.offering_id);
-    formData.append("is_result_published", (props.isResultPublished === 0) ? 1 : 0);
+    if(admin_type === 0){
+      formData.append("is_result_published", (props.isResultPublished === 0) ? 1 : 0);
+    }
+    else{
+      formData.append("is_result_published_by_faculty", (props.isResultPublished === 0) ? 1 : 0);
+    }
 
     Axios.post("/publish-unpublish-results", formData, {
       headers: {
@@ -102,7 +109,15 @@ export default function PublishResultsModal(props) {
               Are you sure you want to {(props.isResultPublished === 0)?'publish' : 'unpublish' } the results for <span className="italic font-semibold">{props.offeringName}</span>?
             </h2>
             <p className="mt-2 text-sm text-gray-500">
-              The results will {(props.isResultPublished === 0)?'' : 'not' } be shown to the corresponding applicants.
+              {(admin_type === "0")
+              ?
+              <span>The results will {(props.isResultPublished === 0)?'' : 'not'}  be shown to the corresponding applicants.</span>
+              :
+              <div>
+              {(props.isResultPublished === 0)? <span>The results will be published to the Academic Section.</span> : <span>The results will be unpublished.</span>}
+              </div>
+              
+               }
             </p>
             <div className="flex items-center justify-end mt-8 text-xs">
               {(props.isResultPublished === 0) ? 

@@ -15,7 +15,6 @@ export default function AdminNavbarWithSidebar() {
   const [showSidebar, setShowSidebar] = useState("-left-64");
   const [logout, setLogout] = useState(false);
   var admin_type = getAdminType();
-  console.log(admin_type)
 
   return (
     <>
@@ -30,7 +29,7 @@ export default function AdminNavbarWithSidebar() {
             rel="noreferrer"
             className="mt-2 text-center w-full inline-block"
           >
-            <H6 color="gray">Admin Portal</H6>
+            <H6 color="gray">{(admin_type === "0")? "Admin" : "Faculty"} Portal</H6>
           </a>
           <div className="flex flex-col">
             <hr className="my-4 min-w-full" />

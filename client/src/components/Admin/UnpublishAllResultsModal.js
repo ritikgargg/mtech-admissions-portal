@@ -10,7 +10,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import unpublishIcon from '../../images/unpublish.png';
-import UnpublishedIcon from '@mui/icons-material/Unpublished';
+import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -30,6 +30,7 @@ export default function UnpublishAllResultsModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const admin_type = getAdminType();
 
   const unpublishAllResults = () => {
     setIsLoading(true);
@@ -94,7 +95,11 @@ export default function UnpublishAllResultsModal(props) {
               Are you sure you want to unpublish the results for all offerings in <span className="italic font-semibold">{props.cycleName}</span>?
             </h2>
             <p className="mt-2 text-sm text-gray-500">
-              The results of all the offerings will not be shown to the corresponding applicants.
+              {(admin_type === "0")
+              ? 
+              "The results of all the offerings will not be shown to the corresponding applicants." 
+              :
+              "The results of all the offerings will be unpublished." }
             </p>
             <div className="flex items-center justify-end mt-8 text-xs">
               { !isLoading ? 

@@ -43,7 +43,7 @@ export default function OfferingList() {
           setCycleName(response.data.cycle_name);
           setDepartment(response.data.department);
           setIsFetching(false);
-          // console.log(response.data);
+          console.log(response.data.offerings);
         }
       })
       .catch((err) => console.log(err));
@@ -385,10 +385,13 @@ export default function OfferingList() {
                         {/* <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Default</span>
 <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Dark</span> */}
                           { offerings[i].is_result_published === 1 && (
-                            <span className="bg-blue-100 inline-flex text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Published</span>
+                            <span className="bg-blue-100 inline-flex text-blue-800 text-xs text-center font-semibold px-2.5 py-1.5 rounded dark:bg-blue-200 dark:text-blue-800">Published to Applicants</span>
                           )}
-                          {offerings[i].is_result_published === 0  && (
-                            <span className="bg-gray-100 inline-flex text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Not Published</span>
+                          {offerings[i].is_result_published === 0  && offerings[i].is_result_published_by_faculty === 1 && (
+                            <span class="bg-purple-100 inline-flex text-purple-800 text-xs text-center font-semibold px-2 py-1.5 rounded dark:bg-purple-200 dark:text-purple-900">Approved by Department</span>
+                          )}
+                          {offerings[i].is_result_published === 0  && offerings[i].is_result_published_by_faculty === 0 && (
+                            <span className="bg-gray-100 inline-flex text-gray-800 text-xs text-center font-semibold px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Not Published</span>
                           )}
                         </td>
 

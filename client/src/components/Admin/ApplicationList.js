@@ -382,7 +382,7 @@ export default function OfferingList() {
                                 </button>
                           </Tooltip>
                           </Link>
-                          <DeleteApplicationModal application_id={applications[i].application_id} email_id={applications[i].email_id}/>
+                          <DeleteApplicationModal cycle_id={params.cycle_id} application_id={applications[i].application_id} email_id={applications[i].email_id}/>
                         </td>
                       </tr>
                     ))}

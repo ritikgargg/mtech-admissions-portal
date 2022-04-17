@@ -129,8 +129,6 @@ app.get("/get-offering-applications", admindB.get_offering_applications);
 
 app.get("/get-application-info-admin", admindB.get_application_info_admin);
 
-// app.get("/get-admin-type", admindB.get_admin_type)
-
 app.post(
   "/upload-result",
   upload.fields([
@@ -160,6 +158,8 @@ app.post("/unpublish-all-results", upload.fields([]), admindB.unpublish_all_resu
 app.post("/add-template", upload.fields([]), templates.add_template);
 
 app.post("/delete-template", upload.fields([]), templates.delete_template);
+
+app.post("/delete-application", upload.fields([]), admindB.delete_application);
 
 app.get("/get-templates", templates.get_templates);
 

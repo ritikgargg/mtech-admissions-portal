@@ -6,6 +6,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import spinner from "../../images/SpinnerWhite.gif";
+import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -22,11 +23,13 @@ export default function DeleteApplicationModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const admin_type = getAdminType()
 
   const handleDelete = () => {
     setIsLoading(true);
     const formData = new FormData();
     formData.append("application_id", props.application_id);
+    formData.append("cycle_id", props.cycle_id);
     Axios.post("/delete-application", formData, {
       headers: {
         Authorization: getToken(),
@@ -44,6 +47,7 @@ export default function DeleteApplicationModal(props) {
 
   return (
     <div>
+    {(admin_type === "0")?
       <Tooltip title="Delete">
         <button
           onClick={handleOpen}
@@ -64,6 +68,29 @@ export default function DeleteApplicationModal(props) {
           </svg>
         </button>
       </Tooltip>
+      :
+      <Tooltip title="You can't delete this application">
+          <button
+            onClick={handleOpen}
+            type="button"
+            className="cursor-not-allowed text-white focus:outline-none bg-gray-400 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+            disabled
+          >
+            <svg
+              className="h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </Tooltip>
+    }
       <Modal
         open={open}
         onClose={handleClose}
@@ -117,7 +144,7 @@ export default function DeleteApplicationModal(props) {
                 <h3 className="text-xl font-bold text-gray-500 mt-1 mb-2">
                   {props.email_id}?
                 </h3>
-                <p className="italic text-base mb-6">Caution: It cannot be recovered later</p>
+                <p className="italic text-base mb-6">Caution: It cannot be recovered later.</p>
                     {!isLoading ? (
                       <button
                         onClick={handleDelete}
