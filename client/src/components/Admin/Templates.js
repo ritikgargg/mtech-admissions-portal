@@ -7,6 +7,7 @@ import screenSpinner from "../../images/2300-spinner.gif";
 import DeleteTemplateModal from './DeleteTemplateModal';
 import ViewTemplateModal from "./ViewTemplateModal"
 import { Tooltip } from "@mui/material";
+import { getAdminType } from './AdminTypes';
 // import TagPicker from './TagPicker';
 
 export default function Templates () {
@@ -14,6 +15,7 @@ export default function Templates () {
     const [templateList, setTemplateList] = useState([]);
     const [isFetching, setIsFetching] = useState(true);
     const [isAddingTemplate, setIsAddingTemplate] = useState(false);
+    const admin_type = getAdminType();
 
     useEffect(()=>{
         Axios.get("/get-templates", {
@@ -108,7 +110,7 @@ export default function Templates () {
                             <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">       
                                 <div className="flex gap-2 justify-end">  
                                     <ViewTemplateModal template={template}/>
-                                    {(template.email_id === "default@template") ? <DeleteTemplateModal template ={template} isActive={false}/> : <DeleteTemplateModal template ={template} isActive={true}/>}
+                                    {(template.email_id === "default@template" || (template.email_id === "global@template" && admin_type !== "0")) ? <DeleteTemplateModal template ={template} isActive={false}/> :  <DeleteTemplateModal template ={template} isActive={true}/>}
                                 </div>
                             </td>
                             </tr>

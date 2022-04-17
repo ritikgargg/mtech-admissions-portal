@@ -54,11 +54,3 @@ const Toggle = styled((props) => (
 }));
 
 export default Toggle;
-      
-{/*       
-      <FormControlLabel
-        control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
-        label="iOS style"
-      /> */}
-    
-

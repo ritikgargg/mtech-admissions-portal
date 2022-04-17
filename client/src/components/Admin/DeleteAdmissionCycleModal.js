@@ -7,7 +7,9 @@ import { Tooltip, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import Delete from "../../images/delete.png";
+import DeleteDisabled from "../../images/delete-disabled.png"
 import spinner from "../../images/SpinnerWhite.gif";
+import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -25,10 +27,13 @@ export default function DeleteAlertModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const admin_type = getAdminType()
 
   return (
     <div>
-      <Tooltip title="Delete">
+    {(admin_type === "0")
+    ?
+    <Tooltip title="Delete">
         <button
           onClick={handleOpen}
           className="focus:outline-none hover:bg-gray-100 rounded-lg"
@@ -42,6 +47,25 @@ export default function DeleteAlertModal(props) {
           <img className="w-5 h-5 mx-auto" src={Delete} alt="Delete" />
         </button>
       </Tooltip>
+      :
+      
+      <Tooltip title="">
+        <button
+          disabled
+          onClick={handleOpen}
+          className="focus:outline-none cursor-not-allowed hover:bg-gray-100 rounded-lg"
+          style={{
+            fontSize: "0.875rem",
+            textTransform: "none",
+            width: "35px",
+            height: "35px",
+          }}
+        >
+          <img className="w-5 h-5 mx-auto" src={DeleteDisabled} alt="Delete" />
+        </button>
+      </Tooltip>
+     }
+      
       <Modal
         open={open}
         onClose={handleClose}

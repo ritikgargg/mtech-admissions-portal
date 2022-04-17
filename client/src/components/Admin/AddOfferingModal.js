@@ -80,6 +80,8 @@ export default function AddOfferingModal(props) {
       })
       .catch((err) => console.log(err));
   };
+
+  console.log(props.department)
   return (
     <div>
       <Tooltip title="Add">
@@ -159,7 +161,8 @@ export default function AddOfferingModal(props) {
                         required
                       /> */}
                       <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                        
+                        {(props.department === "Academics")
+                        ?
                         <select
                           id="department"
                           {...register("department")}
@@ -176,6 +179,20 @@ export default function AddOfferingModal(props) {
                           <option value="Biomedical Engineering">Biomedical Engineering</option>
 
                         </select>
+                        :
+                        <select
+                          id="department"
+                          {...register("department")}
+                          required
+                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        >
+                          <option value="">- Select -</option>
+                          {/* <option value="Academics">Academics</option> */}
+                          <option value={props.department}>{props.department}</option>
+                        </select>
+                        
+                        }
+                        
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label

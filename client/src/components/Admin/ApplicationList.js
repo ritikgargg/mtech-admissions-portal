@@ -52,30 +52,6 @@ export default function OfferingList() {
       .catch((err) => console.log(err));
   }, []);
 
-  
-  // const onExport = (template_id) => {
-  //   Axios.get("/get-applications-in-excel", { 
-  //     responseType: 'arraybuffer',
-  //     headers: {
-  //       Authorization: getToken(),
-  //       template_id: 1,
-  //       cycle_id: params.cycle_id,
-  //       offering_id: params.offering_id,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (response.data === 1) {
-  //         navigate("/logout");
-  //       } else {
-  //         var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-  //         let fileName = "Applications_List_" + offeringName + "_" + cycleName;
-  //         fileSaver.saveAs(blob, fileName);
-  //         window.location.reload();
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   function range(start, end) {
     return Array(end - start + 1)
       .fill()

@@ -114,14 +114,15 @@ const signin_verify = async (req, res) => {
             }
             else if(if_admin.rows[0].admin_type === 0) {
                 data.userRole = 0;
+                data.department = if_admin.rows[0].department;
                 const authToken = jwt.sign(data, jwtSecretKey);
-                return res.send({result:4,token:authToken});
+                return res.send({result:4,token:authToken,admin_type:0});
             }
             else if(if_admin.rows[0].admin_type === 1) {
                 data.userRole = 1;
                 data.department = if_admin.rows[0].department;
                 const authToken = jwt.sign(data, jwtSecretKey);
-                return res.send({result:5,token:authToken});
+                return res.send({result:5,token:authToken,admin_type:1});
             }
         }
         else {

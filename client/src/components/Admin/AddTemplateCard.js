@@ -9,6 +9,7 @@ import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
+import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -43,6 +44,8 @@ export default function AddTemplateCard(props) {
   const { register, handleSubmit, reset } = useForm();
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [error, setError] = useState(0);
+  const admin_type = getAdminType()
+
   const handleChange = (options) => {
     setSelectedOptions(options);
     console.log(selectedOptions);
@@ -225,7 +228,7 @@ const options = [
                         className="mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                         >
                         <option value="">- Select -</option>
-                        <option value="GLOBAL">GLOBAL</option>
+                        {admin_type === "0" && <option value="GLOBAL">GLOBAL</option>}
                         <option value="PERSONAL">PERSONAL</option>
                     </select>
                 </div>

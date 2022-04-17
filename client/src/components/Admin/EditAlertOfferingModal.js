@@ -184,13 +184,22 @@ export default function EditAlertOfferingModal(props) {
                           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         >
                           <option value="">- Select -</option>
-                          {/* <option value="Academics">Academics</option> */}
+                          {(props.department === "Academics")?
+                          (
+                            <>
                           <option value="Chemical Engineering">Chemical Engineering</option>
                           <option value="Civil Engineering">Civil Engineering</option>
                           <option value="Computer Science and Engineering">Computer Science and Engineering</option>
                           <option value="Electrical Engineering">Electrical Engineering</option>
                           <option value="Mechanical Engineering">Mechanical Engineering</option>
                           <option value="Biomedical Engineering">Biomedical Engineering</option>
+                          </>
+                          )
+                          
+                          :
+                          <option value={props.department}>{props.department}</option>
+                          }
+                          
 
                         </select>
                     </div>

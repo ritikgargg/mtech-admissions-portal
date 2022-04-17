@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { Tooltip, IconButton } from "@mui/material";
 import Edit from "../../images/edit.png";
+import EditDisabled from "../../images/edit-disabled.png";
 import Toggle from "./Toggle";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useForm } from "react-hook-form";
@@ -11,6 +12,7 @@ import spinner from "../../images/SpinnerWhite.gif";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
+import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -24,9 +26,10 @@ const style = {
   borderRadius: 5,
 };
 
-export default function DeleteAlertModal(props) {
+export default function EditCurrentCycle(props) {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const admin_type = getAdminType()
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     onClose();
@@ -115,6 +118,7 @@ export default function DeleteAlertModal(props) {
 
   return (
     <div>
+    {(admin_type === "0") ? 
       <Tooltip title="Edit">
         <button
           onClick={handleOpen}
@@ -129,6 +133,23 @@ export default function DeleteAlertModal(props) {
           <img className="w-5 h-5 mx-auto" src={Edit} alt="Delete" />
         </button>
       </Tooltip>
+      :
+      <Tooltip title="">
+        <button
+          onClick={handleOpen}
+          disabled
+          className="hover:bg-gray-100 cursor-not-allowed focus:outline-none rounded-lg"
+          style={{
+            fontSize: "0.875rem",
+            textTransform: "none",
+            width: "35px",
+            height: "35px",
+          }}
+        >
+          <img className="w-5 h-5 mx-auto" src={EditDisabled} alt="Delete" />
+        </button>
+      </Tooltip>
+    }
       <Modal
         open={open}
         onClose={handleClose}

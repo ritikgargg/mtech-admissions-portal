@@ -129,6 +129,8 @@ app.get("/get-offering-applications", admindB.get_offering_applications);
 
 app.get("/get-application-info-admin", admindB.get_application_info_admin);
 
+// app.get("/get-admin-type", admindB.get_admin_type)
+
 app.post(
   "/upload-result",
   upload.fields([

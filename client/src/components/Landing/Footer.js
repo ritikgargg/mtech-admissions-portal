@@ -31,7 +31,7 @@ function Footer() {
 
           <div>
             <p className="mb-4">
-              <a href="https://sites.google.com/a/iitrpr.ac.in/cbme/" target="_blank" rel="noopener noreferrer">CBME</a>
+              <a href="https://www.iitrpr.ac.in/cbme/" target="_blank" rel="noopener noreferrer">CBME</a>
             </p>
             <p className="mb-4">
               <a href="https://iitrpr.ac.in/chemical" target="_blank" rel="noopener noreferrer">Chemical Engineering</a>

@@ -8,11 +8,14 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import { getAdminType } from "./AdminTypes";
 
-export default function AdminNavbarWithSidebar(props) {
+export default function AdminNavbarWithSidebar() {
   const location = useLocation().pathname;
   const [showSidebar, setShowSidebar] = useState("-left-64");
   const [logout, setLogout] = useState(false);
+  var admin_type = getAdminType();
+  console.log(admin_type)
 
   return (
     <>
@@ -107,6 +110,8 @@ export default function AdminNavbarWithSidebar(props) {
               </li> */}
               
 
+              {(admin_type === "0")
+              &&
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/manage-admins"
@@ -121,6 +126,7 @@ export default function AdminNavbarWithSidebar(props) {
                   Admins
                 </NavLink>
               </li>
+              }
 
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink

@@ -12,6 +12,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Toggle from "./Toggle";
 import background from "../../images/background.jpg";
 import spinner from "../../images/SpinnerWhite.gif";
+import {getAdminType} from "./AdminTypes"
 
 function AdmissionCycles() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function AdmissionCycles() {
   const [previousCycles, setPreviousCycles] = useState([]);
   const [makeCurrent, setMakeCurrent] = React.useState(false);
   const params = useParams();
+  const admin_type = getAdminType();
 
   const handleChangeCurrent = (event) => {
     setMakeCurrent(event.target.checked);
@@ -159,10 +161,16 @@ function AdmissionCycles() {
         backgroundImage: `url(${background})`,
       }}
     >
+      { (admin_type === "0" || currentCycles.length !== 0) 
+      &&
       <div className="pt-14 pb-14 w-4/5 mx-auto sm:w-3/5 md:w-2/5">
         <div className="font-medium">Current Admission Cycles</div>
         <div className="mt-1 items-start h-[1px] bg-gray-300" />
-        {addAdmissionCycle ? (
+        
+        { admin_type === "0" 
+        &&
+        <>
+          {addAdmissionCycle ? (
           <div className="mt-5 space-y-4 ">
             <div className="max-w-lg mx-auto border border-gray-300 rounded-lg shadow-xl bg-white">
               <form onSubmit={handleSubmit} className="p-8 mb-0 space-y-4 ">
@@ -286,6 +294,10 @@ function AdmissionCycles() {
             </div>
           </button>          
         )}
+        </>
+        }
+      
+
         {/* <button
             // className="bg-gradient-to-tr from-[#000000] to-[#090909] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
             className="focus:outline-none bg-gradient-to-tr from-[#1E3A8A] to-[#1E3A8A] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
@@ -351,6 +363,7 @@ function AdmissionCycles() {
             ))}
         </div>
       </div>
+      }
 
       {previousCycles.length !== 0 && (
         <div className="pt-4 pb-14 w-4/5 mx-auto sm:w-3/5 md:w-2/5">

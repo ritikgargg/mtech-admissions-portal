@@ -19,8 +19,9 @@ const style = {
   borderRadius: 5,
 };
 
-export default function AddAdminModal(props) {
+export default function AddAdminModal() {
   const [isLoading, setIsLoading] = useState(false);
+  const [adminType, setAdminType] = useState("")
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
   const [error, setError] = useState(0);
@@ -45,8 +46,7 @@ export default function AddAdminModal(props) {
 
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
-    if(data.admin_type === "SUPER ADMIN") formData.append("admin_type", 0);
-    else formData.append("admin_type", 1);
+    formData.append("admin_type", adminType);
     formData.append("department", data.department);
 
     Axios.post("/add-admin", formData, {
@@ -185,17 +185,22 @@ export default function AddAdminModal(props) {
                         
                         <select
                           id="admin_type"
-                          {...register("admin_type")}
                           required
+                          name = "admin_type"
+                          value={adminType}
+                          onChange={(event) => {setAdminType(parseInt(event.target.value))}}
                           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         >
                           <option value="">- Select -</option>
-                          <option value="SUPER ADMIN">SUPER ADMIN</option>
-                          <option value="FACULTY">FACULTY</option>
+                          <option value={0}>SUPER ADMIN</option>
+                          <option value={1}>FACULTY</option>
                         </select>
                       </div>
-                    <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
+
+                      
+                      {(adminType === 0) && 
+                      <div className="col-span-full sm:col-span-full">
+                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
                         
                         <select
                           id="department"
@@ -205,15 +210,30 @@ export default function AddAdminModal(props) {
                         >
                           <option value="">- Select -</option>
                           <option value="Academics">Academics</option>
-                          <option value="Chemical Engineering">Chemical Engineering</option>
-                          <option value="Civil Engineering">Civil Engineering</option>
-                          <option value="Computer Science and Engineering">Computer Science and Engineering</option>
-                          <option value="Electrical Engineering">Electrical Engineering</option>
-                          <option value="Mechanical Engineering">Mechanical Engineering</option>
-                          <option value="Biomedical Engineering">Biomedical Engineering</option>
+                          </select>
+                          </div>
+                          }
 
-                        </select>
-                      </div>
+                          {
+                            (adminType === 1) &&
+                            <div className="col-span-full sm:col-span-full">
+                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
+                            <select
+                                id="department"
+                                {...register("department")}
+                                required
+                                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                              >
+                                <option value="">- Select -</option>
+                                <option value="Chemical Engineering">Chemical Engineering</option>
+                                <option value="Civil Engineering">Civil Engineering</option>
+                                <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                                <option value="Electrical Engineering">Electrical Engineering</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                <option value="Biomedical Engineering">Biomedical Engineering</option>
+                          </select>
+                          </div> 
+                          } 
 
                      
                   </div>
