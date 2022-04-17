@@ -65,7 +65,7 @@ const options = [
   {value: 'communication_address communication_city communication_state communication_pincode', label: 'Communication Address' },
   {value: 'permanent_address permanent_city permanent_state permanent_pincode', label: 'Permanent Address' },
   {value: 'mobile_number', label: 'Mobile Number' },
-  {value: 'alternate_mobile_number', label: 'Aletrnate Mobile Number' },
+  {value: 'alternate_mobile_number', label: 'Alternate Mobile Number' },
   {value: 'degree_10th board_10th percentage_cgpa_format_10th percentage_cgpa_value_10th year_of_passing_10th remarks_10th marksheet_10th_url', label: 'Educational Details: 10th' },
   {value: 'degree_12th board_12th percentage_cgpa_format_12th percentage_cgpa_value_12th year_of_passing_12th remarks_12th marksheet_12th_url', label: 'Educational Details: 12th' },
   {value: 'degrees', label: 'Educational Details: College' },
