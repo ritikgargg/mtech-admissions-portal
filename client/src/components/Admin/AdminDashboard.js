@@ -57,8 +57,6 @@ export default function AdminDashboard() {
           .catch();
       }, []);
 
-    // TODO : FETCH INFORMATION IF ANY DATA IS CHANGED "OR" RELOAD PAGE ?
-
     function useOutsideAlerter(ref) {
         useEffect(() => {
           /**
