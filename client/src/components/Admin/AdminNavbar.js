@@ -53,6 +53,8 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
               ? "Profile"
               : location.split("/")[2] === "templates"
               ? "Templates"
+              : location.split("/")[2] === "how-to-use"
+              ? "How To Use?"
               : location.split("/")[2] === "recycle-bin"
               ? "Recycle Bin"
               :

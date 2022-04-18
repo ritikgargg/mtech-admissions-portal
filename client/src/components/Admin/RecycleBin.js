@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import AddTemplateCard from './AddTemplateCard';
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 import DeleteCyclePermanently from './DeleteCyclePermanently';
 import RestoreDeletedCycle from "./RestoreDeletedCycle"
-import { Tooltip } from "@mui/material";
-import { getAdminType } from './AdminTypes';
-// import TagPicker from './TagPicker';
+import EmptyTrashSvg from "../../images/image.svg"
 
 export default function RecycleBin () {
     const navigate = useNavigate();
@@ -16,7 +13,7 @@ export default function RecycleBin () {
     const [isFetching, setIsFetching] = useState(true);
 
     useEffect(()=>{
-        Axios.get("/get-templates", {
+        Axios.get("/get-deleted-admissions-cycles", {
             headers: {
             Authorization: getToken(),
             },
@@ -51,7 +48,7 @@ export default function RecycleBin () {
                         <th className="px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
                             Duration Start
                         </th>
-                        <th className="text-center px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold uppercase border-l-0 border-r-0 whitespace-nowrap">
+                        <th className="text-left px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold uppercase border-l-0 border-r-0 whitespace-nowrap">
                             Duration End
                         </th>
                         <th className="bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap" />
@@ -62,9 +59,9 @@ export default function RecycleBin () {
                         {
                         deletedAdmissionCycles.map((cycle)=> (
                             <tr className="text-gray-500 border-b border-gray-100">
-                            <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-4 text-left">
-                                {cycle.NAME}
-                            </th>
+                            <td className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-4 text-left">
+                                {cycle.name}
+                            </td>
                             <td className="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                                 {cycle.duration_start}
                             </td>
@@ -73,15 +70,30 @@ export default function RecycleBin () {
                             </td>
                             <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">       
                                 <div className="flex gap-2 justify-end">  
-                                    <RestoreDeletedCycle/>
-                                    <DeleteCyclePermanently/>
+                                    <RestoreDeletedCycle cycle_id ={cycle.cycle_id} cycle_name={cycle.name}/>
+                                    <DeleteCyclePermanently cycle_id ={cycle.cycle_id} cycle_name={cycle.name}/>
                                 </div>
                             </td>
                             </tr>
                         ))}
                     </tbody>
                     </table>
-                    {(isFetching)? <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> : ""}
+
+                    {(isFetching)?
+                        <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
+                        :
+                        deletedAdmissionCycles.length === 0 && (
+                            <div className="bg-white">
+                            <div className="w-2/5 mx-auto my-24 text-center">
+                            <img alt="Empty Trash" src = {EmptyTrashSvg}/>
+                                <div className="h-5" />
+                                <p className="text-2xl font-semibold">
+                                Nothing in Trash!
+                                </p>
+                                <div className="h-6" />
+                            </div>
+                            </div>
+                        )}
                 </div>
             </div>
             

@@ -10,6 +10,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { getAdminType } from "./AdminTypes";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 export default function AdminNavbarWithSidebar() {
   const location = useLocation().pathname;
@@ -158,6 +159,21 @@ export default function AdminNavbarWithSidebar() {
                   Profile
                 </NavLink>
               </li>
+              <li className="rounded-lg mb-2 text-gray-700">
+                <NavLink
+                  to="/admin/how-to-use"
+                  exact
+                  className={
+                    location !== "/admin/how-to-use"
+                      ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                  }
+                >
+                  <HelpOutlineIcon size="2xl" />
+                  How To Use?
+                </NavLink>
+              </li>
+              
 
               {admin_type === "0" && <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink

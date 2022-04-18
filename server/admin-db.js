@@ -39,6 +39,41 @@ const add_admission_cycle = async (req, res) => {
 
   var new_cycle_id = results.rows[0].cycle_id;
 
+  const create_offerings_table = await pool.query("CREATE TABLE mtech_offerings_" + new_cycle_id +
+    " (offering_id SERIAL PRIMARY KEY, department TEXT, specialization TEXT, seats TEXT, \
+    gate_paper_codes TEXT, eligibility TEXT, deadline TIMESTAMP, is_accepting_applications BOOLEAN, \
+    is_draft_mode BOOLEAN, is_result_published INT DEFAULT 0, \
+    is_result_published_by_faculty INT DEFAULT 0);");
+
+  const create_applications_table = await pool.query("CREATE TABLE applications_" + new_cycle_id + 
+    " (application_id SERIAL, \
+    offering_id INT, email_id TEXT, status INT, status_remark TEXT, \
+    full_name TEXT, fathers_name TEXT, profile_image_url TEXT, date_of_birth TEXT, \
+    aadhar_card_number TEXT, category TEXT, category_certificate_url TEXT, \
+    is_pwd TEXT, marital_status TEXT, nationality TEXT, gender TEXT, \
+    communication_address TEXT, communication_city TEXT, \
+    communication_state TEXT, communication_pincode TEXT, \
+    permanent_address TEXT, permanent_city TEXT, \
+    permanent_state TEXT, permanent_pincode TEXT, \
+    mobile_number TEXT, alternate_mobile_number TEXT, \
+    degree_10th TEXT, board_10th TEXT, percentage_cgpa_format_10th TEXT, \
+    percentage_cgpa_value_10th TEXT, year_of_passing_10th TEXT, \
+    remarks_10th TEXT, marksheet_10th_url TEXT, \
+    degree_12th TEXT, board_12th TEXT, percentage_cgpa_format_12th TEXT, \
+    percentage_cgpa_value_12th TEXT, year_of_passing_12th TEXT, remarks_12th TEXT, marksheet_12th_url TEXT, \
+    degrees TEXT[][], \
+    other_remarks TEXT, is_last_degree_completed TEXT, \
+    amount TEXT, transaction_id TEXT, bank TEXT, \
+    transaction_slip_url TEXT, date_of_transaction TEXT, \
+    qualifying_examination TEXT, branch_code TEXT, year TEXT, \
+    gate_enrollment_number TEXT, coap_registeration_number TEXT, \
+    all_india_rank TEXT, gate_score TEXT, valid_upto TEXT, \
+    self_attested_copies_url TEXT, remarks TEXT, \
+    signature_url TEXT, date_of_declaration TEXT, place_of_declaration TEXT, \
+    CONSTRAINT fk_email FOREIGN KEY(email_id) REFERENCES applicants(email_id), \
+    CONSTRAINT fk_offering FOREIGN KEY(offering_id) REFERENCES mtech_offerings_" + new_cycle_id + "(offering_id), \
+    PRIMARY KEY(email_id, offering_id));");
+
   if (info.make_current === "true") {
     const change_current_cycle = await pool.query(
       "UPDATE current_cycle SET cycle_id = $1;",

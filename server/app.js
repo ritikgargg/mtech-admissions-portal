@@ -9,6 +9,7 @@ const admindB = require("./admin-db");
 const excelGenerator = require("./excel-generator");
 const results = require("./results");
 const templates = require("./templates");
+const recycleBin = require("./recyclebin.js");
 var bodyParser = require("body-parser");
 // const dotenv = require("dotenv");
 
@@ -164,6 +165,12 @@ app.post("/delete-application", upload.fields([]), admindB.delete_application);
 app.get("/get-templates", templates.get_templates);
 
 app.get('/get-applications-in-excel', excelGenerator.get_applications_in_excel);
+
+app.get('/get-deleted-admissions-cycles', recycleBin.get_deleted_admission_cycles);
+
+app.post('/restore-cycle', upload.fields([]), recycleBin.restore_admission_cycle);
+
+app.post('/delete-cycle-permanently', upload.fields([]), recycleBin.delete_cycle_permanently);
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {

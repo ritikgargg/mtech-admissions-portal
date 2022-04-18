@@ -10,7 +10,6 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
-import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -30,15 +29,14 @@ export default function RestoreDeletedCycle(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const admin_type = getAdminType()
 
-  const publishAllResults = () => {
+  const restoreCycle = () => {
     setIsLoading(true);
     const formData = new FormData();
 
-    // formData.append("cycle_id", props.cycle_id);
+    formData.append("cycle_id", props.cycle_id);
 
-    Axios.post("/publish-all-results", formData, {
+    Axios.post("/restore-cycle", formData, {
       headers: {
         Authorization: getToken(),
       },
@@ -59,7 +57,7 @@ export default function RestoreDeletedCycle(props) {
         <button
           type="button"
           onClick={handleOpen}
-          className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="focus:outline-none text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -92,7 +90,7 @@ export default function RestoreDeletedCycle(props) {
             id="modal-modal-description"
           >
             <h2 className="text-xl font-bold">
-            Are you sure you want to restore <span className="italic font-semibold">{props.cycleName}</span>?
+            Are you sure you want to restore <span className="italic font-semibold">{props.cycle_name}</span>?
             </h2>
             <p className="mt-2 text-sm text-gray-500">
               {/* The results of all the offerings will be shown to the corresponding applicants. */}
@@ -101,7 +99,7 @@ export default function RestoreDeletedCycle(props) {
               { !isLoading ? 
                 <button
                   type="button"
-                  onClick={publishAllResults}
+                  onClick={restoreCycle}
                   className="hover:shadow-lg transition duration-200 border border-emerald-400 hover:bg-emerald-600 hover:text-white focus:outline-none w-28 px-4 py-2 font-medium text-emerald-600 rounded bg-emerald-50"
                 >
                   Yes, I'm sure

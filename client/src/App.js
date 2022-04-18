@@ -31,6 +31,7 @@ import AdminProfile from "./components/Admin/AdminProfile";
 import Templates from "./components/Admin/Templates"
 import MeetTheTeam from "./components/Landing/MeetTheTeam";
 import RecycleBin from "./components/Admin/RecycleBin"
+import HowToUseAdmin from "./components/Admin/HowToUseAdmin";
 
 function App() {
   // Pages that can only be accessed if you are logged in
@@ -175,6 +176,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Templates/>
+              </PrivateRoute>
+            }/>
+
+          <Route
+            path="/admin/how-to-use"
+            element={
+              <PrivateRoute>
+                <HowToUseAdmin/>
               </PrivateRoute>
             }/>
 

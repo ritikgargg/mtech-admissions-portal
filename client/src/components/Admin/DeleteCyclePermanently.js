@@ -27,8 +27,8 @@ export default function DeleteCyclePermanently(props) {
   const handleDelete = () => {
     setIsLoading(true);
     const formData = new FormData();
-    // formData.append("offering_id", props.application.offering_id);
-    Axios.post("/delete-admin", formData, {
+     formData.append("cycle_id", props.cycle_id);
+    Axios.post("/delete-cycle-permanently", formData, {
       headers: {
         Authorization: getToken(),
       },
@@ -117,9 +117,9 @@ export default function DeleteCyclePermanently(props) {
                   Are you sure you want to permanently delete
                 </h3>
                 <h3 className="text-xl font-bold text-gray-500 mt-1 mb-2">
-                {props.cycleName}?
+                {props.cycle_name}?
                 </h3>
-                <p className="italic text-base mb-6"> Caution: The data(offerings and applications) for {props.cycleName} cannot be recovered after permanent deletion.</p>
+                <p className="italic text-base mb-6"> Caution: The data(offerings and applications) for <span className="font-semibold">{props.cycle_name}</span> cannot be recovered after permanent deletion.</p>
                 
                     {!isLoading ? (
                       <button
