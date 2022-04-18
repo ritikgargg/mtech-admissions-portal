@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Tooltip } from "@mui/material";
 import noDataPic from "../../images/no-data.jpg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -13,7 +12,9 @@ import screenSpinner from "../../images/2300-spinner.gif";
 import ExportExcelModal from './ExportExcelModal';
 import UploadResultModal from './UploadResultModal';
 import PublishResultsModal from "./PublishResultsModal";
+import PublishResultsModalFaculty from "./PublishResultsModalFaculty"
 import DeleteApplicationModal from "./DeleteApplicationModal"
+import { getAdminType } from "./AdminTypes";
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -24,7 +25,9 @@ export default function OfferingList() {
   const [cycleName, setCycleName] = useState("Admission Cycle");
   const [offeringName, setOfferingName] = useState("Offering");
   const [isResultPublished, setIsResultPublished] = useState(0);
+  const [isResultPublishedByFaculty, setIsResultPublishedByFaculty] = useState(0);
   const params = useParams();
+  const admin_type = getAdminType();
 
   useEffect(() => {
     axios
@@ -43,6 +46,7 @@ export default function OfferingList() {
           setCycleName(response.data.cycle_name);
           setOfferingName(response.data.offering_name);
           setIsResultPublished(response.data.is_result_published)
+          setIsResultPublishedByFaculty(response.data.is_result_published_by_faculty)
           console.log(response.data)
           setIsFetching(false);
           // console.log(response.data);
@@ -156,8 +160,14 @@ export default function OfferingList() {
               </span>
               </div>
               <div className="flex gap-2">
+                {/* {(admin_type === "0")
+                ?
                 <PublishResultsModal  cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} isResultPublished={isResultPublished}/>
-                <UploadResultModal cycle_id={params.cycle_id} offering_id={params.offering_id}/>
+                :
+                <PublishResultsModalFaculty  cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} isResultPublished={isResultPublished} isResultPublishedByFaculty={isResultPublishedByFaculty}/>
+                } */}
+                
+                {/* <UploadResultModal cycle_id={params.cycle_id} offering_id={params.offering_id}/> */}
                 <ExportExcelModal cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
               </div>
               {/* <button onClick={() => onExport()} className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto">

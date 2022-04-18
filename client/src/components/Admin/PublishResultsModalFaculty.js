@@ -37,7 +37,7 @@ export default function PublishResultsModal(props) {
 
     formData.append("cycle_id", props.cycle_id);
     formData.append("offering_id", props.offering_id);
-    formData.append("is_result_published", (props.isResultPublished === 0) ? 1 : 0);
+    formData.append("is_result_published_by_faculty", (props.isResultPublishedByFaculty === 0) ? 1 : 0);
 
     Axios.post("/publish-unpublish-results", formData, {
       headers: {
@@ -65,7 +65,7 @@ export default function PublishResultsModal(props) {
         <FormControlLabel
             control={
                 <Toggle
-                    checked={props.isResultPublished}
+                    checked={props.isResultPublishedByFaculty}
                     // onChange={handleChange2}
                     sx={{ m: 1 }}
                 />
@@ -98,14 +98,19 @@ export default function PublishResultsModal(props) {
             className="pl-5 bg-white rounded-lg"
             id="modal-modal-description"
           >
+              {/* {(props.isResultPublished === 0) && */}
+            <>
             <h2 className="text-xl font-bold">
-              Are you sure you want to {(props.isResultPublished === 0)?'publish' : 'unpublish' } the results for <span className="italic font-semibold">{props.offeringName}</span>?
+              Are you sure you want to {(props.isResultPublishedByFaculty === 0)?'publish' : 'unpublish' } the results for <span className="italic font-semibold">{props.offeringName}</span>?
             </h2>
             <p className="mt-2 text-sm text-gray-500">
-              <span>The results will {(props.isResultPublished === 0)?'' : 'not'}  be shown to the corresponding applicants.</span>
+              <div>
+              {(props.isResultPublishedByFaculty === 0)? <span>The results will be published to the Academic Section.</span> : <span>The results will be unpublished.</span>}
+              </div>
+              
             </p>
             <div className="flex items-center justify-end mt-8 text-xs">
-              {(props.isResultPublished === 0) ? 
+              {(props.isResultPublishedByFaculty === 0) ? 
                (!isLoading) ? 
                 <button
                   type="button"
@@ -149,6 +154,31 @@ export default function PublishResultsModal(props) {
                 No, go back
               </button>
             </div>
+            </>
+            {/* } */}
+
+            {/* {(props.isResultPublished === 1) && 
+            <>
+            <h2 className="text-xl font-bold">
+             Results for <span className="italic font-semibold">{props.offeringName}</span> already published by Academic Section to the applicants.
+            </h2>
+            <p className="mt-2 text-sm text-gray-500">
+              <div>
+              You can no longer change the status of the results for <span className="italic font-semibold">{props.offeringName}</span>.
+              </div>
+              
+            </p>
+            <div className="flex items-center justify-end mt-8 text-xs">                     
+              <button
+                type="button"
+                onClick={handleClose}
+                className="border border-gray-400 transition duration-200 hover:bg-gray-600 hover:text-gray-50 focus-outline-none px-4 py-2 ml-2 font-medium text-gray-600 rounded bg-gray-50"
+              >
+                Go back
+              </button>
+            </div>
+            </>
+            } */}
           </div>
         </Box>
       </Modal>

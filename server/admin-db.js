@@ -442,7 +442,7 @@ const get_offering_applications = async (req, res) => {
   // }
 
   const offering_details = await pool.query(
-    "SELECT specialization, is_result_published FROM mtech_offerings_" +
+    "SELECT specialization, is_result_published, is_result_published_by_faculty FROM mtech_offerings_" +
       cycle_id +
       " WHERE offering_id = $1;",
     [offering_id]
@@ -461,9 +461,10 @@ const get_offering_applications = async (req, res) => {
     applications: results.rows,
     cycle_name: cycle_name.rows[0].name,
     offering_name: offering_details.rows[0].specialization,
-    is_result_published: offering_details.rows[0].is_result_published
+    is_result_published: offering_details.rows[0].is_result_published,
+    is_result_published_by_faculty: offering_details.rows[0].is_result_published_by_faculty
   });
-};
+}; 
 
 /** Get application info for an submitted application */
 const get_application_info_admin = async (req, res) => {
@@ -940,7 +941,6 @@ const unpublish_all_results = async(req, res) => {
   }
  
    return res.send("Ok");
-
 }
 
 /** Delete application */
