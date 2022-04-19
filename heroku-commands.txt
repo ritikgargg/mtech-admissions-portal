@@ -25,11 +25,14 @@ To push and deploy the git changes of your 'main' branch to Heroku:
 
 To open the heroku website of your app:
     heroku open 
+    heroku open --remote heroku
 
 To print logs
     heroku logs --app=iit-ropar-admissions
+    heroku logs --remote heroku
 
 Rename heroku repository:
      git remote rename heroku <new-name>
 
 heroku restart
+heroku restart --remote heroku

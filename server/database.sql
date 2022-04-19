@@ -280,6 +280,22 @@ INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES
 
 -- Always executed because admin will only be allowed to update it
 INSERT INTO current_cycle(cycle_id) VALUES(0);
+CREATE TABLE mtech_offerings_0 (offering_id SERIAL PRIMARY KEY, department TEXT, specializastion TEXT, seats TEXT, gate_paper_codes TEXT, eligibility TEXT, deadline TIMESTAMP, is_accepting_applications BOOLEAN, is_draft_mode BOOLEAN, is_result_published INT DEFAULT 0, is_result_published_by_faculty INT DEFAULT 0);
+
+CREATE TABLE applications_0 (application_id SERIAL, offering_id INT, email_id TEXT, status INT, status_remark TEXT, full_name TEXT, fathers_name TEXT, profile_image_url TEXT, date_of_birth TEXT, aadhar_card_number TEXT, category TEXT, category_certificate_url TEXT, is_pwd TEXT, marital_status TEXT, nationality TEXT, gender TEXT, communication_address TEXT, communication_city TEXT, communication_state TEXT, communication_pincode TEXT, permanent_address TEXT, permanent_city TEXT, permanent_state TEXT, permanent_pincode TEXT, mobile_number TEXT, alternate_mobile_number TEXT, degree_10th TEXT, board_10th TEXT, percentage_cgpa_format_10th TEXT, percentage_cgpa_value_10th TEXT, year_of_passing_10th TEXT, remarks_10th TEXT, marksheet_10th_url TEXT, degree_12th TEXT, board_12th TEXT, percentage_cgpa_format_12th TEXT, 
+    percentage_cgpa_value_12th TEXT, year_of_passing_12th TEXT, remarks_12th TEXT, marksheet_12th_url TEXT, 
+    degrees TEXT[][], 
+    other_remarks TEXT, is_last_degree_completed TEXT, 
+    amount TEXT, transaction_id TEXT, bank TEXT, 
+    transaction_slip_url TEXT, date_of_transaction TEXT, 
+    qualifying_examination TEXT, branch_code TEXT, year TEXT, 
+    gate_enrollment_number TEXT, coap_registeration_number TEXT, 
+    all_india_rank TEXT, gate_score TEXT, valid_upto TEXT, 
+    self_attested_copies_url TEXT, remarks TEXT, 
+    signature_url TEXT, date_of_declaration TEXT, place_of_declaration TEXT, 
+    CONSTRAINT fk_email FOREIGN KEY(email_id) REFERENCES applicants(email_id), 
+    CONSTRAINT fk_offering FOREIGN KEY(offering_id) REFERENCES mtech_offerings_0, 
+    PRIMARY KEY(email_id, offering_id));
 
 -- Do always
 INSERT INTO admins(name, email_id, admin_type, department) VALUES('Ritik Garg', '2019csb1112@iitrpr.ac.in', 0, 'Academics');
