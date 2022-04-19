@@ -5,6 +5,7 @@ import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 
 export default function ChartBar(props) {
+    console.log(props.labels)
     useEffect(() => {
         let config = {
             type: 'bar',
@@ -36,7 +37,7 @@ export default function ChartBar(props) {
                 responsive: true,
                 title: {
                     display: false,
-                    text: 'Orders Chart',
+                    text: 'Category-Wise Applications',
                 },
                 tooltips: {
                     mode: 'index',
@@ -56,10 +57,10 @@ export default function ChartBar(props) {
                 scales: {
                     xAxes:
                         {
-                            display: false,
+                            display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Month',
+                                labelString: 'Category',
                             },
                             gridLines: {
                                 borderDash: [2],
@@ -92,32 +93,32 @@ export default function ChartBar(props) {
         };
         let ctx = document.getElementById('bar-chart').getContext('2d');
         window.myBar = new Chart(ctx, config);
-    }, []);
+    }, [props.displayData]);
     
     return (
         <Card>
-            <CardHeader color="pink" contentPosition="left">
-            <div className='flex'>
-            <div>
-                <h6 className="uppercase text-gray-200 text-xs font-medium">
-                    Overview
-                </h6>
-                <h2 className="text-white text-2xl">Category-Wise Applications</h2>
+            <CardHeader color="pink" contentPosition="between">
+            <div className='flex justify-between'>
+                <div>
+                    <h6 className=" text-gray-200 text-sm font-medium">
+                        {props.currentCycleName}
+                    </h6>
+                    <h2 className="text-white text-2xl">Category-Wise Applications</h2>
                 </div>
                 <div>
-                <select
-                    required
-                    value={props.currentOffering}
-                    onChange={(event) => {props.setCurrentOffering(event.target.value); props.onChange(event.target.value)}}
-                    className="ml-8 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                >
-                    <option value="">- Select -</option>
-                    {props.offerings.map(offering => {
-                              return (<option key={offering.offering_id} value={offering.offering_id}> {offering.specialization} </option>);
-                          })}
+                    <select
+                        required
+                        value={props.currentOffering}
+                        onChange={(event) => {props.setCurrentOffering(event.target.value); props.onChange(event.target.value); window.myBar.destroy();}}
+                        className="mr-8 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                    >
+                        <option value="">- Select -</option>
+                        {props.offerings.map(offering => {
+                                return (<option key={offering.offering_id} value={offering.offering_id}> {offering.specialization} </option>);
+                            })}
                     </select>
                 </div>
-                </div>
+            </div>
             </CardHeader>
             <CardBody>
                 <div className="relative h-96">
