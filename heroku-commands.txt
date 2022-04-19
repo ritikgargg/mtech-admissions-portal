@@ -13,10 +13,12 @@ To add a psql database to your app:
 To run psql shell for your Heroku psql database associated with <your-app-name>:
     heroku pg:psql -a <your-app-name>
     heroku pg:psql -a iit-ropar-admissions
+    heroku pg:psql -a iit-ropar-admissions-portal
 
 To add heroku repository with your git repository of the app:
     heroku git:remote -a <your-app-name>
     heroku git:remote -a iit-ropar-admissions
+    heroku git:remote -a iit-ropar-admissions-portal
 
 To push and deploy the git changes of your 'main' branch to Heroku:
     git push heroku main
@@ -26,5 +28,8 @@ To open the heroku website of your app:
 
 To print logs
     heroku logs --app=iit-ropar-admissions
+
+Rename heroku repository:
+     git remote rename heroku <new-name>
 
 heroku restart
