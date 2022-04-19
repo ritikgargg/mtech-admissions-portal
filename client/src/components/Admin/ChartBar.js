@@ -4,37 +4,31 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 
-export default function ChartBar() {
+export default function ChartBar(props) {
     useEffect(() => {
         let config = {
             type: 'bar',
             data: {
-                labels: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                ],
+                labels: props.labels,
                 datasets: [
                     {
-                        label: new Date().getFullYear(),
-                        backgroundColor: '#03a9f4',
-                        borderColor: '#03a9f4',
-                        data: [30, 78, 56, 34, 100, 45, 13],
+                        label: "Applications",
+                        backgroundColor: '#00AFC1',
+                        borderColor: '#00AFC1',
+                        data: props.displayData,
                         fill: false,
-                        barThickness: 8,
-                    },
-                    {
-                        label: new Date().getFullYear() - 1,
-                        fill: false,
-                        backgroundColor: '#f44336',
-                        borderColor: '#f44336',
-                        data: [27, 68, 86, 74, 10, 4, 87],
-                        barThickness: 8,
-                    },
+                        barThickness: 20,
+                    }
+                    //0093AB
+                    //00AFC1
+                    // {
+                    //     label: new Date().getFullYear() - 1,
+                    //     fill: false,
+                    //     backgroundColor: '#f44336',
+                    //     borderColor: '#f44336',
+                    //     data: [27, 68, 86, 74, 10, 4, 87],
+                    //     barThickness: 8,
+                    // },
                 ],
             },
             options: {
@@ -103,10 +97,27 @@ export default function ChartBar() {
     return (
         <Card>
             <CardHeader color="pink" contentPosition="left">
+            <div className='flex'>
+            <div>
                 <h6 className="uppercase text-gray-200 text-xs font-medium">
                     Overview
                 </h6>
-                <h2 className="text-white text-2xl">Sales value</h2>
+                <h2 className="text-white text-2xl">Category-Wise Applications</h2>
+                </div>
+                <div>
+                <select
+                    required
+                    value={props.currentOffering}
+                    onChange={(event) => {props.setCurrentOffering(event.target.value); props.onChange(event.target.value)}}
+                    className="ml-8 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                >
+                    <option value="">- Select -</option>
+                    {props.offerings.map(offering => {
+                              return (<option key={offering.offering_id} value={offering.offering_id}> {offering.specialization} </option>);
+                          })}
+                    </select>
+                </div>
+                </div>
             </CardHeader>
             <CardBody>
                 <div className="relative h-96">

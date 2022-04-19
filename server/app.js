@@ -10,6 +10,7 @@ const excelGenerator = require("./excel-generator");
 const results = require("./results");
 const templates = require("./templates");
 const recycleBin = require("./recyclebin.js");
+const dashboard = require("./dashboard.js");
 var bodyParser = require("body-parser");
 // const dotenv = require("dotenv");
 
@@ -167,6 +168,8 @@ app.get("/get-templates", templates.get_templates);
 app.get('/get-applications-in-excel', excelGenerator.get_applications_in_excel);
 
 app.get('/get-deleted-admissions-cycles', recycleBin.get_deleted_admission_cycles);
+
+app.get('/get-dashboard-info', dashboard.get_dashboard_info);
 
 app.post('/restore-cycle', upload.fields([]), recycleBin.restore_admission_cycle);
 

@@ -111,7 +111,7 @@ CREATE TABLE admission_cycles(
 );
 
 CREATE TABLE deleted_admission_cycles(
-  cycle_id PRIMARY KEY,
+  cycle_id INT PRIMARY KEY,
   NAME TEXT,
   duration_start TEXT,
   duration_end TEXT
