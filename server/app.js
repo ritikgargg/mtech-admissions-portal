@@ -6,11 +6,13 @@ const multer = require("multer");
 const upload = multer();
 const applicantdB = require("./applicant-db");
 const admindB = require("./admin-db");
-const excelGenerator = require("./excel-generator");
-const results = require("./results");
+const templateGenerator = require("./template-generator");
+const uploadResults = require("./upload-results");
+const generateResults = require("./merit-list-generator");
 const templates = require("./templates");
 const recycleBin = require("./recyclebin.js");
 const dashboard = require("./dashboard.js");
+const landing = require("./landing.js");
 var bodyParser = require("body-parser");
 // const dotenv = require("dotenv");
 
@@ -136,7 +138,7 @@ app.post(
   upload.fields([
     { name: "result_excel", maxCount: 1 }
   ]),
-  results.upload_results
+  uploadResults.upload_results
 );
 
 app.post("/add-admin", upload.fields([]), admindB.add_admin);
@@ -165,11 +167,15 @@ app.post("/delete-application", upload.fields([]), admindB.delete_application);
 
 app.get("/get-templates", templates.get_templates);
 
-app.get('/get-applications-in-excel', excelGenerator.get_applications_in_excel);
+app.get('/get-applications-in-excel', templateGenerator.get_applications_in_excel);
+
+app.get('/get-merit-list', generateResults.get_merit_list);
 
 app.get('/get-deleted-admissions-cycles', recycleBin.get_deleted_admission_cycles);
 
 app.get('/get-dashboard-info', dashboard.get_dashboard_info);
+
+app.get('/get-fees-info', landing.get_fees_info);
 
 app.post('/restore-cycle', upload.fields([]), recycleBin.restore_admission_cycle);
 

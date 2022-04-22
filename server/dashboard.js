@@ -34,20 +34,38 @@ const get_dashboard_info = async (req, res) => {
 
     const current_cycle_info = await pool.query("SELECT * FROM admission_cycles WHERE cycle_id = $1;", [current_cycle_id]);
     const applications_count = await pool.query("SELECT count(*) FROM applications_" + current_cycle_id + ";");
-    const offerings_count = await pool.query("SELECT count(*) FROM mtech_offerings_" + current_cycle_id + ";");
+    // const offerings_count = await pool.query("SELECT count(*) FROM mtech_offerings_" + current_cycle_id + ";");
     const offerings = await pool.query("SELECT offering_id, specialization FROM mtech_offerings_" + current_cycle_id + ";");
     let category_distribution = {}
     
     let category_distribution_per_offering = []
+    let temp = {}
+    temp["GEN"] = 0
+    temp["OBC"] = 0
+    temp["EWS"] = 0
+    temp["SC"] = 0
+    temp["ST"] = 0
+
     for(let i = 0; i < offerings.rows.length; i++){
         category_distribution_per_offering = await pool.query("SELECT category, count(*) FROM applications_" + current_cycle_id + " WHERE offering_id = $1 GROUP BY category;", [offerings.rows[i].offering_id]);
         category_distribution[offerings.rows[i].offering_id] = category_distribution_per_offering.rows
+        for(let j = 0; j < category_distribution_per_offering.rows.length; j++){
+            temp[category_distribution_per_offering.rows[j]["category"]] += parseInt(category_distribution_per_offering.rows[j]["count"])
+        }
     }
+
+    let all_offerings = [];
+    for (const [key, value] of Object.entries(temp)) {
+       all_offerings.push({category: key, count: (value).toString()})
+      }
+
+    category_distribution["-1"] = all_offerings;
     
     return res.send({
         current_cycle_info: current_cycle_info.rows[0],
         applications_count: applications_count.rows[0],
-        offerings_count: offerings_count.rows[0],
+        // offerings_count: offerings_count.rows[0],
+        offerings_count: offerings.rows.length,
         offerings: offerings.rows,
         category_distribution: category_distribution,
     });

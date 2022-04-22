@@ -107,14 +107,26 @@ CREATE TABLE admission_cycles(
   cycle_id SERIAL PRIMARY KEY,
   NAME TEXT,
   duration_start TEXT,
-  duration_end TEXT
+  duration_end TEXT,
+  fees_gen TEXT,
+  fees_ews TEXT,
+  fees_obc TEXT,
+  fees_sc TEXT,
+  fees_st TEXT,
+  fees_pwd TEXT
 );
 
 CREATE TABLE deleted_admission_cycles(
   cycle_id INT PRIMARY KEY,
   NAME TEXT,
   duration_start TEXT,
-  duration_end TEXT
+  duration_end TEXT,
+  fees_gen TEXT,
+  fees_ews TEXT,
+  fees_obc TEXT,
+  fees_sc TEXT,
+  fees_st TEXT,
+  fees_pwd TEXT
 );
 
 -- CREATE OR REPLACE FUNCTION create_offerings_and_applications_tables()
@@ -229,7 +241,7 @@ CREATE OR REPLACE FUNCTION insert_into_deleted_admission_cycles()
   AS
 $$
 BEGIN
-  INSERT INTO deleted_admission_cycles VALUES(OLD.cycle_id, OLD.NAME, OLD.duration_start, OLD.duration_end);
+  INSERT INTO deleted_admission_cycles VALUES(OLD.cycle_id, OLD.NAME, OLD.duration_start, OLD.duration_end, OLD.fees_gen, OLD.fees_ews, OLD.fees_obc, OLD.fees_sc, OLD.fees_st, OLD.fees_pwd);
   RETURN OLD;
 END;
 $$;

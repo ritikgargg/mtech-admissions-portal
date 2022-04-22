@@ -258,6 +258,8 @@ const save_personal_info = async (req, res, next) => {
   let promises = [];
   let vals = Object.values(req.files);
 
+  console.log(req.files[0]);
+
   for (let f of vals) {
     const gcsname = f[0].originalname + "_" + Date.now();
     const file = applicantBucket.file(gcsname);
@@ -469,11 +471,20 @@ const check_applicant_info = async (req, res) => {
   }
 
   const results = await pool.query(
-    "SELECT full_name, category from applicants WHERE email_id = $1;",
+    "SELECT full_name, category, is_pwd from applicants WHERE email_id = $1;",
     [email]
   );
 
-  return res.send(results.rows[0]);
+  let category_fees;
+  if(results.rows[0].is_pwd === "YES"){
+    let temp = await pool.query("SELECT fees_pwd FROM admission_cycles WHERE cycle_id = $1", [cycle_id]);
+    category_fees = temp.rows[0]["fees_pwd"]
+  }else{
+    let temp = await pool.query("SELECT fees_" + results.rows[0].category.toLowerCase() + " FROM admission_cycles WHERE cycle_id = $1", [cycle_id]);
+    category_fees = temp.rows[0]["fees_" + results.rows[0].category.toLowerCase()]
+  } 
+
+  return res.send({full_name: results.rows[0].full_name, category: results.rows[0].category, category_fees: category_fees});
 };
 
 /**

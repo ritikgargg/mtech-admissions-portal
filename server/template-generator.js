@@ -1,4 +1,3 @@
-const stream = require("stream");
 const excel = require("excel4node");
 const pool = require("./db");
 const dotenv = require("dotenv");

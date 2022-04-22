@@ -31,10 +31,10 @@ const add_admission_cycle = async (req, res) => {
   }
 
   let info = req.body;
-
+  let fees = JSON.parse(req.body.fees)
   const results = await pool.query(
-    "INSERT INTO admission_cycles(name, duration_start, duration_end) VALUES($1, $2, $3) RETURNING cycle_id;",
-    [info.name, info.start, info.end]
+    "INSERT INTO admission_cycles(name, duration_start, duration_end, fees_gen, fees_obc, fees_ews, fees_sc, fees_st, fees_pwd) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING cycle_id;",
+    [info.name, info.start, info.end, fees[0], fees[1], fees[2], fees[3],fees[4],fees[5]]
   );
 
   var new_cycle_id = results.rows[0].cycle_id;
@@ -192,8 +192,8 @@ const edit_admission_cycle = async (req, res) => {
   let info = req.body;
 
   const results = await pool.query(
-    "UPDATE admission_cycles SET name = $1, duration_start = $2, duration_end = $3 WHERE cycle_id = $4;",
-    [info.name, info.duration_start, info.duration_end, info.cycle_id]
+    "UPDATE admission_cycles SET name = $1, duration_start = $2, duration_end = $3, fees_gen = $4, fees_obc = $5, fees_ews = $6, fees_sc = $7, fees_st = $8, fees_pwd = $9 WHERE cycle_id = $10;",
+    [info.name, info.duration_start, info.duration_end, info.fees_gen, info.fees_obc, info.fees_ews, info.fees_sc, info.fees_st, info.fees_pwd, info.cycle_id]
   );
 
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
