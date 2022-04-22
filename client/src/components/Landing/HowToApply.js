@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import step1 from "../../images/step1.png";
 import step2 from "../../images/step2.png";
 import step3 from "../../images/step3.png";
@@ -7,8 +7,20 @@ import step5 from "../../images/step5.png";
 import step6 from "../../images/step6.png";
 import step7 from "../../images/step7.png";
 import step8 from "../../images/step8.png";
+import Axios from "axios";
 
 function HowToApply() {
+  const [fees, setFees] = useState({})
+
+  useEffect(() => {
+    Axios.get("/get-fees-info")
+      .then((response) => {
+        // console.log(response.data)
+        setFees(response.data)
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div>
       <div className="flex flex-col justify-center m-auto">
@@ -157,8 +169,12 @@ function HowToApply() {
             </div>
             <div className="mt-4 text-[#F5F5F5]">
               Please find below the details regarding the fees for different categories and the mode of payment: 
-              <br/>₹ 500 for GEN/OBC/EWS
-              <br/>₹ 250 For SC/ST/PWD
+              <br/>₹ {fees.fees_gen} for <span className="font-semibold">GEN</span>
+              <br/>₹ {fees.fees_obc} for <span className="font-semibold">OBC</span>
+              <br/>₹ {fees.fees_ews} for <span className="font-semibold">EWS</span>
+              <br/>₹ {fees.fees_sc} For <span className="font-semibold">SC</span>
+              <br/>₹ {fees.fees_st} For <span className="font-semibold">ST</span>
+              <br/>₹ {fees.fees_pwd} For <span className="font-semibold">PWD</span>
               <br/>Mode of Fee Payment : <span className="font-bold">SBI Collect</span>
             </div>
           </div>

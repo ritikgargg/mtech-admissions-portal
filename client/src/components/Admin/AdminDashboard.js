@@ -63,7 +63,7 @@ export default function AdminDashboard() {
               navigate("/logout");
             } else {
                 console.log(response.data)
-                setOfferingsCount(response.data.offerings_count.count)
+                setOfferingsCount(response.data.offerings_count)
                 setApplicationsCount(response.data.applications_count.count)
                 setCurrentCycleName(response.data.current_cycle_info.name)
                 setCurrentCycleStart(response.data.current_cycle_info.duration_start)
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
       ? 
       <div className="mt-40"><img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> </div>
     : 
-    <div className="bg-gray-100 pt-10">
+    <div className="bg-gray-100 pt-10 pb-10">
         {/* Filter div */}        
         <div className="px-10 mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
@@ -164,7 +164,7 @@ export default function AdminDashboard() {
           </div>
         </div> */}
       </div>
-        <div className="px-3 md:px-8  my-12">
+        <div className="px-3 md:px-8  mt-12">
             <div className="container mx-auto w-2/3">
             <ChartBar currentCycleName={currentCycleName} offerings={offerings} currentOffering={currentOffering} setCurrentOffering={setCurrentOffering} labels={labels} displayData={displayData} onChange={onChange}
                         />

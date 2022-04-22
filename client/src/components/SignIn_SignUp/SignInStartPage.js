@@ -29,15 +29,16 @@ function SignInStartPage() {
       if (response.data === 0) {
         setMsgSignin("Please enter your email.");
         setColorEmail(1);
+        setIsLoadingEmail(false);
       } else if (response.data === 1) {
         setMsgSignin("You do not have an account. Sign-up first!");
         setColorEmail(1);
+        setIsLoadingEmail(false);
       } else {
         setotpSent(!otpSent);
         setColorOTP(2);
       }
     });
-    setIsLoadingEmail(false)
   };
 
   const updateEmail = (e) => {
@@ -55,7 +56,7 @@ function SignInStartPage() {
   };
 
   const handleSubmit = () => {
-    setIsLoadingOTP(true)
+    setIsLoadingOTP(true);
     axios
       .post("/auth/signin/verify", {
         email: email,
@@ -77,15 +78,17 @@ function SignInStartPage() {
         } else if (response.data.result === 2) {
           setMsgOtp("This OTP has expired.");
           setColorOTP(1);
+          setIsLoadingOTP(false);
         } else if (response.data.result === 3) {
           setMsgOtp("Please enter the OTP sent to your email.");
           setColorOTP(1);
+          setIsLoadingOTP(false);
         } else {
           setMsgOtp("The OTP you entered is incorrect.");
           setColorOTP(1);
+          setIsLoadingOTP(false);
         }
       });
-    setIsLoadingOTP(false)
   };
 
   return (

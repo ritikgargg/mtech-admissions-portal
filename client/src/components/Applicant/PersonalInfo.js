@@ -231,7 +231,7 @@ export default function PersonalInfo(props) {
                                     type="file"
                                     required
                                     accept=".jpeg, .jpg, .png"
-                                    onChange={(e) =>
+                                    onChange={(e) => 
                                       handleFileSubmit(e, 2, setProfileImage)
                                     }
                                   />

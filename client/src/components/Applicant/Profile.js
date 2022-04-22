@@ -174,18 +174,18 @@ export default function Profile() {
           );
           setDegreeSize(getDegreeSize(response.data.degrees));
           setCount(Math.max(1, getDegreeSize(response.data.degrees)));
-          console.log("####IN PROFILE####");
-          console.log("response.data");
-          console.log(response.data);
-          console.log("profileInfo");
-          console.log(profileInfo);
-          console.log("localProfileInfo");
-          console.log(localProfileInfo);
-          console.log("degrees");
-          console.log(degrees);
-          console.log("localDegrees");
-          console.log(localDegrees);
-          console.log("#####END#######");
+          // console.log("####IN PROFILE####");
+          // console.log("response.data");
+          // console.log(response.data);
+          // console.log("profileInfo");
+          // console.log(profileInfo);
+          // console.log("localProfileInfo");
+          // console.log(localProfileInfo);
+          // console.log("degrees");
+          // console.log(degrees);
+          // console.log("localDegrees");
+          // console.log(localDegrees);
+          // console.log("#####END#######");
         }
       })
       .catch((err) => console.log(err));

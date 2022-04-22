@@ -59,17 +59,17 @@ function ApplicationFeeDetails(props) {
                         >
                           Amount<span style={{ color: "#ff0000" }}> *</span>
                         </label>
-                        <input
-                          type="text"
+                        <select
                           name="amount"
                           id="amount"
-                          pattern="[0-9]*"
-                          title="Only numbers are allowed"
                           required
                           defaultValue={props.details[1]}
                           onChange={(event) => props.onChange(event,1)}
                           className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                        />
+                        >
+                          <option value="">-- Select --</option>
+                          <option value={props.categoryFees}>{props.categoryFees}</option>
+                        </select>
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">

@@ -15,7 +15,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 export default function AdminNavbarWithSidebar() {
   const location = useLocation().pathname;
   const [showSidebar, setShowSidebar] = useState("-left-64");
-  const [logout, setLogout] = useState(false);
+  // const [logout, setLogout] = useState(false);
   var admin_type = getAdminType();
   
 
@@ -193,7 +193,7 @@ export default function AdminNavbarWithSidebar() {
               </li>
               }
 
-              <li className="rounded-lg mb-2 text-gray-700">
+              {/* <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/logout"
                   exact
@@ -207,7 +207,7 @@ export default function AdminNavbarWithSidebar() {
                   <Icon name="logout" size="2xl" />
                   Logout
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
 
             {/* <ul className="flex-col min-w-full flex list-none absolute bottom-0">

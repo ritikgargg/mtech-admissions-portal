@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import screenSpinner from "../../images/2300-spinner.gif";
 
 function ApplicantionDetails() {
   const navigate = useNavigate();
@@ -16,11 +17,14 @@ function ApplicantionDetails() {
   const { handleSubmit } = useForm();
   const [full_name, setFullName] = useState("");
   const [category, setCategory] = useState("");
+  const [categoryFees, setCategoryFees] = useState("");
   const [offering, setOffering] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const [hasFilledHighestGate, setHasFilledHighestGate] = useState("");
   const [hasGivenMultipleGates, setHasGivenMultipleGates] = useState("");
+  const [isFetching, setIsFetching] = useState(true);
+  
 
   function changeDateFormat() {
     let date = new Date();
@@ -63,6 +67,9 @@ function ApplicantionDetails() {
         } else {
           setFullName(response.data.full_name);
           setCategory(response.data.category);
+          setCategoryFees(response.data.category_fees)
+          setIsFetching(false);
+          console.log(response.data)
         }
       })
       .catch((err) => console.log(err));
@@ -151,6 +158,11 @@ function ApplicantionDetails() {
 
   return (
     <div>
+    {(isFetching)
+      ? 
+      <div className="mt-40"><img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> </div>
+    : 
+    <div>
       <div className="grid grid-cols-12 gap-2">
         <div className="mx-12 mb-12 mt-10 px-12 col-start-1 col-end-12">
           <ChevronDots
@@ -208,6 +220,7 @@ function ApplicantionDetails() {
               onChange={handleApplicantDetailsChange}
               handleFileSubmit={handleFileSubmit}
               emptyFileIndex={emptyFileIndex}
+              categoryFees = {categoryFees}
             />
           ),
           3: (
@@ -234,6 +247,8 @@ function ApplicantionDetails() {
         }[page]
       }
     </div>
+  }
+  </div>
   );
 }
 

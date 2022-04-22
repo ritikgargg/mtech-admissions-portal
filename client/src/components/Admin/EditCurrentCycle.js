@@ -1,8 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { Tooltip, IconButton } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import Edit from "../../images/edit.png";
 import EditDisabled from "../../images/edit-disabled.png";
 import Toggle from "./Toggle";
@@ -31,6 +30,7 @@ export default function EditCurrentCycle(props) {
   const [open, setOpen] = React.useState(false);
   const admin_type = getAdminType()
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => {
     onClose();
     setOpen(false);
@@ -98,6 +98,12 @@ export default function EditCurrentCycle(props) {
     formData.append("duration_start", handleMonthChange(data.duration_start));
     formData.append("duration_end", handleMonthChange(data.duration_end));
     formData.append("cycle_id", props.cycle.cycle_id);
+    formData.append("fees_gen", data.fees_gen);
+    formData.append("fees_obc", data.fees_obc);
+    formData.append("fees_ews", data.fees_ews);
+    formData.append("fees_sc", data.fees_sc);
+    formData.append("fees_st", data.fees_st);
+    formData.append("fees_pwd", data.fees_pwd);
     formData.append("make_current", makeCurrent);
     // formData.append("cycle_id", props.cycle_id);
 
@@ -228,6 +234,106 @@ export default function EditCurrentCycle(props) {
                 />
               </div>
             </div>
+            <div>
+                  <label htmlFor="fees-GEN" className="text-sm font-medium">
+                     Category-wise Application Fees
+                  </label>
+                  <div className="relative gap-3 flex mt-1">
+                    <div>
+                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                    GEN
+                  </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-GEN"
+                      {...register("fees_gen")}
+                      placeholder="GEN"
+                      pattern="[0-9]*"
+                      title="GEN: Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                    <div>
+                    {/* <label htmlFor="password" className="text-sm font-medium">
+                      OBC
+                    </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-OBC"
+                      {...register("fees_obc")}
+                      placeholder="OBC"
+                      pattern="[0-9]*"
+                      title="OBC: Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                    <div>
+                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                     EWS
+                  </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-EWS"
+                      {...register("fees_ews")}
+                      placeholder="EWS"
+                      pattern="[0-9]*"
+                      title="EWS: Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                  </div>
+                  <div className="relative gap-3 flex mt-3">
+                    <div>
+                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                    SC
+                  </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-SC"
+                      {...register("fees_sc")}
+                      placeholder="SC"
+                      pattern="[0-9]*"
+                      title="SC: Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                    <div>
+                    {/* <label htmlFor="password" className="text-sm font-medium">
+                      ST
+                    </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-ST"
+                      {...register("fees_st")}
+                      placeholder="ST"
+                      pattern="[0-9]*"
+                      title="ST: Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                    <div>
+                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                     PWD
+                  </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-PWD"
+                      {...register("fees_pwd")}
+                      placeholder="PWD"
+                      pattern="[0-9]*"
+                      title="PWD: Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                  </div>
+                </div>
+
             <div className="p-3">
               <FormControlLabel
                 control={

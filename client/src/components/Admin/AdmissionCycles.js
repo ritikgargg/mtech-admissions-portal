@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "../../images/calendar_1.png";
 import Plus from "../../images/plus.png";
-import PlusWhite from "../../images/plus-white.png";
 import DeleteAdmissionCycleModal from "./DeleteAdmissionCycleModal";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import EditCurrentCycle from "./EditCurrentCycle";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -20,6 +19,7 @@ function AdmissionCycles() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentCycles, setCurrentCycles] = useState([]);
+  const [fees, setFees] = useState(['0','0','0','0','0','0']);
   const empty_cycle = {
     name: "",
     duration_start: "",
@@ -31,6 +31,13 @@ function AdmissionCycles() {
   const [makeCurrent, setMakeCurrent] = React.useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const admin_type = getAdminType();
+
+  const onChangeFees = (event,index) => {
+     let copy = [...fees]
+     copy[index] = event.target.value;
+     setFees(copy)
+     console.log("FEES", fees)
+  }
 
   const handleChangeCurrent = (event) => {
     setMakeCurrent(event.target.checked);
@@ -73,6 +80,7 @@ function AdmissionCycles() {
     formData.append("name", String(cycleInfo["name"]));
     formData.append("start", String(cycleInfo["duration_start"]));
     formData.append("end", String(cycleInfo["duration_end"]));
+    formData.append("fees",JSON.stringify(fees));
     formData.append("make_current", makeCurrent);
 
     Axios.post("/add-admission-cycle", formData, {
@@ -239,10 +247,118 @@ function AdmissionCycles() {
                       id="end-date"
                       onChange={(e) => handleMonthChange(e, "duration_end")}
                       name="end-date"
-                      className="w-full p-4 ml-2 text-sm border-gray-200 rounded-lg shadow-sm"
+                      className="w-full p-4 ml-2 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
                   </div>
+                  </div>
+                  <div>
+                  <label htmlFor="fees-GEN" className="text-sm font-medium">
+                     Category-wise Application Fees
+                  </label>
+                  <div className="relative gap-3 flex mt-1">
+                    <div>
+                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                    GEN
+                  </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-GEN"
+                      onChange={(e) => onChangeFees(e, 0)}
+                      name="fees-GEN"
+                      placeholder="GEN"
+                      pattern="[0-9]*"
+                      title="Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                    <div>
+                    {/* <label htmlFor="password" className="text-sm font-medium">
+                      OBC
+                    </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-OBC"
+                      onChange={(e) => onChangeFees(e, 1)}
+                      name="fees-OBC"
+                      placeholder="OBC"
+                      pattern="[0-9]*"
+                      title="Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                    <div>
+                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                     EWS
+                  </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-EWS"
+                      onChange={(e) => onChangeFees(e, 2)}
+                      name="fees-EWS"
+                      placeholder="EWS"
+                      pattern="[0-9]*"
+                      title="Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                  </div>
+                  <div className="relative gap-3 flex mt-3">
+                    <div>
+                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                    SC
+                  </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-SC"
+                      onChange={(e) => onChangeFees(e, 3)}
+                      name="fees-SC"
+                      placeholder="SC"
+                      pattern="[0-9]*"
+                      title="Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                    <div>
+                    {/* <label htmlFor="password" className="text-sm font-medium">
+                      ST
+                    </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-ST"
+                      onChange={(e) => onChangeFees(e, 4)}
+                      name="fees-ST"
+                      placeholder="ST"
+                      pattern="[0-9]*"
+                      title="Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                    <div>
+                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                     PWD
+                  </label> */}
+                    <input
+                      type="text"
+                      required
+                      id="fees-PWD"
+                      onChange={(e) => onChangeFees(e, 5)}
+                      name="fees-PWD"
+                      placeholder="PWD"
+                      pattern="[0-9]*"
+                      title="Only numbers are allowed"
+                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                    />
+                    </div>
+                  </div>
+                 
                 </div>
+
+                
                 <div className="p-3">
                   <FormControlLabel
                     control={
