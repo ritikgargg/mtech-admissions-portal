@@ -12,6 +12,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Toggle from "./Toggle";
 import background from "../../images/background.jpg";
 import spinner from "../../images/SpinnerWhite.gif";
+import screenSpinner from "../../images/2300-spinner.gif";
 import {getAdminType} from "./AdminTypes"
 
 function AdmissionCycles() {
@@ -28,7 +29,7 @@ function AdmissionCycles() {
   const [cycleInfo, setCycleInfo] = useState(empty_cycle);
   const [previousCycles, setPreviousCycles] = useState([]);
   const [makeCurrent, setMakeCurrent] = React.useState(false);
-  const params = useParams();
+  const [isFetching, setIsFetching] = useState(true);
   const admin_type = getAdminType();
 
   const handleChangeCurrent = (event) => {
@@ -149,12 +150,18 @@ function AdmissionCycles() {
           });
           setCurrentCycles(cc);
           setPreviousCycles(pc);
+          setIsFetching(false);
         }
       })
       .catch();
   }, []);
 
   return (
+    <div>
+      {(isFetching)
+      ? 
+      <div className="mt-40"><img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> </div>
+    :    
     <div
       className="min-h-screen overflow-hidden"
       style={{
@@ -412,6 +419,8 @@ function AdmissionCycles() {
           </div>
         </div>
       )}
+    </div>
+    }
     </div>
   );
 }

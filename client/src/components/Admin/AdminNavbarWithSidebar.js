@@ -17,6 +17,7 @@ export default function AdminNavbarWithSidebar() {
   const [showSidebar, setShowSidebar] = useState("-left-64");
   const [logout, setLogout] = useState(false);
   var admin_type = getAdminType();
+  
 
   return (
     <>
@@ -89,7 +90,8 @@ export default function AdminNavbarWithSidebar() {
                     // location !== "/admin/admission-cycles"
                     !location.startsWith("/admin/admission-cycles") &&
                     !location.startsWith("/admin/offerings") &&
-                    !location.startsWith("/admin/applications")
+                    !location.startsWith("/admin/applications") &&
+                    !location.startsWith("/admin/view")
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
                       : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                   }

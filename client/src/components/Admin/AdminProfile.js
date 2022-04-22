@@ -65,7 +65,7 @@ export default function AdminProfile(){
     return(
         <>
         {(isFetching)?
-              <img className="mx-auto my-28 h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
+              <img className="mx-auto my-40 h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
               :
 
              <div className="max-w-4xl flex items-center h-auto my-28 flex-wrap mx-auto">

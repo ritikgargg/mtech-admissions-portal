@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ChartBar from "./ChartBar";
-import Select from 'react-select';
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import calendar from "../../images/calendar_1.png";
+import screenSpinner from "../../images/2300-spinner.gif";
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -17,6 +17,8 @@ export default function AdminDashboard() {
     const [offerings, setOfferings] = useState([]);
     const [categoryDistribution, setCategoryDistribution] = useState(null);
     const [displayData, setDisplayData] = useState(null);
+    const [isFetching, setIsFetching] = useState(true);
+
     const labels = [
         'GEN',
         'EWS',
@@ -68,15 +70,20 @@ export default function AdminDashboard() {
                 setCurrentCycleEnd(response.data.current_cycle_info.duration_end)
                 setOfferings(response.data.offerings)
                 setCategoryDistribution(response.data.category_distribution)
+                setIsFetching(false);
             }
           })
           .catch();
       }, []);
 
   return (
+    <div>
+    {(isFetching)
+      ? 
+      <div className="mt-40"><img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> </div>
+    : 
     <div className="bg-gray-100 pt-10">
-        {/* Filter div */}
-        
+        {/* Filter div */}        
         <div className="px-10 mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
             <div className="flex items-center">
@@ -229,6 +236,8 @@ export default function AdminDashboard() {
                 </div>
             </div>
         </div> */}
+    </div>
+    }
     </div>
   );
 }
