@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Tooltip } from "@mui/material";
@@ -23,57 +23,17 @@ const style = {
 };
 
 export default function EducationalDetails(props) {
+    console.log("percentage_cgpa_pattern",props.percentage_cgpa_pattern)
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
     const [marksheet_10th, setMarksheet_10th] = useState(null);
     const [marksheet_12th, setMarksheet_12th] = useState(null);
 
-    const init_percentage_cgpa_pattern = () => {
-      let result = [];
-      if(props.localProfileInfo.percentage_cgpa_format_10th === "Percentage"){
-        result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
-      }
-      else{
-        result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
-      }
-
-      if(props.localProfileInfo.percentage_cgpa_format_12th === "Percentage"){
-        result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
-      }
-      else{
-        result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
-      }
-      
-      for(let i = 0; i < 5; i++){
-        if(props.localDegrees[i]['4'] === "Percentage"){
-          result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
-        }
-        else{
-           if(props.localDegrees[i]['6'] === '10'){
-              result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
-           }
-           else if(props.localDegrees[i]['6'] === '5'){
-              result.push("^(([0-4]{1})|([0-4]{1}\\.\\d{1,2}))|5\\.00|5\\.0|5")
-           }
-           else{
-              result.push("^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4")
-           }
-        }
-      }
-      console.log("result")
-      console.log(result)
-      return result;
-    }
-
-    const [percentage_cgpa_pattern, setPercentageCgpaPattern] = useState(
-      // Array.from(
-      //   { length: 5 },
-      //   () => "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
-      // )
-      init_percentage_cgpa_pattern()
-    );
-    console.log(percentage_cgpa_pattern)
+    // useEffect(() => {
+    //   setPercentageCgpaPattern(init_percentage_cgpa_pattern())
+    // }, []);
+    // console.log(percentage_cgpa_pattern)
   
     const [degreesFiles, setDegreesFiles] = useState(
       Array.from({ length: 5 }, () => Array.from({ length: 2 }, () => ""))
@@ -210,28 +170,53 @@ export default function EducationalDetails(props) {
     };
   
     const handleSelectChange = (e, index) => {
-      let copy = [...percentage_cgpa_pattern];
+      let copy = [...props.percentage_cgpa_pattern];
       console.log(e.target.value)
       if (e.target.value === "Percentage") {
         copy[index] = "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)";
-        setPercentageCgpaPattern(copy);
+        props.setPercentageCgpaPattern(copy);
       } else if (e.target.value === "CGPA") {
-        copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
-        setPercentageCgpaPattern(copy);
+        if(index === 0 || index === 1){
+          copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
+          props.setPercentageCgpaPattern(copy);
+        }
+        else{
+          if(props.localDegrees[index-2]['6'] === '4'){
+            copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
+            props.setPercentageCgpaPattern(copy);
+          }
+          else if(props.localDegrees[index-2]['6'] === '5'){
+            copy[index] = "^(([0-4]{1})|([0-4]{1}\\.\\d{1,2}))|5\\.00|5\\.0|5";
+            props.setPercentageCgpaPattern(copy);
+          }
+          else{
+            copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
+            props.setPercentageCgpaPattern(copy);
+          }
+        }
       } else if (
         e.target.value === "10" &&
         copy[index] !==
           "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
       ) {
         copy[index] = "^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10";
-        setPercentageCgpaPattern(copy);
+        props.setPercentageCgpaPattern(copy);
       } else if (
+        e.target.value === "5" &&
+        copy[index] !==
+          "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
+      ) {
+        copy[index] = "^(([0-4]{1})|([0-4]{1}\\.\\d{1,2}))|5\\.00|5\\.0|5";
+        props.setPercentageCgpaPattern(copy);
+      } 
+      
+      else if (
         copy[index] !==
         "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
       ) {
         console.log("Print 4")
         copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
-        setPercentageCgpaPattern(copy);
+        props.setPercentageCgpaPattern(copy);
       }
       // console.log(percentage_cgpa_pattern);
     };
@@ -397,7 +382,7 @@ export default function EducationalDetails(props) {
                                       );
                                       handleSelectChange(event, 0);
                                     }}
-                                    pattern={percentage_cgpa_pattern[0]}
+                                    pattern={props.percentage_cgpa_pattern[0]}
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                   >
                                     <option value="">- Select -</option>
@@ -420,7 +405,7 @@ export default function EducationalDetails(props) {
                                     type="text"
                                     required
                                     title="Correct Percentage Format: 94.65, Correct CGPA Format: 8.23"
-                                    pattern={percentage_cgpa_pattern[0]}
+                                    pattern={props.percentage_cgpa_pattern[0]}
                                     id="percentage_cgpa_value_10th"
                                     name="percentage_cgpa_value_10th"
                                     value={
@@ -680,7 +665,7 @@ export default function EducationalDetails(props) {
                                   <input
                                     type="text"
                                     title="Correct Percentage Format: 94.65, Correct CGPA Format: 8.23"
-                                    pattern={percentage_cgpa_pattern[1]}
+                                    pattern={props.percentage_cgpa_pattern[1]}
                                     id="percentage_cgpa_value_12th"
                                     name="percentage_cgpa_value_12th"
                                     value={
@@ -886,7 +871,7 @@ export default function EducationalDetails(props) {
                                 handleFileSubmit={handleFileSubmitDegree}
                                 handleSelectChange={handleSelectChange}
                                 percentage_cgpa_pattern={
-                                  percentage_cgpa_pattern
+                                  props.percentage_cgpa_pattern
                                 }
                                 localDegrees={props.localDegrees}
                                 degreesFiles={degreesFiles}

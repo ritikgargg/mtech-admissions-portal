@@ -35,6 +35,52 @@ export default function Profile() {
     }
     return result;
   }
+
+  function init_percentage_cgpa_pattern(localProfileInfoTemp,localDegreesTemp){
+    let result = [];
+    if(localProfileInfoTemp.percentage_cgpa_format_10th === "Percentage"){
+      result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
+    }
+    else{
+      result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
+    }
+
+    if(localProfileInfoTemp.percentage_cgpa_format_12th === "Percentage"){
+      result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
+    }
+    else{
+      result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
+    }
+    
+    for(let i = 0; i < 5; i++){
+      if(localDegreesTemp[i]['4'] === "Percentage"){
+        result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
+      }
+      else{
+         if(localDegreesTemp[i]['6'] === '10'){
+            result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
+         }
+         else if(localDegreesTemp[i]['6'] === '5'){
+            result.push("^(([0-4]{1})|([0-4]{1}\\.\\d{1,2}))|5\\.00|5\\.0|5")
+         }
+         else{
+            result.push("^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4")
+         }
+      }
+    }
+    console.log("result")
+    console.log(result)
+    return result;
+  }
+
+  const [percentage_cgpa_pattern, setPercentageCgpaPattern] = useState(
+    Array.from(
+      { length: 7 },
+      () => "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
+    )
+    // init_percentage_cgpa_pattern()
+    // []
+  );
   const [profileInfo, setProfileInfo] = useState(0);
   const [localProfileInfo, setLocalProfileInfo] = useState(0);
   const [degrees, setDegrees] = useState(initDegrees());
@@ -151,6 +197,13 @@ export default function Profile() {
               copy2[key] = '';
             }
           }
+
+          let copy3 = { ...response.data };
+          for (const key in copy3) {
+            if(copy3[key] === null || copy3[key] === "null"){
+              copy3[key] = '';
+            }
+          }
           // if (copy2.alternate_mobile_number === "null")
           //   assign(copy2, "alternate_mobile_number", null);
           // if (copy2.category_certificate_url === "null")
@@ -174,7 +227,9 @@ export default function Profile() {
           );
           setDegreeSize(getDegreeSize(response.data.degrees));
           setCount(Math.max(1, getDegreeSize(response.data.degrees)));
-          // console.log("####IN PROFILE####");
+          setPercentageCgpaPattern(init_percentage_cgpa_pattern(copy3,convert2dArrayToJsonObjectArray(response.data.degrees)))
+          console.log("####IN PROFILE####");
+          // console.log(percentage_cgpa_pattern)
           // console.log("response.data");
           // console.log(response.data);
           // console.log("profileInfo");
@@ -551,6 +606,8 @@ export default function Profile() {
               <PencilIcon />
             </button> */}
             <EducationalDetails
+              setPercentageCgpaPattern = {setPercentageCgpaPattern}
+              percentage_cgpa_pattern = {percentage_cgpa_pattern}
               count={count}
               setCount={setCount}
               localDegrees={localDegrees}
