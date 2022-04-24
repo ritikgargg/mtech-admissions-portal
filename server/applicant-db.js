@@ -44,7 +44,7 @@ const save_communication_details = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -99,7 +99,7 @@ const save_education_details = async (req, res, next) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -199,9 +199,7 @@ const save_education_details = async (req, res, next) => {
     );
   }
 
-  Promise.allSettled(promises).then(
-    res.status(200).send("Ok")
-  );
+  Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
 
 /**
@@ -228,7 +226,7 @@ const save_personal_info = async (req, res, next) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -310,7 +308,6 @@ const save_personal_info = async (req, res, next) => {
   Promise.allSettled(promises).then(
     res.status(200).send("Ok") /** Confirm, rerender */
   );
-
 };
 
 /**
@@ -338,7 +335,7 @@ const get_profile_info = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -383,7 +380,7 @@ const check_applicant_info = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -476,15 +473,28 @@ const check_applicant_info = async (req, res) => {
   );
 
   let category_fees;
-  if(results.rows[0].is_pwd === "YES"){
-    let temp = await pool.query("SELECT fees_pwd FROM admission_cycles WHERE cycle_id = $1", [cycle_id]);
-    category_fees = temp.rows[0]["fees_pwd"]
-  }else{
-    let temp = await pool.query("SELECT fees_" + results.rows[0].category.toLowerCase() + " FROM admission_cycles WHERE cycle_id = $1", [cycle_id]);
-    category_fees = temp.rows[0]["fees_" + results.rows[0].category.toLowerCase()]
-  } 
+  if (results.rows[0].is_pwd === "YES") {
+    let temp = await pool.query(
+      "SELECT fees_pwd FROM admission_cycles WHERE cycle_id = $1",
+      [cycle_id]
+    );
+    category_fees = temp.rows[0]["fees_pwd"];
+  } else {
+    let temp = await pool.query(
+      "SELECT fees_" +
+        results.rows[0].category.toLowerCase() +
+        " FROM admission_cycles WHERE cycle_id = $1",
+      [cycle_id]
+    );
+    category_fees =
+      temp.rows[0]["fees_" + results.rows[0].category.toLowerCase()];
+  }
 
-  return res.send({full_name: results.rows[0].full_name, category: results.rows[0].category, category_fees: category_fees});
+  return res.send({
+    full_name: results.rows[0].full_name,
+    category: results.rows[0].category,
+    category_fees: category_fees,
+  });
 };
 
 /**
@@ -511,7 +521,7 @@ const save_application_info = async (req, res, next) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -573,7 +583,9 @@ const save_application_info = async (req, res, next) => {
     percentage_cgpa_value_12th = a.percentage_cgpa_value_12th, year_of_passing_12th = a.year_of_passing_12th, \
     remarks_12th = a.remarks_12th, marksheet_12th_url = a.marksheet_12th_url,  degrees = a.degrees, \
     other_remarks = a.other_remarks, is_last_degree_completed = a.is_last_degree_completed \
-    FROM applicants as a WHERE a.email_id = $1 AND applications_" + cycle_id + ".email_id = a.email_id;",
+    FROM applicants as a WHERE a.email_id = $1 AND applications_" +
+      cycle_id +
+      ".email_id = a.email_id;",
     [email]
   );
 
@@ -638,9 +650,7 @@ const save_application_info = async (req, res, next) => {
     );
   }
 
-  Promise.allSettled(promises).then(
-    res.status(200).send("Ok")
-  );
+  Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
 
 /**
@@ -667,7 +677,7 @@ const get_open_positions = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -720,7 +730,7 @@ const get_user_info = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -755,7 +765,7 @@ const get_offering_info = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -804,7 +814,7 @@ const get_applications = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
@@ -861,7 +871,7 @@ const get_application_info = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 2) {
+  if (userRole !== 2) {
     return res.send("1");
   }
 
