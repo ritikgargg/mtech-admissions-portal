@@ -147,9 +147,7 @@ app.get("/get-application-info-admin", admindB.get_application_info_admin);
 
 app.post(
   "/upload-result",
-  upload.fields([
-    { name: "result_excel", maxCount: 1 }
-  ]),
+  upload.fields([{ name: "result_excel", maxCount: 1 }]),
   uploadResults.upload_results
 );
 
@@ -165,11 +163,23 @@ app.get("/get-admins", admindB.get_admins);
 
 app.get("/get-admin-profile", admindB.get_admin_profile);
 
-app.post("/publish-unpublish-results", upload.fields([]), admindB.publish_unpublish_results);
+app.post(
+  "/publish-unpublish-results",
+  upload.fields([]),
+  admindB.publish_unpublish_results
+);
 
-app.post("/publish-all-results", upload.fields([]), admindB.publish_all_results);
+app.post(
+  "/publish-all-results",
+  upload.fields([]),
+  admindB.publish_all_results
+);
 
-app.post("/unpublish-all-results", upload.fields([]), admindB.unpublish_all_results);
+app.post(
+  "/unpublish-all-results",
+  upload.fields([]),
+  admindB.unpublish_all_results
+);
 
 app.post("/add-template", upload.fields([]), templates.add_template);
 
@@ -179,19 +189,33 @@ app.post("/delete-application", upload.fields([]), admindB.delete_application);
 
 app.get("/get-templates", templates.get_templates);
 
-app.get('/get-applications-in-excel', templateGenerator.get_applications_in_excel);
+app.get(
+  "/get-applications-in-excel",
+  templateGenerator.get_applications_in_excel
+);
 
-app.get('/get-merit-list', generateResults.get_merit_list);
+app.get("/get-merit-list", generateResults.get_merit_list);
 
-app.get('/get-deleted-admissions-cycles', recycleBin.get_deleted_admission_cycles);
+app.get(
+  "/get-deleted-admissions-cycles",
+  recycleBin.get_deleted_admission_cycles
+);
 
-app.get('/get-dashboard-info', dashboard.get_dashboard_info);
+app.get("/get-dashboard-info", dashboard.get_dashboard_info);
 
-app.get('/get-fees-info', landing.get_fees_info);
+app.get("/get-fees-info", landing.get_fees_info);
 
-app.post('/restore-cycle', upload.fields([]), recycleBin.restore_admission_cycle);
+app.post(
+  "/restore-cycle",
+  upload.fields([]),
+  recycleBin.restore_admission_cycle
+);
 
-app.post('/delete-cycle-permanently', upload.fields([]), recycleBin.delete_cycle_permanently);
+app.post(
+  "/delete-cycle-permanently",
+  upload.fields([]),
+  recycleBin.delete_cycle_permanently
+);
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {

@@ -6,34 +6,34 @@ dotenv.config();
 
 /** Get all the deleted admission cycles */
 const get_deleted_admission_cycles = async (req, res) => {
-    /**
-     * Verify using authToken
-     */
-    authToken = req.headers.authorization;
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
-  
-    var verified = null;
-  
-    try {
-      verified = jwt.verify(authToken, jwtSecretKey);
-    } catch (error) {
-      return res.send("1"); /** Error, logout on user side */
-    }
-  
-    if (!verified) {
-      return res.send("1"); /** Error, logout on user side */
-    }
-  
-    /** Get role */
-    var userRole = jwt.decode(authToken).userRole;
-    if(userRole !== 0) {
-      return res.send("1");
-    }
-  
-    const results = await pool.query("SELECT * from deleted_admission_cycles;");
-  
-    return res.send(results.rows);
-  };
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  const results = await pool.query("SELECT * from deleted_admission_cycles;");
+
+  return res.send(results.rows);
+};
 
 /** Restore a deleted admission cycle and add it to the admission cycles table */
 const restore_admission_cycle = async (req, res) => {
@@ -57,13 +57,16 @@ const restore_admission_cycle = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if(userRole !== 0) {
+  if (userRole !== 0) {
     return res.send("1");
   }
 
   let cycle_id = req.body.cycle_id;
 
-  const cycle_data = await pool.query("SELECT * from deleted_admission_cycles WHERE cycle_id = $1;", [cycle_id]);
+  const cycle_data = await pool.query(
+    "SELECT * from deleted_admission_cycles WHERE cycle_id = $1;",
+    [cycle_id]
+  );
   cycle_data_rows = cycle_data.rows[0];
   
   const results1 = await pool.query(
@@ -81,44 +84,50 @@ const restore_admission_cycle = async (req, res) => {
 
 /** Delete admission cycle permanently */
 const delete_cycle_permanently = async (req, res) => {
-   /**
+  /**
    * Verify using authToken
    */
-    authToken = req.headers.authorization;
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
-  
-    var verified = null;
-  
-    try {
-      verified = jwt.verify(authToken, jwtSecretKey);
-    } catch (error) {
-      return res.send("1"); /** Error, logout on user side */
-    }
-  
-    if (!verified) {
-      return res.send("1"); /** Error, logout on user side */
-    }
-  
-    /** Get role */
-    var userRole = jwt.decode(authToken).userRole;
-    if(userRole !== 0) {
-      return res.send("1");
-    }
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
-    let cycle_id = req.body.cycle_id;
+  var verified = null;
 
-    const delete_from_deleted_admission_cycle_table = await pool.query("DELETE FROM deleted_admission_cycles WHERE cycle_id = $1;", 
-    [cycle_id]);
-    
-    const drop_applications_table = await pool.query("DROP TABLE applications_" + cycle_id + ";");
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
 
-    const drop_offerings_table = await pool.query("DROP TABLE mtech_offerings_" + cycle_id + ";");
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
 
-    return res.send("Ok");
-  };
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  let cycle_id = req.body.cycle_id;
+
+  const delete_from_deleted_admission_cycle_table = await pool.query(
+    "DELETE FROM deleted_admission_cycles WHERE cycle_id = $1;",
+    [cycle_id]
+  );
+
+  const drop_applications_table = await pool.query(
+    "DROP TABLE applications_" + cycle_id + ";"
+  );
+
+  const drop_offerings_table = await pool.query(
+    "DROP TABLE mtech_offerings_" + cycle_id + ";"
+  );
+
+  return res.send("Ok");
+};
 
 module.exports = {
-    get_deleted_admission_cycles,
-    restore_admission_cycle,
-    delete_cycle_permanently
+  get_deleted_admission_cycles,
+  restore_admission_cycle,
+  delete_cycle_permanently,
 };
