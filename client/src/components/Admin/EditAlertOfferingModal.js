@@ -223,7 +223,7 @@ export default function EditAlertOfferingModal(props) {
                         htmlFor="gate_paper_codes"
                         className="text-sm font-medium text-gray-900 block mb-2"
                       >
-                        Gate Paper Codes
+                        GATE Paper Codes
                       </label>
                       <input
                         type="text"

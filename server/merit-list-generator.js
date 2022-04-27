@@ -5,7 +5,21 @@ const jwt = require("jsonwebtoken");
 
 dotenv.config();
 
-function write_header(worksheet, rowIndex, type) {
+function write_header(workbook, worksheet, rowIndex, type) {
+    /** Header Stylesheet json */
+    const header_style = workbook.createStyle({
+        font: { color: "#ffffff", size: 12 },
+        fill: { type: 'pattern', patternType: 'solid', fgColor: '365e9e' },
+        border: { outline: true }
+    });
+
+    /** Merit Position Header Stylesheet json */
+    const merit_position_header = workbook.createStyle({
+        font: { color: "#ffffff", size: 12 },
+        fill: { type: 'pattern', patternType: 'solid', fgColor: 'c25f46' },
+        border: { outline: true }
+    });
+
     /** For master file */
     header_list_1 = ["S.No.", "Application Number (SID)", "Category(UR/OBC/SC/ST/PWD)",
 	    "COAP REGN.NO.", "Candidate\'s  Name",	"Father'\s Name", "Date of Birth", "EMAIL", "MOBILE NO.",
@@ -25,17 +39,26 @@ function write_header(worksheet, rowIndex, type) {
 
     if(type === 1) {
         header_list_1.forEach((element, columnIndex) => {
-            worksheet.cell(rowIndex, columnIndex + 1).string(element);
+            const columnWidth = element.length * 1.1;
+            worksheet.column(columnIndex+1).setWidth(columnWidth);
+            worksheet.cell(rowIndex, columnIndex + 1).string(element).style(header_style);
         });
     }
     else if(type == 2) {
         header_list_2.forEach((element, columnIndex) => {
-            worksheet.cell(rowIndex, columnIndex + 1).string(element);
+            const columnWidth = element.length * 1.1;
+            worksheet.column(columnIndex+1).setWidth(columnWidth);
+            worksheet.cell(rowIndex, columnIndex + 1).string(element).style(header_style);
+            if (columnIndex == 12) {
+                worksheet.cell(rowIndex, columnIndex + 1).style(merit_position_header);
+            }
         });
     }
     else {
         header_list_3.forEach((element, columnIndex) => {
-            worksheet.cell(rowIndex, columnIndex + 1).string(element);
+            const columnWidth = element.length * 1.1;
+            worksheet.column(columnIndex+1).setWidth(columnWidth);
+            worksheet.cell(rowIndex, columnIndex + 1).string(element).style(header_style);
         });
     }
 }
@@ -232,16 +255,17 @@ async function generate_merit_list(info) {
     let row_indices = [1, 1, 1, 1, 1, 1, 1]
 
     /** Write headers */
-    write_header(master, row_indices[0], 1);
-    write_header(consolidated, row_indices[1], 2);
-    write_header(obc, row_indices[2], 3);
-    write_header(sc, row_indices[3], 3);
-    write_header(st, row_indices[4], 3);
-    write_header(ews, row_indices[5], 3);
-    write_header(pwd, row_indices[6], 3);
+    write_header(workbook, master, row_indices[0], 1);
+    write_header(workbook, consolidated, row_indices[1], 2);
+    write_header(workbook, obc, row_indices[2], 3);
+    write_header(workbook, sc, row_indices[3], 3);
+    write_header(workbook, st, row_indices[4], 3);
+    write_header(workbook, ews, row_indices[5], 3);
+    write_header(workbook, pwd, row_indices[6], 3);
 
     /** Increment all indices */
-    row_indices = [2, 2, 2, 2, 2, 2, 2]
+    row_indices = row_indices.map(a => a+1);
+    // row_indices = [2, 2, 2, 2, 2, 2, 2]
 
     /** Get applications */
     const applications = await pool.query("SELECT application_id, category, coap_registeration_number, \

@@ -81,6 +81,8 @@ app.get("/get-profile-info", applicantdB.get_profile_info);
 
 app.get("/check-applicant-info", applicantdB.check_applicant_info);
 
+app.get("/reapply-check-applicant-info", applicantdB.reapply_check_applicant_info);
+
 app.get("/get-open-positions", applicantdB.get_open_positions);
 
 app.get("/get-user-info", applicantdB.get_user_info);
@@ -99,6 +101,16 @@ app.post(
     { name: "signature", maxCount: 1 },
   ]),
   applicantdB.save_application_info
+);
+
+app.post(
+  "/reapply-save-application-info",
+  upload.fields([
+    { name: "transaction_slip", maxCount: 1 },
+    { name: "self_attested_copies", maxCount: 1 },
+    { name: "signature", maxCount: 1 },
+  ]),
+  applicantdB.reapply_save_application_info
 );
 
 app.post(

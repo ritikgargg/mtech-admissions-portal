@@ -13,11 +13,12 @@ import SignUpStartPage from "./components/SignIn_SignUp/SignUpStartPage";
 import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
 import MyApplications from "./components/Applicant/MyApplications";
 import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
-import ApplicantionDetails from "./components/Applicant/ApplicationDetails";
+import ApplicationDetails from "./components/Applicant/ApplicationDetails";
 import ViewSubmittedApplication from "./components/Applicant/ViewSubmittedApplication";
 import Courses from "./components/Landing/Courses";
 import Info from "./components/Landing/Info";
 import Success from "./components/Applicant/Success";
+import ReApplicationDetails from "./components/Applicant/ReApplicationDetails";
 
 // Admin
 import AdmissionCycles from "./components/Admin/AdmissionCycles";
@@ -87,7 +88,15 @@ function App() {
           path="/apply/:offering_id"
           element={
             <PrivateRoute>
-              <ApplicantionDetails />
+              <ApplicationDetails />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/re-apply/:offering_id"
+          element={
+            <PrivateRoute>
+              <ReApplicationDetails />
             </PrivateRoute>
           }
         />

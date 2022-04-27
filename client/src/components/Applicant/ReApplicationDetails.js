@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 
-function ApplicantionDetails() {
+function ReApplicantionDetails() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const { handleSubmit } = useForm();
@@ -35,6 +35,7 @@ function ApplicantionDetails() {
     if (month.length === 1) month = "0" + month;
 
     date = date.getFullYear() + "-0" + month + "-" + day;
+    // console.log(day)
     return date;
   }
 
@@ -42,6 +43,7 @@ function ApplicantionDetails() {
     const array = Array.from({ length: 21 }, () => "");
 
     array[6] = "GATE";
+    // array[7]='CS';
     array[5] = changeDateFormat();
     array[19] = changeDateFormat();
     array[20] = params.offering_id;
@@ -49,7 +51,7 @@ function ApplicantionDetails() {
   };
 
   useEffect(() => {
-    Axios.get("/check-applicant-info", {
+    Axios.get("/reapply-check-applicant-info", {
       headers: {
         Authorization: getToken(),
         offering_id: params.offering_id,
@@ -60,9 +62,8 @@ function ApplicantionDetails() {
           navigate("/logout");
         } else if (response.data === 2) {
           navigate("/home");
-        } else if (response.data === 3) {
-          navigate("/my-applications");
-        } else {
+        }
+         else {
           setFullName(response.data.full_name);
           setCategory(response.data.category);
           setCategoryFees(response.data.category_fees)
@@ -83,7 +84,6 @@ function ApplicantionDetails() {
           navigate("/logout");
         } else {
           setOffering(response.data);
-          // console.log(response.data);
         }
       })
       .catch((err) => console.log(err));
@@ -126,11 +126,12 @@ function ApplicantionDetails() {
     const formData = new FormData();
 
     formData.append("applicant_details", JSON.stringify(applicant_details));
+    formData.append("offering_id", params.offering_id);
     formData.append("transaction_slip", applicant_details[4]);
     formData.append("self_attested_copies", applicant_details[14]);
     formData.append("signature", applicant_details[17]);
 
-    Axios.post("/save-application-info", formData, {
+    Axios.post("/reapply-save-application-info", formData, {
       headers: {
         Authorization: getToken(),
       },
@@ -146,7 +147,6 @@ function ApplicantionDetails() {
   }
 
   function increasePageNumber() {
-    // console.log(applicant_details);
     setPage(page + 1);
   }
 
@@ -175,7 +175,7 @@ function ApplicantionDetails() {
         </div>
 
         <Link
-          to="/home"
+          to="/my-applications"
           className="col-start-12 col-end-13 justify-center lg:w-12 lg:h-12 w-8 h-8 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
         >
           <svg
@@ -250,4 +250,4 @@ function ApplicantionDetails() {
   );
 }
 
-export default ApplicantionDetails;
+export default ReApplicantionDetails;

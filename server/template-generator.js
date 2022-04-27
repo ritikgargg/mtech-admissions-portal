@@ -67,7 +67,7 @@ async function generate_applications_in_excel(info) {
     let data = applications.rows;
 
     /** Number fields */
-    let number_fields = ['percentage_cgpa_value_10th', 'year_of_passing_10th', 'percentage_cgpa_value_12th', 
+    let number_fields = ['application_id', 'percentage_cgpa_value_10th', 'year_of_passing_10th', 'percentage_cgpa_value_12th', 
                         'year_of_passing_12th', 'amount', 'year', 'all_india_rank', 'gate_score', 'valid_upto'];
 
     /** Link fields */

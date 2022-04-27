@@ -36,9 +36,8 @@ const customStyles = {
 export default function AddTemplateCard(props) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
   const animatedComponents = makeAnimated();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [error, setError] = useState(0);
   const admin_type = getAdminType()
@@ -49,6 +48,7 @@ export default function AddTemplateCard(props) {
 };
 
 const options = [
+  {value: 'application_id', label: 'Application ID'},
   {value:'full_name', label: 'Full Name'},
   {value:'fathers_name', label: 'Father\'s Name'},
   {value:'email_id', label: 'Email Address' },
@@ -94,11 +94,6 @@ const options = [
   {value: 'status_remark', label: 'Status Remarks' },
 ]
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    reset();
-    setOpen(false);
-  };
 
   const onSubmit = (data) => {
     setIsLoading(true);

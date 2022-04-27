@@ -8,6 +8,7 @@ import ViewModal from "./ViewModal";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import noDataGirlPic from "../../images/no-data-girl.jpg";
 import screenSpinner from "../../images/2300-spinner.gif";
+import ReApplyModal from "./ReApplyModal";
 
 function MyApplications(props) {
   const navigate = useNavigate();
@@ -68,13 +69,31 @@ function MyApplications(props) {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
+                          Deadline
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
                           Status
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
+                          Application Status
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
                           Remarks
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                            {/* Reapply */}
                         </th>
                         <th
                           scope="col"
@@ -98,6 +117,27 @@ function MyApplications(props) {
                               <div className="text-sm text-gray-500">
                                 {application.specialization}
                               </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-500">
+                                {new Date(
+                                  application.deadline
+                                ).toLocaleDateString("en-GB")}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              {application.is_accepting_applications ===
+                                true && (
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                  Open
+                                </span>
+                              )}
+                              {application.is_accepting_applications ===
+                                false && (
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                  Closed
+                                </span>
+                              )}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {(application.is_result_published === 1) 
@@ -139,6 +179,9 @@ function MyApplications(props) {
                                 {/* <img className="h-7 w-7 text-indigo-600" alt="eye-icon" src="https://cdn-icons-png.flaticon.com/512/535/535193.png"/> */}
                                 <VisibilityIcon />
                               </Link>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap font-medium">
+                              <ReApplyModal application={application}/>
                             </td>
                           </tr>
                         ))}

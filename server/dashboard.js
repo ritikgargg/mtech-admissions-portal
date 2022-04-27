@@ -32,6 +32,10 @@ const get_dashboard_info = async (req, res) => {
     const cycle = await pool.query("SELECT cycle_id from current_cycle;");
     let current_cycle_id = cycle.rows[0].cycle_id;
 
+    if(current_cycle_id === 0) {
+        return res.send("2");
+    }
+
     const current_cycle_info = await pool.query("SELECT * FROM admission_cycles WHERE cycle_id = $1;", [current_cycle_id]);
     const applications_count = await pool.query("SELECT count(*) FROM applications_" + current_cycle_id + ";");
     // const offerings_count = await pool.query("SELECT count(*) FROM mtech_offerings_" + current_cycle_id + ";");

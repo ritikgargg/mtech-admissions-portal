@@ -118,7 +118,7 @@ function Courses() {
                   </div>
 
                   <div className="px-4 py-1 sm:grid sm:grid-cols-6 sm:px-6">
-                    <h1 className="font-bold">Gate Paper Codes</h1>
+                    <h1 className="font-bold">GATE Paper Codes</h1>
                     <p className="sm:mt-0 sm:col-span-2">{application.gate_paper_codes}</p>
                   </div>
 

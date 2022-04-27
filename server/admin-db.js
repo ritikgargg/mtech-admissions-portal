@@ -154,7 +154,7 @@ const delete_admission_cycle = async (req, res) => {
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
   let current_cycle_id = cycle.rows[0].cycle_id;
 
-  if (current_cycle_id === cycle_id) {
+  if (current_cycle_id === Number(cycle_id)) {
     const update_current_cycle = await pool.query(
       "UPDATE current_cycle SET cycle_id = 0;"
     );

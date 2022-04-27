@@ -214,14 +214,14 @@ export default function AddOfferingModal(props) {
                         htmlFor="gate_paper_codes"
                         className="text-sm font-medium text-gray-900 block mb-2"
                       >
-                        Gate Paper Codes
+                        GATE Paper Codes
                       </label>
                       <input
                         type="text"
                         {...register("gate_paper_codes")}
                         id="gate_paper_codes"
                         pattern="([A-Z]+, *)*[A-Z]+$"
-                        title="Comma-separated Gate codes(in capital alphabets)"
+                        title="Comma-separated GATE codes(in capital alphabets)"
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required
                       />
