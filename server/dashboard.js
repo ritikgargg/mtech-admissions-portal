@@ -41,14 +41,6 @@ const get_dashboard_info = async (req, res) => {
     // const offerings_count = await pool.query("SELECT count(*) FROM mtech_offerings_" + current_cycle_id + ";");
     const offerings = await pool.query("SELECT offering_id, specialization FROM mtech_offerings_" + current_cycle_id + ";");
     let category_distribution = {}
-    
-    let category_distribution_per_offering = []
-    let temp = {}
-    temp["GEN"] = 0
-    temp["OBC"] = 0
-    temp["EWS"] = 0
-    temp["SC"] = 0
-    temp["ST"] = 0
 
   let category_distribution_per_offering = [];
   let temp = {};

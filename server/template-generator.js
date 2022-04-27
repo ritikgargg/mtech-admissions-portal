@@ -127,50 +127,6 @@ async function generate_applications_in_excel(info) {
     rowCount++;
   });
 
-    /** Get applications */
-    const applications = await pool.query("SELECT * FROM applications_" + info.cycle_id + " WHERE offering_id = $1;",
-    [info.offering_id]);
-
-    /** All applications */
-    let data = applications.rows;
-
-    /** Number fields */
-    let number_fields = ['application_id', 'percentage_cgpa_value_10th', 'year_of_passing_10th', 'percentage_cgpa_value_12th', 
-                        'year_of_passing_12th', 'amount', 'year', 'all_india_rank', 'gate_score', 'valid_upto'];
-
-    /** Link fields */
-    let link_fields = ['profile_image_url', 'category_certificate_url', 'marksheet_10th_url', 'marksheet_12th_url', 'self_attested_copies_url', 'signature_url'];
-
-    /** Write data */
-    data.forEach((element, rowIndex) => {
-      let degrees = element.degrees;
-      let columnIndex = 1 + column_list.length;
-      for (var i = 0; i < 5; i++) {
-        for (var j = 0; j < 10; j++) {
-          if (degrees[i][j] !== "") {
-            if (j == 3 || j == 5 || j == 6) {
-              worksheet
-                .cell(2 + rowIndex, columnIndex)
-                .number(+degrees[i][j])
-                .style(style);
-            } else if (j == 8 || j == 9) {
-              worksheet
-                .cell(2 + rowIndex, columnIndex)
-                .link(degrees[i][j])
-                .style(link_style);
-            } else {
-              worksheet
-                .cell(2 + rowIndex, columnIndex)
-                .string(String(degrees[i][j]))
-                .style(style);
-            }
-          }
-          columnIndex++;
-        }
-      }
-    });
-  }
-
   /** Write timestamp */
   worksheet
     .cell(rowCount + 1, 1)

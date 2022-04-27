@@ -17,10 +17,5 @@ const get_fees_info = async (req, res) => {
 };
 
 module.exports = {
-<<<<<<< HEAD
   get_fees_info
 };
-=======
-  get_fees_info,
-};
->>>>>>> 767881c63ea35825a496d45a5f11863ac7844e70

@@ -1,5 +1,5 @@
 import React from "react"
-import member1Image from "../../images/Anshul Verma.jfif"
+import member1Image from "../../images/Anshul Verma.jpg"
 import member2Image from "../../images/Piyush Presannan.jpg"
 import member3Image from "../../images/Ritik Garg.jpg"
 import member4Image from "../../images/Tarun Singla.jpg"
