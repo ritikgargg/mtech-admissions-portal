@@ -68,6 +68,13 @@ export default function PersonalInfo(props) {
   
     const handleFileSubmit = (e, maxSize, setVariable) => {
       const file = e.target.files[0];
+
+      if(file.type !== 'image/jpeg' || file.type !== 'images/jpg' || file.type !== 'images/png') {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .jpeg, .jpg, .png");
+        return;
+      }
+
       if (file.size > maxSize * 1000000) {
         e.target.value = null;
         const error =

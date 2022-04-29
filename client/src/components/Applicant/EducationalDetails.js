@@ -145,6 +145,13 @@ export default function EducationalDetails(props) {
   
     const handleFileSubmitDegree = (e, maxSize, row, column) => {
       const file = e.target.files[0];
+
+      if(file.type !== 'application/pdf') {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .pdf");
+        return;
+      }
+
       if (file.size > maxSize * 1000000) {
         e.target.value = null;
         const error =
@@ -159,6 +166,13 @@ export default function EducationalDetails(props) {
   
     const handleFileSubmit = (e, maxSize, setVariable) => {
       const file = e.target.files[0];
+
+      if(file.type !== 'application/pdf') {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .pdf");
+        return;
+      }
+
       if (file.size > maxSize * 1000000) {
         e.target.value = null;
         const error =
@@ -513,7 +527,7 @@ export default function EducationalDetails(props) {
                                         <span className="font-semibold">
                                           Allowed file formats:
                                         </span>{" "}
-                                        .jpg, .png, .jpeg
+                                        .pdf
                                         <br />
                                         <div className="mt-1">
                                           <span className="font-semibold">
