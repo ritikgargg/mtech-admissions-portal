@@ -274,22 +274,22 @@ function QualifyingExamDetails(props){
                                 // value={props.details[4].name}
                                 // ref={props.ref}
                                 required
-                                accept=".pdf, .jpeg, .jpg"
-                                onChange={(e) => props.handleFileSubmit(e, 2,14)}
+                                accept=".pdf"
+                                onChange={(e) => props.handleFileSubmit(e, 5, 14, 1)}
                               />
                                 
                               <div
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                 id="gate_result_help"
                               >
-                                <span className="font-semibold"> Maximum file size: </span>2 MB
+                                <span className="font-semibold"> Maximum file size: </span>5 MB
                               </div>
                               
                               <div
                                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                 id="gate_result_help"
                               >
-                                <span className="font-semibold">Allowed file formats:</span> .jpg, .jpeg, .pdf
+                                <span className="font-semibold">Allowed file formats:</span> .pdf
                               </div>
                               
                               <div

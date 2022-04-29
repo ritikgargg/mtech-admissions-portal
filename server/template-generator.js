@@ -76,6 +76,7 @@ async function generate_applications_in_excel(info) {
 
   /** Number fields */
   let number_fields = [
+    "application_id",
     "percentage_cgpa_value_10th",
     "year_of_passing_10th",
     "percentage_cgpa_value_12th",

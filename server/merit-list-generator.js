@@ -220,7 +220,7 @@ function write_data(worksheet, data, rowIndex, type) {
 
       rowIndex++;
     });
-  } else if (type == 2) {
+  } else if (type === 2) {
     merit_positions = get_merit_positions(data);
 
     data.forEach((element, index) => {
@@ -232,13 +232,13 @@ function write_data(worksheet, data, rowIndex, type) {
         } else if (i == 1) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .number(+element[header_list_1[i]]);
+            .number(+element[header_list_2[i]]);
         } else if (i == header_list_2.length - 3) {
           worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
-            .string(element[header_list_1[i]]);
+            .string(element[header_list_2[i]]);
         }
 
         columnIndex++;
@@ -258,13 +258,13 @@ function write_data(worksheet, data, rowIndex, type) {
         } else if (i == 1) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .number(+element[header_list_1[i]]);
+            .number(+element[header_list_3[i]]);
         } else if (i == header_list_3.length - 2) {
           worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
-            .string(element[header_list_1[i]]);
+            .string(element[header_list_3[i]]);
         }
 
         columnIndex++;

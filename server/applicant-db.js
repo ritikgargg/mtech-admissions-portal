@@ -1181,6 +1181,19 @@ if (offering_exists_check_data[0].is_accepting_applications === false) {
   return res.send("2");
 }
 
+/** Check if already not applied */
+const application_filled_check = await pool.query(
+  "SELECT application_id from applications_" +
+    cycle_id +
+    " WHERE offering_id = $1 AND email_id = $2;",
+  [offering_id, email]
+);
+let application_filled_check_data = application_filled_check.rows;
+
+if (application_filled_check_data.length === 0) {
+  return res.send("3"); /** Already not applied */
+}
+
 const results = await pool.query(
   "SELECT full_name, category, is_pwd from applicants WHERE email_id = $1;",
   [email]

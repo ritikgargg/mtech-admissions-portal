@@ -638,7 +638,7 @@ const add_admin = async (req, res) => {
   let info = req.body;
 
   /** Check if this email is already an admin */
-  const check = await pool.query("SELECT * FROM admins WHERE email_id = $1;", [
+  const check = await pool.query("SELECT * FROM login_verification WHERE email_id = $1;", [
     info.email_id,
   ]);
 

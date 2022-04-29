@@ -66,15 +66,15 @@ function Declaration(props){
                               name="signature"
                               type="file"
                               required
-                              accept=".pdf, .png, .jpeg, .jpg, .gif"
-                              onChange={(e) => props.handleFileSubmit(e, 1, 17)}
+                              accept=".png, .jpeg, .jpg, .gif"
+                              onChange={(e) => props.handleFileSubmit(e, 1, 17, 3)}
                               />
                             
                             <div
                               className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                               id="marksheet_help"
                             >
-                              <span className="font-semibold">Maximum file size:</span> 1 MB <span className="font-semibold">Allowed file formats:</span> .pdf, .jpeg, .png, .jpg, .gif
+                              <span className="font-semibold">Maximum file size:</span> 1 MB <span className="font-semibold">Allowed file formats:</span> .jpeg, .png, .jpg, .gif
                             </div>
                             
                             <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">

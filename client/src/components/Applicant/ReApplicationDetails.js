@@ -62,6 +62,8 @@ function ReApplicantionDetails() {
           navigate("/logout");
         } else if (response.data === 2) {
           navigate("/home");
+        }else if(response.data === 3){
+          navigate("/home");
         }
          else {
           setFullName(response.data.full_name);
@@ -105,9 +107,33 @@ function ReApplicantionDetails() {
     setApplicantDetails(copy);
   }
 
-  const handleFileSubmit = (e, maxSize, index) => {
+  const handleFileSubmit = (e, maxSize, index, fileType) => {
     const file = e.target.files[0];
     // ref.current = file;
+
+    if(fileType === 1) {
+      if(file.type !== 'application/pdf') {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .pdf");
+        return;
+      }
+    }
+    else if(fileType === 2) {
+      if((file.type !== 'image/jpeg') && (file.type !== 'image/jpg') && (file.type !== 'application/pdf')) {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .jpeg, .jpg, .pdf");
+        return;
+      }
+    }
+    else if(fileType === 3) {
+      // console.log(file.type)
+      if((file.type !== 'image/jpeg') && (file.type !== 'image/jpg') && (file.type !== 'image/png') && (file.type !== 'image/gif')) {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .jpeg, .jpg, .png, .gif");
+        return;
+      }
+    }
+
     if (file.size > maxSize * 1000000) {
       e.target.value = null;
       const error =

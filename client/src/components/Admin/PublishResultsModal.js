@@ -60,7 +60,7 @@ export default function PublishResultsModal(props) {
       <button
           onClick={handleOpen}
           type="button"
-          className="focus:outline-none w-1/2 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 text-center sm:w-auto"
+          className="focus:outline-none w-1/2 font-medium inline-flex items-center justify-center rounded-lg text-sm text-center sm:w-auto"
         >
         <FormControlLabel
             control={

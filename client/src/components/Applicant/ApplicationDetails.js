@@ -105,8 +105,33 @@ function ApplicantionDetails() {
     setApplicantDetails(copy);
   }
 
-  const handleFileSubmit = (e, maxSize, index) => {
+  const handleFileSubmit = (e, maxSize, index, fileType) => {
     const file = e.target.files[0];
+    // console.log(fileType)
+
+    if(fileType === 1) {
+      if(file.type !== 'application/pdf') {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .pdf");
+        return;
+      }
+    }
+    else if(fileType === 2) {
+      if((file.type !== 'image/jpeg') && (file.type !== 'image/jpg') && (file.type !== 'application/pdf')) {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .jpeg, .jpg, .pdf");
+        return;
+      }
+    }
+    else if(fileType === 3) {
+      // console.log(file.type)
+      if((file.type !== 'image/jpeg') && (file.type !== 'image/jpg') && (file.type !== 'image/png') && (file.type !== 'image/gif')) {
+        e.target.value = null;
+        alert("File format not followed! Allowed formats: .jpeg, .jpg, .png, .gif");
+        return;
+      }
+    }
+
     // ref.current = file;
     if (file.size > maxSize * 1000000) {
       e.target.value = null;

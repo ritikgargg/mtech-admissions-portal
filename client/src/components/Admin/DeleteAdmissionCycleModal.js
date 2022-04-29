@@ -113,7 +113,7 @@ export default function DeleteAlertModal(props) {
                   disabled
                   className="focus:outline-none w-28 px-4 py-2 font-medium text-white rounded bg-red-600"
                 >
-                  <img src={spinner} className="h-5 w-5 mx-auto"/>
+                  <img src={spinner} className="h-5 w-5+ mx-auto"/>
                 </button>
               }
               <button

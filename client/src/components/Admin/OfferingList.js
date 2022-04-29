@@ -25,7 +25,10 @@ export default function OfferingList() {
   const [limit, setLimit] = useState(5);
   const [cycleName, setCycleName] = useState("Admission Cycle");
   const [offerings, setOfferings] = useState([]);
+  const [allOfferings, setAllOfferings] = useState([]);
   const [department, setDepartment] = useState(null);
+  const [searchType, setSearchType] = useState("department");
+  const [textToSearch, setTextToSearch] = useState("");
   
   useEffect(() => {
     axios
@@ -40,6 +43,7 @@ export default function OfferingList() {
           navigate("/logout");
         } else {
           setOfferings(response.data.offerings);
+          setAllOfferings(response.data.offerings);
           setCycleName(response.data.cycle_name);
           setDepartment(response.data.department);
           setIsFetching(false);
@@ -73,21 +77,7 @@ export default function OfferingList() {
               All Offerings
             </h1>
           </div> */}
-          <div className="block items-center md:divide-x md:divide-gray-100">
-            {/* <form className="sm:pr-3 mb-4 sm:mb-0" action="#" method="GET">
-              <label htmlFor="products-search" className="sr-only">
-                Search
-              </label>
-              <div className="mt-1 relative sm:w-64 xl:w-96">
-                <input
-                  type="text"
-                  name="email"
-                  id="products-search"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                  placeholder="Search for products"
-                />
-              </div>
-            </form> */}
+          <div className="block items-center">
             <div className="flex justify-between">
               {/* <div className="flex items-center sm:justify-end w-full"> */}
               {/* <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
@@ -199,7 +189,51 @@ export default function OfferingList() {
                     <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" /></svg>
                     Add product
                   </button> */}
-              <AddOfferingModal cycle_id = {params.cycle_id} department={department}/>
+              {/* <AddOfferingModal cycle_id = {params.cycle_id} department={department}/> */}
+            </div>
+            <div className="flex justify-between mt-2">
+              <div className="flex">
+            <div className="sm:pr-3 mb-4 sm:mb-0">
+              <label htmlFor="products-search" className="sr-only">
+                Search
+              </label>
+              <div className="mt-1 relative sm:w-64 xl:w-80">
+                <input
+                  type="text"
+                  name="textToSearch"
+                  id="textToSearch"
+                  value={textToSearch}
+                  onChange={(event) => {
+                    setTextToSearch(event.target.value); 
+                    setOfferings(allOfferings.filter((offering) => offering[searchType].toLowerCase().includes(event.target.value.toLowerCase())))
+                }}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  placeholder="Search"
+                />
+              </div>
+            </div>
+            <div className="w-36">
+                <label
+                  htmlFor="searchType"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                </label>
+                <select
+                  id="searchType"
+                  name="searchType"
+                  value={searchType}
+                  onChange={(event) => {
+                    setSearchType(event.target.value)}
+                  }
+                  required
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="department">Department</option>
+                  <option value="specialization">Specialization</option>
+                </select>
+              </div>
+              </div>
+            <AddOfferingModal cycle_id = {params.cycle_id} department={department}/>
             </div>
             <div className="flex justify-between">
             <div className="flex">
@@ -238,8 +272,8 @@ export default function OfferingList() {
                 </span>
               </div>
               <div className="flex">
-                {/* <PublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
-                <UnpublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/> */}
+                <PublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
+                <UnpublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
               </div>
             </div>
           </div>
@@ -385,7 +419,7 @@ export default function OfferingList() {
 <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Dark</span> */}
 
                         {/* PUBLISH/NOTPUBLISHED WALA UNCOMMENT KARNA HAI BAADMEI.. OOPAR WALA SPAN ISKE ANDAR COMMENTED THA */}
-                        {/* <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                           { offerings[i].is_result_published === 1 && (
                             <span className="bg-blue-100 inline-flex text-blue-800 text-xs text-center font-semibold px-2.5 py-1.5 rounded dark:bg-blue-200 dark:text-blue-800">Published to Applicants</span>
                           )}
@@ -395,7 +429,7 @@ export default function OfferingList() {
                           {offerings[i].is_result_published === 0  && offerings[i].is_result_published_by_faculty === 0 && (
                             <span className="bg-gray-100 inline-flex text-gray-800 text-xs text-center font-semibold px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Not Published</span>
                           )}
-                        </td> */}
+                        </td>
 
                         <td className="p-6 whitespace-nowrap space-x-2 flex">
                           <Link

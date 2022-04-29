@@ -20,6 +20,7 @@ import MeritListGeneration from './MeritListGeneration'
 export default function OfferingList() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
+  const [allApplications, setAllApplications] = useState([]);
   const [startCount, setStartCount] = useState(1);
   const [limit, setLimit] = useState(10);
   const [isFetching, setIsFetching] = useState(true);
@@ -27,6 +28,8 @@ export default function OfferingList() {
   const [offeringName, setOfferingName] = useState("Offering");
   const [isResultPublished, setIsResultPublished] = useState(0);
   const [isResultPublishedByFaculty, setIsResultPublishedByFaculty] = useState(0);
+  const [searchType, setSearchType] = useState("department");
+  const [textToSearch, setTextToSearch] = useState("");
   const params = useParams();
   const admin_type = getAdminType();
 
@@ -44,6 +47,7 @@ export default function OfferingList() {
           navigate("/logout");
         } else {
           setApplications(response.data.applications);
+          setAllApplications(response.data.applications)
           setCycleName(response.data.cycle_name);
           setOfferingName(response.data.offering_name);
           setIsResultPublished(response.data.is_result_published)
@@ -123,6 +127,58 @@ export default function OfferingList() {
                 </ol>
               </nav>
             </div>
+            <div className="flex justify-between mt-2">
+            <div className="flex">
+            <div className="sm:pr-3 mb-4 sm:mb-0">
+              <label htmlFor="products-search" className="sr-only">
+                Search
+              </label>
+              <div className="mt-1 relative sm:w-64 xl:w-80">
+                <input
+                  type="text"
+                  name="textToSearch"
+                  id="textToSearch"
+                  value={textToSearch}
+                  onChange={(event) => {
+                    setTextToSearch(event.target.value); 
+                    setApplications(allApplications.filter((application) => application[searchType].toLowerCase().includes(event.target.value.toLowerCase())))
+                }}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  placeholder="Search"
+                />
+              </div>
+            </div>
+            <div className="w-56">
+                <label
+                  htmlFor="searchType"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                </label>
+                <select
+                  id="searchType"
+                  name="searchType"
+                  value={searchType}
+                  onChange={(event) => {
+                    setSearchType(event.target.value)}
+                  }
+                  required
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="full_name">Applicant Name</option>
+                  <option value="email_id">Email Address</option>
+                  <option value="coap_registeration_number">COAP Registration Number</option>
+                  <option value="gate_enrollment_number">GATE Registration Number</option>
+                </select>
+              </div>
+              </div>
+            {(admin_type === "0")
+                ?
+                <PublishResultsModal cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} isResultPublished={isResultPublished}/>
+                :
+                <PublishResultsModalFaculty cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} isResultPublished={isResultPublished} isResultPublishedByFaculty={isResultPublishedByFaculty}/>
+                }
+                
+            </div>
             
             <div className="flex justify-between">
               <div className="flex">
@@ -166,9 +222,9 @@ export default function OfferingList() {
                 <PublishResultsModal  cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} isResultPublished={isResultPublished}/>
                 :
                 <PublishResultsModalFaculty  cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} isResultPublished={isResultPublished} isResultPublishedByFaculty={isResultPublishedByFaculty}/>
-                } */}
-                
-                {/* <UploadResultModal cycle_id={params.cycle_id} offering_id={params.offering_id}/> */}
+                }
+                 */}
+                <UploadResultModal cycle_id={params.cycle_id} offering_id={params.offering_id}/>
                 <MeritListGeneration cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
                 <ExportExcelModal cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
               </div>

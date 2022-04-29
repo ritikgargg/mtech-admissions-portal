@@ -9,6 +9,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import noDataGirlPic from "../../images/no-data-girl.jpg";
 import screenSpinner from "../../images/2300-spinner.gif";
 import ReApplyModal from "./ReApplyModal";
+import { Tooltip } from "@mui/material";
 
 function MyApplications(props) {
   const navigate = useNavigate();
@@ -176,8 +177,9 @@ function MyApplications(props) {
                                 to={"/view/" + application.application_id}
                                 className="text-indigo-600 hover:text-indigo-900"
                               >
-                                {/* <img className="h-7 w-7 text-indigo-600" alt="eye-icon" src="https://cdn-icons-png.flaticon.com/512/535/535193.png"/> */}
+                               <Tooltip title="View Application">
                                 <VisibilityIcon />
+                                </Tooltip>
                               </Link>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap font-medium">

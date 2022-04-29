@@ -257,102 +257,109 @@ function AdmissionCycles() {
                   </label>
                   <div className="relative gap-3 flex mt-1">
                     <div>
-                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                      <div className="flex">
+                  <label htmlFor="fees-GEN" className="text-sm mr-2 my-auto font-medium">
                     GEN
-                  </label> */}
+                  </label>
                     <input
                       type="text"
                       required
                       id="fees-GEN"
                       onChange={(e) => onChangeFees(e, 0)}
                       name="fees-GEN"
-                      placeholder="GEN"
                       pattern="[0-9]*"
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
                     </div>
+                    </div>
                     <div>
-                    {/* <label htmlFor="password" className="text-sm font-medium">
+                    <div className="flex">
+                    <label htmlFor="password" className="text-sm mr-2 my-auto font-medium">
                       OBC
-                    </label> */}
+                    </label>
                     <input
                       type="text"
                       required
                       id="fees-OBC"
                       onChange={(e) => onChangeFees(e, 1)}
                       name="fees-OBC"
-                      placeholder="OBC"
                       pattern="[0-9]*"
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
                     </div>
+                    </div>
                     <div>
-                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                    <div className="flex">
+                  <label htmlFor="fees-GEN" className="text-sm mr-2 my-auto font-medium">
                      EWS
-                  </label> */}
+                  </label>
                     <input
                       type="text"
                       required
                       id="fees-EWS"
                       onChange={(e) => onChangeFees(e, 2)}
                       name="fees-EWS"
-                      placeholder="EWS"
                       pattern="[0-9]*"
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
                     </div>
+                    </div>
                   </div>
                   <div className="relative gap-3 flex mt-3">
                     <div>
-                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                      <div className="flex">
+                  <label htmlFor="fees-GEN" className="text-sm ml-3 mr-2 my-auto font-medium">
                     SC
-                  </label> */}
+                  </label>
                     <input
                       type="text"
                       required
                       id="fees-SC"
                       onChange={(e) => onChangeFees(e, 3)}
                       name="fees-SC"
-                      placeholder="SC"
                       pattern="[0-9]*"
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
                     </div>
+                    </div>
                     <div>
-                    {/* <label htmlFor="password" className="text-sm font-medium">
+                      
+                      <div className="flex">
+                    <label htmlFor="password" className="text-sm ml-3 mr-2 my-auto font-medium">
                       ST
-                    </label> */}
+                    </label>
                     <input
                       type="text"
                       required
                       id="fees-ST"
                       onChange={(e) => onChangeFees(e, 4)}
                       name="fees-ST"
-                      placeholder="ST"
                       pattern="[0-9]*"
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
                     </div>
+                    </div>
                     <div>
-                  {/* <label htmlFor="fees-GEN" className="text-sm font-medium">
+                      <div className="flex">
+                  <label htmlFor="fees-GEN" className="text-sm mr-2 my-auto font-medium">
                      PWD
-                  </label> */}
+                  </label>
                     <input
                       type="text"
                       required
                       id="fees-PWD"
                       onChange={(e) => onChangeFees(e, 5)}
                       name="fees-PWD"
-                      placeholder="PWD"
                       pattern="[0-9]*"
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
+                    </div>
                     </div>
                   </div>
                  

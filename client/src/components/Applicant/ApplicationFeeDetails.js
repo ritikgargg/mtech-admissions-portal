@@ -132,7 +132,7 @@ function ApplicationFeeDetails(props) {
                               // ref={props.ref}
                               required
                               accept=".pdf, .jpeg, .jpg"
-                              onChange={(e) => props.handleFileSubmit(e, 2, 4)}
+                              onChange={(e) => props.handleFileSubmit(e, 2, 4, 2)}
                             />
                             <div
                               className="mt-1 text-sm text-gray-500 dark:text-gray-300"
