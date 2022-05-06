@@ -29,6 +29,7 @@ export default function OfferingList() {
   const [department, setDepartment] = useState(null);
   const [searchType, setSearchType] = useState("department");
   const [textToSearch, setTextToSearch] = useState("");
+  const [sortOrder, setSortOrder] = useState("0"); // 0 -indicates default
   
   useEffect(() => {
     axios
@@ -43,7 +44,8 @@ export default function OfferingList() {
           navigate("/logout");
         } else {
           setOfferings(response.data.offerings);
-          setAllOfferings(response.data.offerings);
+          let copy = [...response.data.offerings]
+          setAllOfferings(copy);
           setCycleName(response.data.cycle_name);
           setDepartment(response.data.department);
           setIsFetching(false);
@@ -193,11 +195,69 @@ export default function OfferingList() {
             </div>
             <div className="flex justify-between mt-2">
               <div className="flex">
+              <div className="mr-3 w-24">
+                <select
+                  id="sort-order"
+                  name="sort-order"
+                  value={sortOrder}
+                  onChange={(event) => {
+                    setSortOrder(event.target.value)
+                    if(event.target.value === "0"){
+                      let arr_offering_ids = [];
+                      for(let i = 0; i < offerings.length; i++){
+                        arr_offering_ids.push(offerings[i].offering_id)
+                      }
+                      let temp =[]
+                      for(let i = 0; i < allOfferings.length; i++){
+                        if(arr_offering_ids.includes(allOfferings[i].offering_id)){
+                          temp.push(allOfferings[i])
+                        }
+                      }
+                      setOfferings(temp)
+                    }else{
+                      console.log("All Offerings", allOfferings)
+                      setOfferings(offerings.sort(function (obj1, obj2) {
+                      if(event.target.value === "1"){
+
+                          if (obj1[searchType] < obj2[searchType]) {
+                            return -1;
+                          }
+                          else if (obj1[searchType] > obj2[searchType]) {
+                            return 1;
+                          } else{
+                            return 0;
+                          }
+                      }else if(event.target.value === "2"){
+                        if (obj1[searchType] < obj2[searchType]) {
+                            return 1;
+                          }
+                          else if (obj1[searchType] > obj2[searchType]) {
+                            return -1;
+                          } else{
+                            return 0;
+                          }
+                      }                    
+                    })
+
+                    )
+                    // console.log("All Offerings", allOfferings)
+                    }
+                    
+                  }
+                  }
+                  required
+                  className="mt-1 block w-full py-2.5 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="0">Default</option>
+                  <option value="1">A to Z</option>
+                  <option value="2">Z to A</option>
+                </select>
+              </div>
             <div className="sm:pr-3 mb-4 sm:mb-0">
               <label htmlFor="products-search" className="sr-only">
                 Search
               </label>
-              <div className="mt-1 relative sm:w-64 xl:w-80">
+              <div className="mt-1 relative sm:w-64 xl:w-72">
                 <input
                   type="text"
                   name="textToSearch"
@@ -223,10 +283,13 @@ export default function OfferingList() {
                   name="searchType"
                   value={searchType}
                   onChange={(event) => {
+                    setTextToSearch("");
+                    setSortOrder("0");
+                    setOfferings(allOfferings);
                     setSearchType(event.target.value)}
                   }
                   required
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full py-2.5 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 >
                   <option value="department">Department</option>
                   <option value="specialization">Specialization</option>
@@ -271,6 +334,7 @@ export default function OfferingList() {
                     entries
                 </span>
               </div>
+              
               <div className="flex">
                 <PublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
                 <UnpublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>

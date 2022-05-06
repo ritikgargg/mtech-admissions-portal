@@ -59,7 +59,6 @@ export default function PublishAllResultsModal(props) {
       <button
           onClick={handleOpen}
           type="button"
-          disabled
           className="focus:outline-none w-1/2 mr-2 text-white bg-black focus:ring-4 focus:ring-gray-200 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
         >
           {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

@@ -28,7 +28,7 @@ export default function OfferingList() {
   const [offeringName, setOfferingName] = useState("Offering");
   const [isResultPublished, setIsResultPublished] = useState(0);
   const [isResultPublishedByFaculty, setIsResultPublishedByFaculty] = useState(0);
-  const [searchType, setSearchType] = useState("department");
+  const [searchType, setSearchType] = useState("full_name");
   const [textToSearch, setTextToSearch] = useState("");
   const params = useParams();
   const admin_type = getAdminType();
@@ -141,6 +141,8 @@ export default function OfferingList() {
                   value={textToSearch}
                   onChange={(event) => {
                     setTextToSearch(event.target.value); 
+                    console.log(event.target.value);
+
                     setApplications(allApplications.filter((application) => application[searchType].toLowerCase().includes(event.target.value.toLowerCase())))
                 }}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
@@ -159,6 +161,8 @@ export default function OfferingList() {
                   name="searchType"
                   value={searchType}
                   onChange={(event) => {
+                    setTextToSearch("");
+                    setApplications(allApplications)
                     setSearchType(event.target.value)}
                   }
                   required

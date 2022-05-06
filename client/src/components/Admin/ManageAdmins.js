@@ -6,6 +6,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
+import adminsPic from "../../images/manage-admins.jpg"
 
 export default function ManageAdmin() {
   // ek list with email id, role and (if faculty then department)
@@ -142,7 +143,20 @@ export default function ManageAdmin() {
               ))}
           </tbody>
         </table>
-        {(isFetching)? <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> : ""}
+        {(isFetching)? <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> 
+        : 
+        adminList.length === 0 && (
+          <div className="bg-white">
+            <div className="w-3/5 mx-auto my-50 text-center">
+              <div className="h-5" />
+              <img alt="No admins added yet" src={adminsPic} />
+              <p className="text-2xl font-semibold">
+                No admins added yet!
+              </p>
+              <div className="h-6"></div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   </div>;

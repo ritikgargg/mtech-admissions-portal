@@ -128,7 +128,7 @@ export default function AdminDashboard() {
 
   return (
     <div>
-    {/* {(isFetching)
+    {(isFetching)
       ? 
       <div className="mt-40"><img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> </div>
     : 
@@ -207,7 +207,7 @@ export default function AdminDashboard() {
       <div className="h-6" />
     </div>
   </div>
-  }  */}
+  } 
     </div>
   );
 }
