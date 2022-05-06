@@ -128,7 +128,7 @@ export default function AdminDashboard() {
 
   return (
     <div>
-    {(isFetching)
+    {/* {(isFetching)
       ? 
       <div className="mt-40"><img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> </div>
     : 
@@ -180,44 +180,6 @@ export default function AdminDashboard() {
         </div>
       </div>      
         <div className="px-10 mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {/* <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div className="flex items-center">
-              <div className="mr-5 w-0 flex items-center flex-1 text-base font-bold">
-                  <img className="w-12 h-12" alt="Calendar Icon" src={calendar}/>
-                </div>
-                <div className="flex-shrink-0">
-                  <span className="text-xl sm:text-xl leading-none font-bold text-gray-900">{currentCycleName}</span>
-                  <h3 className="text-base font-normal text-gray-500">{currentCycleStart} - {currentCycleEnd}</h3>
-                </div>
-              
-            </div>
-          </div> */
-          /* <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div className="flex items-center">
-              <div className="mr-5 w-0 flex items-center flex-1 text-base font-bold">
-                  <img className="w-12 h-12" alt="Calendar Icon" src={calendar}/>
-                </div>
-                <div className="flex-shrink-0">
-                  <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">{offeringsCount}</span>
-                  <h3 className="text-base font-normal text-gray-500">Total Offerings</h3>
-                </div>
-              
-            </div>
-          </div>
-
-          <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div className="flex items-center">
-              <div className="mr-5 w-0 flex items-center flex-1 text-base font-bold">
-                  <img className="w-12 h-12" alt="Calendar Icon" src={calendar}/>
-                </div>
-                <div className="flex-shrink-0">
-                  <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">{applicationsCount}</span>
-                  <h3 className="text-base font-normal text-gray-500">Total Applications</h3>
-                </div>
-              
-            </div>
-          </div> */}
-        
        
       </div>
       
@@ -232,29 +194,7 @@ export default function AdminDashboard() {
                         />
             </div>
           </div>
-        </div>
-
-
-        {/* <div className="px-3 md:px-8 -mt-24">
-            <div className="container mx-auto max-w-full">
-                <div className="grid grid-cols-1 xl:grid-cols-5">
-                    <div className="xl:col-start-1 xl:col-end-4 px-4 mb-14">
-                        <ChartBar currentCycleName={currentCycleName} offerings={offerings} currentOffering={currentOffering} setCurrentOffering={setCurrentOffering} labels={labels} displayData={displayData} onChange={onChange}/>
-                    </div>
-                    <div className="xl:col-start-4 xl:col-end-6 px-4 mb-14">
-                        <ChartBarGender currentCycleName={currentCycleName} offerings={offerings} currentOffering={currentOffering} setCurrentOffering={setCurrentOffering} labels={labels} displayData={displayData} onChange={onChange}/>
-                    </div>
-                </div>
-            </div>
-        </div> */}
-
-        {/* <div className="px-3 md:px-8  mt-12">
-            <div className="container mx-auto w-2/3">
-            <ChartBarGender currentCycleName={currentCycleName} offerings={offerings} currentOffering={currentOffering} setCurrentOffering={setCurrentOffering} labels={labels} displayData={displayData} onChange={onChange}
-                        />
-            </div>
-        </div> */}
-        
+        </div>        
     </div>
     :
     <div className="bg-white">
@@ -267,7 +207,7 @@ export default function AdminDashboard() {
       <div className="h-6" />
     </div>
   </div>
-  } 
+  }  */}
     </div>
   );
 }

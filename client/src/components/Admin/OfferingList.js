@@ -329,12 +329,12 @@ export default function OfferingList() {
                     >
                       Status
                     </th>
-                    <th
+                    {/* <th
                       scope="col"
                       className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                     >
                       Results
-                    </th>
+                    </th> */}
                     <th scope="col" className="p-4"></th>
                   </tr>
                 </thead>
@@ -419,7 +419,7 @@ export default function OfferingList() {
 <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Dark</span> */}
 
                         {/* PUBLISH/NOTPUBLISHED WALA UNCOMMENT KARNA HAI BAADMEI.. OOPAR WALA SPAN ISKE ANDAR COMMENTED THA */}
-                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                        {/* <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                           { offerings[i].is_result_published === 1 && (
                             <span className="bg-blue-100 inline-flex text-blue-800 text-xs text-center font-semibold px-2.5 py-1.5 rounded dark:bg-blue-200 dark:text-blue-800">Published to Applicants</span>
                           )}
@@ -429,7 +429,7 @@ export default function OfferingList() {
                           {offerings[i].is_result_published === 0  && offerings[i].is_result_published_by_faculty === 0 && (
                             <span className="bg-gray-100 inline-flex text-gray-800 text-xs text-center font-semibold px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Not Published</span>
                           )}
-                        </td>
+                        </td> */}
 
                         <td className="p-6 whitespace-nowrap space-x-2 flex">
                           <Link
