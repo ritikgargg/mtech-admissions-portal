@@ -72,9 +72,9 @@ CREATE TABLE admins(
   name TEXT, 
   email_id TEXT PRIMARY KEY,
   admin_type INT NOT NULL,
-  department TEXT
+  department TEXT[]
 );
--- 0 for super-admin, 1 for faculty-admins/supervisors
+-- 0 for super-admin, 1 for faculty-admins, 3 for Staff
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
   RETURNS TRIGGER 
@@ -172,4 +172,4 @@ INSERT INTO current_cycle(cycle_id) VALUES(0);
 
 -- Do always
 -- INSERT INTO admins(name, email_id, admin_type, department) VALUES('Acads', 'admin@admin', 0, 'Academics');
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('Acads', '2019csb1106@iitrpr.ac.in', 0, 'Academics');
+INSERT INTO admins(name, email_id, admin_type, department) VALUES('Acads', '2019csb1106@iitrpr.ac.in', 0, ARRAY['Biomedical Engineering', 'Chemical Engineering','Civil Engineering','Computer Science and Engineering', 'Electrical Engineering', 'Mechanical Engineering']);

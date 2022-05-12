@@ -181,6 +181,18 @@ app.post(
   admindB.unpublish_all_results
 );
 
+app.post(
+  "/open-all-offerings",
+  upload.fields([]),
+  admindB.open_all_offerings
+);
+
+app.post(
+  "/close-all-offerings",
+  upload.fields([]),
+  admindB.close_all_offerings
+);
+
 app.post("/add-template", upload.fields([]), templates.add_template);
 
 app.post("/delete-template", upload.fields([]), templates.delete_template);

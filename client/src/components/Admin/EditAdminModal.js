@@ -7,6 +7,8 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated'
 
 const style = {
   position: "absolute",
@@ -19,24 +21,54 @@ const style = {
   borderRadius: 5,
 };
 
+const customStyles = {
+  control: (base, state) => ({
+    ...base,
+    fontSize: "14px",
+    lineHeight: "20px",
+    borderRadius: "8px",
+    padding: "5px",
+    outline: state.isFocused ? "none" : "",
+    border: "1px solid rgb(229 231 235)",
+    boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)"
+  })
+};
+
 export default function EditAdminModal(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [adminType, setAdminType] = useState(props.admin.admin_type)
+
+  const initSelectOptions = () => {
+    let temp = []
+    for(let i = 0; i < props.admin.department.length; i++){
+      temp.push({'value': props.admin.department[i], 'label': props.admin.department[i]});
+    }
+    console.log("Temp", temp);
+    return temp;
+  }
+  const [selectedOptions, setSelectedOptions] = useState(initSelectOptions);
   const navigate = useNavigate();
+  const animatedComponents = makeAnimated();
 
   console.log(props.admin)
 
-  // function convertRole(admin_type){
-  //   if(admin_type === 0){
-  //       return "SUPER ADMIN"
-  //   }else{
-  //       return "FACULTY"
-  //   }
-  // }
+  const options = [
+    {value:'Biomedical Engineering', label: 'Biomedical Engineering'},
+    {value: 'Chemical Engineering', label: 'Chemical Engineering'},
+    {value:'Civil Engineering', label: 'Civil Engineering'},
+    {value:'Computer Science and Engineering', label: 'Computer Science and Engineering'},
+    {value:'Electrical Engineering', label: 'Electrical Engineering' },
+    {value:'Mechanical Engineering', label: 'Mechanical Engineering'},
+  ]
+
+  const handleChange = (options) => {
+    setSelectedOptions(options);
+};
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
-     ...props.admin
+     ...props.admin,
+     department: 'Academics'
     },
   });
 
@@ -58,10 +90,22 @@ export default function EditAdminModal(props) {
 
     console.log(data)
 
+    let filteredOptions = []
+    if(adminType === 0){
+      for (let i = 0; i < options.length; i++) {
+        filteredOptions.push(options[i].value);
+      }
+    }
+    else{
+      for (let i = 0; i < selectedOptions.length; i++) {
+        filteredOptions.push(selectedOptions[i].value);
+      }
+    }
+
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
     formData.append("admin_type", adminType);
-    formData.append("department", data.department);
+    formData.append("department", JSON.stringify(filteredOptions));
 
     Axios.post("/edit-admin", formData, {
       headers: {
@@ -175,10 +219,6 @@ export default function EditAdminModal(props) {
                       />
                     </div>
                     
-                    {/* <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label>
-                        <Toggle/>
-                      </div> */}
 
                       <div className="col-span-full sm:col-span-full">
                         <label htmlFor="admin_type" className="text-sm font-medium text-gray-900 block mb-2">Role</label>
@@ -194,6 +234,7 @@ export default function EditAdminModal(props) {
                           <option value="">- Select -</option>
                           <option value={0}>SUPER ADMIN</option>
                           <option value={1}>FACULTY</option>
+                          <option value={3}>STAFF</option>
                         </select>
                       </div>
                       {(adminType === 0) && <div className="col-span-full sm:col-span-full">
@@ -212,25 +253,26 @@ export default function EditAdminModal(props) {
                           }
 
                           {
-                            (adminType === 1) &&
+                            (adminType === 1 || adminType === 3) &&
                             <div className="col-span-full sm:col-span-full">
                         <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                            <select
-                                id="department"
-                                {...register("department")}
-                                required
-                                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                              >
-                                <option value="">- Select -</option>
-                                <option value="Chemical Engineering">Chemical Engineering</option>
-                                <option value="Civil Engineering">Civil Engineering</option>
-                                <option value="Computer Science and Engineering">Computer Science and Engineering</option>
-                                <option value="Electrical Engineering">Electrical Engineering</option>
-                                <option value="Mechanical Engineering">Mechanical Engineering</option>
-                                <option value="Biomedical Engineering">Biomedical Engineering</option>
-                          </select>
+
+                          <Select
+                              // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+                              styles={customStyles}
+                              value={selectedOptions}
+                              closeMenuOnSelect={false}
+                              components={animatedComponents}
+                              isMulti={true}
+                              options={options}
+                              onChange={handleChange}
+                              maxMenuHeight={150}
+                          />
                           </div> 
-                          }                       
+                          }
+
+
+                                              
                       
                   </div>
 

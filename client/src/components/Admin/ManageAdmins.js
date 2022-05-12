@@ -7,6 +7,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 import adminsPic from "../../images/manage-admins.jpg"
+import ViewDepartmentModal from "./ViewDepartmentModal";
 
 export default function ManageAdmin() {
   // ek list with email id, role and (if faculty then department)
@@ -22,11 +23,11 @@ export default function ManageAdmin() {
   function renderAdmin(param) {
     switch(param) {
       case 0:
-        return 'Admin';
+        return 'ADMIN';
       case 1:
-        return "Faculty"
+        return "FACULTY"
       default:
-        return 'Staff';
+        return 'STAFF';
     }
   }
 
@@ -124,9 +125,6 @@ export default function ManageAdmin() {
               <th className="px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
                 Email Address
               </th>
-              <th className="px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
-                Department
-              </th>
               <th className="text-center px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold uppercase border-l-0 border-r-0 whitespace-nowrap">
                 Admin Role
               </th>
@@ -144,9 +142,6 @@ export default function ManageAdmin() {
                   <td className="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                     {admin.email_id}
                   </td>
-                  <td className="border-t-0 px-10 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
-                    {admin.department}
-                  </td>
                   <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                     <div 
                     className={renderAdminStyles(admin.admin_type)}
@@ -156,7 +151,8 @@ export default function ManageAdmin() {
                     </div>
                   </td>
                   <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">       
-                    <div className="flex gap-2 justify-end">  
+                    <div className="flex gap-2 justify-end"> 
+                      <ViewDepartmentModal admin = {admin}/> 
                       <EditAdminModal admin={admin}/>
                       <DeleteAdminModal email_id={admin.email_id} setReRender={setReRender}/>
                     </div>

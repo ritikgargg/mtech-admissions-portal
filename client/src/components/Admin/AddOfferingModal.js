@@ -9,6 +9,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
+import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",
@@ -27,6 +28,7 @@ export default function AddOfferingModal(props) {
   const [applicationChecked, setApplicationChecked] = useState(false);
   const [draftChecked, setDraftChecked] = useState(false);
   const { register, handleSubmit, reset } = useForm();
+  const admin_type = getAdminType()
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -295,7 +297,8 @@ export default function AddOfferingModal(props) {
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
                   <div className="flex justify-between">
-                    <div className="p-3">
+                  {(admin_type === 0)?
+                  (<><div className="p-3">
                       <FormControlLabel
                         control={
                           <Toggle
@@ -309,7 +312,6 @@ export default function AddOfferingModal(props) {
 
                       {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
                     </div>
-
                     <div className="p-3">
                       <FormControlLabel
                         control={
@@ -323,7 +325,11 @@ export default function AddOfferingModal(props) {
                       />
 
                       {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
-                    </div>
+                    </div></>) 
+                  : <h3 className="italic text-base font-normal text-gray-500 mt-4 mb-1">
+                      This offering will be added in draft mode.
+                    </h3>}
+                    
                     <div className="p-3 border-t border-gray-200 rounded-b">
                       
                           {!isLoading ? (

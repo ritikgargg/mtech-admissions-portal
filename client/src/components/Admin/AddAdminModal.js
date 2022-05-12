@@ -6,6 +6,8 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated'
 import spinner from "../../images/SpinnerWhite.gif";
 
 const style = {
@@ -19,12 +21,36 @@ const style = {
   borderRadius: 5,
 };
 
+const customStyles = {
+  control: (base, state) => ({
+    ...base,
+    fontSize: "14px",
+    lineHeight: "20px",
+    borderRadius: "8px",
+    padding: "5px",
+    outline: state.isFocused ? "none" : "",
+    border: "1px solid rgb(229 231 235)",
+    boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)"
+  })
+};
+
 export default function AddAdminModal() {
   const [isLoading, setIsLoading] = useState(false);
   const [adminType, setAdminType] = useState("")
+  const animatedComponents = makeAnimated();
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
   const [error, setError] = useState(0);
+
+  const options = [
+    {value:'Biomedical Engineering', label: 'Biomedical Engineering'},
+    {value: 'Chemical Engineering', label: 'Chemical Engineering'},
+    {value:'Civil Engineering', label: 'Civil Engineering'},
+    {value:'Computer Science and Engineering', label: 'Computer Science and Engineering'},
+    {value:'Electrical Engineering', label: 'Electrical Engineering' },
+    {value:'Mechanical Engineering', label: 'Mechanical Engineering'},
+  ]
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -38,16 +64,33 @@ export default function AddAdminModal() {
     reset();
   };
 
+  const handleChange = (options) => {
+    setSelectedOptions(options);
+};
+  
+
   const onSubmit = (data) => {
     setIsLoading(true);
     console.log(data);
 
     const formData = new FormData();
+    let filteredOptions = []
+    if(adminType === 0){
+      for (let i = 0; i < options.length; i++) {
+        filteredOptions.push(options[i].value);
+      }
+    }
+    else{
+      for (let i = 0; i < selectedOptions.length; i++) {
+        filteredOptions.push(selectedOptions[i].value);
+      }
+    }
+    
 
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
     formData.append("admin_type", adminType);
-    formData.append("department", data.department);
+    formData.append("department", JSON.stringify(filteredOptions));
 
     Axios.post("/add-admin", formData, {
       headers: {
@@ -216,10 +259,10 @@ export default function AddAdminModal() {
                           }
 
                           {
-                            (adminType === 1) &&
+                            (adminType === 1 || adminType === 3) &&
                             <div className="col-span-full sm:col-span-full">
                         <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                            <select
+                            {/* <select
                                 id="department"
                                 {...register("department")}
                                 required
@@ -232,26 +275,19 @@ export default function AddAdminModal() {
                                 <option value="Electrical Engineering">Electrical Engineering</option>
                                 <option value="Mechanical Engineering">Mechanical Engineering</option>
                                 <option value="Biomedical Engineering">Biomedical Engineering</option>
-                          </select>
+                          </select> */}
+                          <Select
+                              // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+                              styles={customStyles}
+                              closeMenuOnSelect={false}
+                              components={animatedComponents}
+                              isMulti={true}
+                              options={options}
+                              onChange={handleChange}
+                              maxMenuHeight={150}
+                          />
                           </div> 
                           }
-
-                           {(adminType === 3) && 
-                      <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                        
-                        <select
-                          id="department"
-                          {...register("department")}
-                          required
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        >
-                          <option value="">- Select -</option>
-                          <option value="Academics">Staff</option>
-                          </select>
-                          </div>
-                          }
- 
 
                      
                   </div>

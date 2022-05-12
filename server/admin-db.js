@@ -276,24 +276,42 @@ const add_offering = async (req, res) => {
   }
 
   let info = req.body;
-
+  
   var cycle_id = info.cycle_id;
 
-  const results = await pool.query(
-    "INSERT INTO mtech_offerings_" +
-      cycle_id +
-      " (department, specialization, seats, gate_paper_codes, eligibility, deadline, is_accepting_applications, is_draft_mode) VALUES($1, $2, $3, $4, $5, $6, $7, $8);",
-    [
-      info.department,
-      info.specialization,
-      info.seats,
-      info.gate_paper_codes,
-      info.eligibility,
-      info.deadline,
-      info.is_accepting_applications,
-      info.is_draft_mode,
-    ]
-  );
+  if(userRole === 0){
+    const results = await pool.query(
+      "INSERT INTO mtech_offerings_" +
+        cycle_id +
+        " (department, specialization, seats, gate_paper_codes, eligibility, deadline, is_accepting_applications, is_draft_mode) VALUES($1, $2, $3, $4, $5, $6, $7, $8);",
+      [
+        info.department,
+        info.specialization,
+        info.seats,
+        info.gate_paper_codes,
+        info.eligibility,
+        info.deadline,
+        info.is_accepting_applications,
+        info.is_draft_mode,
+      ]
+    );
+  }else{
+    const results = await pool.query(
+      "INSERT INTO mtech_offerings_" +
+        cycle_id +
+        " (department, specialization, seats, gate_paper_codes, eligibility, deadline, is_accepting_applications, is_draft_mode) VALUES($1, $2, $3, $4, $5, $6, false, true);",
+      [
+        info.department,
+        info.specialization,
+        info.seats,
+        info.gate_paper_codes,
+        info.eligibility,
+        info.deadline,
+      ]
+    );
+  }
+
+  
 
   return res.send("Ok");
 };
@@ -649,7 +667,7 @@ const add_admin = async (req, res) => {
   /** Add email_id */
   const add = await pool.query(
     "INSERT INTO admins(name, email_id, admin_type, department) VALUES($1, $2, $3, $4);",
-    [info.name, info.email_id, info.admin_type, info.department]
+    [info.name, info.email_id, info.admin_type, JSON.parse(info.department)]
   );
 
   return res.send("Ok");
@@ -691,7 +709,7 @@ const edit_admin = async (req, res) => {
   /** Edit admin_info */
   const edit = await pool.query(
     "UPDATE admins SET name = $1, admin_type = $2, department = $3 WHERE email_id = $4;",
-    [info.name, info.admin_type, info.department, info.email_id]
+    [info.name, info.admin_type, JSON.parse(info.department), info.email_id]
   );
 
   return res.send("Ok");
@@ -1014,6 +1032,84 @@ const unpublish_all_results = async (req, res) => {
   return res.send("Ok");
 };
 
+/**
+ * Open all offerings
+ */
+ const open_all_offerings = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+
+  var cycle_id = info.cycle_id;
+
+  const results = await pool.query(
+    "UPDATE mtech_offerings_" + cycle_id + " SET is_accepting_applications = true"
+  );
+ 
+  return res.send("Ok");
+};
+
+/**
+ * Close all offerings
+ */
+ const close_all_offerings = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+
+  var cycle_id = info.cycle_id;
+
+  const results = await pool.query(
+    "UPDATE mtech_offerings_" + cycle_id + " SET is_accepting_applications = false"
+  );
+ 
+  return res.send("Ok");
+};
+
 /** Delete application */
 const delete_application = async (req, res) => {
   /**
@@ -1097,5 +1193,6 @@ module.exports = {
   publish_all_results,
   unpublish_all_results,
   delete_application,
-  // get_admin_type
+  open_all_offerings,
+  close_all_offerings,
 };
