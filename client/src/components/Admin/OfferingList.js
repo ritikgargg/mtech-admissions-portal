@@ -16,6 +16,9 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import screenSpinner from "../../images/2300-spinner.gif";
 import PublishAllResultsModal from "./PublishAllResultsModal";
 import UnpublishAllResultsModal from "./UnpublishAllResultsModal";
+import OpenAllOfferings from "./OpenAllOfferings";
+import CloseAllOfferings from "./CloseAllOfferings";
+import { getAdminType } from "./AdminTypes";
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -30,6 +33,7 @@ export default function OfferingList() {
   const [searchType, setSearchType] = useState("department");
   const [textToSearch, setTextToSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("0"); // 0 -indicates default
+  var admin_type = getAdminType();
   
   useEffect(() => {
     axios
@@ -334,10 +338,19 @@ export default function OfferingList() {
                     entries
                 </span>
               </div>
-              
-              <div className="flex">
-                <PublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
-                <UnpublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
+              <div className="flex gap-1">
+                {admin_type === "0" 
+                ? 
+                <div className="flex">
+                  <OpenAllOfferings cycleName={cycleName} cycle_id={params.cycle_id}/>
+                  <CloseAllOfferings cycleName={cycleName} cycle_id={params.cycle_id}/>
+                </div>
+                : ""}
+                
+                <div className="flex">
+                  <PublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
+                  <UnpublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
+                </div>
               </div>
             </div>
           </div>

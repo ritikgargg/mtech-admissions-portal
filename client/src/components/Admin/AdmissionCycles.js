@@ -223,7 +223,7 @@ function AdmissionCycles() {
                       id="name"
                       onChange={(e) => handleChange(e, "name")}
                       className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-                      placeholder="Admission Cycle for 2020-2021"
+                      placeholder="Admissions for AY 2022-23"
                       required
                     />
                   </div>

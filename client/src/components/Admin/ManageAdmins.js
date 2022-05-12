@@ -30,7 +30,7 @@ export default function ManageAdmin() {
           navigate("/logout");
         } else {
           console.log("alert", sessionStorage.getItem("alert"));
-          // setAdminList(response.data);
+          setAdminList(response.data);
           setIsFetching(false);
         }
       })

@@ -194,6 +194,7 @@ export default function AddAdminModal() {
                           <option value="">- Select -</option>
                           <option value={0}>SUPER ADMIN</option>
                           <option value={1}>FACULTY</option>
+                          <option value={3}>STAFF</option>
                         </select>
                       </div>
 
@@ -233,7 +234,24 @@ export default function AddAdminModal() {
                                 <option value="Biomedical Engineering">Biomedical Engineering</option>
                           </select>
                           </div> 
-                          } 
+                          }
+
+                           {(adminType === 2) && 
+                      <div className="col-span-full sm:col-span-full">
+                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
+                        
+                        <select
+                          id="department"
+                          {...register("department")}
+                          required
+                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        >
+                          <option value="">- Select -</option>
+                          <option value="Academics">Staff</option>
+                          </select>
+                          </div>
+                          }
+ 
 
                      
                   </div>

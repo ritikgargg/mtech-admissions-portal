@@ -18,6 +18,16 @@ export default function AdminNavbarWithSidebar() {
   // const [logout, setLogout] = useState(false);
   var admin_type = getAdminType();
   
+  function renderAdmin(param) {
+    switch(param) {
+      case "0":
+        return 'Admin';
+      case "1":
+        return "Faculty"
+      default:
+        return 'Staff';
+    }
+  }
 
   return (
     <>
@@ -32,7 +42,8 @@ export default function AdminNavbarWithSidebar() {
             rel="noreferrer"
             className="mt-2 text-center w-full inline-block"
           >
-            <H6 color="gray">{(admin_type === "0")? "Admin" : "Faculty"} Portal</H6>
+            {/* <H6 color="gray">{(admin_type === "0")? "Admin" : "Faculty"} Portal</H6> */}
+            <H6 color="gray">{renderAdmin(admin_type)} Portal</H6>
           </a>
           <div className="flex flex-col">
             <hr className="my-4 min-w-full" />
