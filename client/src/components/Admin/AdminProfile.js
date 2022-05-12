@@ -1,5 +1,5 @@
 import React, {useState, useEffect,useRef} from 'react';
-import ProfileSettingsImage from "../../images/admin-profile.jpg"
+import ProfileSettingsImage from "../../images/Asset 7.svg"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";

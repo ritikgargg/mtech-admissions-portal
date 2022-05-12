@@ -161,7 +161,7 @@ export default function AdminNavbarWithSidebar() {
                   Profile
                 </NavLink>
               </li>
-              {/* <li className="rounded-lg mb-2 text-gray-700">
+              <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/how-to-use"
                   exact
@@ -174,7 +174,7 @@ export default function AdminNavbarWithSidebar() {
                   <HelpOutlineIcon size="2xl" />
                   How To Use?
                 </NavLink>
-              </li> */}
+              </li>
               
 
               {admin_type === "0" && <li className="rounded-lg mb-2 text-gray-700">

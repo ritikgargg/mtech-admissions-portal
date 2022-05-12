@@ -11,7 +11,7 @@ import AddOfferingModal from "./AddOfferingModal";
 import { Tooltip } from "@mui/material";
 // import groupPic from '../../images/group.png'
 import { UserGroupIcon } from "@heroicons/react/solid";
-import noDataPic from "../../images/no-data.jpg";
+import noDataPic from "../../images/Asset 8.svg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import screenSpinner from "../../images/2300-spinner.gif";
 import PublishAllResultsModal from "./PublishAllResultsModal";

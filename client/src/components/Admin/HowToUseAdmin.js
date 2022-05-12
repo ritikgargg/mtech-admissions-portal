@@ -1,13 +1,13 @@
 import React, {useState} from "react"
 import SlidesDisplayModule from "./SlidesDisplayModule"
-import AdminImage from "../../images/How-To-Use-9.jpg"
-import ApplicationsImage from "../../images/How-To-Use-2.jpg"
-import ProfileImage from "../../images/How-To-Use-3.jpg"
+import AdminImage from "../../images/How-To-Use-9.svg"
+import ApplicationsImage from "../../images/Asset 12.svg"
+import ProfileImage from "../../images/Asset 16.svg"
 import HowToUse4 from "../../images/How-To-Use-4.jpg"
-import TemplateImage from "../../images/How-To-Use-12.jpg"
-import ExportDataImage from "../../images/How-To-Use-10.jpg"
-import OfferingsImage from "../../images/How-To-Use-8.jpg"
-import CalendarImage from "../../images/How-To-Use-11.jpg"
+import TemplateImage from "../../images/How-To-Use-12.svg"
+import ExportDataImage from "../../images/Asset 15.svg"
+import OfferingsImage from "../../images/Asset 9.svg"
+import CalendarImage from "../../images/How-To-Use-11.svg"
 
 /*
   This example requires Tailwind CSS v2.0+ 
