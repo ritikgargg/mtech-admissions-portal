@@ -32,6 +32,7 @@ const transporter = nodemailer.createTransport({
  * 0 for super-admin
  * 1 for faculty-admins/supervisors
  * 2 for applicants
+ * 3 for staff from academics
  */
 
 const signin_otp = async (req, res) => {

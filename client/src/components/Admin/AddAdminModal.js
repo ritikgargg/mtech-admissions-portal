@@ -236,7 +236,7 @@ export default function AddAdminModal() {
                           </div> 
                           }
 
-                           {(adminType === 2) && 
+                           {(adminType === 3) && 
                       <div className="col-span-full sm:col-span-full">
                         <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
                         

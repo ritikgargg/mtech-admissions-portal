@@ -23,13 +23,13 @@ heroku logs --remote iit-ropar-admissions-portal
 
 Stakeholder remarks
 
-1. Heading - Admission cycle for year 2022-2023 (Confirm first)
+1. Heading - Admission cycle for year 2022-2023 (Confirm first) ( DONE )
 
-2. Default closing date for all offerings, along with individual closing dates allowed
+2. Default closing date for all offerings, along with individual closing dates allowed [DONE on UI, but not on Backend]
 
-3. Any other or staff role in admin portal, same responsibility as faculty
+3. Any other or staff role in admin portal, same responsibility as faculty [DONE ALMOST]
 
-4. Allow faculty to see applications from different departments
+4. Allow faculty to see applications from different departments 
 
 5. Faculty can add offerings but only admin can approve
 

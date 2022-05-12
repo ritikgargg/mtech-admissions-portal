@@ -19,6 +19,28 @@ export default function ManageAdmin() {
     sessionStorage.setItem("alert", "0");
   }
 
+  function renderAdmin(param) {
+    switch(param) {
+      case 0:
+        return 'Admin';
+      case 1:
+        return "Faculty"
+      default:
+        return 'Staff';
+    }
+  }
+
+  function renderAdminStyles(param) {
+    switch(param) {
+      case 0:
+        return 'py-3 text-center rounded-lg font-semibold bg-red-50 text-red-900 border border-red-200';
+      case 1:
+        return 'py-3 text-center rounded-lg font-semibold bg-yellow-50 text-yellow-900 border border-yellow-200'
+      default:
+        return 'py-3 text-center rounded-lg font-semibold bg-green-50 text-green-900 border border-green-200';
+    }
+  }
+
   useEffect(()=>{
     Axios.get("/get-admins", {
       headers: {
@@ -126,11 +148,11 @@ export default function ManageAdmin() {
                     {admin.department}
                   </td>
                   <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
-                    <div className={
-                      admin.admin_type === 0 ? 
-                      "py-3 text-center rounded-lg font-semibold bg-red-50 text-red-900 border border-red-200" :
-                      "py-3 text-center rounded-lg font-semibold bg-yellow-50 text-yellow-900 border border-yellow-200"}>
-                      {admin.admin_type === 1 ? "FACULTY" : "SUPER ADMIN"}
+                    <div 
+                    className={renderAdminStyles(admin.admin_type)}
+                    >
+                      {/* {admin.admin_type === 1 ? "FACULTY" : "SUPER ADMIN"} */}
+                      {renderAdmin(admin.admin_type)}
                     </div>
                   </td>
                   <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">       

@@ -124,7 +124,7 @@ const get_admission_cycles = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -271,7 +271,7 @@ const add_offering = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -320,7 +320,7 @@ const edit_offering = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -370,7 +370,7 @@ const delete_offering = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -410,7 +410,7 @@ const get_offerings = async (req, res) => {
   var userRole = jwt.decode(authToken).userRole;
   var department = jwt.decode(authToken).department;
 
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -477,7 +477,7 @@ const get_offering_applications = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -552,7 +552,7 @@ const get_application_info_admin = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -813,7 +813,7 @@ const get_admin_profile = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -855,7 +855,7 @@ const edit_admin_profile = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -894,7 +894,7 @@ const publish_unpublish_results = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1  && userRole !== 3) {
     return res.send("1");
   }
 
@@ -945,7 +945,7 @@ const publish_all_results = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1  && userRole !== 3) {
     return res.send("1");
   }
 
@@ -991,7 +991,7 @@ const unpublish_all_results = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1  && userRole !== 3) {
     return res.send("1");
   }
 
