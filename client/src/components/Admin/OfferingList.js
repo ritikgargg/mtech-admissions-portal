@@ -29,7 +29,7 @@ export default function OfferingList() {
   const [cycleName, setCycleName] = useState("Admission Cycle");
   const [offerings, setOfferings] = useState([]);
   const [allOfferings, setAllOfferings] = useState([]);
-  const [department, setDepartment] = useState(null);
+  const [department, setDepartment] = useState([]);
   const [searchType, setSearchType] = useState("department");
   const [textToSearch, setTextToSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("0"); // 0 -indicates default

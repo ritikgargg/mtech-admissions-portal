@@ -4,6 +4,7 @@ const { Storage } = require("@google-cloud/storage");
 const pool = require("./db");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
+const auth = require("./auth.js");
 
 dotenv.config();
 
@@ -650,7 +651,11 @@ const save_application_info = async (req, res, next) => {
     );
   }
 
-  Promise.allSettled(promises).then(res.status(200).send("Ok"));
+  auth.application_submission(email)
+
+  Promise.allSettled(promises).then(
+    res.status(200).send("Ok")
+  );
 };
 
 /**

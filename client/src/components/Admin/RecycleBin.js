@@ -6,6 +6,7 @@ import screenSpinner from "../../images/2300-spinner.gif";
 import DeleteCyclePermanently from './DeleteCyclePermanently';
 import RestoreDeletedCycle from "./RestoreDeletedCycle"
 import EmptyTrashSvg from "../../images/image.svg"
+import ViewFeesModal from "./ViewFeesModal";
 
 export default function RecycleBin () {
     const navigate = useNavigate();
@@ -69,9 +70,10 @@ export default function RecycleBin () {
                                 {cycle.duration_end}
                             </td>
                             <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">       
-                                <div className="flex gap-2 justify-end">  
+                                <div className="flex gap-2 justify-end"> 
+                                    <ViewFeesModal cycle = {cycle}/>  
                                     <RestoreDeletedCycle cycle_id ={cycle.cycle_id} cycle_name={cycle.name}/>
-                                    <DeleteCyclePermanently cycle_id ={cycle.cycle_id} cycle_name={cycle.name}/>
+                                    {/* <DeleteCyclePermanently cycle_id ={cycle.cycle_id} cycle_name={cycle.name}/> */}
                                 </div>
                             </td>
                             </tr>

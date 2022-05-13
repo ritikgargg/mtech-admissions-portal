@@ -85,6 +85,8 @@ app.get("/reapply-check-applicant-info", applicantdB.reapply_check_applicant_inf
 
 app.get("/get-open-positions", applicantdB.get_open_positions);
 
+app.get("/get-open-positions-landing", landing.get_open_positions_landing);
+
 app.get("/get-user-info", applicantdB.get_user_info);
 
 app.get("/get-offering-info", applicantdB.get_offering_info);

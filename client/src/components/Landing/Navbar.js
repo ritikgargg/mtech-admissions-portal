@@ -7,7 +7,7 @@ import pic from "../../images/iit-ropar-logo.jpg";
 const navigation = [
   { name: "Home", to: "/" },
   { name: "How to Apply", to: "/how-to-apply" },
-  { name : "Courses", to: "/courses" },
+  { name : "Openings", to: "/courses" },
   { name: "More Info", to: '/info' },
   { name : "FAQs", to: "/faqs" },
   { name: "Contact us", to: "/contact-us" },

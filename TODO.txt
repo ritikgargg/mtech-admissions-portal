@@ -21,23 +21,26 @@ Jispe cramsh
 heroku logs --remote iit-ropar-admissions-portal
 
 
+*********** Change the text in the mail of application submission ***************
+
+
 Stakeholder remarks
 
 1. Heading - Admission cycle for year 2022-2023 (Confirm first) ( DONE )
 
 2. Default closing date for all offerings, along with individual closing dates allowed [DONE]
 
-3. Any other or staff role in admin portal, same responsibility as faculty [DONE ALMOST]
+3. Any other or staff role in admin portal, same responsibility as faculty [DONE]
 
 4. Allow faculty to see applications from different departments (DONE)
 
-5. Faculty can add offerings but only admin can approve (DONE Partial)
+5. Faculty can add offerings but only admin can approve (DONE)
 
-6. Remove eligibility from inside of the portal
+6. Remove eligibility from inside of the portal(DONE)
 
 7. Download all documents of one candidate on one click (as a single file)
 
-8. Do not permanently delete data
+8. Do not permanently delete data(DONE)
 
 9. Dynamic result generation based on inputs
 a. Faculty can select all the allowed degree specializations from the data and then can download data based on that
@@ -49,17 +52,6 @@ a. Enter gate score and not gate percentile while filling application (help mess
 b. Use the fact that GATE score is never a decimal
 c. If he writes score less than or equal to 100, then, ask him if he is sure
 
-12. Fees category vs actual category (can't do shit)
+13. Information brochure for detailed information on website which can be downloaded and all
 
-13. Maybe allow admin to change application data, maybe maintain duplicate copies(one actual, one edited), Maybe allow changes taking confirmation from both
-
-Logs maintain for the changes
-
-Maybe give time for editting application after submission (for like 2-3 days)
-
-That is reapply only before deadline
-And editing for 2-3 days after deadline
-
-14. Information brochure for detailed information on website which can be downloaded and all
-
-15. cycle_id not validated in publish_all_results, unpublish_all_results,  open_all_offerings, close_all_offerings.(maybe required)
+14. cycle_id not validated in publish_all_results, unpublish_all_results,  open_all_offerings, close_all_offerings.(maybe required)

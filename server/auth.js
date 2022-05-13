@@ -137,6 +137,11 @@ const signin_verify = async (req, res) => {
           data.department = if_admin.rows[0].department;
           const authToken = jwt.sign(data, jwtSecretKey);
           return res.send({ result: 5, token: authToken, admin_type: 1 });
+        } else if (if_admin.rows[0].admin_type === 3) {
+          data.userRole = 3;
+          data.department = if_admin.rows[0].department;
+          const authToken = jwt.sign(data, jwtSecretKey);
+          return res.send({ result: 6, token: authToken, admin_type: 3 });
         }
       } else {
         return res.send({ result: 0 });
@@ -283,10 +288,31 @@ const contact_us = async (req, res) => {
   return res.status(200).send("Ok");
 };
 
+function application_submission(email) {
+  var mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "F",
+    text: "",
+  };
+
+  mailOptions.text += "Thanks";
+
+  transporter.sendMail(mailOptions, function (error, infos) {
+    if (error) {
+      console.log(error);
+    }
+    // else {
+    //   console.log('Email sent: ' + infos.response);
+    // }
+  });
+}
+
 module.exports = {
   signin_otp,
   signin_verify,
   signup_otp,
   signup_verify,
   contact_us,
+  application_submission,
 };

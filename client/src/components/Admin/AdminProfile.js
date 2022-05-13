@@ -181,7 +181,15 @@ export default function AdminProfile(){
 
             <p className="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
              <WorkIcon className="mr-3" fontSize='small' sx={{ color: '#00A36C' }}/>
-              {profile.department}</p>
+              {(profile.admin_type === 0) ? "Academics" 
+              :
+               <div className='block'>
+              { profile.department.map((dep) => {return (<><span>
+                   {dep}
+                 </span>
+                 <br/></>)})}
+               </div>
+               }</p>
               
             {/* <div className="pt-12 pb-8">
               <button className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">

@@ -14,7 +14,7 @@ const style = {
   borderRadius: 5,
 };
 
-export default function ViewDepartmentModal(props) {
+export default function ViewFeesModal(props) {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -55,7 +55,7 @@ export default function ViewDepartmentModal(props) {
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
-                <h3 className="text-xl font-semibold">{props.admin.name}</h3>
+                <h3 className="text-xl font-semibold">Category-Wise Fees</h3>
                 <button
                   onClick={handleClose}
                   type="button"
@@ -77,9 +77,26 @@ export default function ViewDepartmentModal(props) {
               </div>
               <div className="px-6 py-6 space-y-6">
               <div className="flex justify-center">
-                <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-                  {props.admin.department.map((column) => (<li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">{column}</li>)) }
-                </ul>
+              <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
+              <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                  <span className="font-semibold">GEN</span> - ₹ {props.cycle.fees_gen}
+                </li>
+                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                <span className="font-semibold">OBC</span> - ₹ {props.cycle.fees_obc}
+                </li>
+                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                <span className="font-semibold">EWS</span> - ₹ {props.cycle.fees_ews}
+                </li>
+                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                <span className="font-semibold">SC</span> - ₹ {props.cycle.fees_sc}
+                </li>
+                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                <span className="font-semibold">ST</span>  - ₹ {props.cycle.fees_st}
+                </li>
+                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                <span className="font-semibold">PWD</span> - ₹ {props.cycle.fees_pwd}
+                </li>
+              </ul>
               </div>
                 
               </div>

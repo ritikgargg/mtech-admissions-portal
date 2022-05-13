@@ -25,7 +25,7 @@ const get_dashboard_info = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -137,7 +137,7 @@ const get_dashboard_info_gender = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 

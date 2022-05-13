@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
 import Select from 'react-select';
-import makeAnimated from 'react-select/animated'
+import makeAnimated from 'react-select/animated';
 
 const style = {
   position: "absolute",
@@ -82,6 +82,8 @@ export default function EditAdminModal(props) {
 
   const onClose = () => {
     reset();
+    setAdminType(props.admin.admin_type);
+    setSelectedOptions(initSelectOptions);
   };
 
   const onSubmit = (data) => {

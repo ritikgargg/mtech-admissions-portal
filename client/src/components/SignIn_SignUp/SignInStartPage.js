@@ -66,14 +66,9 @@ function SignInStartPage() {
         if (response.data.result === 1) {
           setUserSession(response.data.token);
           navigate("/home");
-        } else if (response.data.result === 4) {
+        } else if (response.data.result === 4 || response.data.result === 5 || response.data.result === 6) {
           setUserSession(response.data.token);
           setAdminType(response.data.admin_type);
-          navigate("/admin/dashboard");
-        } else if (response.data.result === 5) {
-          setUserSession(response.data.token);
-          setAdminType(response.data.admin_type);
-          // change for faculty login
           navigate("/admin/dashboard");
         } else if (response.data.result === 2) {
           setMsgOtp("This OTP has expired.");

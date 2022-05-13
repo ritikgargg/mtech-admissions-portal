@@ -62,6 +62,7 @@ export default function AddAdminModal() {
 
   const onClose = () => {
     reset();
+    setAdminType("");
   };
 
   const handleChange = (options) => {

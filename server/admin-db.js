@@ -295,7 +295,7 @@ const add_offering = async (req, res) => {
         info.is_draft_mode,
       ]
     );
-  }else{
+  } else {
     const results = await pool.query(
       "INSERT INTO mtech_offerings_" +
         cycle_id +
@@ -310,8 +310,6 @@ const add_offering = async (req, res) => {
       ]
     );
   }
-
-  
 
   return res.send("Ok");
 };
@@ -388,7 +386,7 @@ const delete_offering = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+  if (userRole !== 0) {
     return res.send("1");
   }
 
@@ -426,7 +424,9 @@ const get_offerings = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  var department = jwt.decode(authToken).department;
+  var userEmail = jwt.decode(authToken).userEmail;
+  let department_query_info = await pool.query("SELECT * FROM admins WHERE email_id = $1;", [userEmail]);
+  var department = department_query_info.rows[0].department;
 
   if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
@@ -455,17 +455,17 @@ const get_offerings = async (req, res) => {
   // }
 
   let results = null;
-
   if (userRole === 0) {
     results = await pool.query(
       "SELECT * FROM mtech_offerings_" + cycle_id + ";"
     );
   } else {
-    results = await pool.query(
-      "SELECT * FROM mtech_offerings_" + cycle_id + " WHERE department = $1;",
-      [department]
-    );
+    let x = "(" + department.map(d => `'${d}'`).join(',') + ")";
+    let temp = "SELECT * FROM mtech_offerings_" + cycle_id + " WHERE department IN " + x + ";";
+    // console.log(temp);
+    results = await pool.query(temp);
   }
+
   return res.send({
     offerings: results.rows,
     cycle_name: cycle_name.rows[0].name,
