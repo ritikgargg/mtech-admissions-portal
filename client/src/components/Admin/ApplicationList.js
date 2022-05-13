@@ -15,7 +15,8 @@ import PublishResultsModal from "./PublishResultsModal";
 import PublishResultsModalFaculty from "./PublishResultsModalFaculty"
 import DeleteApplicationModal from "./DeleteApplicationModal"
 import { getAdminType } from "./AdminTypes";
-import MeritListGeneration from './MeritListGeneration'
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import MeritListGeneration from "./MeritListGeneration";
 
 export default function OfferingList() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function OfferingList() {
   const [isResultPublishedByFaculty, setIsResultPublishedByFaculty] = useState(0);
   const [searchType, setSearchType] = useState("full_name");
   const [textToSearch, setTextToSearch] = useState("");
+  const [isGeneratingMeritList, setIsGeneratingMeritList] = useState(false);
   const params = useParams();
   const admin_type = getAdminType();
 
@@ -54,9 +56,6 @@ export default function OfferingList() {
           setIsResultPublishedByFaculty(response.data.is_result_published_by_faculty)
           console.log(response.data)
           setIsFetching(false);
-          // console.log(response.data);
-          // if(response.data.length >= 0)
-          //   setStartCount(1)
         }
       })
       .catch((err) => console.log(err));
@@ -229,7 +228,17 @@ export default function OfferingList() {
                 }
                  */}
                 <UploadResultModal cycle_id={params.cycle_id} offering_id={params.offering_id}/>
-                <MeritListGeneration cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
+                <Tooltip title="Download Results">
+                  <button
+                      onClick={() => setIsGeneratingMeritList(true)}
+                      type="button"
+                      className="focus:outline-none w-1/2 text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
+                      >
+                      <AssessmentIcon fontSize="small" className="mr-1"/>
+                          Results
+                      </button>
+                  </Tooltip>
+                {/* <MeritListGeneration cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/> */}
                 <ExportExcelModal cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName}/>
               </div>
               {/* <button onClick={() => onExport()} className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto">
@@ -239,6 +248,13 @@ export default function OfferingList() {
                 Export
               </button> */}
             </div>
+            {(isGeneratingMeritList)
+                ? 
+                <div className="mx-auto m-5 w-1/2">
+                <MeritListGeneration cycle_id={params.cycle_id} offering_id={params.offering_id} offeringName={offeringName} cycleName={cycleName} setIsGeneratingMeritList={setIsGeneratingMeritList}/>
+                </div>
+                : 
+                "" }
 
 
 

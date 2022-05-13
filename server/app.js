@@ -210,6 +210,9 @@ app.get(
 
 app.get("/get-merit-list", generateResults.get_merit_list);
 
+app.get("/get-applicants-branches", generateResults.get_applicants_branches);
+
+
 app.get(
   "/get-deleted-admissions-cycles",
   recycleBin.get_deleted_admission_cycles

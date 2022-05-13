@@ -398,6 +398,72 @@ const get_merit_list = async (req, res) => {
   workbook.write("Merit_List.xlsx", res);
 };
 
+const get_applicants_branches = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+    return res.send("1");
+  }
+
+  let cycle_id = req.headers.cycle_id;
+  let offering_id = req.headers.offering_id;
+
+  const cycle_name = await pool.query(
+    "SELECT NAME FROM admission_cycles WHERE cycle_id = $1;",
+    [cycle_id]
+  );
+
+  if (cycle_name.rows.length === 0) {
+    return res.send("1");
+  }
+
+  const offering_details = await pool.query(
+    "SELECT specialization, is_result_published, is_result_published_by_faculty FROM mtech_offerings_" +
+      cycle_id +
+      " WHERE offering_id = $1;",
+    [offering_id]
+  );
+
+  if (offering_details.rows.length === 0) {
+    return res.send("1");
+  }
+
+  const results = await pool.query(
+    "SELECT * FROM applications_" + cycle_id + " WHERE offering_id = $1;",
+    [offering_id]
+  );
+  return res.send({
+    applications: results.rows,
+    cycle_name: cycle_name.rows[0].name,
+    offering_name: offering_details.rows[0].specialization,
+    is_result_published: offering_details.rows[0].is_result_published,
+    is_result_published_by_faculty:
+      offering_details.rows[0].is_result_published_by_faculty,
+  });
+};
+
+
+
 module.exports = {
   get_merit_list,
+  get_applicants_branches,
 };
