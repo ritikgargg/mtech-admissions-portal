@@ -275,7 +275,7 @@ export default function AddOfferingModal(props) {
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
                   <div className="flex justify-between">
-                  {(admin_type === 0)?
+                  {(admin_type === "0")?
                   (<><div className="p-3">
                       <FormControlLabel
                         control={
