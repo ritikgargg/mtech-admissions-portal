@@ -32,7 +32,6 @@ export default function ApplicantHomePage() {
         } else {
           setApplications(response.data);
           setIsFetching(false);
-          //   console.log(response.data);
         }
       })
       .catch((err) => console.log(err));

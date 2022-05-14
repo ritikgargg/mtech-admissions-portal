@@ -68,8 +68,6 @@ export default function Profile() {
          }
       }
     }
-    console.log("result")
-    console.log(result)
     return result;
   }
 
@@ -98,21 +96,18 @@ export default function Profile() {
     let copy = [...localDegrees];
     copy[id][String(index)] = null;
     setLocalDegrees(copy);
-    // console.log(copy);
   }
 
   function syncLocalGlobalData() {
     let copy = { ...profileInfo };
     setLocalProfileInfo(copy);
-    console.log("Profile:");
-    console.log(profileInfo);
+
     let copy2 = [];
     for(let i = 0;i < 5; i++){
         let temp = {...degrees[i]};
         copy2.push(temp);
     }
-    console.log("Degrees:");
-    console.log(degrees);
+
     setLocalDegrees(copy2);
   }
 
@@ -227,20 +222,7 @@ export default function Profile() {
           );
           setDegreeSize(getDegreeSize(response.data.degrees));
           setCount(Math.max(1, getDegreeSize(response.data.degrees)));
-          setPercentageCgpaPattern(init_percentage_cgpa_pattern(copy3,convert2dArrayToJsonObjectArray(response.data.degrees)))
-          console.log("####IN PROFILE####");
-          // console.log(percentage_cgpa_pattern)
-          // console.log("response.data");
-          // console.log(response.data);
-          // console.log("profileInfo");
-          // console.log(profileInfo);
-          // console.log("localProfileInfo");
-          // console.log(localProfileInfo);
-          // console.log("degrees");
-          // console.log(degrees);
-          // console.log("localDegrees");
-          // console.log(localDegrees);
-          // console.log("#####END#######");
+          setPercentageCgpaPattern(init_percentage_cgpa_pattern(copy3,convert2dArrayToJsonObjectArray(response.data.degrees)));
         }
       })
       .catch((err) => console.log(err));
@@ -250,10 +232,6 @@ export default function Profile() {
     let copy = { ...localProfileInfo };
     assign(copy, key, event.target.value);
     setLocalProfileInfo(copy);
-    console.log("Degrees in handle Local Change");
-    console.log(degrees);
-    console.log("Local Degrees in handle Local Change")
-    console.log(localDegrees);
   };
 
   const handleLocalChangeDegrees = (index, key, event) => {
@@ -263,11 +241,6 @@ export default function Profile() {
     assign(temp, key, event.target.value);
     copy[index] = temp;
     setLocalDegrees(copy);
-    console.log("Degrees");
-    console.log(degrees);
-    console.log("Local Degrees")
-    console.log(localDegrees);
-    // console.log(copy);
   };
 
   const removeLocalDegree = (index) => {
@@ -293,8 +266,7 @@ export default function Profile() {
   // const closeModal = (setShowModal) => {
   //     setShowModal(false);
   // };
-  // console.log(localProfileInfo);
-  // console.log(profileInfo);
+
   return (
     <>
       <DashboardNavBar currentFlag={2} />

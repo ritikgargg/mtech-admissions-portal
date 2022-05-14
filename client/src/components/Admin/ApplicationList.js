@@ -54,7 +54,6 @@ export default function OfferingList() {
           setOfferingName(response.data.offering_name);
           setIsResultPublished(response.data.is_result_published)
           setIsResultPublishedByFaculty(response.data.is_result_published_by_faculty)
-          console.log(response.data)
           setIsFetching(false);
         }
       })
@@ -140,8 +139,6 @@ export default function OfferingList() {
                   value={textToSearch}
                   onChange={(event) => {
                     setTextToSearch(event.target.value); 
-                    console.log(event.target.value);
-
                     setApplications(allApplications.filter((application) => application[searchType].toLowerCase().includes(event.target.value.toLowerCase())))
                 }}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
@@ -201,7 +198,7 @@ export default function OfferingList() {
                   onChange={(event) => {
                     setStartCount(1)
                     setLimit(parseInt(event.target.value))
-                  console.log(parseInt(event.target.value))}
+                   }
                   }
                   required
                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -243,7 +240,7 @@ export default function OfferingList() {
               </div>
               {/* <button onClick={() => onExport()} className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd" />
+                  <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
                 </svg>
                 Export
               </button> */}

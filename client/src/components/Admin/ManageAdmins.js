@@ -52,7 +52,6 @@ export default function ManageAdmin() {
         if (response.data === 1) {
           navigate("/logout");
         } else {
-          console.log("alert", sessionStorage.getItem("alert"));
           setAdminList(response.data);
           setIsFetching(false);
         }
@@ -135,7 +134,7 @@ export default function ManageAdmin() {
           <tbody className="divide-y divide-gray-100">
               {
               adminList.map((admin)=> (
-                <tr className="text-gray-500 border-b border-gray-100">
+                <tr key={admin.email_id} className="text-gray-500 border-b border-gray-100">
                   <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-4 text-left">
                     {admin.name}
                   </th>

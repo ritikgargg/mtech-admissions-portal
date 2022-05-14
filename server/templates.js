@@ -31,7 +31,6 @@ const add_template = async (req, res) => {
   }
 
   let info = req.body;
-  // console.log(info)
 
   /** Get email */
   var email = jwt.decode(authToken).userEmail;

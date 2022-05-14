@@ -318,7 +318,6 @@ const get_profile_info = async (req, res) => {
   /**
    * Verify using authToken
    */
-  // console.log("huehue");
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
@@ -400,7 +399,6 @@ const check_applicant_info = async (req, res) => {
     profile_full_check_data.mobile_number === null ||
     profile_full_check_data.degree_10th === null
   ) {
-    // console.log("Profile Not Complete");
     return res.send("2"); /** Profile not complete */
   }
 
@@ -424,7 +422,6 @@ const check_applicant_info = async (req, res) => {
   let offering_table_exists = check_offerings_table.rows[0].exists;
 
   if (offering_table_exists === false) {
-    // console.log("No Offerings Yet");
     return res.send("2"); /** No offerings yet */
   }
 
@@ -439,21 +436,15 @@ const check_applicant_info = async (req, res) => {
     return res.send("2"); /** No such offering */
   }
 
-  // console.log(2);
-
   /** If draft */
   if (offering_exists_check_data[0].is_draft_mode === true) {
     return res.send("2");
   }
 
-  // console.log(3);
-
   /** If not accepting applications */
   if (offering_exists_check_data[0].is_accepting_applications === false) {
     return res.send("2");
   }
-
-  // console.log(4);
 
   /** Check if already applied */
   const application_filled_check = await pool.query(
@@ -536,13 +527,13 @@ const save_application_info = async (req, res, next) => {
 
   app_details = JSON.parse(info.applicant_details);
 
-  await pool.query(
+  const app_save_result = await pool.query(
     "INSERT INTO applications_" +
       cycle_id +
       "(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
                     branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
                     remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
-                    $13, $14, $15, $16, $17, 1, '');",
+                    $13, $14, $15, $16, $17, 1, '') RETURNING application_id;",
     [
       email,
       app_details[1],
@@ -563,6 +554,10 @@ const save_application_info = async (req, res, next) => {
       app_details[20],
     ]
   );
+
+  // const applicant_degrees = await pool.query("SELECT degrees from applicants WHERE email_id = $1;", [email]);
+  // let degrees = applicant_degrees.rows[0]['degrees'][0];
+  // await pool.query("INSERT INTO offering_branches VALUES($1, $2, $3);", [app_details[20], degrees[1], degrees[0]]);
 
   await pool.query(
     "UPDATE applications_" +
@@ -651,7 +646,17 @@ const save_application_info = async (req, res, next) => {
     );
   }
 
-  auth.application_submission(email)
+  // app_details[20] is offering_id
+  /** Get offering_details */
+  const offering_details = await pool.query("SELECT department, specialization FROM mtech_offerings_" + cycle_id + " WHERE offering_id = $1", [app_details[20]]);
+  let dep = offering_details.rows[0].department;
+  let spec = offering_details.rows[0].specialization;
+
+  /** Get application ID */
+  let app_id = app_save_result.rows[0].application_id;
+
+  /** Email application submission */
+  auth.application_submission(email, app_id, dep, spec);
 
   Promise.allSettled(promises).then(
     res.status(200).send("Ok")
@@ -1133,7 +1138,6 @@ if (
   profile_full_check_data.mobile_number === null ||
   profile_full_check_data.degree_10th === null
 ) {
-  // console.log("Profile Not Complete");
   return res.send("2"); /** Profile not complete */
 }
 
@@ -1157,7 +1161,6 @@ const check_offerings_table = await pool.query(
 let offering_table_exists = check_offerings_table.rows[0].exists;
 
 if (offering_table_exists === false) {
-  // console.log("No Offerings Yet");
   return res.send("2"); /** No offerings yet */
 }
 
@@ -1172,14 +1175,11 @@ if (offering_exists_check_data.length === 0) {
   return res.send("2"); /** No such offering */
 }
 
-// console.log(2);
 
 /** If draft */
 if (offering_exists_check_data[0].is_draft_mode === true) {
   return res.send("2");
 }
-
-// console.log(3);
 
 /** If not accepting applications */
 if (offering_exists_check_data[0].is_accepting_applications === false) {

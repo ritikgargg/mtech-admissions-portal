@@ -31,7 +31,7 @@ const items = [
       name: 'Profile',
       // price: '$48',
       imageSrc: ProfileImage,
-      imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
+      imageAlt: 'Profile',
       slidesUrl: "https://docs.google.com/presentation/d/1Jgt9ZJkUtvY57UXBGhtDEpwdUgwJjUo4unVkf7juJk4/edit?usp=sharing",
     },
     {
@@ -39,7 +39,7 @@ const items = [
       name: 'Admission Cycles',
       // price: '$35',
       imageSrc: CalendarImage,
-      imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
+      imageAlt: 'Admission Cycles',
       slidesUrl: "https://docs.google.com/presentation/d/1PHv9eNzoXUyCE6uheTrzYHU1fXC2rB3brySMKNfDY48/edit?usp=sharing",
     },
     {
@@ -47,7 +47,7 @@ const items = [
       name: 'Offerings',
       // price: '$89',
       imageSrc: OfferingsImage,
-      imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
+      imageAlt: 'Offerings',
       slidesUrl: "https://docs.google.com/presentation/d/1KNaEL0splRd6r8msgM1y6JF4dje4eAD7LRlz-OKhGzs/edit?usp=sharing",
     },
     {
@@ -55,7 +55,7 @@ const items = [
       name: 'Applications',
       // price: '$35',
       imageSrc: ApplicationsImage,
-      imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
+      imageAlt: 'Applications',
       slidesUrl: "https://docs.google.com/presentation/d/13Pmbzkon5ZCSL4V8UVnOBDTz0noNOMrggmnxU7g1G9o/edit?usp=sharing",
     },
     {
@@ -63,7 +63,7 @@ const items = [
         name: 'Admins',
         // price: '$35',
         imageSrc: AdminImage,
-        imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
+        imageAlt: 'Admins',
         slidesUrl: "https://docs.google.com/presentation/d/1avsN2qbUUKuzI9_IOCOGpRr18WkRkIl1K0BvMjQelro/edit?usp=sharing",
       },
       {
@@ -71,7 +71,7 @@ const items = [
         name: 'Templates',
         // price: 'Templates',
         imageSrc: TemplateImage,
-        imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
+        imageAlt: 'Templates',
         slidesUrl: "https://docs.google.com/presentation/d/1Oau0SEL_TwDhGfNXOTooMiUIwltsn2pgXoSukoBTJYg/edit?usp=sharing",
       },
       {
@@ -79,7 +79,7 @@ const items = [
         name: 'Export Data',
         // price: '$35',
         imageSrc: ExportDataImage,
-        imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
+        imageAlt: 'Export Data',
         slidesUrl: "https://docs.google.com/presentation/d/1DprcXU5KXuDx9o50EdR5gGmzpv9Q5L7UK-k7A3ffNq4/edit?usp=sharing",
       },
   ]

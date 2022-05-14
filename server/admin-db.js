@@ -462,7 +462,7 @@ const get_offerings = async (req, res) => {
   } else {
     let x = "(" + department.map(d => `'${d}'`).join(',') + ")";
     let temp = "SELECT * FROM mtech_offerings_" + cycle_id + " WHERE department IN " + x + ";";
-    // console.log(temp);
+
     results = await pool.query(temp);
   }
 
@@ -790,8 +790,6 @@ const delete_admin = async (req, res) => {
   }
 
   let info = req.body;
-
-  console.log(info);
 
   const delete_from_admins_table = await pool.query(
     "DELETE FROM admins WHERE email_id = $1;",

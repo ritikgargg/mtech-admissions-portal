@@ -41,6 +41,14 @@ export default function MeritListGeneration(props) {
     //   {value:'profile_image_url', label: 'Profile Image'},
     //   {value:'date_of_birth', label: 'Date of Birth'},
     // ]
+
+    const initOptions = (dataList) => {
+      let temp =[]
+      for(let i = 0; i < dataList.length; i++){
+        temp.push({'value' : dataList[i], 'label' : dataList[i]});
+      }
+      return temp;
+    }
     useEffect(()=>{
       Axios.get("/get-applicants-branches", {
         headers: {
@@ -53,7 +61,7 @@ export default function MeritListGeneration(props) {
           if (response.data === 1) {
             navigate("/logout");
           } else {
-            console.log(response.data);
+            setOptions(initOptions(response.data));
           }
         })
         .catch((err) => console.log(err))
@@ -61,7 +69,16 @@ export default function MeritListGeneration(props) {
     
 
     function onSubmit(){
-        Axios.get("/get-merit-list", { 
+      setIsLoading(true);
+
+      const formData = new FormData();
+      let filteredOptions = [];
+      for (let i = 0; i < selectedOptions.length; i++) {
+        filteredOptions.push(selectedOptions[i].value);
+      }
+      
+      formData.append("eligible_branches", JSON.stringify(filteredOptions));
+        Axios.post("/get-merit-list", formData, { 
             responseType: 'arraybuffer',
             headers: {
               Authorization: getToken(),
@@ -77,6 +94,7 @@ export default function MeritListGeneration(props) {
                 let fileName = "Merit_List_" + props.offeringName + "_" + props.cycleName;
                 fileSaver.saveAs(blob, fileName);
               }
+              setIsLoading(false);
             })
             .catch((err) => console.log(err));
     }

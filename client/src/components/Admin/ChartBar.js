@@ -5,7 +5,7 @@ import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 
 export default function ChartBar(props) {
-    console.log(props)
+
     useEffect(() => {
         let config = {
             type: 'bar',

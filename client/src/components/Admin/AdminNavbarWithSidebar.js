@@ -52,7 +52,7 @@ export default function AdminNavbarWithSidebar() {
               <li className="rounded-lg mb-2">
                 <NavLink
                   to="/admin/dashboard"
-                  exact
+                  exact="true"
                   className={
                     location !== "/admin/dashboard"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
@@ -96,7 +96,7 @@ export default function AdminNavbarWithSidebar() {
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/admission-cycles"
-                  exact
+                  exact="true"
                   className={
                     // location !== "/admin/admission-cycles"
                     !location.startsWith("/admin/admission-cycles") &&
@@ -129,7 +129,7 @@ export default function AdminNavbarWithSidebar() {
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/manage-admins"
-                  exact
+                  exact="true"
                   className={
                     location !== "/admin/manage-admins"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
@@ -145,7 +145,7 @@ export default function AdminNavbarWithSidebar() {
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/templates"
-                  exact
+                  exact="true"
                   className={
                     location !== "/admin/templates"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
@@ -160,7 +160,7 @@ export default function AdminNavbarWithSidebar() {
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/profile"
-                  exact
+                  exact="true"
                   className={
                     location !== "/admin/profile"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
@@ -175,7 +175,7 @@ export default function AdminNavbarWithSidebar() {
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/how-to-use"
-                  exact
+                  exact="true"
                   className={
                     location !== "/admin/how-to-use"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
@@ -191,7 +191,7 @@ export default function AdminNavbarWithSidebar() {
               {admin_type === "0" && <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/recycle-bin"
-                  exact
+                  exact="true"
                   className={
                     location !== "/admin/recycle-bin"
                       ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"

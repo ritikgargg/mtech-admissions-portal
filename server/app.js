@@ -208,7 +208,7 @@ app.get(
   templateGenerator.get_applications_in_excel
 );
 
-app.get("/get-merit-list", generateResults.get_merit_list);
+app.post("/get-merit-list", upload.fields([]), generateResults.get_merit_list);
 
 app.get("/get-applicants-branches", generateResults.get_applicants_branches);
 

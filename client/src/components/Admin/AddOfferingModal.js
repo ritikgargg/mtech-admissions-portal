@@ -53,9 +53,6 @@ export default function AddOfferingModal(props) {
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    // console.log(data);
-    // console.log(applicationChecked);
-    // console.log(draftChecked);
     const formData = new FormData();
 
     formData.append("department", data.department);
@@ -83,7 +80,6 @@ export default function AddOfferingModal(props) {
       .catch((err) => console.log(err));
   };
 
-  console.log(props.department)
   return (
     <div>
       <Tooltip title="Add">
@@ -172,7 +168,7 @@ export default function AddOfferingModal(props) {
                         >
                           <option value="">- Select -</option>
                           {props.department.map(dept => {
-                              return (<option value={dept}>{dept}</option>);
+                              return (<option key={dept} value={dept}>{dept}</option>);
                           })}
                         </select>
     

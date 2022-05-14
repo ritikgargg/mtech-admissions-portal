@@ -86,7 +86,6 @@ export default function PersonalInfo(props) {
     };
   
     function closePersonalInfo() {
-      // console.log("educational details closed!!");
       setProfileImage(null);
       setCategoryCertificate(null);
       props.syncLocalGlobalData();

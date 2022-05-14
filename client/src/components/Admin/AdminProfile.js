@@ -24,7 +24,7 @@ export default function AdminProfile(){
     function onSubmit(){
       setIsLoading(true)
       const formData = new FormData();
-      // console.log("check")
+
       formData.append("name", profileName);
       formData.append("email_id", profile.email_id)
       axios.post("/edit-admin-profile", formData, {
@@ -53,7 +53,6 @@ export default function AdminProfile(){
             if (response.data === 1) {
               navigate("/logout");
             } else {
-              console.log(response.data)
               setProfile(response.data)
               setProfileName(response.data.name)
               setIsFetching(false);

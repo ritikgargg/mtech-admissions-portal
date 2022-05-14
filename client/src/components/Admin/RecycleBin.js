@@ -23,7 +23,6 @@ export default function RecycleBin () {
         if (response.data === 1) {
             navigate("/logout");
         } else {
-            console.log(response.data)
             setDeletedAdmissionCycles(response.data);
             setIsFetching(false);
         }
@@ -59,7 +58,7 @@ export default function RecycleBin () {
                     <tbody className="divide-y divide-gray-100">
                         {
                         deletedAdmissionCycles.map((cycle)=> (
-                            <tr className="text-gray-500 border-b border-gray-100">
+                            <tr key={cycle.cycle_id} className="text-gray-500 border-b border-gray-100">
                             <td className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-4 text-left">
                                 {cycle.name}
                             </td>

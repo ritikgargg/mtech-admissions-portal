@@ -102,8 +102,6 @@ const get_dashboard_info = async (req, res) => {
   category_distribution["-1"] = all_offerings;
   gender_distribution["-1"] = all_offerings2;
 
-  // console.log(gender_distribution)
-  // console.log(category_distribution)
 
   return res.send({
     current_cycle_info: current_cycle_info.rows[0],

@@ -275,7 +275,7 @@ function write_data(worksheet, data, rowIndex, type) {
   }
 }
 
-async function generate_merit_list(info) {
+async function generate_merit_list(info, eligible_branches) {
     /** Create workbook */
     const workbook = new excel.Workbook();
     
@@ -319,7 +319,20 @@ async function generate_merit_list(info) {
   );
 
   /** All applications */
-  let all_applications = applications.rows;
+  let applications_rows = applications.rows;
+
+  // console.log(eligible_branches)
+
+  let all_applications = [];
+  applications_rows.forEach((element) => {
+    // console.log(element.degrees[0][1]);
+    if(eligible_branches.includes(element.degrees[0][1])) {
+      // console.log(eligible_branches.includes(element.degrees[0][1]))
+      all_applications.push(element);
+    }
+  });
+
+  // console.log(all_applications)
 
   /** consolidated applications */
   let consolidated_applications = all_applications.slice();
@@ -394,9 +407,13 @@ const get_merit_list = async (req, res) => {
     return res.send("1");
   }
 
-  let workbook = await generate_merit_list(req.headers);
+  let info = req.body;
+  //info.eligible_branches
+
+  let workbook = await generate_merit_list(req.headers, info.eligible_branches);
   workbook.write("Merit_List.xlsx", res);
 };
+
 
 const get_applicants_branches = async (req, res) => {
   /**
@@ -448,19 +465,23 @@ const get_applicants_branches = async (req, res) => {
   }
 
   const results = await pool.query(
-    "SELECT * FROM applications_" + cycle_id + " WHERE offering_id = $1;",
+    "SELECT degrees FROM applications_" + cycle_id + " WHERE offering_id = $1;",
     [offering_id]
   );
-  return res.send({
-    applications: results.rows,
-    cycle_name: cycle_name.rows[0].name,
-    offering_name: offering_details.rows[0].specialization,
-    is_result_published: offering_details.rows[0].is_result_published,
-    is_result_published_by_faculty:
-      offering_details.rows[0].is_result_published_by_faculty,
-  });
-};
 
+  let branches = []
+  results.rows.forEach((element) => {
+    branches.push(element['degrees'][0][1])
+  });
+
+  let uniqueBranches = [...new Set(branches)]
+  // console.log(uniqueBranches)
+
+  // console.log(branches)
+  // console.log(results.rows[0]['degrees'][0][1])
+
+  return res.send(uniqueBranches);
+};
 
 
 module.exports = {

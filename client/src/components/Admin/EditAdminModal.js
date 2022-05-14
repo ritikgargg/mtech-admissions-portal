@@ -43,14 +43,11 @@ export default function EditAdminModal(props) {
     for(let i = 0; i < props.admin.department.length; i++){
       temp.push({'value': props.admin.department[i], 'label': props.admin.department[i]});
     }
-    console.log("Temp", temp);
     return temp;
   }
   const [selectedOptions, setSelectedOptions] = useState(initSelectOptions);
   const navigate = useNavigate();
   const animatedComponents = makeAnimated();
-
-  console.log(props.admin)
 
   const options = [
     {value:'Biomedical Engineering', label: 'Biomedical Engineering'},
@@ -89,8 +86,6 @@ export default function EditAdminModal(props) {
   const onSubmit = (data) => {
     setIsLoading(true);
     const formData = new FormData();
-
-    console.log(data)
 
     let filteredOptions = []
     if(adminType === 0){

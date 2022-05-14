@@ -17,8 +17,8 @@ export default function AdminDashboard() {
     const [currentCycleEnd, setCurrentCycleEnd] = useState(null);
     const [offeringsCount, setOfferingsCount] = useState(null);
     const [applicationsCount, setApplicationsCount] = useState(null);
-    const [currentOffering, setCurrentOffering] = useState(null);
-    const [currentOffering2, setCurrentOffering2] = useState(null);
+    const [currentOffering, setCurrentOffering] = useState("");
+    const [currentOffering2, setCurrentOffering2] = useState("");
     const [offerings, setOfferings] = useState([]);
     const [categoryDistribution, setCategoryDistribution] = useState(null);
     const [genderDistribution, setGenderDistribution] = useState(null);
@@ -61,7 +61,6 @@ export default function AdminDashboard() {
               dataValues.push(cnt);
           }
           setDisplayData(dataValues)
-          console.log(dataValues)
       }  
     }
 
@@ -86,8 +85,6 @@ export default function AdminDashboard() {
             dataValues.push(cnt);
         }
         setDisplayData2(dataValues)
-        console.log("Gender");
-        console.log(dataValues);
     }  
   }
     
@@ -110,7 +107,6 @@ export default function AdminDashboard() {
 
             }
              else {
-                console.log(response.data)
                 setOfferingsCount(response.data.offerings_count)
                 setApplicationsCount(response.data.applications_count.count)
                 setCurrentCycleName(response.data.current_cycle_info.name)

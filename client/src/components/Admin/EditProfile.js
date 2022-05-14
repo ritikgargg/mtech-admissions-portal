@@ -54,8 +54,6 @@ export default function EditProfile(props) {
     setIsLoading(true);
     const formData = new FormData();
 
-    console.log(data)
-
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
     if(data.admin_type === "SUPER ADMIN") formData.append("admin_type", 0);

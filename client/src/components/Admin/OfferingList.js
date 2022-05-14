@@ -53,7 +53,6 @@ export default function OfferingList() {
           setCycleName(response.data.cycle_name);
           setDepartment(response.data.department);
           setIsFetching(false);
-          console.log(response.data.department);
         }
       })
       .catch((err) => console.log(err));
@@ -219,7 +218,6 @@ export default function OfferingList() {
                       }
                       setOfferings(temp)
                     }else{
-                      console.log("All Offerings", allOfferings)
                       setOfferings(offerings.sort(function (obj1, obj2) {
                       if(event.target.value === "1"){
 
@@ -244,7 +242,6 @@ export default function OfferingList() {
                     })
 
                     )
-                    // console.log("All Offerings", allOfferings)
                     }
                     
                   }
@@ -320,7 +317,7 @@ export default function OfferingList() {
                   onChange={(event) => {
                     setStartCount(1)
                     setLimit(parseInt(event.target.value))
-                  console.log(parseInt(event.target.value))}
+                    }
                   }
                   required
                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

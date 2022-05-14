@@ -27,7 +27,6 @@ export default function Templates () {
         if (response.data === 1) {
             navigate("/logout");
         } else {
-            console.log(response.data)
             setTemplateList(response.data);
             setIsFetching(false);
         }
@@ -92,7 +91,7 @@ export default function Templates () {
                     <tbody className="divide-y divide-gray-100">
                         {
                         templateList.map((template)=> (
-                            <tr className="text-gray-500 border-b border-gray-100">
+                            <tr key={template.template_id} className="text-gray-500 border-b border-gray-100">
                             <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-4 text-left">
                                 {template.name}
                             </th>

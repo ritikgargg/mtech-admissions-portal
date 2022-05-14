@@ -5,23 +5,13 @@ Responsive UI
 4. Navbar
 5. Applicant pages
 
-On form submission, show some loading message until all the values are pushed into the database and gcp by server (DONE)
-
 For textarea fields, check if the applicant do not only submit spaces
-
-To set default cgpa scale in degrees
-
-*User specific templates* (DONE)
-
 
 Jispe no cramsh
 heroku logs --remote iit-ropar-admissions
 
 Jispe cramsh
 heroku logs --remote iit-ropar-admissions-portal
-
-
-*********** Change the text in the mail of application submission ***************
 
 
 Stakeholder remarks
@@ -42,15 +32,15 @@ Stakeholder remarks
 
 8. Do not permanently delete data(DONE)
 
-9. Dynamic result generation based on inputs
+9. Dynamic result generation based on inputs(DONE on UI, to be done on Backend)
 a. Faculty can select all the allowed degree specializations from the data and then can download data based on that
 
-10. COAP, GATE(complex bitches) format on applicant side
+10. COAP, GATE(complex bitches) format on applicant side (DONE)
 
 11. 
 a. Enter gate score and not gate percentile while filling application (help message). 
 b. Use the fact that GATE score is never a decimal
-c. If he writes score less than or equal to 100, then, ask him if he is sure
+c. If he writes score less than or equal to 100, then, ask him if he is sure[DONE]
 
 13. Information brochure for detailed information on website which can be downloaded and all
 

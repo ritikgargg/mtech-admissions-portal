@@ -62,7 +62,7 @@ export default function EditAlertOfferingModal(props) {
     if (month.length === 1) month = "0" + month;
 
     date = date.getFullYear() + "-0" + month + "-" + day;
-    // console.log(day)
+
     return date;
   }
 

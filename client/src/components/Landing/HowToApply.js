@@ -15,7 +15,6 @@ function HowToApply() {
   useEffect(() => {
     Axios.get("/get-fees-info")
       .then((response) => {
-        // console.log(response.data)
         setFees(response.data)
       })
       .catch((err) => console.log(err));

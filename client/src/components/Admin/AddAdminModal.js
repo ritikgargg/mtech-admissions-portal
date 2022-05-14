@@ -72,7 +72,6 @@ export default function AddAdminModal() {
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    console.log(data);
 
     const formData = new FormData();
     let filteredOptions = []

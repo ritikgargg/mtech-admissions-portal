@@ -178,7 +178,6 @@ const upload_results = async (req, res) => {
           : status.toLowerCase() === "under review"
           ? 1
           : 0;
-      // console.log(db_status)
       const result = await pool.query(
         "UPDATE applications_" +
           cycle_id +
@@ -218,11 +217,6 @@ const upload_results = async (req, res) => {
       count_selected = Number(element["count"]);
     }
   });
-
-  // console.log(invalid_emails)
-  // console.log(wrong_status)
-  // console.log(under_review_list)
-  // console.log(count_not_selected, count_under_review, count_selected)
 
   /** Generate report */
   let report_workbook = await generate_report(

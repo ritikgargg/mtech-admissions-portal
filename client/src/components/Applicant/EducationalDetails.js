@@ -23,7 +23,6 @@ const style = {
 };
 
 export default function EducationalDetails(props) {
-    console.log("percentage_cgpa_pattern",props.percentage_cgpa_pattern)
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -185,7 +184,6 @@ export default function EducationalDetails(props) {
   
     const handleSelectChange = (e, index) => {
       let copy = [...props.percentage_cgpa_pattern];
-      console.log(e.target.value)
       if (e.target.value === "Percentage") {
         copy[index] = "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)";
         props.setPercentageCgpaPattern(copy);
@@ -228,7 +226,6 @@ export default function EducationalDetails(props) {
         copy[index] !==
         "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
       ) {
-        console.log("Print 4")
         copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
         props.setPercentageCgpaPattern(copy);
       }

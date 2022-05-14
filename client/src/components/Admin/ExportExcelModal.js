@@ -36,7 +36,6 @@ export default function ExportExcelModal(props) {
     if (response.data === 1) {
         navigate("/logout");
     } else {
-        console.log(response.data)
         setTemplateList(response.data);
         // setIsFetching(false);
     }
@@ -87,7 +86,6 @@ const onExport = (template_id) => {
   const onSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    console.log(selectedTemplate)
     onExport(selectedTemplate);
   };
 
@@ -100,7 +98,7 @@ const onExport = (template_id) => {
           className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd" />
+                  <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
                 </svg>
                 Export
         </button>
@@ -163,7 +161,7 @@ const onExport = (template_id) => {
                           required
                           name = "template"
                           value = {selectedTemplate}
-                          onChange={(e) => {setSelectedTemplate(e.target.value);console.log(e.target.value)}}
+                          onChange={(e) => {setSelectedTemplate(e.target.value);}}
                           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         >
                           {/* <option value="">- Select -</option>
@@ -171,7 +169,7 @@ const onExport = (template_id) => {
                           <option value="FACULTY">FACULTY</option> */}
                           <option value="">- Select -</option>
                           {templateList.map(item => {
-                              return (<option value={item.template_id}>{item.name} - {item.email_id === "default@template" ? 'DEFAULT' : (item.email_id === "global@template") ? 'GLOBAL' : 'PERSONAL'}</option>);
+                              return (<option key={item.template_id} value={item.template_id}>{item.name} - {item.email_id === "default@template" ? 'DEFAULT' : (item.email_id === "global@template") ? 'GLOBAL' : 'PERSONAL'}</option>);
                           })}
                         </select>
                         <div className="mt-4 text-sm text-gray-500 dark:text-gray-300">

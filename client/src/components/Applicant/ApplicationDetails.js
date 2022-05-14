@@ -66,8 +66,7 @@ function ApplicantionDetails() {
           setFullName(response.data.full_name);
           setCategory(response.data.category);
           setCategoryFees(response.data.category_fees)
-          setIsFetching(false);
-          console.log(response.data)
+          setIsFetching(false)
         }
       })
       .catch((err) => console.log(err));
@@ -83,7 +82,6 @@ function ApplicantionDetails() {
           navigate("/logout");
         } else {
           setOffering(response.data);
-          // console.log(response.data);
         }
       })
       .catch((err) => console.log(err));
@@ -107,7 +105,6 @@ function ApplicantionDetails() {
 
   const handleFileSubmit = (e, maxSize, index, fileType) => {
     const file = e.target.files[0];
-    // console.log(fileType)
 
     if(fileType === 1) {
       if(file.type !== 'application/pdf') {
@@ -124,7 +121,6 @@ function ApplicantionDetails() {
       }
     }
     else if(fileType === 3) {
-      // console.log(file.type)
       if((file.type !== 'image/jpeg') && (file.type !== 'image/jpg') && (file.type !== 'image/png') && (file.type !== 'image/gif')) {
         e.target.value = null;
         alert("File format not followed! Allowed formats: .jpeg, .jpg, .png, .gif");
@@ -142,7 +138,6 @@ function ApplicantionDetails() {
       let copy = [...applicant_details];
       copy[index] = file;
       setApplicantDetails(copy);
-      // console.log(applicant_details)
     }
   };
 
@@ -171,7 +166,6 @@ function ApplicantionDetails() {
   }
 
   function increasePageNumber() {
-    // console.log(applicant_details);
     setPage(page + 1);
   }
 

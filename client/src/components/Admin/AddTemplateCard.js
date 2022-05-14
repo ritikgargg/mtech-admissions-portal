@@ -44,7 +44,6 @@ export default function AddTemplateCard(props) {
 
   const handleChange = (options) => {
     setSelectedOptions(options);
-    console.log(selectedOptions);
 };
 
 const options = [
@@ -115,9 +114,6 @@ const options = [
     for (let i = 0; i < selectedOptions.length; i++) {
       column_list_compact.push(selectedOptions[i].label);
     }
-    console.log(column_list);
-    console.log(column_list_compact);
-    console.log(data);
 
     const formData = new FormData();
     formData.append("name", data.name);

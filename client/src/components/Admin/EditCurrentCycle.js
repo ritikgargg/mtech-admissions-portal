@@ -91,9 +91,6 @@ export default function EditCurrentCycle(props) {
 
     const formData = new FormData();
 
-    console.log(handleMonthChange(data.duration_start));
-    console.log(handleMonthChange(data.duration_end));
-
     formData.append("name", data.name);
     formData.append("duration_start", handleMonthChange(data.duration_start));
     formData.append("duration_end", handleMonthChange(data.duration_end));
@@ -219,7 +216,6 @@ export default function EditCurrentCycle(props) {
                   required
                   id="start-date"
                   {...register("duration_start")}
-                  // onChange={(e) => console.log(e.target.value)}
                   // name="start-date"
                   className="w-full p-4 mr-2 text-sm border-gray-200 rounded-lg shadow-sm-2"
                 />

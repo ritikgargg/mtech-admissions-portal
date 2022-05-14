@@ -35,7 +35,7 @@ function ReApplicantionDetails() {
     if (month.length === 1) month = "0" + month;
 
     date = date.getFullYear() + "-0" + month + "-" + day;
-    // console.log(day)
+
     return date;
   }
 
@@ -70,7 +70,6 @@ function ReApplicantionDetails() {
           setCategory(response.data.category);
           setCategoryFees(response.data.category_fees)
           setIsFetching(false);
-          console.log(response.data)
         }
       })
       .catch((err) => console.log(err));
@@ -126,7 +125,7 @@ function ReApplicantionDetails() {
       }
     }
     else if(fileType === 3) {
-      // console.log(file.type)
+
       if((file.type !== 'image/jpeg') && (file.type !== 'image/jpg') && (file.type !== 'image/png') && (file.type !== 'image/gif')) {
         e.target.value = null;
         alert("File format not followed! Allowed formats: .jpeg, .jpg, .png, .gif");
@@ -143,7 +142,7 @@ function ReApplicantionDetails() {
       let copy = [...applicant_details];
       copy[index] = file;
       setApplicantDetails(copy);
-      // console.log(applicant_details)
+   
     }
   };
 

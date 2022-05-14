@@ -82,9 +82,6 @@ const signin_otp = async (req, res) => {
     if (error) {
       console.log(error);
     }
-    // else {
-    //   console.log('Email sent: ' + info.response);
-    // }
   });
 
   return res.send("2");
@@ -213,9 +210,6 @@ const signup_otp = async (req, res) => {
     if (error) {
       console.log(error);
     }
-    // else {
-    //   console.log('Email sent: ' + info.response);
-    // }
   });
 
   return res.send("2");
@@ -280,31 +274,29 @@ const contact_us = async (req, res) => {
     if (error) {
       console.log(error);
     }
-    // else {
-    //   console.log('Email sent: ' + infos.response);
-    // }
   });
 
   return res.status(200).send("Ok");
 };
 
-function application_submission(email) {
+function application_submission(email, app_id, dep, spec) {
   var mailOptions = {
     from: process.env.EMAIL,
     to: email,
-    subject: "F",
+    subject: "Application submitted successfully!",
     text: "",
   };
 
-  mailOptions.text += "Thanks";
+  mailOptions.text += "Your application for MTech admission at IIT Ropar has been submitted successfully. It's details are as follows: \n";
+  mailOptions.text += "Application ID: " + app_id + "\n";
+  mailOptions.text += "Department: " + dep + "\n";
+  mailOptions.text += "Specialization: " + spec + "\n";
+  mailOptions.text += "Thanks!"
 
   transporter.sendMail(mailOptions, function (error, infos) {
     if (error) {
       console.log(error);
     }
-    // else {
-    //   console.log('Email sent: ' + infos.response);
-    // }
   });
 }
 

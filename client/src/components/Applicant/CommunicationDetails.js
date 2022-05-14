@@ -74,7 +74,6 @@ export default function CommunicationDetails(props) {
           navigate("/logout");
         } else {
           window.location.reload();
-          console.log("Mai Reload nahi hua")
         //   handleClose()
         }
       })

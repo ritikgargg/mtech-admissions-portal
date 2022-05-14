@@ -28,7 +28,6 @@ function MyApplications(props) {
           navigate("/logout");
         } else {
           setApplications(response.data);
-          console.log(response.data);
           setIsFetching(false);
         }
       })

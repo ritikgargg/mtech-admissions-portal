@@ -4,7 +4,6 @@ import HelpIcon from '@mui/icons-material/Help';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react'
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -160,9 +159,9 @@ function QualifyingExamDetails(props){
                             type="text"
                             name="gate_enrollment_number"
                             id="gate_enrollment_number"
-                            pattern="[A-Za-z0-9]{11}"
+                            pattern="[A-Z]{2}[0-9]{10}"
                             required
-                            title="Only alpha-numeric characters are allowed and length must be 11"
+                            title="Correct Format : GATE paper code followed by 10 digits"
                             value={props.details[9]}
                             onChange={(event) => props.onChange(event,9)}
                             autoComplete="family-name"
@@ -182,8 +181,8 @@ function QualifyingExamDetails(props){
                             name="coap_registration_number"
                             id="coap_registration_number"
                             required
-                            pattern="[A-Za-z0-9]{12}"
-                            title="Only alpha-numeric characters are allowed and length must be 12"
+                            pattern="COAP[0-9]{9}"
+                            title="Correct Format : COAP followed by 9 digits"
                             autoComplete="amount"
                             value={props.details[10]}
                             onChange={(event) => props.onChange(event,10)}
@@ -218,6 +217,20 @@ function QualifyingExamDetails(props){
                             className="block text-sm font-medium text-gray-700"
                           >
                             GATE Score<span style={{ color: "#ff0000" }}> * </span>
+                            <HtmlTooltip
+                              title={
+                                <React.Fragment>
+                                  <Typography color="inherit"></Typography>
+                                  {"Please ensure that you have entered your GATE score, and not GATE marks."} <br/>
+                                  {/* {`GATE score ${max_year-2} : `} <em>514</em> <br/>
+                                  {`GATE score ${max_year-1} : `} <em>724</em><br/>
+                                  {`GATE score ${max_year} : `} <em>612</em> <br/>
+                                  {"Then you must fill the details of year"} <b>{max_year-1}</b> {"as it has the highest GATE score"} */}
+                                </React.Fragment>
+                              }
+                            >
+                              <HelpIcon fontSize="small"></HelpIcon>
+                            </HtmlTooltip>
 
                           </label>
                           <input
