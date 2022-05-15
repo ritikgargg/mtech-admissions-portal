@@ -128,7 +128,9 @@ CREATE TABLE deleted_admission_cycles(
   fees_obc TEXT,
   fees_sc TEXT,
   fees_st TEXT,
-  fees_pwd TEXT
+  fees_pwd TEXT,
+  brochure_url TEXT,
+  rank_list_url TEXT
 );
 
 CREATE OR REPLACE FUNCTION insert_into_deleted_admission_cycles()
@@ -137,7 +139,7 @@ CREATE OR REPLACE FUNCTION insert_into_deleted_admission_cycles()
   AS
 $$
 BEGIN
-  INSERT INTO deleted_admission_cycles VALUES(OLD.cycle_id, OLD.NAME, OLD.duration_start, OLD.duration_end, OLD.fees_gen, OLD.fees_ews, OLD.fees_obc, OLD.fees_sc, OLD.fees_st, OLD.fees_pwd);
+  INSERT INTO deleted_admission_cycles VALUES(OLD.cycle_id, OLD.NAME, OLD.duration_start, OLD.duration_end, OLD.fees_gen, OLD.fees_ews, OLD.fees_obc, OLD.fees_sc, OLD.fees_st, OLD.fees_pwd, OLD.brochure_url, OLD.rank_list_url);
   RETURN OLD;
 END;
 $$;
