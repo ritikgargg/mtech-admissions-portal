@@ -36,36 +36,36 @@ export default function Profile() {
     return result;
   }
 
-  function init_percentage_cgpa_pattern(localProfileInfoTemp,localDegreesTemp){
+  function init_percentage_cgpa_pattern(
+    localProfileInfoTemp,
+    localDegreesTemp
+  ) {
     let result = [];
-    if(localProfileInfoTemp.percentage_cgpa_format_10th === "Percentage"){
+    if (localProfileInfoTemp.percentage_cgpa_format_10th === "Percentage") {
       result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
-    }
-    else{
-      result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
+    } else {
+      result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10");
     }
 
-    if(localProfileInfoTemp.percentage_cgpa_format_12th === "Percentage"){
+    if (localProfileInfoTemp.percentage_cgpa_format_12th === "Percentage") {
       result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
+    } else {
+      result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10");
     }
-    else{
-      result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
-    }
-    
-    for(let i = 0; i < 5; i++){
-      if(localDegreesTemp[i]['4'] === "Percentage"){
-        result.push("(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)");
-      }
-      else{
-         if(localDegreesTemp[i]['6'] === '10'){
-            result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10")
-         }
-         else if(localDegreesTemp[i]['6'] === '5'){
-            result.push("^(([0-4]{1})|([0-4]{1}\\.\\d{1,2}))|5\\.00|5\\.0|5")
-         }
-         else{
-            result.push("^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4")
-         }
+
+    for (let i = 0; i < 5; i++) {
+      if (localDegreesTemp[i]["4"] === "Percentage") {
+        result.push(
+          "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
+        );
+      } else {
+        if (localDegreesTemp[i]["6"] === "10") {
+          result.push("^(([0-9]{1})|([0-9]{1}\\.\\d{1,2}))|10\\.00|10\\.0|10");
+        } else if (localDegreesTemp[i]["6"] === "5") {
+          result.push("^(([0-4]{1})|([0-4]{1}\\.\\d{1,2}))|5\\.00|5\\.0|5");
+        } else {
+          result.push("^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4");
+        }
       }
     }
     return result;
@@ -103,9 +103,9 @@ export default function Profile() {
     setLocalProfileInfo(copy);
 
     let copy2 = [];
-    for(let i = 0;i < 5; i++){
-        let temp = {...degrees[i]};
-        copy2.push(temp);
+    for (let i = 0; i < 5; i++) {
+      let temp = { ...degrees[i] };
+      copy2.push(temp);
     }
 
     setLocalDegrees(copy2);
@@ -170,8 +170,8 @@ export default function Profile() {
           let copy = { ...response.data };
 
           for (const key in copy) {
-            if(copy[key] === null || copy[key] === "null"){
-              copy[key] = '';
+            if (copy[key] === null || copy[key] === "null") {
+              copy[key] = "";
             }
           }
           // if (copy.alternate_mobile_number === "null")
@@ -188,15 +188,15 @@ export default function Profile() {
 
           let copy2 = { ...response.data };
           for (const key in copy2) {
-            if(copy2[key] === null || copy2[key] === "null"){
-              copy2[key] = '';
+            if (copy2[key] === null || copy2[key] === "null") {
+              copy2[key] = "";
             }
           }
 
           let copy3 = { ...response.data };
           for (const key in copy3) {
-            if(copy3[key] === null || copy3[key] === "null"){
-              copy3[key] = '';
+            if (copy3[key] === null || copy3[key] === "null") {
+              copy3[key] = "";
             }
           }
           // if (copy2.alternate_mobile_number === "null")
@@ -222,7 +222,12 @@ export default function Profile() {
           );
           setDegreeSize(getDegreeSize(response.data.degrees));
           setCount(Math.max(1, getDegreeSize(response.data.degrees)));
-          setPercentageCgpaPattern(init_percentage_cgpa_pattern(copy3,convert2dArrayToJsonObjectArray(response.data.degrees)));
+          setPercentageCgpaPattern(
+            init_percentage_cgpa_pattern(
+              copy3,
+              convert2dArrayToJsonObjectArray(response.data.degrees)
+            )
+          );
         }
       })
       .catch((err) => console.log(err));
@@ -578,8 +583,8 @@ export default function Profile() {
               <PencilIcon />
             </button> */}
             <EducationalDetails
-              setPercentageCgpaPattern = {setPercentageCgpaPattern}
-              percentage_cgpa_pattern = {percentage_cgpa_pattern}
+              setPercentageCgpaPattern={setPercentageCgpaPattern}
+              percentage_cgpa_pattern={percentage_cgpa_pattern}
               count={count}
               setCount={setCount}
               localDegrees={localDegrees}

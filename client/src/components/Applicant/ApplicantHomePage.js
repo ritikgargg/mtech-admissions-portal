@@ -228,19 +228,24 @@ export default function ApplicantHomePage() {
                       </tbody>
                     )}
                   </table>
-                  {(isFetching)?
-                    <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
-                    :
-                  applications.length === 0 && (
-                    <div className="bg-white">
-                      <div className="w-3/5 mx-auto my-50 text-center">
-                        <div className="h-5" />
-                        <img alt="No data" src={noDataPic} />
-                        <p className="text-2xl font-semibold mb-5">
-                          No positions open currently!
-                        </p>
+                  {isFetching ? (
+                    <img
+                      className="mx-auto h-[200px] w-[200px]"
+                      alt="Spinner"
+                      src={screenSpinner}
+                    />
+                  ) : (
+                    applications.length === 0 && (
+                      <div className="bg-white">
+                        <div className="w-3/5 mx-auto my-50 text-center">
+                          <div className="h-5" />
+                          <img alt="No data" src={noDataPic} />
+                          <p className="text-2xl font-semibold mb-5">
+                            No positions open currently!
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    )
                   )}
                 </div>
               </div>

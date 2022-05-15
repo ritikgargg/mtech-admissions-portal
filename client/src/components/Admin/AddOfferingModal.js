@@ -28,7 +28,7 @@ export default function AddOfferingModal(props) {
   const [applicationChecked, setApplicationChecked] = useState(false);
   const [draftChecked, setDraftChecked] = useState(false);
   const { register, handleSubmit, reset } = useForm();
-  const admin_type = getAdminType()
+  const admin_type = getAdminType();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -158,21 +158,28 @@ export default function AddOfferingModal(props) {
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required
                       /> */}
-                      <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                        
-                        <select
-                          id="department"
-                          {...register("department")}
-                          required
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        >
-                          <option value="">- Select -</option>
-                          {props.department.map(dept => {
-                              return (<option key={dept} value={dept}>{dept}</option>);
-                          })}
-                        </select>
-    
-                        
+                      <label
+                        htmlFor="department"
+                        className="text-sm font-medium text-gray-900 block mb-2"
+                      >
+                        Department
+                      </label>
+
+                      <select
+                        id="department"
+                        {...register("department")}
+                        required
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                      >
+                        <option value="">- Select -</option>
+                        {props.department.map((dept) => {
+                          return (
+                            <option key={dept} value={dept}>
+                              {dept}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -275,66 +282,68 @@ export default function AddOfferingModal(props) {
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
                   <div className="flex justify-between">
-                  {(admin_type === "0")?
-                  (<><div className="p-3">
-                      <FormControlLabel
-                        control={
-                          <Toggle
-                            checked={applicationChecked}
-                            onChange={handleChange1}
-                            sx={{ m: 1 }}
+                    {admin_type === "0" ? (
+                      <>
+                        <div className="p-3">
+                          <FormControlLabel
+                            control={
+                              <Toggle
+                                checked={applicationChecked}
+                                onChange={handleChange1}
+                                sx={{ m: 1 }}
+                              />
+                            }
+                            label="Accept Applications"
                           />
-                        }
-                        label="Accept Applications"
-                      />
 
-                      {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
-                    </div>
-                    <div className="p-3">
-                      <FormControlLabel
-                        control={
-                          <Toggle
-                            checked={draftChecked}
-                            onChange={handleChange2}
-                            sx={{ m: 1 }}
+                          {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
+                        </div>
+                        <div className="p-3">
+                          <FormControlLabel
+                            control={
+                              <Toggle
+                                checked={draftChecked}
+                                onChange={handleChange2}
+                                sx={{ m: 1 }}
+                              />
+                            }
+                            label="Draft Mode"
                           />
-                        }
-                        label="Draft Mode"
-                      />
 
-                      {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
-                    </div></>) 
-                  : <h3 className="italic text-base font-normal text-gray-500 mt-4 mb-1">
-                      This offering will be added in draft mode.
-                    </h3>}
-                    
+                          {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
+                        </div>
+                      </>
+                    ) : (
+                      <h3 className="italic text-base font-normal text-gray-500 mt-4 mb-1">
+                        This offering will be added in draft mode.
+                      </h3>
+                    )}
+
                     <div className="p-3 border-t border-gray-200 rounded-b">
-                      
-                          {!isLoading ? (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                            >
-                              <div className="w-25 h-5 mx-5 my-2.5">
+                      {!isLoading ? (
+                        <button
+                          className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                          type="submit"
+                        >
+                          <div className="w-25 h-5 mx-5 my-2.5">
                             <p>Add Offering</p>
-                              </div>
+                          </div>
                         </button>
-                          ) : (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                              disabled
-                            >
-                              <div className="w-20 h-5 mx-5 my-2.5">
+                      ) : (
+                        <button
+                          className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                          type="submit"
+                          disabled
+                        >
+                          <div className="w-20 h-5 mx-5 my-2.5">
                             <img
                               className="h-5 w-5 mx-auto"
                               alt="spinner"
                               src={spinner}
                             />
-                            </div>
+                          </div>
                         </button>
-                          )}
-                 
+                      )}
                     </div>
                   </div>
                 </form>

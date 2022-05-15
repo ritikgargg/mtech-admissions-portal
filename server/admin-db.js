@@ -276,10 +276,10 @@ const add_offering = async (req, res) => {
   }
 
   let info = req.body;
-  
+
   var cycle_id = info.cycle_id;
 
-  if(userRole === 0){
+  if (userRole === 0) {
     const results = await pool.query(
       "INSERT INTO mtech_offerings_" +
         cycle_id +
@@ -425,7 +425,10 @@ const get_offerings = async (req, res) => {
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
   var userEmail = jwt.decode(authToken).userEmail;
-  let department_query_info = await pool.query("SELECT * FROM admins WHERE email_id = $1;", [userEmail]);
+  let department_query_info = await pool.query(
+    "SELECT * FROM admins WHERE email_id = $1;",
+    [userEmail]
+  );
   var department = department_query_info.rows[0].department;
 
   if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
@@ -460,8 +463,13 @@ const get_offerings = async (req, res) => {
       "SELECT * FROM mtech_offerings_" + cycle_id + ";"
     );
   } else {
-    let x = "(" + department.map(d => `'${d}'`).join(',') + ")";
-    let temp = "SELECT * FROM mtech_offerings_" + cycle_id + " WHERE department IN " + x + ";";
+    let x = "(" + department.map((d) => `'${d}'`).join(",") + ")";
+    let temp =
+      "SELECT * FROM mtech_offerings_" +
+      cycle_id +
+      " WHERE department IN " +
+      x +
+      ";";
 
     results = await pool.query(temp);
   }
@@ -656,9 +664,10 @@ const add_admin = async (req, res) => {
   let info = req.body;
 
   /** Check if this email is already an admin */
-  const check = await pool.query("SELECT * FROM login_verification WHERE email_id = $1;", [
-    info.email_id,
-  ]);
+  const check = await pool.query(
+    "SELECT * FROM login_verification WHERE email_id = $1;",
+    [info.email_id]
+  );
 
   if (check.rows.length !== 0) {
     return res.send("2"); /** Email ID already exists */
@@ -910,7 +919,7 @@ const publish_unpublish_results = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1  && userRole !== 3) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -961,7 +970,7 @@ const publish_all_results = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1  && userRole !== 3) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -1007,7 +1016,7 @@ const unpublish_all_results = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1  && userRole !== 3) {
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
 
@@ -1033,7 +1042,7 @@ const unpublish_all_results = async (req, res) => {
 /**
  * Open all offerings
  */
- const open_all_offerings = async (req, res) => {
+const open_all_offerings = async (req, res) => {
   /**
    * Verify using authToken
    */
@@ -1063,16 +1072,18 @@ const unpublish_all_results = async (req, res) => {
   var cycle_id = info.cycle_id;
 
   const results = await pool.query(
-    "UPDATE mtech_offerings_" + cycle_id + " SET is_accepting_applications = true"
+    "UPDATE mtech_offerings_" +
+      cycle_id +
+      " SET is_accepting_applications = true"
   );
- 
+
   return res.send("Ok");
 };
 
 /**
  * Close all offerings
  */
- const close_all_offerings = async (req, res) => {
+const close_all_offerings = async (req, res) => {
   /**
    * Verify using authToken
    */
@@ -1102,9 +1113,11 @@ const unpublish_all_results = async (req, res) => {
   var cycle_id = info.cycle_id;
 
   const results = await pool.query(
-    "UPDATE mtech_offerings_" + cycle_id + " SET is_accepting_applications = false"
+    "UPDATE mtech_offerings_" +
+      cycle_id +
+      " SET is_accepting_applications = false"
   );
- 
+
   return res.send("Ok");
 };
 

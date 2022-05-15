@@ -29,9 +29,9 @@ import ViewSubmittedApplicationAdmin from "./components/Admin/ViewSubmittedAppli
 import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
-import Templates from "./components/Admin/Templates"
+import Templates from "./components/Admin/Templates";
 import MeetTheTeam from "./components/Landing/MeetTheTeam";
-import RecycleBin from "./components/Admin/RecycleBin"
+import RecycleBin from "./components/Admin/RecycleBin";
 import HowToUseAdmin from "./components/Admin/HowToUseAdmin";
 
 function App() {
@@ -184,25 +184,28 @@ function App() {
             path="/admin/templates"
             element={
               <PrivateRoute>
-                <Templates/>
+                <Templates />
               </PrivateRoute>
-            }/>
+            }
+          />
 
           <Route
             path="/admin/how-to-use"
             element={
               <PrivateRoute>
-                <HowToUseAdmin/>
+                <HowToUseAdmin />
               </PrivateRoute>
-            }/>
+            }
+          />
 
-            <Route
+          <Route
             path="/admin/recycle-bin"
             element={
               <PrivateRoute>
-                <RecycleBin/>
+                <RecycleBin />
               </PrivateRoute>
-            }/>
+            }
+          />
 
           <Route
             path="/admin/view/:cycle_id/:offering_id/:application_id"

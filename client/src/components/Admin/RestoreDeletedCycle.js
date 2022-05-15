@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -9,7 +9,7 @@ import spinner from "../../images/SpinnerWhite.gif";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
+import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 
 const style = {
   position: "absolute",
@@ -49,11 +49,11 @@ export default function RestoreDeletedCycle(props) {
         }
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   return (
     <div>
-    <Tooltip title="Restore">
+      <Tooltip title="Restore">
         <button
           type="button"
           onClick={handleOpen}
@@ -63,7 +63,7 @@ export default function RestoreDeletedCycle(props) {
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
           </svg> */}
-          <RestoreFromTrashIcon/>
+          <RestoreFromTrashIcon />
         </button>
       </Tooltip>
       <Modal
@@ -75,12 +75,18 @@ export default function RestoreDeletedCycle(props) {
         <Box sx={style}>
           <Grid container>
             <Grid item xs={11}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-
-              </Typography>
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+              ></Typography>
             </Grid>
             <Grid item xs={1}>
-              <IconButton className="focus:outline-none" aria-label="Close" onClick={handleClose}>
+              <IconButton
+                className="focus:outline-none"
+                aria-label="Close"
+                onClick={handleClose}
+              >
                 <Close />
               </IconButton>
             </Grid>
@@ -90,13 +96,14 @@ export default function RestoreDeletedCycle(props) {
             id="modal-modal-description"
           >
             <h2 className="text-xl font-bold">
-            Are you sure you want to restore <span className="italic font-semibold">{props.cycle_name}</span>?
+              Are you sure you want to restore{" "}
+              <span className="italic font-semibold">{props.cycle_name}</span>?
             </h2>
             <p className="mt-2 text-sm text-gray-500">
               {/* The results of all the offerings will be shown to the corresponding applicants. */}
             </p>
             <div className="flex items-center justify-end mt-8 text-xs">
-              { !isLoading ? 
+              {!isLoading ? (
                 <button
                   type="button"
                   onClick={restoreCycle}
@@ -104,15 +111,19 @@ export default function RestoreDeletedCycle(props) {
                 >
                   Yes, I'm sure
                 </button>
-                :
+              ) : (
                 <button
                   type="button"
                   disabled
                   className="focus:outline-none w-28 px-4 py-2 font-medium text-white rounded bg-emerald-600"
                 >
-                  <img src={spinner} alt="spinner" className="h-5 w-5 mx-auto"/>
+                  <img
+                    src={spinner}
+                    alt="spinner"
+                    className="h-5 w-5 mx-auto"
+                  />
                 </button>
-              }
+              )}
               <button
                 type="button"
                 onClick={handleClose}

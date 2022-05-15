@@ -68,10 +68,21 @@ const restore_admission_cycle = async (req, res) => {
     [cycle_id]
   );
   cycle_data_rows = cycle_data.rows[0];
-  
+
   const results1 = await pool.query(
     "INSERT INTO admission_cycles VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);",
-    [cycle_id, cycle_data_rows.name, cycle_data_rows.duration_start, cycle_data_rows.duration_end, cycle_data_rows.fees_gen, cycle_data_rows.fees_ews, cycle_data_rows.fees_obc, cycle_data_rows.fees_sc, cycle_data_rows.fees_st, cycle_data_rows.fees_pwd]
+    [
+      cycle_id,
+      cycle_data_rows.name,
+      cycle_data_rows.duration_start,
+      cycle_data_rows.duration_end,
+      cycle_data_rows.fees_gen,
+      cycle_data_rows.fees_ews,
+      cycle_data_rows.fees_obc,
+      cycle_data_rows.fees_sc,
+      cycle_data_rows.fees_st,
+      cycle_data_rows.fees_pwd,
+    ]
   );
 
   const results2 = await pool.query(

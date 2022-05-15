@@ -7,8 +7,8 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 const style = {
   position: "absolute",
@@ -30,42 +30,48 @@ const customStyles = {
     padding: "5px",
     outline: state.isFocused ? "none" : "",
     border: "1px solid rgb(229 231 235)",
-    boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)"
-  })
+    boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+  }),
 };
 
 export default function EditAdminModal(props) {
   const [isLoading, setIsLoading] = useState(false);
-  const [adminType, setAdminType] = useState(props.admin.admin_type)
+  const [adminType, setAdminType] = useState(props.admin.admin_type);
 
   const initSelectOptions = () => {
-    let temp = []
-    for(let i = 0; i < props.admin.department.length; i++){
-      temp.push({'value': props.admin.department[i], 'label': props.admin.department[i]});
+    let temp = [];
+    for (let i = 0; i < props.admin.department.length; i++) {
+      temp.push({
+        value: props.admin.department[i],
+        label: props.admin.department[i],
+      });
     }
     return temp;
-  }
+  };
   const [selectedOptions, setSelectedOptions] = useState(initSelectOptions);
   const navigate = useNavigate();
   const animatedComponents = makeAnimated();
 
   const options = [
-    {value:'Biomedical Engineering', label: 'Biomedical Engineering'},
-    {value: 'Chemical Engineering', label: 'Chemical Engineering'},
-    {value:'Civil Engineering', label: 'Civil Engineering'},
-    {value:'Computer Science and Engineering', label: 'Computer Science and Engineering'},
-    {value:'Electrical Engineering', label: 'Electrical Engineering' },
-    {value:'Mechanical Engineering', label: 'Mechanical Engineering'},
-  ]
+    { value: "Biomedical Engineering", label: "Biomedical Engineering" },
+    { value: "Chemical Engineering", label: "Chemical Engineering" },
+    { value: "Civil Engineering", label: "Civil Engineering" },
+    {
+      value: "Computer Science and Engineering",
+      label: "Computer Science and Engineering",
+    },
+    { value: "Electrical Engineering", label: "Electrical Engineering" },
+    { value: "Mechanical Engineering", label: "Mechanical Engineering" },
+  ];
 
   const handleChange = (options) => {
     setSelectedOptions(options);
-};
+  };
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
-     ...props.admin,
-     department: 'Academics'
+      ...props.admin,
+      department: "Academics",
     },
   });
 
@@ -75,7 +81,6 @@ export default function EditAdminModal(props) {
     onClose();
     setOpen(false);
   };
-
 
   const onClose = () => {
     reset();
@@ -87,13 +92,12 @@ export default function EditAdminModal(props) {
     setIsLoading(true);
     const formData = new FormData();
 
-    let filteredOptions = []
-    if(adminType === 0){
+    let filteredOptions = [];
+    if (adminType === 0) {
       for (let i = 0; i < options.length; i++) {
         filteredOptions.push(options[i].value);
       }
-    }
-    else{
+    } else {
       for (let i = 0; i < selectedOptions.length; i++) {
         filteredOptions.push(selectedOptions[i].value);
       }
@@ -215,28 +219,40 @@ export default function EditAdminModal(props) {
                         required
                       />
                     </div>
-                    
 
+                    <div className="col-span-full sm:col-span-full">
+                      <label
+                        htmlFor="admin_type"
+                        className="text-sm font-medium text-gray-900 block mb-2"
+                      >
+                        Role
+                      </label>
+
+                      <select
+                        id="admin_type"
+                        required
+                        name="admin_type"
+                        value={adminType}
+                        onChange={(event) => {
+                          setAdminType(parseInt(event.target.value));
+                        }}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                      >
+                        <option value="">- Select -</option>
+                        <option value={0}>SUPER ADMIN</option>
+                        <option value={1}>FACULTY</option>
+                        <option value={3}>STAFF</option>
+                      </select>
+                    </div>
+                    {adminType === 0 && (
                       <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="admin_type" className="text-sm font-medium text-gray-900 block mb-2">Role</label>
-                        
-                        <select
-                          id="admin_type"
-                          required
-                          name = "admin_type"
-                          value={adminType}
-                          onChange={(event) => {setAdminType(parseInt(event.target.value))}}
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        <label
+                          htmlFor="department"
+                          className="text-sm font-medium text-gray-900 block mb-2"
                         >
-                          <option value="">- Select -</option>
-                          <option value={0}>SUPER ADMIN</option>
-                          <option value={1}>FACULTY</option>
-                          <option value={3}>STAFF</option>
-                        </select>
-                      </div>
-                      {(adminType === 0) && <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                        
+                          Department
+                        </label>
+
                         <select
                           id="department"
                           {...register("department")}
@@ -245,63 +261,61 @@ export default function EditAdminModal(props) {
                         >
                           <option value="">- Select -</option>
                           <option value="Academics">Academics</option>
-                          </select>
-                          </div>
-                          }
+                        </select>
+                      </div>
+                    )}
 
-                          {
-                            (adminType === 1 || adminType === 3) &&
-                            <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
+                    {(adminType === 1 || adminType === 3) && (
+                      <div className="col-span-full sm:col-span-full">
+                        <label
+                          htmlFor="department"
+                          className="text-sm font-medium text-gray-900 block mb-2"
+                        >
+                          Department
+                        </label>
 
-                          <Select
-                              // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
-                              styles={customStyles}
-                              value={selectedOptions}
-                              closeMenuOnSelect={false}
-                              components={animatedComponents}
-                              isMulti={true}
-                              options={options}
-                              onChange={handleChange}
-                              maxMenuHeight={150}
-                          />
-                          </div> 
-                          }
-
-
-                                              
-                      
+                        <Select
+                          // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+                          styles={customStyles}
+                          value={selectedOptions}
+                          closeMenuOnSelect={false}
+                          components={animatedComponents}
+                          isMulti={true}
+                          options={options}
+                          onChange={handleChange}
+                          maxMenuHeight={150}
+                        />
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
                   <div className="p-3 border-t border-gray-200 rounded-b">
-                      
-                          {!isLoading ? (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                            >
-                              <div className="w-20 h-5 mx-5 my-2.5">
-                                  <p>Edit admin</p>
-                                  </div>
-                            </button>
-                          ) : (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                              disabled
-                            >
-                              <div className="w-20 h-5 mx-5 my-2.5">
-                                <img
-                                  className="h-5 w-5 mx-auto"
-                                  alt="spinner"
-                                  src={spinner}
-                                />
-                                </div>
-                            </button>
-                          )}
-                        
-                    </div>
+                    {!isLoading ? (
+                      <button
+                        className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                        type="submit"
+                      >
+                        <div className="w-20 h-5 mx-5 my-2.5">
+                          <p>Edit admin</p>
+                        </div>
+                      </button>
+                    ) : (
+                      <button
+                        className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                        type="submit"
+                        disabled
+                      >
+                        <div className="w-20 h-5 mx-5 my-2.5">
+                          <img
+                            className="h-5 w-5 mx-auto"
+                            alt="spinner"
+                            src={spinner}
+                          />
+                        </div>
+                      </button>
+                    )}
+                  </div>
                 </form>
               </div>
             </div>

@@ -10,64 +10,172 @@ function Footer() {
         <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <p className="mb-4">
-              <a href="https://www.iitrpr.ac.in/" target="_blank" rel="noopener noreferrer">IIT Ropar</a>
+              <a
+                href="https://www.iitrpr.ac.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                IIT Ropar
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://www.tbifiitrpr.org/" target="_blank" rel="noopener noreferrer">TBIF</a>
+              <a
+                href="https://www.tbifiitrpr.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                TBIF
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://cdcrc.iitrpr.ac.in/" target="_blank" rel="noopener noreferrer">CDPC</a>
+              <a
+                href="https://cdcrc.iitrpr.ac.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                CDPC
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://www.iitrpr.ac.in/ismp/" target="_blank" rel="noopener noreferrer">ISMP</a>
+              <a
+                href="https://www.iitrpr.ac.in/ismp/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ISMP
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://sites.google.com/site/ropariprcell/" target="_blank" rel="noopener noreferrer">IPR</a>
+              <a
+                href="https://sites.google.com/site/ropariprcell/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                IPR
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://www.iitrpr.ac.in/snehita-wellbeing/" target="_blank" rel="noopener noreferrer">Snehita Well-being Cell</a>
+              <a
+                href="https://www.iitrpr.ac.in/snehita-wellbeing/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Snehita Well-being Cell
+              </a>
             </p>
           </div>
 
           <div>
             <p className="mb-4">
-              <a href="https://www.iitrpr.ac.in/cbme/" target="_blank" rel="noopener noreferrer">CBME</a>
+              <a
+                href="https://www.iitrpr.ac.in/cbme/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                CBME
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://iitrpr.ac.in/chemical" target="_blank" rel="noopener noreferrer">Chemical Engineering</a>
+              <a
+                href="https://iitrpr.ac.in/chemical"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Chemical Engineering
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://sites.google.com/a/iitrpr.ac.in/iitropar-chemistry/" target="_blank" rel="noopener noreferrer">Chemistry</a>
+              <a
+                href="https://sites.google.com/a/iitrpr.ac.in/iitropar-chemistry/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Chemistry
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://iitrpr.ac.in/civil/" target="_blank" rel="noopener noreferrer">Civil</a>
+              <a
+                href="https://iitrpr.ac.in/civil/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Civil
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://cse.iitrpr.ac.in/" target="_blank" rel="noopener noreferrer">Computer Science</a>
+              <a
+                href="https://cse.iitrpr.ac.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Computer Science
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://www.iitrpr.ac.in/ee/" target="_blank" rel="noopener noreferrer">Electrical Engineering</a>
+              <a
+                href="https://www.iitrpr.ac.in/ee/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Electrical Engineering
+              </a>
             </p>
           </div>
 
           <div>
             <p className="mb-4">
-              <a href="https://iitrpr.ac.in/humanities" target="_blank" rel="noopener noreferrer">Humanities and Social Sciences</a>
+              <a
+                href="https://iitrpr.ac.in/humanities"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Humanities and Social Sciences
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://iitrpr.ac.in/mathematics" target="_blank" rel="noopener noreferrer">Mathematics</a>
+              <a
+                href="https://iitrpr.ac.in/mathematics"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Mathematics
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://www.iitrpr.ac.in/math/content/b-tech-mathematics-and-computing" target="_blank" rel="noopener noreferrer">Mathematics and Computing</a>
+              <a
+                href="https://www.iitrpr.ac.in/math/content/b-tech-mathematics-and-computing"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Mathematics and Computing
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://sites.google.com/iitrpr.ac.in/mechanical" target="_blank" rel="noopener noreferrer">Mechanical Engineering</a>
+              <a
+                href="https://sites.google.com/iitrpr.ac.in/mechanical"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Mechanical Engineering
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://iitrpr.ac.in/mme" target="_blank" rel="noopener noreferrer">Metallurgical and Material Sciences</a>
+              <a
+                href="https://iitrpr.ac.in/mme"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Metallurgical and Material Sciences
+              </a>
             </p>
             <p className="mb-4">
-              <a href="https://iitrpr.ac.in/physics/" target="_blank" rel="noopener noreferrer">Physics</a>
+              <a
+                href="https://iitrpr.ac.in/physics/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Physics
+              </a>
             </p>
           </div>
 
@@ -91,7 +199,8 @@ function Footer() {
                   d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
                 ></path>
               </svg>
-              Indian Institute of Technology Ropar, Rupnagar, Punjab - 140001, India
+              Indian Institute of Technology Ropar, Rupnagar, Punjab - 140001,
+              India
             </p>
             <p className="flex items-center justify-center md:justify-start mb-4">
               <svg
@@ -156,7 +265,12 @@ function Footer() {
           <span>Get connected with us on social networks:</span>
         </div>
         <div className="flex justify-center">
-          <a href="https://www.facebook.com/iitrpr/" target="_blank" rel="noopener noreferrer" className="mr-6 ">
+          <a
+            href="https://www.facebook.com/iitrpr/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mr-6 "
+          >
             <svg
               aria-hidden="true"
               focusable="false"
@@ -173,7 +287,12 @@ function Footer() {
               ></path>
             </svg>
           </a>
-          <a href="https://twitter.com/iitrpr?t=QSUExDruSGqI8y5Fqw1dsw&s=08" target="_blank" rel="noopener noreferrer" className="mr-6 ">
+          <a
+            href="https://twitter.com/iitrpr?t=QSUExDruSGqI8y5Fqw1dsw&s=08"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mr-6 "
+          >
             <svg
               aria-hidden="true"
               focusable="false"
@@ -190,7 +309,12 @@ function Footer() {
               ></path>
             </svg>
           </a>
-          <a href="https://instagram.com/iitrpr?utm_medium=copy_link" target="_blank" rel="noopener noreferrer" className="mr-6 ">
+          <a
+            href="https://instagram.com/iitrpr?utm_medium=copy_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mr-6 "
+          >
             <svg
               aria-hidden="true"
               focusable="false"
@@ -207,7 +331,12 @@ function Footer() {
               ></path>
             </svg>
           </a>
-          <a href="https://www.linkedin.com/school/iitropar" target="_blank" rel="noopener noreferrer" className="mr-6 ">
+          <a
+            href="https://www.linkedin.com/school/iitropar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mr-6 "
+          >
             <svg
               aria-hidden="true"
               focusable="false"
@@ -228,7 +357,11 @@ function Footer() {
       </div>
       <div className="text-center p-3 bg-[#1E3A8A]">
         <span> Copyright © {curr_year}, </span>
-        <a href="https://www.iitrpr.ac.in/" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://www.iitrpr.ac.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           IIT Ropar
         </a>
       </div>

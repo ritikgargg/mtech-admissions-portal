@@ -6,7 +6,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import spinner from "../../images/SpinnerWhite.gif";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const style = {
   position: "absolute",
@@ -27,7 +27,7 @@ export default function DeleteCyclePermanently(props) {
   const handleDelete = () => {
     setIsLoading(true);
     const formData = new FormData();
-     formData.append("cycle_id", props.cycle_id);
+    formData.append("cycle_id", props.cycle_id);
     Axios.post("/delete-cycle-permanently", formData, {
       headers: {
         Authorization: getToken(),
@@ -63,7 +63,7 @@ export default function DeleteCyclePermanently(props) {
               clipRule="evenodd"
             />
           </svg> */}
-          <DeleteForeverIcon/>
+          <DeleteForeverIcon />
         </button>
       </Tooltip>
       <Modal
@@ -117,35 +117,37 @@ export default function DeleteCyclePermanently(props) {
                   Are you sure you want to permanently delete
                 </h3>
                 <h3 className="text-xl font-bold text-gray-500 mt-1 mb-2">
-                {props.cycle_name}?
+                  {props.cycle_name}?
                 </h3>
-                <p className="italic text-base mb-6"> Caution: The data(offerings and applications) for <span className="font-semibold">{props.cycle_name}</span> cannot be recovered after permanent deletion.</p>
-                
-                    {!isLoading ? (
-                      <button
-                        onClick={handleDelete}
-                        className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
-                      >
-                        <div className="w-24 h-auto">
-                      Yes, I'm sure
-                      </div>
-                      </button>
-                    ) : 
-                    (
-                    <button
+                <p className="italic text-base mb-6">
+                  {" "}
+                  Caution: The data(offerings and applications) for{" "}
+                  <span className="font-semibold">{props.cycle_name}</span>{" "}
+                  cannot be recovered after permanent deletion.
+                </p>
+
+                {!isLoading ? (
+                  <button
+                    onClick={handleDelete}
+                    className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
+                  >
+                    <div className="w-24 h-auto">Yes, I'm sure</div>
+                  </button>
+                ) : (
+                  <button
                     disabled
                     className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
-                    >
+                  >
                     <div className="w-24 h-auto">
                       <img
                         className="w-5 h-auto mx-auto"
                         alt="spinner"
                         src={spinner}
                       />
-                      </div>
-                </button>
-                    )}
-             
+                    </div>
+                  </button>
+                )}
+
                 <button
                   onClick={handleClose}
                   className="w-50 h-12 focus:outline-none text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center"

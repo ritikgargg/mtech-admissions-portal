@@ -23,7 +23,7 @@ export default function DeleteApplicationModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const admin_type = getAdminType()
+  const admin_type = getAdminType();
 
   const handleDelete = () => {
     setIsLoading(true);
@@ -47,29 +47,29 @@ export default function DeleteApplicationModal(props) {
 
   return (
     <div>
-    {(admin_type === "0")?
-      <Tooltip title="Delete">
-        <button
-          onClick={handleOpen}
-          type="button"
-          className="text-white focus:outline-none bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
-        >
-          <svg
-            className="h-5 w-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
+      {admin_type === "0" ? (
+        <Tooltip title="Delete">
+          <button
+            onClick={handleOpen}
+            type="button"
+            className="text-white focus:outline-none bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
           >
-            <path
-              fillRule="evenodd"
-              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </Tooltip>
-      :
-      <Tooltip title="You can't delete this application">
+            <svg
+              className="h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </Tooltip>
+      ) : (
+        <Tooltip title="You can't delete this application">
           <button
             onClick={handleOpen}
             type="button"
@@ -90,7 +90,7 @@ export default function DeleteApplicationModal(props) {
             </svg>
           </button>
         </Tooltip>
-    }
+      )}
       <Modal
         open={open}
         onClose={handleClose}
@@ -144,32 +144,31 @@ export default function DeleteApplicationModal(props) {
                 <h3 className="text-xl font-bold text-gray-500 mt-1 mb-2">
                   {props.email_id}?
                 </h3>
-                <p className="italic text-base mb-6">Caution: It cannot be recovered later.</p>
-                    {!isLoading ? (
-                      <button
-                        onClick={handleDelete}
-                        className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
-                      >
-                        <div className="w-24 h-auto">
-                      Yes, I'm sure
-                      </div>
-                      </button>
-                    ) : 
-                    (
-                    <button
+                <p className="italic text-base mb-6">
+                  Caution: It cannot be recovered later.
+                </p>
+                {!isLoading ? (
+                  <button
+                    onClick={handleDelete}
+                    className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
+                  >
+                    <div className="w-24 h-auto">Yes, I'm sure</div>
+                  </button>
+                ) : (
+                  <button
                     disabled
                     className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
-                    >
+                  >
                     <div className="w-24 h-auto">
                       <img
                         className="w-5 h-auto mx-auto"
                         alt="spinner"
                         src={spinner}
                       />
-                      </div>
-                </button>
-                    )}
-             
+                    </div>
+                  </button>
+                )}
+
                 <button
                   onClick={handleClose}
                   className="w-50 h-12 focus:outline-none text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center"

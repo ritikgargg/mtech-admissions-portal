@@ -23,18 +23,18 @@ export default function EditProfile(props) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  function convertRole(admin_type){
-    if(admin_type === 0){
-        return "SUPER ADMIN"
-    }else{
-        return "FACULTY"
+  function convertRole(admin_type) {
+    if (admin_type === 0) {
+      return "SUPER ADMIN";
+    } else {
+      return "FACULTY";
     }
   }
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
-     ...props.profile,
-     admin_type: convertRole(props.profile.admin_type)
+      ...props.profile,
+      admin_type: convertRole(props.profile.admin_type),
     },
   });
 
@@ -44,7 +44,6 @@ export default function EditProfile(props) {
     onClose();
     setOpen(false);
   };
-
 
   const onClose = () => {
     reset();
@@ -56,7 +55,7 @@ export default function EditProfile(props) {
 
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
-    if(data.admin_type === "SUPER ADMIN") formData.append("admin_type", 0);
+    if (data.admin_type === "SUPER ADMIN") formData.append("admin_type", 0);
     else formData.append("admin_type", 1);
     formData.append("department", data.department);
 
@@ -178,77 +177,96 @@ export default function EditProfile(props) {
                         required
                       />
                     </div>
-                    
+
                     {/* <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label>
                         <Toggle/>
                       </div> */}
 
-                      <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="admin_type" className="text-sm font-medium text-gray-900 block mb-2">Role</label>
-                        
-                        <select
-                          id="admin_type"
-                          required
-                          {...register("admin_type")}
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        >
-                          <option value="">- Select -</option>
-                          <option value="SUPER ADMIN">SUPER ADMIN</option>
-                          <option value="FACULTY">FACULTY</option>
-                        </select>
-                      </div>
                     <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                        
-                        <select
-                          id="department"
-                          {...register("department")}
-                          required
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        >
-                          <option value="">- Select -</option>
-                          <option value="Academics">Academics</option>
-                          <option value="Chemical Engineering">Chemical Engineering</option>
-                          <option value="Civil Engineering">Civil Engineering</option>
-                          <option value="Computer Science and Engineering">Computer Science and Engineering</option>
-                          <option value="Electrical Engineering">Electrical Engineering</option>
-                          <option value="Mechanical Engineering">Mechanical Engineering</option>
-                          <option value="Biomedical Engineering">Biomedical Engineering</option>
+                      <label
+                        htmlFor="admin_type"
+                        className="text-sm font-medium text-gray-900 block mb-2"
+                      >
+                        Role
+                      </label>
 
-                        </select>
-                      </div>
+                      <select
+                        id="admin_type"
+                        required
+                        {...register("admin_type")}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                      >
+                        <option value="">- Select -</option>
+                        <option value="SUPER ADMIN">SUPER ADMIN</option>
+                        <option value="FACULTY">FACULTY</option>
+                      </select>
+                    </div>
+                    <div className="col-span-full sm:col-span-full">
+                      <label
+                        htmlFor="department"
+                        className="text-sm font-medium text-gray-900 block mb-2"
+                      >
+                        Department
+                      </label>
 
-                     
+                      <select
+                        id="department"
+                        {...register("department")}
+                        required
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                      >
+                        <option value="">- Select -</option>
+                        <option value="Academics">Academics</option>
+                        <option value="Chemical Engineering">
+                          Chemical Engineering
+                        </option>
+                        <option value="Civil Engineering">
+                          Civil Engineering
+                        </option>
+                        <option value="Computer Science and Engineering">
+                          Computer Science and Engineering
+                        </option>
+                        <option value="Electrical Engineering">
+                          Electrical Engineering
+                        </option>
+                        <option value="Mechanical Engineering">
+                          Mechanical Engineering
+                        </option>
+                        <option value="Biomedical Engineering">
+                          Biomedical Engineering
+                        </option>
+                      </select>
+                    </div>
                   </div>
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
                   <div className="p-3 border-t border-gray-200 rounded-b">
-                          {!isLoading ? (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                            >
-                              <div className="w-20 h-5 mx-5 my-2.5">
-                                  <p>Edit admin</p>
-                              </div>
-                            </button>
-                          ) : (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                              disabled
-                            >
-                              <div className="w-20 h-5 mx-5 my-2.5">
-                            <img
-                              className="h-5 w-5 mx-auto"
-                              alt="spinner"
-                              src={spinner}
-                            />
-                            </div>
-                            </button>
-                          )}
-                    </div>
+                    {!isLoading ? (
+                      <button
+                        className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                        type="submit"
+                      >
+                        <div className="w-20 h-5 mx-5 my-2.5">
+                          <p>Edit admin</p>
+                        </div>
+                      </button>
+                    ) : (
+                      <button
+                        className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                        type="submit"
+                        disabled
+                      >
+                        <div className="w-20 h-5 mx-5 my-2.5">
+                          <img
+                            className="h-5 w-5 mx-auto"
+                            alt="spinner"
+                            src={spinner}
+                          />
+                        </div>
+                      </button>
+                    )}
+                  </div>
                 </form>
               </div>
             </div>

@@ -34,7 +34,7 @@ export default function OfferingList() {
   const [textToSearch, setTextToSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("0"); // 0 -indicates default
   var admin_type = getAdminType();
-  
+
   useEffect(() => {
     axios
       .get("/get-offerings", {
@@ -48,7 +48,7 @@ export default function OfferingList() {
           navigate("/logout");
         } else {
           setOfferings(response.data.offerings);
-          let copy = [...response.data.offerings]
+          let copy = [...response.data.offerings];
           setAllOfferings(copy);
           setCycleName(response.data.cycle_name);
           setDepartment(response.data.department);
@@ -198,155 +198,169 @@ export default function OfferingList() {
             </div>
             <div className="flex justify-between mt-2">
               <div className="flex">
-              <div className="mr-3 w-24">
-                <select
-                  id="sort-order"
-                  name="sort-order"
-                  value={sortOrder}
-                  onChange={(event) => {
-                    setSortOrder(event.target.value)
-                    if(event.target.value === "0"){
-                      let arr_offering_ids = [];
-                      for(let i = 0; i < offerings.length; i++){
-                        arr_offering_ids.push(offerings[i].offering_id)
-                      }
-                      let temp =[]
-                      for(let i = 0; i < allOfferings.length; i++){
-                        if(arr_offering_ids.includes(allOfferings[i].offering_id)){
-                          temp.push(allOfferings[i])
+                <div className="mr-3 w-24">
+                  <select
+                    id="sort-order"
+                    name="sort-order"
+                    value={sortOrder}
+                    onChange={(event) => {
+                      setSortOrder(event.target.value);
+                      if (event.target.value === "0") {
+                        let arr_offering_ids = [];
+                        for (let i = 0; i < offerings.length; i++) {
+                          arr_offering_ids.push(offerings[i].offering_id);
                         }
+                        let temp = [];
+                        for (let i = 0; i < allOfferings.length; i++) {
+                          if (
+                            arr_offering_ids.includes(
+                              allOfferings[i].offering_id
+                            )
+                          ) {
+                            temp.push(allOfferings[i]);
+                          }
+                        }
+                        setOfferings(temp);
+                      } else {
+                        setOfferings(
+                          offerings.sort(function (obj1, obj2) {
+                            if (event.target.value === "1") {
+                              if (obj1[searchType] < obj2[searchType]) {
+                                return -1;
+                              } else if (obj1[searchType] > obj2[searchType]) {
+                                return 1;
+                              } else {
+                                return 0;
+                              }
+                            } else if (event.target.value === "2") {
+                              if (obj1[searchType] < obj2[searchType]) {
+                                return 1;
+                              } else if (obj1[searchType] > obj2[searchType]) {
+                                return -1;
+                              } else {
+                                return 0;
+                              }
+                            }
+                          })
+                        );
                       }
-                      setOfferings(temp)
-                    }else{
-                      setOfferings(offerings.sort(function (obj1, obj2) {
-                      if(event.target.value === "1"){
-
-                          if (obj1[searchType] < obj2[searchType]) {
-                            return -1;
-                          }
-                          else if (obj1[searchType] > obj2[searchType]) {
-                            return 1;
-                          } else{
-                            return 0;
-                          }
-                      }else if(event.target.value === "2"){
-                        if (obj1[searchType] < obj2[searchType]) {
-                            return 1;
-                          }
-                          else if (obj1[searchType] > obj2[searchType]) {
-                            return -1;
-                          } else{
-                            return 0;
-                          }
-                      }                    
-                    })
-
-                    )
-                    }
-                    
-                  }
-                  }
-                  required
-                  className="mt-1 block w-full py-2.5 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="0">Default</option>
-                  <option value="1">A to Z</option>
-                  <option value="2">Z to A</option>
-                </select>
+                    }}
+                    required
+                    className="mt-1 block w-full py-2.5 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="0">Default</option>
+                    <option value="1">A to Z</option>
+                    <option value="2">Z to A</option>
+                  </select>
+                </div>
+                <div className="sm:pr-3 mb-4 sm:mb-0">
+                  <label htmlFor="products-search" className="sr-only">
+                    Search
+                  </label>
+                  <div className="mt-1 relative sm:w-64 xl:w-72">
+                    <input
+                      type="text"
+                      name="textToSearch"
+                      id="textToSearch"
+                      value={textToSearch}
+                      onChange={(event) => {
+                        setTextToSearch(event.target.value);
+                        setOfferings(
+                          allOfferings.filter((offering) =>
+                            offering[searchType]
+                              .toLowerCase()
+                              .includes(event.target.value.toLowerCase())
+                          )
+                        );
+                      }}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                      placeholder="Search"
+                    />
+                  </div>
+                </div>
+                <div className="w-36">
+                  <label
+                    htmlFor="searchType"
+                    className="block text-sm font-medium text-gray-700"
+                  ></label>
+                  <select
+                    id="searchType"
+                    name="searchType"
+                    value={searchType}
+                    onChange={(event) => {
+                      setTextToSearch("");
+                      setSortOrder("0");
+                      setOfferings(allOfferings);
+                      setSearchType(event.target.value);
+                    }}
+                    required
+                    className="mt-1 block w-full py-2.5 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="department">Department</option>
+                    <option value="specialization">Specialization</option>
+                  </select>
+                </div>
               </div>
-            <div className="sm:pr-3 mb-4 sm:mb-0">
-              <label htmlFor="products-search" className="sr-only">
-                Search
-              </label>
-              <div className="mt-1 relative sm:w-64 xl:w-72">
-                <input
-                  type="text"
-                  name="textToSearch"
-                  id="textToSearch"
-                  value={textToSearch}
-                  onChange={(event) => {
-                    setTextToSearch(event.target.value); 
-                    setOfferings(allOfferings.filter((offering) => offering[searchType].toLowerCase().includes(event.target.value.toLowerCase())))
-                }}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                  placeholder="Search"
-                />
-              </div>
-            </div>
-            <div className="w-36">
-                <label
-                  htmlFor="searchType"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                </label>
-                <select
-                  id="searchType"
-                  name="searchType"
-                  value={searchType}
-                  onChange={(event) => {
-                    setTextToSearch("");
-                    setSortOrder("0");
-                    setOfferings(allOfferings);
-                    setSearchType(event.target.value)}
-                  }
-                  required
-                  className="mt-1 block w-full py-2.5 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="department">Department</option>
-                  <option value="specialization">Specialization</option>
-                </select>
-              </div>
-              </div>
-            <AddOfferingModal cycle_id = {params.cycle_id} department={department}/>
+              <AddOfferingModal
+                cycle_id={params.cycle_id}
+                department={department}
+              />
             </div>
             <div className="flex justify-between">
-            <div className="flex">
-              <span className="mr-2 mt-7 text-sm">
-                  Show
-              </span>
-              <div className="mt-4 w-20">
-                <label
-                  htmlFor="limit"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                </label>
-                <select
-                  id="limit"
-                  name="limit"
-                  value={limit}
-                  onChange={(event) => {
-                    setStartCount(1)
-                    setLimit(parseInt(event.target.value))
-                    }
-                  }
-                  required
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="2">2</option>
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="40">40</option>
-                  <option value="50">50</option>
-                </select>
-              </div>
-                <span className="ml-2 mt-7 text-sm">
-                    entries
-                </span>
+              <div className="flex">
+                <span className="mr-2 mt-7 text-sm">Show</span>
+                <div className="mt-4 w-20">
+                  <label
+                    htmlFor="limit"
+                    className="block text-sm font-medium text-gray-700"
+                  ></label>
+                  <select
+                    id="limit"
+                    name="limit"
+                    value={limit}
+                    onChange={(event) => {
+                      setStartCount(1);
+                      setLimit(parseInt(event.target.value));
+                    }}
+                    required
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                  </select>
+                </div>
+                <span className="ml-2 mt-7 text-sm">entries</span>
               </div>
               <div className="flex gap-1">
-                {admin_type === "0" 
-                ? 
+                {admin_type === "0" ? (
+                  <div className="flex">
+                    <OpenAllOfferings
+                      cycleName={cycleName}
+                      cycle_id={params.cycle_id}
+                    />
+                    <CloseAllOfferings
+                      cycleName={cycleName}
+                      cycle_id={params.cycle_id}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
+
                 <div className="flex">
-                  <OpenAllOfferings cycleName={cycleName} cycle_id={params.cycle_id}/>
-                  <CloseAllOfferings cycleName={cycleName} cycle_id={params.cycle_id}/>
-                </div>
-                : ""}
-                
-                <div className="flex">
-                  <PublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
-                  <UnpublishAllResultsModal cycleName={cycleName} cycle_id={params.cycle_id}/>
+                  <PublishAllResultsModal
+                    cycleName={cycleName}
+                    cycle_id={params.cycle_id}
+                  />
+                  <UnpublishAllResultsModal
+                    cycleName={cycleName}
+                    cycle_id={params.cycle_id}
+                  />
                 </div>
               </div>
             </div>
@@ -465,17 +479,17 @@ export default function OfferingList() {
                                 Open
                               </span>
                             )}
-                          {
-                            offerings[i].is_draft_mode && (
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                Draft
-                              </span>
-                            )}
-                          {!offerings[i].is_accepting_applications && !offerings[i].is_draft_mode &&(
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                              Closed
+                          {offerings[i].is_draft_mode && (
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                              Draft
                             </span>
                           )}
+                          {!offerings[i].is_accepting_applications &&
+                            !offerings[i].is_draft_mode && (
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                Closed
+                              </span>
+                            )}
 
                           {/* {new Date(application.deadline) >= new Date() && (
                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -494,15 +508,25 @@ export default function OfferingList() {
 
                         {/* PUBLISH/NOTPUBLISHED WALA UNCOMMENT KARNA HAI BAADMEI.. OOPAR WALA SPAN ISKE ANDAR COMMENTED THA */}
                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                          { offerings[i].is_result_published === 1 && (
-                            <span className="bg-blue-100 inline-flex text-blue-800 text-xs text-center font-semibold px-2.5 py-1.5 rounded dark:bg-blue-200 dark:text-blue-800">Published to Applicants</span>
+                          {offerings[i].is_result_published === 1 && (
+                            <span className="bg-blue-100 inline-flex text-blue-800 text-xs text-center font-semibold px-2.5 py-1.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                              Published to Applicants
+                            </span>
                           )}
-                          {offerings[i].is_result_published === 0  && offerings[i].is_result_published_by_faculty === 1 && (
-                            <span class="bg-purple-100 inline-flex text-purple-800 text-xs text-center font-semibold px-2 py-1.5 rounded dark:bg-purple-200 dark:text-purple-900">Approved by Department</span>
-                          )}
-                          {offerings[i].is_result_published === 0  && offerings[i].is_result_published_by_faculty === 0 && (
-                            <span className="bg-gray-100 inline-flex text-gray-800 text-xs text-center font-semibold px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Not Published</span>
-                          )}
+                          {offerings[i].is_result_published === 0 &&
+                            offerings[i].is_result_published_by_faculty ===
+                              1 && (
+                              <span class="bg-purple-100 inline-flex text-purple-800 text-xs text-center font-semibold px-2 py-1.5 rounded dark:bg-purple-200 dark:text-purple-900">
+                                Approved by Department
+                              </span>
+                            )}
+                          {offerings[i].is_result_published === 0 &&
+                            offerings[i].is_result_published_by_faculty ===
+                              0 && (
+                              <span className="bg-gray-100 inline-flex text-gray-800 text-xs text-center font-semibold px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                Not Published
+                              </span>
+                            )}
                         </td>
 
                         <td className="p-6 whitespace-nowrap space-x-2 flex">
@@ -528,11 +552,18 @@ export default function OfferingList() {
                           {/* <button type="button" data-modal-toggle="product-modal" className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clipRule="evenodd" /></svg>
                              </button> */}
-                          <EditAlertOfferingModal department={department} application={offerings[i]} cycle_id={params.cycle_id}/>
+                          <EditAlertOfferingModal
+                            department={department}
+                            application={offerings[i]}
+                            cycle_id={params.cycle_id}
+                          />
                           {/* <button type="button" data-modal-toggle={"delete-product-modal"+ application.offering_id} className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
                           </button> */}
-                          <DeleteAlertOfferingModal application={offerings[i]} cycle_id={params.cycle_id}/>
+                          <DeleteAlertOfferingModal
+                            application={offerings[i]}
+                            cycle_id={params.cycle_id}
+                          />
                         </td>
                       </tr>
                     ))}
@@ -540,20 +571,25 @@ export default function OfferingList() {
                 )}
               </table>
 
-              {(isFetching)?
-              <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
-              :
-              offerings.length === 0 && (
-                <div className="bg-white">
-                  <div className="w-3/5 mx-auto my-50 text-center">
-                    <img alt="No data" src={noDataPic} />
-                    <div className="h-5" />
-                    <p className="text-2xl font-semibold">
-                      No positions open currently!
-                    </p>
-                    <div className="h-6" />
+              {isFetching ? (
+                <img
+                  className="mx-auto h-[200px] w-[200px]"
+                  alt="Spinner"
+                  src={screenSpinner}
+                />
+              ) : (
+                offerings.length === 0 && (
+                  <div className="bg-white">
+                    <div className="w-3/5 mx-auto my-50 text-center">
+                      <img alt="No data" src={noDataPic} />
+                      <div className="h-5" />
+                      <p className="text-2xl font-semibold">
+                        No positions open currently!
+                      </p>
+                      <div className="h-6" />
+                    </div>
                   </div>
-                </div>
+                )
               )}
             </div>
           </div>

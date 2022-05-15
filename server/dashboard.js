@@ -32,20 +32,29 @@ const get_dashboard_info = async (req, res) => {
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
   let current_cycle_id = cycle.rows[0].cycle_id;
 
-  if(current_cycle_id === 0) {
-      return res.send("2");
+  if (current_cycle_id === 0) {
+    return res.send("2");
   }
 
-  const current_cycle_info = await pool.query("SELECT * FROM admission_cycles WHERE cycle_id = $1;", [current_cycle_id]);
-  const applications_count = await pool.query("SELECT count(*) FROM applications_" + current_cycle_id + ";");
+  const current_cycle_info = await pool.query(
+    "SELECT * FROM admission_cycles WHERE cycle_id = $1;",
+    [current_cycle_id]
+  );
+  const applications_count = await pool.query(
+    "SELECT count(*) FROM applications_" + current_cycle_id + ";"
+  );
   // const offerings_count = await pool.query("SELECT count(*) FROM mtech_offerings_" + current_cycle_id + ";");
-  const offerings = await pool.query("SELECT offering_id, specialization FROM mtech_offerings_" + current_cycle_id + ";");
-  let gender_distribution = {}
-  let category_distribution = {}
+  const offerings = await pool.query(
+    "SELECT offering_id, specialization FROM mtech_offerings_" +
+      current_cycle_id +
+      ";"
+  );
+  let gender_distribution = {};
+  let category_distribution = {};
 
   let category_distribution_per_offering = [];
   let gender_distribution_per_offering = [];
-  
+
   let temp = {};
   temp["GEN"] = 0;
   temp["OBC"] = 0;
@@ -102,7 +111,6 @@ const get_dashboard_info = async (req, res) => {
   category_distribution["-1"] = all_offerings;
   gender_distribution["-1"] = all_offerings2;
 
-
   return res.send({
     current_cycle_info: current_cycle_info.rows[0],
     applications_count: applications_count.rows[0],
@@ -142,14 +150,23 @@ const get_dashboard_info_gender = async (req, res) => {
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
   let current_cycle_id = cycle.rows[0].cycle_id;
 
-  if(current_cycle_id === 0) {
-      return res.send("2");
+  if (current_cycle_id === 0) {
+    return res.send("2");
   }
 
-  const current_cycle_info = await pool.query("SELECT * FROM admission_cycles WHERE cycle_id = $1;", [current_cycle_id]);
-  const applications_count = await pool.query("SELECT count(*) FROM applications_" + current_cycle_id + ";");
-  const offerings = await pool.query("SELECT offering_id, specialization FROM mtech_offerings_" + current_cycle_id + ";");
-  let gender_distribution = {}
+  const current_cycle_info = await pool.query(
+    "SELECT * FROM admission_cycles WHERE cycle_id = $1;",
+    [current_cycle_id]
+  );
+  const applications_count = await pool.query(
+    "SELECT count(*) FROM applications_" + current_cycle_id + ";"
+  );
+  const offerings = await pool.query(
+    "SELECT offering_id, specialization FROM mtech_offerings_" +
+      current_cycle_id +
+      ";"
+  );
+  let gender_distribution = {};
 
   let gender_distribution_per_offering = [];
   let temp = {};
@@ -191,5 +208,5 @@ const get_dashboard_info_gender = async (req, res) => {
 };
 
 module.exports = {
-  get_dashboard_info
+  get_dashboard_info,
 };

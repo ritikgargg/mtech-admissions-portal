@@ -5,12 +5,11 @@ function ChevronDots({
   steps = [],
   currentStep = 1,
   onStepClick = null,
-  ...newProps}) 
-  
-{ 
+  ...newProps
+}) {
   let finalClass = `${className} w-full px-4 sm:px-8`;
   let progressClass = `absolute top-1/2 left-0 h-1 transform -translate-y-1/2 bg-blue-600 transition-width ease-in-out duration-500`;
-  
+
   const Steps = steps.map((step, index) => {
     let stepClass = "inline-block transform -translate-x-1/2 text-sm";
     if (currentStep - 1 > index) stepClass += " font-medium text-blue-600";

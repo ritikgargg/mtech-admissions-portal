@@ -15,13 +15,11 @@ const style = {
 };
 
 export default function ViewFeesModal(props) {
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
   };
-
 
   return (
     <div>
@@ -31,9 +29,24 @@ export default function ViewFeesModal(props) {
           onClick={handleOpen}
           className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+            />
           </svg>
         </button>
       </Tooltip>
@@ -76,29 +89,34 @@ export default function ViewFeesModal(props) {
                 </button>
               </div>
               <div className="px-6 py-6 space-y-6">
-              <div className="flex justify-center">
-              <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-              <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                  <span className="font-semibold">GEN</span> - ₹ {props.cycle.fees_gen}
-                </li>
-                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                <span className="font-semibold">OBC</span> - ₹ {props.cycle.fees_obc}
-                </li>
-                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                <span className="font-semibold">EWS</span> - ₹ {props.cycle.fees_ews}
-                </li>
-                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                <span className="font-semibold">SC</span> - ₹ {props.cycle.fees_sc}
-                </li>
-                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                <span className="font-semibold">ST</span>  - ₹ {props.cycle.fees_st}
-                </li>
-                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                <span className="font-semibold">PWD</span> - ₹ {props.cycle.fees_pwd}
-                </li>
-              </ul>
-              </div>
-                
+                <div className="flex justify-center">
+                  <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
+                    <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                      <span className="font-semibold">GEN</span> - ₹{" "}
+                      {props.cycle.fees_gen}
+                    </li>
+                    <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                      <span className="font-semibold">OBC</span> - ₹{" "}
+                      {props.cycle.fees_obc}
+                    </li>
+                    <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                      <span className="font-semibold">EWS</span> - ₹{" "}
+                      {props.cycle.fees_ews}
+                    </li>
+                    <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                      <span className="font-semibold">SC</span> - ₹{" "}
+                      {props.cycle.fees_sc}
+                    </li>
+                    <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                      <span className="font-semibold">ST</span> - ₹{" "}
+                      {props.cycle.fees_st}
+                    </li>
+                    <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                      <span className="font-semibold">PWD</span> - ₹{" "}
+                      {props.cycle.fees_pwd}
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

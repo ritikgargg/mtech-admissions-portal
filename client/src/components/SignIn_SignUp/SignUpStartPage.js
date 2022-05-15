@@ -12,7 +12,7 @@ function SignUpStartPage() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [msg_otp, setMsgOtp] = useState(
-    "OTP has been sent to your mail account."
+    "OTP has been sent to your mail account. Please check your spam folder also."
   );
   const [msg_signin, setMsgSignin] = useState(
     "An OTP will be sent to your email ID for verification."

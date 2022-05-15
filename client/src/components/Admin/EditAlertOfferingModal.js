@@ -58,7 +58,7 @@ export default function EditAlertOfferingModal(props) {
 
     let month = date.getMonth() + 1;
     let day = String(date.getDate());
-    if (day.length === 1) day = "0"+day;
+    if (day.length === 1) day = "0" + day;
     if (month.length === 1) month = "0" + month;
 
     date = date.getFullYear() + "-0" + month + "-" + day;
@@ -175,33 +175,47 @@ export default function EditAlertOfferingModal(props) {
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required
                       /> */}
-                       <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                        
-                        <select
-                          id="department"
-                          {...register("department")}
-                          required
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        >
-                          <option value="">- Select -</option>
-                          {(props.department === "Academics")?
-                          (
-                            <>
-                          <option value="Chemical Engineering">Chemical Engineering</option>
-                          <option value="Civil Engineering">Civil Engineering</option>
-                          <option value="Computer Science and Engineering">Computer Science and Engineering</option>
-                          <option value="Electrical Engineering">Electrical Engineering</option>
-                          <option value="Mechanical Engineering">Mechanical Engineering</option>
-                          <option value="Biomedical Engineering">Biomedical Engineering</option>
-                          </>
-                          )
-                          
-                          :
-                          <option value={props.department}>{props.department}</option>
-                          }
-                          
+                      <label
+                        htmlFor="department"
+                        className="text-sm font-medium text-gray-900 block mb-2"
+                      >
+                        Department
+                      </label>
 
-                        </select>
+                      <select
+                        id="department"
+                        {...register("department")}
+                        required
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                      >
+                        <option value="">- Select -</option>
+                        {props.department === "Academics" ? (
+                          <>
+                            <option value="Chemical Engineering">
+                              Chemical Engineering
+                            </option>
+                            <option value="Civil Engineering">
+                              Civil Engineering
+                            </option>
+                            <option value="Computer Science and Engineering">
+                              Computer Science and Engineering
+                            </option>
+                            <option value="Electrical Engineering">
+                              Electrical Engineering
+                            </option>
+                            <option value="Mechanical Engineering">
+                              Mechanical Engineering
+                            </option>
+                            <option value="Biomedical Engineering">
+                              Biomedical Engineering
+                            </option>
+                          </>
+                        ) : (
+                          <option value={props.department}>
+                            {props.department}
+                          </option>
+                        )}
+                      </select>
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -331,30 +345,30 @@ export default function EditAlertOfferingModal(props) {
                       {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
                     </div>
                     <div className="p-3 border-t border-gray-200 rounded-b">
-                          {!isLoading ? (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                            >
-                                <div className="w-20 h-5 mx-5 my-2.5">
-                                    <p>Edit offering</p>
-                                </div>
-                            </button>
-                          ) : (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                              disabled
-                            >
-                                <div className="w-20 h-5 mx-5 my-2.5">
-                                  <img
-                                    className="h-5 w-5 mx-auto"
-                                    alt="spinner"
-                                    src={spinner}
-                                  />
-                                  </div>
-                            </button>
-                          )}
+                      {!isLoading ? (
+                        <button
+                          className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                          type="submit"
+                        >
+                          <div className="w-20 h-5 mx-5 my-2.5">
+                            <p>Edit offering</p>
+                          </div>
+                        </button>
+                      ) : (
+                        <button
+                          className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                          type="submit"
+                          disabled
+                        >
+                          <div className="w-20 h-5 mx-5 my-2.5">
+                            <img
+                              className="h-5 w-5 mx-auto"
+                              alt="spinner"
+                              src={spinner}
+                            />
+                          </div>
+                        </button>
+                      )}
                     </div>
                   </div>
                 </form>

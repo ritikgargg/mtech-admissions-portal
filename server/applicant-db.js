@@ -648,7 +648,12 @@ const save_application_info = async (req, res, next) => {
 
   // app_details[20] is offering_id
   /** Get offering_details */
-  const offering_details = await pool.query("SELECT department, specialization FROM mtech_offerings_" + cycle_id + " WHERE offering_id = $1", [app_details[20]]);
+  const offering_details = await pool.query(
+    "SELECT department, specialization FROM mtech_offerings_" +
+      cycle_id +
+      " WHERE offering_id = $1",
+    [app_details[20]]
+  );
   let dep = offering_details.rows[0].department;
   let spec = offering_details.rows[0].specialization;
 
@@ -658,9 +663,7 @@ const save_application_info = async (req, res, next) => {
   /** Email application submission */
   auth.application_submission(email, app_id, dep, spec);
 
-  Promise.allSettled(promises).then(
-    res.status(200).send("Ok")
-  );
+  Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
 
 /**
@@ -845,7 +848,10 @@ const get_applications = async (req, res) => {
   }
 
   const results = await pool.query(
-    "SELECT application_id, " + "mtech_offerings_" + cycle_id + ".offering_id, deadline,  department, specialization, status, status_remark, is_result_published, is_accepting_applications FROM applications_" +
+    "SELECT application_id, " +
+      "mtech_offerings_" +
+      cycle_id +
+      ".offering_id, deadline,  department, specialization, status, status_remark, is_result_published, is_accepting_applications FROM applications_" +
       cycle_id +
       ", mtech_offerings_" +
       cycle_id +
@@ -937,76 +943,78 @@ const get_application_info = async (req, res) => {
 };
 
 /** Reapply application */
-const reapply_save_application_info = async(req, res) => {
+const reapply_save_application_info = async (req, res) => {
   authToken = req.headers.authorization;
-let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
-var verified = null;
+  var verified = null;
 
-try {
-  verified = jwt.verify(authToken, jwtSecretKey);
-} catch (error) {
-  return res.send("1"); /** Error, logout on user side */
-}
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
 
-if (!verified) {
-  return res.send("1"); /** Error, logout on user side */
-}
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
 
-/** Get role */
-var userRole = jwt.decode(authToken).userRole;
-if(userRole !== 2) {
-  return res.send("1");
-}
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
 
-/** Get email */
-var email = jwt.decode(authToken).userEmail;
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail;
 
-const cycle = await pool.query("SELECT cycle_id from current_cycle;");
-let cycle_id = cycle.rows[0].cycle_id;
+  const cycle = await pool.query("SELECT cycle_id from current_cycle;");
+  let cycle_id = cycle.rows[0].cycle_id;
 
-var info = req.body;
+  var info = req.body;
 
-/*Delete application using Email ID and Offering ID*/
-const results = await pool.query(
-  "DELETE from applications_" + cycle_id + " WHERE email_id = $1 AND offering_id = $2",
-  [email, info.offering_id]
-);
+  /*Delete application using Email ID and Offering ID*/
+  const results = await pool.query(
+    "DELETE from applications_" +
+      cycle_id +
+      " WHERE email_id = $1 AND offering_id = $2",
+    [email, info.offering_id]
+  );
 
-app_details = JSON.parse(info.applicant_details);
+  app_details = JSON.parse(info.applicant_details);
 
-await pool.query(
-  "INSERT INTO applications_" +
-    cycle_id +
-    "(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
+  await pool.query(
+    "INSERT INTO applications_" +
+      cycle_id +
+      "(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
                   branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
                   remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
                   $13, $14, $15, $16, $17, 1, '');",
-  [
-    email,
-    app_details[1],
-    app_details[2],
-    app_details[3],
-    app_details[5],
-    app_details[6],
-    app_details[7],
-    app_details[8],
-    app_details[9],
-    app_details[10],
-    app_details[11],
-    app_details[12],
-    app_details[13],
-    app_details[15],
-    app_details[19],
-    app_details[18],
-    app_details[20],
-  ]
-);
+    [
+      email,
+      app_details[1],
+      app_details[2],
+      app_details[3],
+      app_details[5],
+      app_details[6],
+      app_details[7],
+      app_details[8],
+      app_details[9],
+      app_details[10],
+      app_details[11],
+      app_details[12],
+      app_details[13],
+      app_details[15],
+      app_details[19],
+      app_details[18],
+      app_details[20],
+    ]
+  );
 
-await pool.query(
-  "UPDATE applications_" +
-    cycle_id +
-    " SET \
+  await pool.query(
+    "UPDATE applications_" +
+      cycle_id +
+      " SET \
   full_name = a.full_name, fathers_name = a.fathers_name, profile_image_url = a.profile_image_url, \
   date_of_birth = a.date_of_birth, aadhar_card_number = a.aadhar_card_number, category = a.category, \
   category_certificate_url = a.category_certificate_url, is_pwd = a.is_pwd, marital_status = a.marital_status, \
@@ -1023,199 +1031,208 @@ await pool.query(
   percentage_cgpa_value_12th = a.percentage_cgpa_value_12th, year_of_passing_12th = a.year_of_passing_12th, \
   remarks_12th = a.remarks_12th, marksheet_12th_url = a.marksheet_12th_url,  degrees = a.degrees, \
   other_remarks = a.other_remarks, is_last_degree_completed = a.is_last_degree_completed \
-  FROM applicants as a WHERE a.email_id = $1 AND applications_" + cycle_id + ".email_id = a.email_id;",
-  [email]
-);
-
-let promises = [];
-let vals = Object.values(req.files);
-
-for (let f of vals) {
-  const gcsname = f[0].originalname + "_" + Date.now();
-  const file = applicantBucket.file(gcsname);
-
-  const stream = file.createWriteStream({
-    metadata: {
-      contentType: f[0].mimetype,
-    },
-    resumable: false,
-  });
-
-  stream.on("error", (err) => {
-    f[0].cloudStorageError = err;
-    next(err);
-    console.log(err);
-  });
-
-  stream.end(f[0].buffer);
-
-  promises.push(
-    new Promise((resolve, reject) => {
-      stream.on("finish", async () => {
-        url = format(
-          `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
-        );
-
-        if (f[0].fieldname === "transaction_slip") {
-          await pool.query(
-            "UPDATE applications_" +
-              cycle_id +
-              " SET transaction_slip_url = $1 WHERE email_id = $2;",
-            [url, email]
-          );
-        } else if (f[0].fieldname === "self_attested_copies") {
-          await pool.query(
-            "UPDATE applications_" +
-              cycle_id +
-              " SET self_attested_copies_url = $1 WHERE email_id = $2;",
-            [url, email]
-          );
-        } else if (f[0].fieldname === "signature") {
-          await pool.query(
-            "UPDATE applications_" +
-              cycle_id +
-              " SET signature_url = $1 WHERE email_id = $2;",
-            [url, email]
-          );
-        }
-
-        f[0].cloudStorageObject = gcsname;
-        file.makePublic().then(() => {
-          resolve();
-        });
-      });
-    })
+  FROM applicants as a WHERE a.email_id = $1 AND applications_" +
+      cycle_id +
+      ".email_id = a.email_id;",
+    [email]
   );
-}
 
-Promise.allSettled(promises).then(
-  res.status(200).send("Ok")
-);
+  let promises = [];
+  let vals = Object.values(req.files);
 
+  for (let f of vals) {
+    const gcsname = f[0].originalname + "_" + Date.now();
+    const file = applicantBucket.file(gcsname);
 
-}
+    const stream = file.createWriteStream({
+      metadata: {
+        contentType: f[0].mimetype,
+      },
+      resumable: false,
+    });
 
-/**
-* Get applicant personal info for apply page
-*/
-const reapply_check_applicant_info = async (req, res) => {
-/**
- * Verify using authToken
- */
-authToken = req.headers.authorization;
-let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    stream.on("error", (err) => {
+      f[0].cloudStorageError = err;
+      next(err);
+      console.log(err);
+    });
 
-var verified = null;
+    stream.end(f[0].buffer);
 
-try {
-  verified = jwt.verify(authToken, jwtSecretKey);
-} catch (error) {
-  return res.send("1"); /** Error, logout on user side */
-}
+    promises.push(
+      new Promise((resolve, reject) => {
+        stream.on("finish", async () => {
+          url = format(
+            `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
+          );
 
-if (!verified) {
-  return res.send("1"); /** Error, logout on user side */
-}
+          if (f[0].fieldname === "transaction_slip") {
+            await pool.query(
+              "UPDATE applications_" +
+                cycle_id +
+                " SET transaction_slip_url = $1 WHERE email_id = $2;",
+              [url, email]
+            );
+          } else if (f[0].fieldname === "self_attested_copies") {
+            await pool.query(
+              "UPDATE applications_" +
+                cycle_id +
+                " SET self_attested_copies_url = $1 WHERE email_id = $2;",
+              [url, email]
+            );
+          } else if (f[0].fieldname === "signature") {
+            await pool.query(
+              "UPDATE applications_" +
+                cycle_id +
+                " SET signature_url = $1 WHERE email_id = $2;",
+              [url, email]
+            );
+          }
 
-/** Get role */
-var userRole = jwt.decode(authToken).userRole;
-if(userRole !== 2) {
-  return res.send("1");
-}
+          f[0].cloudStorageObject = gcsname;
+          file.makePublic().then(() => {
+            resolve();
+          });
+        });
+      })
+    );
+  }
 
-/** Get email */
-var email = jwt.decode(authToken).userEmail;
-
-/** Check if profile data is filled */
-const profile_full_check = await pool.query(
-  "SELECT full_name, mobile_number, degree_10th from applicants WHERE email_id = $1;",
-  [email]
-);
-let profile_full_check_data = profile_full_check.rows[0];
-
-if (
-  profile_full_check_data.full_name === null ||
-  profile_full_check_data.mobile_number === null ||
-  profile_full_check_data.degree_10th === null
-) {
-  return res.send("2"); /** Profile not complete */
-}
-
-let offering_id = req.headers.offering_id;
-
-const cycle = await pool.query("SELECT cycle_id from current_cycle;");
-let cycle_id = cycle.rows[0].cycle_id;
-
-/** Not required, since, either both will exist or neither */
-// const check_applications_table = await pool.query("SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);", ["applications_" + cycle_id]);
-// let applications_table_exists = check_applications_table.rows[0].exists;
-
-// if(applications_table_exists === false) {
-//   return res.send("2"); /** No offerings yet, therefore, no applications */
-// }
-
-const check_offerings_table = await pool.query(
-  "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
-  ["mtech_offerings_" + cycle_id]
-);
-let offering_table_exists = check_offerings_table.rows[0].exists;
-
-if (offering_table_exists === false) {
-  return res.send("2"); /** No offerings yet */
-}
-
-/** Check related to the existence of offering */
-const offering_exists_check = await pool.query(
-  "SELECT * from mtech_offerings_" + cycle_id + " WHERE offering_id = $1;",
-  [offering_id]
-);
-let offering_exists_check_data = offering_exists_check.rows;
-
-if (offering_exists_check_data.length === 0) {
-  return res.send("2"); /** No such offering */
-}
-
-
-/** If draft */
-if (offering_exists_check_data[0].is_draft_mode === true) {
-  return res.send("2");
-}
-
-/** If not accepting applications */
-if (offering_exists_check_data[0].is_accepting_applications === false) {
-  return res.send("2");
-}
-
-/** Check if already not applied */
-const application_filled_check = await pool.query(
-  "SELECT application_id from applications_" +
-    cycle_id +
-    " WHERE offering_id = $1 AND email_id = $2;",
-  [offering_id, email]
-);
-let application_filled_check_data = application_filled_check.rows;
-
-if (application_filled_check_data.length === 0) {
-  return res.send("3"); /** Already not applied */
-}
-
-const results = await pool.query(
-  "SELECT full_name, category, is_pwd from applicants WHERE email_id = $1;",
-  [email]
-);
-
-let category_fees;
-if(results.rows[0].is_pwd === "YES"){
-  let temp = await pool.query("SELECT fees_pwd FROM admission_cycles WHERE cycle_id = $1", [cycle_id]);
-  category_fees = temp.rows[0]["fees_pwd"]
-}else{
-  let temp = await pool.query("SELECT fees_" + results.rows[0].category.toLowerCase() + " FROM admission_cycles WHERE cycle_id = $1", [cycle_id]);
-  category_fees = temp.rows[0]["fees_" + results.rows[0].category.toLowerCase()]
-} 
-
-return res.send({full_name: results.rows[0].full_name, category: results.rows[0].category, category_fees: category_fees});
+  Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
 
+/**
+ * Get applicant personal info for apply page
+ */
+const reapply_check_applicant_info = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail;
+
+  /** Check if profile data is filled */
+  const profile_full_check = await pool.query(
+    "SELECT full_name, mobile_number, degree_10th from applicants WHERE email_id = $1;",
+    [email]
+  );
+  let profile_full_check_data = profile_full_check.rows[0];
+
+  if (
+    profile_full_check_data.full_name === null ||
+    profile_full_check_data.mobile_number === null ||
+    profile_full_check_data.degree_10th === null
+  ) {
+    return res.send("2"); /** Profile not complete */
+  }
+
+  let offering_id = req.headers.offering_id;
+
+  const cycle = await pool.query("SELECT cycle_id from current_cycle;");
+  let cycle_id = cycle.rows[0].cycle_id;
+
+  /** Not required, since, either both will exist or neither */
+  // const check_applications_table = await pool.query("SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);", ["applications_" + cycle_id]);
+  // let applications_table_exists = check_applications_table.rows[0].exists;
+
+  // if(applications_table_exists === false) {
+  //   return res.send("2"); /** No offerings yet, therefore, no applications */
+  // }
+
+  const check_offerings_table = await pool.query(
+    "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
+    ["mtech_offerings_" + cycle_id]
+  );
+  let offering_table_exists = check_offerings_table.rows[0].exists;
+
+  if (offering_table_exists === false) {
+    return res.send("2"); /** No offerings yet */
+  }
+
+  /** Check related to the existence of offering */
+  const offering_exists_check = await pool.query(
+    "SELECT * from mtech_offerings_" + cycle_id + " WHERE offering_id = $1;",
+    [offering_id]
+  );
+  let offering_exists_check_data = offering_exists_check.rows;
+
+  if (offering_exists_check_data.length === 0) {
+    return res.send("2"); /** No such offering */
+  }
+
+  /** If draft */
+  if (offering_exists_check_data[0].is_draft_mode === true) {
+    return res.send("2");
+  }
+
+  /** If not accepting applications */
+  if (offering_exists_check_data[0].is_accepting_applications === false) {
+    return res.send("2");
+  }
+
+  /** Check if already not applied */
+  const application_filled_check = await pool.query(
+    "SELECT application_id from applications_" +
+      cycle_id +
+      " WHERE offering_id = $1 AND email_id = $2;",
+    [offering_id, email]
+  );
+  let application_filled_check_data = application_filled_check.rows;
+
+  if (application_filled_check_data.length === 0) {
+    return res.send("3"); /** Already not applied */
+  }
+
+  const results = await pool.query(
+    "SELECT full_name, category, is_pwd from applicants WHERE email_id = $1;",
+    [email]
+  );
+
+  let category_fees;
+  if (results.rows[0].is_pwd === "YES") {
+    let temp = await pool.query(
+      "SELECT fees_pwd FROM admission_cycles WHERE cycle_id = $1",
+      [cycle_id]
+    );
+    category_fees = temp.rows[0]["fees_pwd"];
+  } else {
+    let temp = await pool.query(
+      "SELECT fees_" +
+        results.rows[0].category.toLowerCase() +
+        " FROM admission_cycles WHERE cycle_id = $1",
+      [cycle_id]
+    );
+    category_fees =
+      temp.rows[0]["fees_" + results.rows[0].category.toLowerCase()];
+  }
+
+  return res.send({
+    full_name: results.rows[0].full_name,
+    category: results.rows[0].category,
+    category_fees: category_fees,
+  });
+};
 
 module.exports = {
   save_personal_info,
@@ -1230,5 +1247,5 @@ module.exports = {
   get_applications,
   get_application_info,
   reapply_save_application_info,
-  reapply_check_applicant_info
+  reapply_check_applicant_info,
 };

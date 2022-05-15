@@ -287,11 +287,12 @@ function application_submission(email, app_id, dep, spec) {
     text: "",
   };
 
-  mailOptions.text += "Your application for MTech admission at IIT Ropar has been submitted successfully. It's details are as follows: \n";
+  mailOptions.text +=
+    "Your application for MTech admission at IIT Ropar has been submitted successfully. It's details are as follows: \n";
   mailOptions.text += "Application ID: " + app_id + "\n";
   mailOptions.text += "Department: " + dep + "\n";
   mailOptions.text += "Specialization: " + spec + "\n";
-  mailOptions.text += "Thanks!"
+  mailOptions.text += "Thanks!";
 
   transporter.sendMail(mailOptions, function (error, infos) {
     if (error) {

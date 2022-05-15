@@ -6,61 +6,105 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 function write_header(workbook, worksheet, rowIndex, type) {
-    /** Header Stylesheet json */
-    const header_style = workbook.createStyle({
-        font: { color: "#ffffff", size: 12 },
-        fill: { type: 'pattern', patternType: 'solid', fgColor: '365e9e' },
-        border: { outline: true }
+  /** Header Stylesheet json */
+  const header_style = workbook.createStyle({
+    font: { color: "#ffffff", size: 12 },
+    fill: { type: "pattern", patternType: "solid", fgColor: "365e9e" },
+    border: { outline: true },
+  });
+
+  /** Merit Position Header Stylesheet json */
+  const merit_position_header = workbook.createStyle({
+    font: { color: "#ffffff", size: 12 },
+    fill: { type: "pattern", patternType: "solid", fgColor: "c25f46" },
+    border: { outline: true },
+  });
+
+  /** For master file */
+  header_list_1 = [
+    "S.No.",
+    "Application Number (SID)",
+    "Category(UR/OBC/SC/ST/PWD)",
+    "COAP REGN.NO.",
+    "Candidate's  Name",
+    "Father's Name",
+    "Date of Birth",
+    "EMAIL",
+    "MOBILE NO.",
+    "GATE Paper Code",
+    "GATE REGISTRATION NO.",
+    "Valid GATE Score",
+    "Eligible for Admission (YES / No)",
+    "Reasons, if not eligible",
+  ];
+
+  /** For consolidated merit list */
+  header_list_2 = [
+    "S.No.",
+    "Application Number (SID)",
+    "Category(UR/OBC/SC/ST/PWD)",
+    "COAP REGN.NO.",
+    "Candidate's  Name",
+    "Father's Name",
+    "Date of Birth",
+    "EMAIL",
+    "MOBILE NO.",
+    "GATE Paper Code",
+    "GATE REGISTRATION NO.",
+    "Valid GATE Score",
+    "Merit Position",
+    "Eligible for Admission (YES / No)",
+    "Reasons, if not eligible",
+  ];
+
+  /** For other merit lists */
+  header_list_3 = [
+    "S.No.",
+    "Application Number (SID)",
+    "COAP REGN.NO.",
+    "Candidate's  Name",
+    "Father's Name",
+    "Date of Birth",
+    "EMAIL",
+    "MOBILE NO.",
+    "GATE Paper Code",
+    "GATE REGISTRATION NO.",
+    "Valid GATE Score",
+    "Merit Position",
+    "REMARKS",
+  ];
+
+  if (type === 1) {
+    header_list_1.forEach((element, columnIndex) => {
+      const columnWidth = element.length * 1.1;
+      worksheet.column(columnIndex + 1).setWidth(columnWidth);
+      worksheet
+        .cell(rowIndex, columnIndex + 1)
+        .string(element)
+        .style(header_style);
     });
-
-    /** Merit Position Header Stylesheet json */
-    const merit_position_header = workbook.createStyle({
-        font: { color: "#ffffff", size: 12 },
-        fill: { type: 'pattern', patternType: 'solid', fgColor: 'c25f46' },
-        border: { outline: true }
+  } else if (type == 2) {
+    header_list_2.forEach((element, columnIndex) => {
+      const columnWidth = element.length * 1.1;
+      worksheet.column(columnIndex + 1).setWidth(columnWidth);
+      worksheet
+        .cell(rowIndex, columnIndex + 1)
+        .string(element)
+        .style(header_style);
+      if (columnIndex == 12) {
+        worksheet.cell(rowIndex, columnIndex + 1).style(merit_position_header);
+      }
     });
-
-    /** For master file */
-    header_list_1 = ["S.No.", "Application Number (SID)", "Category(UR/OBC/SC/ST/PWD)",
-	    "COAP REGN.NO.", "Candidate\'s  Name",	"Father'\s Name", "Date of Birth", "EMAIL", "MOBILE NO.",
-        "GATE Paper Code", "GATE REGISTRATION NO.", "Valid GATE Score",	"Eligible for Admission (YES / No)",
-        "Reasons, if not eligible"]
-
-    /** For consolidated merit list */
-    header_list_2 = ["S.No.", "Application Number (SID)", "Category(UR/OBC/SC/ST/PWD)",
-        "COAP REGN.NO.", "Candidate\'s  Name",	"Father'\s Name", "Date of Birth", "EMAIL", "MOBILE NO.",
-        "GATE Paper Code", "GATE REGISTRATION NO.", "Valid GATE Score",	"Merit Position", "Eligible for Admission (YES / No)",
-        "Reasons, if not eligible"]
-
-    /** For other merit lists */
-    header_list_3 = ["S.No.", "Application Number (SID)", "COAP REGN.NO.", "Candidate\'s  Name", 
-        "Father'\s Name", "Date of Birth", "EMAIL", "MOBILE NO.", "GATE Paper Code", "GATE REGISTRATION NO.", 
-        "Valid GATE Score",	"Merit Position", "REMARKS"]
-
-    if(type === 1) {
-        header_list_1.forEach((element, columnIndex) => {
-            const columnWidth = element.length * 1.1;
-            worksheet.column(columnIndex+1).setWidth(columnWidth);
-            worksheet.cell(rowIndex, columnIndex + 1).string(element).style(header_style);
-        });
-    }
-    else if(type == 2) {
-        header_list_2.forEach((element, columnIndex) => {
-            const columnWidth = element.length * 1.1;
-            worksheet.column(columnIndex+1).setWidth(columnWidth);
-            worksheet.cell(rowIndex, columnIndex + 1).string(element).style(header_style);
-            if (columnIndex == 12) {
-                worksheet.cell(rowIndex, columnIndex + 1).style(merit_position_header);
-            }
-        });
-    }
-    else {
-        header_list_3.forEach((element, columnIndex) => {
-            const columnWidth = element.length * 1.1;
-            worksheet.column(columnIndex+1).setWidth(columnWidth);
-            worksheet.cell(rowIndex, columnIndex + 1).string(element).style(header_style);
-        });
-    }
+  } else {
+    header_list_3.forEach((element, columnIndex) => {
+      const columnWidth = element.length * 1.1;
+      worksheet.column(columnIndex + 1).setWidth(columnWidth);
+      worksheet
+        .cell(rowIndex, columnIndex + 1)
+        .string(element)
+        .style(header_style);
+    });
+  }
 }
 
 function sort_function(application_1, application_2) {
@@ -233,7 +277,7 @@ function write_data(worksheet, data, rowIndex, type) {
           worksheet
             .cell(rowIndex, columnIndex)
             .number(+element[header_list_2[i]]);
-        } else if (i === (header_list_2.length - 3)) {
+        } else if (i === header_list_2.length - 3) {
           worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
           worksheet
@@ -276,41 +320,42 @@ function write_data(worksheet, data, rowIndex, type) {
 }
 
 async function generate_merit_list(info, eligible_branches) {
-    /** Create workbook */
-    const workbook = new excel.Workbook();
-    
-    /** Create text style */
-    const style = workbook.createStyle({
-        font: { color: "#000000", size: 11 }
-    });
+  /** Create workbook */
+  const workbook = new excel.Workbook();
 
-    /** Create worksheets */
-    const master = workbook.addWorksheet("MASTER FILE");
-    const consolidated = workbook.addWorksheet("CONSOLIDATED MERIT LIST");
-    const obc = workbook.addWorksheet("OBC MERIT LIST");
-    const sc = workbook.addWorksheet("SC MERIT LIST");
-    const st = workbook.addWorksheet("ST MERIT LIST");
-    const ews = workbook.addWorksheet("EWS MERIT LIST");
-    const pwd = workbook.addWorksheet("PWD MERIT LIST");
+  /** Create text style */
+  const style = workbook.createStyle({
+    font: { color: "#000000", size: 11 },
+  });
 
-    /** Row indices for sheets */
-    let row_indices = [1, 1, 1, 1, 1, 1, 1]
+  /** Create worksheets */
+  const master = workbook.addWorksheet("MASTER FILE");
+  const consolidated = workbook.addWorksheet("CONSOLIDATED MERIT LIST");
+  const obc = workbook.addWorksheet("OBC MERIT LIST");
+  const sc = workbook.addWorksheet("SC MERIT LIST");
+  const st = workbook.addWorksheet("ST MERIT LIST");
+  const ews = workbook.addWorksheet("EWS MERIT LIST");
+  const pwd = workbook.addWorksheet("PWD MERIT LIST");
 
-    /** Write headers */
-    write_header(workbook, master, row_indices[0], 1);
-    write_header(workbook, consolidated, row_indices[1], 2);
-    write_header(workbook, obc, row_indices[2], 3);
-    write_header(workbook, sc, row_indices[3], 3);
-    write_header(workbook, st, row_indices[4], 3);
-    write_header(workbook, ews, row_indices[5], 3);
-    write_header(workbook, pwd, row_indices[6], 3);
+  /** Row indices for sheets */
+  let row_indices = [1, 1, 1, 1, 1, 1, 1];
 
-    /** Increment all indices */
-    row_indices = row_indices.map(a => a+1);
-    // row_indices = [2, 2, 2, 2, 2, 2, 2]
+  /** Write headers */
+  write_header(workbook, master, row_indices[0], 1);
+  write_header(workbook, consolidated, row_indices[1], 2);
+  write_header(workbook, obc, row_indices[2], 3);
+  write_header(workbook, sc, row_indices[3], 3);
+  write_header(workbook, st, row_indices[4], 3);
+  write_header(workbook, ews, row_indices[5], 3);
+  write_header(workbook, pwd, row_indices[6], 3);
 
-    /** Get applications */
-    const applications = await pool.query("SELECT application_id, category, coap_registeration_number, \
+  /** Increment all indices */
+  row_indices = row_indices.map((a) => a + 1);
+  // row_indices = [2, 2, 2, 2, 2, 2, 2]
+
+  /** Get applications */
+  const applications = await pool.query(
+    "SELECT application_id, category, coap_registeration_number, \
     full_name, fathers_name, date_of_birth, email_id, mobile_number, branch_code, \
     gate_enrollment_number, gate_score, degrees FROM applications_" +
       info.cycle_id +
@@ -326,7 +371,7 @@ async function generate_merit_list(info, eligible_branches) {
   let all_applications = [];
   applications_rows.forEach((element) => {
     // console.log(element.degrees[0][1]);
-    if(eligible_branches.includes(element.degrees[0][1])) {
+    if (eligible_branches.includes(element.degrees[0][1])) {
       // console.log(eligible_branches.includes(element.degrees[0][1]))
       all_applications.push(element);
     }
@@ -414,7 +459,6 @@ const get_merit_list = async (req, res) => {
   workbook.write("Merit_List.xlsx", res);
 };
 
-
 const get_applicants_branches = async (req, res) => {
   /**
    * Verify using authToken
@@ -469,12 +513,12 @@ const get_applicants_branches = async (req, res) => {
     [offering_id]
   );
 
-  let branches = []
+  let branches = [];
   results.rows.forEach((element) => {
-    branches.push(element['degrees'][0][1])
+    branches.push(element["degrees"][0][1]);
   });
 
-  let uniqueBranches = [...new Set(branches)]
+  let uniqueBranches = [...new Set(branches)];
   // console.log(uniqueBranches)
 
   // console.log(branches)
@@ -482,7 +526,6 @@ const get_applicants_branches = async (req, res) => {
 
   return res.send(uniqueBranches);
 };
-
 
 module.exports = {
   get_merit_list,

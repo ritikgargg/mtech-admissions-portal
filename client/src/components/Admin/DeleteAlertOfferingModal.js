@@ -118,31 +118,28 @@ export default function DeleteAlertModal(props) {
                 <h3 className="text-xl font-bold text-gray-500 mt-1 mb-6">
                   {props.application.specialization}?
                 </h3>
-                
+
                 {!isLoading ? (
-                      <button
-                        onClick={handleDelete}
-                        className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
-                      >
-                        <div className="w-24 h-auto">
-                      Yes, I'm sure
-                      </div>
-                      </button>
-                    ) : 
-                    (
-                    <button
+                  <button
+                    onClick={handleDelete}
+                    className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
+                  >
+                    <div className="w-24 h-auto">Yes, I'm sure</div>
+                  </button>
+                ) : (
+                  <button
                     disabled
                     className="w-50 h-12 focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
-                    >
+                  >
                     <div className="w-24 h-auto">
                       <img
                         className="w-5 h-auto mx-auto"
                         alt="spinner"
                         src={spinner}
                       />
-                      </div>
-                </button>
-                    )}
+                    </div>
+                  </button>
+                )}
                 <button
                   onClick={handleClose}
                   className="w-50 h-12 focus:outline-none text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center"

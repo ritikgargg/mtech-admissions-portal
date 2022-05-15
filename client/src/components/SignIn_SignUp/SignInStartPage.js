@@ -3,7 +3,7 @@ import axios from "axios";
 import SignIn from "./SignIn";
 import Otp from "./Otp";
 import { setUserSession } from "./Sessions";
-import { setAdminType } from "../Admin/AdminTypes"
+import { setAdminType } from "../Admin/AdminTypes";
 import { useNavigate, Link } from "react-router-dom";
 
 function SignInStartPage() {
@@ -13,7 +13,7 @@ function SignInStartPage() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [msg_otp, setMsgOtp] = useState(
-    "OTP has been sent to your mail account."
+    "OTP has been sent to your mail account. Please check your spam folder also."
   );
   const [msg_signin, setMsgSignin] = useState(
     "An OTP will be sent to your email ID for verification."
@@ -66,7 +66,11 @@ function SignInStartPage() {
         if (response.data.result === 1) {
           setUserSession(response.data.token);
           navigate("/home");
-        } else if (response.data.result === 4 || response.data.result === 5 || response.data.result === 6) {
+        } else if (
+          response.data.result === 4 ||
+          response.data.result === 5 ||
+          response.data.result === 6
+        ) {
           setUserSession(response.data.token);
           setAdminType(response.data.admin_type);
           navigate("/admin/dashboard");

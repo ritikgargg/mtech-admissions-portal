@@ -16,12 +16,10 @@ const get_fees_info = async (req, res) => {
   return res.send(results.rows[0]);
 };
 
-
 /**
  * Get open positions
  */
- const get_open_positions_landing = async (req, res) => {
-
+const get_open_positions_landing = async (req, res) => {
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
   let cycle_id = cycle.rows[0].cycle_id;
 
@@ -37,9 +35,7 @@ const get_fees_info = async (req, res) => {
   }
 
   const results = await pool.query(
-    "SELECT * FROM mtech_offerings_" +
-      cycle_id +
-      " WHERE is_draft_mode = FALSE"
+    "SELECT * FROM mtech_offerings_" + cycle_id + " WHERE is_draft_mode = FALSE"
   );
 
   return res.send(results.rows);
@@ -47,5 +43,5 @@ const get_fees_info = async (req, res) => {
 
 module.exports = {
   get_fees_info,
-  get_open_positions_landing
+  get_open_positions_landing,
 };

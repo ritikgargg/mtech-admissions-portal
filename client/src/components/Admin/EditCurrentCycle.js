@@ -28,7 +28,7 @@ const style = {
 export default function EditCurrentCycle(props) {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const admin_type = getAdminType()
+  const admin_type = getAdminType();
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => {
@@ -121,38 +121,38 @@ export default function EditCurrentCycle(props) {
 
   return (
     <div>
-    {(admin_type === "0") ? 
-      <Tooltip title="Edit">
-        <button
-          onClick={handleOpen}
-          className="hover:bg-gray-100 focus:outline-none rounded-lg"
-          style={{
-            fontSize: "0.875rem",
-            textTransform: "none",
-            width: "35px",
-            height: "35px",
-          }}
-        >
-          <img className="w-5 h-5 mx-auto" src={Edit} alt="Delete" />
-        </button>
-      </Tooltip>
-      :
-      <Tooltip title="">
-        <button
-          onClick={handleOpen}
-          disabled
-          className="hover:bg-gray-100 cursor-not-allowed focus:outline-none rounded-lg"
-          style={{
-            fontSize: "0.875rem",
-            textTransform: "none",
-            width: "35px",
-            height: "35px",
-          }}
-        >
-          <img className="w-5 h-5 mx-auto" src={EditDisabled} alt="Delete" />
-        </button>
-      </Tooltip>
-    }
+      {admin_type === "0" ? (
+        <Tooltip title="Edit">
+          <button
+            onClick={handleOpen}
+            className="hover:bg-gray-100 focus:outline-none rounded-lg"
+            style={{
+              fontSize: "0.875rem",
+              textTransform: "none",
+              width: "35px",
+              height: "35px",
+            }}
+          >
+            <img className="w-5 h-5 mx-auto" src={Edit} alt="Delete" />
+          </button>
+        </Tooltip>
+      ) : (
+        <Tooltip title="">
+          <button
+            onClick={handleOpen}
+            disabled
+            className="hover:bg-gray-100 cursor-not-allowed focus:outline-none rounded-lg"
+            style={{
+              fontSize: "0.875rem",
+              textTransform: "none",
+              width: "35px",
+              height: "35px",
+            }}
+          >
+            <img className="w-5 h-5 mx-auto" src={EditDisabled} alt="Delete" />
+          </button>
+        </Tooltip>
+      )}
       <Modal
         open={open}
         onClose={handleClose}
@@ -231,15 +231,18 @@ export default function EditCurrentCycle(props) {
               </div>
             </div>
             <div>
-                  <label htmlFor="fees-GEN" className="text-sm font-medium">
-                     Category-wise Application Fees
-                  </label>
-                  <div className="relative gap-3 flex mt-1">
-                    <div>
-                      <div className="flex">
-                  <label htmlFor="fees-GEN" className="text-sm mr-2 my-auto font-medium">
-                    GEN
-                  </label>
+              <label htmlFor="fees-GEN" className="text-sm font-medium">
+                Category-wise Application Fees
+              </label>
+              <div className="relative gap-3 flex mt-1">
+                <div>
+                  <div className="flex">
+                    <label
+                      htmlFor="fees-GEN"
+                      className="text-sm mr-2 my-auto font-medium"
+                    >
+                      GEN
+                    </label>
                     <input
                       type="text"
                       required
@@ -250,11 +253,14 @@ export default function EditCurrentCycle(props) {
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
-                    </div>
-                    </div>
-                    <div>
-                      <div className="flex">
-                    <label htmlFor="password" className="text-sm mr-2 my-auto font-medium">
+                  </div>
+                </div>
+                <div>
+                  <div className="flex">
+                    <label
+                      htmlFor="password"
+                      className="text-sm mr-2 my-auto font-medium"
+                    >
                       OBC
                     </label>
                     <input
@@ -267,13 +273,16 @@ export default function EditCurrentCycle(props) {
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
-                    </div>
-                    </div>
-                    <div>
-                      <div className="flex">
-                  <label htmlFor="fees-GEN" className="text-sm mr-2 my-auto font-medium">
-                     EWS
-                  </label>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex">
+                    <label
+                      htmlFor="fees-GEN"
+                      className="text-sm mr-2 my-auto font-medium"
+                    >
+                      EWS
+                    </label>
                     <input
                       type="text"
                       required
@@ -284,15 +293,18 @@ export default function EditCurrentCycle(props) {
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
-                    </div>
-                    </div>
                   </div>
-                  <div className="relative gap-3 flex mt-3">
-                    <div>
-                      <div className="flex">
-                  <label htmlFor="fees-GEN" className="text-sm ml-3 mr-2 my-auto font-medium">
-                    SC
-                  </label>
+                </div>
+              </div>
+              <div className="relative gap-3 flex mt-3">
+                <div>
+                  <div className="flex">
+                    <label
+                      htmlFor="fees-GEN"
+                      className="text-sm ml-3 mr-2 my-auto font-medium"
+                    >
+                      SC
+                    </label>
                     <input
                       type="text"
                       required
@@ -303,11 +315,14 @@ export default function EditCurrentCycle(props) {
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
-                    </div>
-                    </div>
-                    <div>
-                    <div className="flex">
-                    <label htmlFor="password" className="text-sm ml-3 mr-2 my-auto font-medium">
+                  </div>
+                </div>
+                <div>
+                  <div className="flex">
+                    <label
+                      htmlFor="password"
+                      className="text-sm ml-3 mr-2 my-auto font-medium"
+                    >
                       ST
                     </label>
                     <input
@@ -320,13 +335,16 @@ export default function EditCurrentCycle(props) {
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
-                    </div>
-                    </div>
-                    <div>
-                    <div className="flex">
-                  <label htmlFor="fees-GEN" className="text-sm mr-2 my-auto font-medium">
-                     PWD
-                  </label>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex">
+                    <label
+                      htmlFor="fees-GEN"
+                      className="text-sm mr-2 my-auto font-medium"
+                    >
+                      PWD
+                    </label>
                     <input
                       type="text"
                       required
@@ -337,10 +355,10 @@ export default function EditCurrentCycle(props) {
                       title="Only numbers are allowed"
                       className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
                     />
-                    </div>
-                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
 
             <div className="p-3">
               <FormControlLabel
@@ -359,23 +377,21 @@ export default function EditCurrentCycle(props) {
                 type="submit"
                 className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
               >
-                <div>
-                  Edit cycle
-                </div>
+                <div>Edit cycle</div>
               </button>
             ) : (
               <button
                 type="submit"
                 className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
               >
-              <div>
-                <img
-                  className="h-5 w-5 mx-auto"
-                  src={spinner}
-                  alt="Spinner"
-                />
-              </div>
-            </button>
+                <div>
+                  <img
+                    className="h-5 w-5 mx-auto"
+                    src={spinner}
+                    alt="Spinner"
+                  />
+                </div>
+              </button>
             )}
           </form>
         </Box>

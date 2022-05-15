@@ -1,25 +1,33 @@
-import React from 'react'
+import React from "react";
 import spinner from "../../images/SpinnerWhite.gif";
 
-export default function SignIn (props) {
+export default function SignIn(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onClick();
-  }
+  };
 
   return (
     <>
-      {props.colorChange === 0 && 
-        <p className={"mb-10 h-10 text-center text-sm font-semibold text-[#4b70d1]"}>
+      {props.colorChange === 0 && (
+        <p
+          className={
+            "mb-10 h-10 text-center text-sm font-semibold text-[#4b70d1]"
+          }
+        >
           {props.msg}
         </p>
-      }
-      {props.colorChange === 1 && 
-        <p className={"mb-10 h-10 text-center text-sm font-semibold text-[#FC4F4F]"}>
+      )}
+      {props.colorChange === 1 && (
+        <p
+          className={
+            "mb-10 h-10 text-center text-sm font-semibold text-[#FC4F4F]"
+          }
+        >
           {props.msg}
         </p>
-      }
-      
+      )}
+
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
         <input type="hidden" name="remember" defaultValue="true" />
         <div className="my-2 rounded shadow-sm -space-y-px">
@@ -41,30 +49,24 @@ export default function SignIn (props) {
         </div>
 
         <div>
-          {!props.isLoading ? 
-            (
-              <button
-                type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Get OTP
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                disabled
-              >
-                <div className="w-20 h-5">
-                  <img
-                    className="h-5 w-5 mx-auto"
-                    alt="spinner"
-                    src={spinner}
-                  />
-                </div>
-              </button>
-            )
-          }
+          {!props.isLoading ? (
+            <button
+              type="submit"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Get OTP
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              disabled
+            >
+              <div className="w-20 h-5">
+                <img className="h-5 w-5 mx-auto" alt="spinner" src={spinner} />
+              </div>
+            </button>
+          )}
 
           {/* <button
             type="submit"
@@ -75,5 +77,5 @@ export default function SignIn (props) {
         </div>
       </form>
     </>
-  )
+  );
 }

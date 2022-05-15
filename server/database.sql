@@ -172,4 +172,4 @@ INSERT INTO current_cycle(cycle_id) VALUES(0);
 
 -- Do always
 -- INSERT INTO admins(name, email_id, admin_type, department) VALUES('Acads', 'admin@admin', 0, 'Academics');
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('Ritik Garg', '2019csb1112@iitrpr.ac.in', 0, ARRAY['Biomedical Engineering', 'Chemical Engineering','Civil Engineering','Computer Science and Engineering', 'Electrical Engineering', 'Mechanical Engineering']);
+INSERT INTO admins(name, email_id, admin_type, department) VALUES('Tarun Singla', '2019csb1126@iitrpr.ac.in', 0, ARRAY['Biomedical Engineering', 'Chemical Engineering','Civil Engineering','Computer Science and Engineering', 'Electrical Engineering', 'Mechanical Engineering']);

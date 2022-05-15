@@ -24,14 +24,13 @@ function ApplicantionDetails() {
   const [hasFilledHighestGate, setHasFilledHighestGate] = useState("");
   const [hasGivenMultipleGates, setHasGivenMultipleGates] = useState("");
   const [isFetching, setIsFetching] = useState(true);
-  
 
   function changeDateFormat() {
     let date = new Date();
 
     let month = date.getMonth() + 1;
     let day = String(date.getDate());
-    if (day.length === 1) day = "0"+day;
+    if (day.length === 1) day = "0" + day;
     if (month.length === 1) month = "0" + month;
 
     date = date.getFullYear() + "-0" + month + "-" + day;
@@ -65,8 +64,8 @@ function ApplicantionDetails() {
         } else {
           setFullName(response.data.full_name);
           setCategory(response.data.category);
-          setCategoryFees(response.data.category_fees)
-          setIsFetching(false)
+          setCategoryFees(response.data.category_fees);
+          setIsFetching(false);
         }
       })
       .catch((err) => console.log(err));
@@ -106,24 +105,33 @@ function ApplicantionDetails() {
   const handleFileSubmit = (e, maxSize, index, fileType) => {
     const file = e.target.files[0];
 
-    if(fileType === 1) {
-      if(file.type !== 'application/pdf') {
+    if (fileType === 1) {
+      if (file.type !== "application/pdf") {
         e.target.value = null;
         alert("File format not followed! Allowed formats: .pdf");
         return;
       }
-    }
-    else if(fileType === 2) {
-      if((file.type !== 'image/jpeg') && (file.type !== 'image/jpg') && (file.type !== 'application/pdf')) {
+    } else if (fileType === 2) {
+      if (
+        file.type !== "image/jpeg" &&
+        file.type !== "image/jpg" &&
+        file.type !== "application/pdf"
+      ) {
         e.target.value = null;
         alert("File format not followed! Allowed formats: .jpeg, .jpg, .pdf");
         return;
       }
-    }
-    else if(fileType === 3) {
-      if((file.type !== 'image/jpeg') && (file.type !== 'image/jpg') && (file.type !== 'image/png') && (file.type !== 'image/gif')) {
+    } else if (fileType === 3) {
+      if (
+        file.type !== "image/jpeg" &&
+        file.type !== "image/jpg" &&
+        file.type !== "image/png" &&
+        file.type !== "image/gif"
+      ) {
         e.target.value = null;
-        alert("File format not followed! Allowed formats: .jpeg, .jpg, .png, .gif");
+        alert(
+          "File format not followed! Allowed formats: .jpeg, .jpg, .png, .gif"
+        );
         return;
       }
     }
@@ -175,97 +183,102 @@ function ApplicantionDetails() {
 
   return (
     <div>
-    {(isFetching)
-      ? 
-      <div className="mt-40"><img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/> </div>
-    : 
-    <div>
-      <div className="grid grid-cols-12 gap-2">
-        <div className="mx-12 mb-12 mt-10 px-12 col-start-1 col-end-12">
-          <ChevronDots
-            steps={[
-              "Qualifying Exam Details",
-              "Application Fee Details",
-              "Declaration",
-              "Review",
-            ]}
-            currentStep={page}
-          />
+      {isFetching ? (
+        <div className="mt-40">
+          <img
+            className="mx-auto h-[200px] w-[200px]"
+            alt="Spinner"
+            src={screenSpinner}
+          />{" "}
         </div>
+      ) : (
+        <div>
+          <div className="grid grid-cols-12 gap-2">
+            <div className="mx-12 mb-12 mt-10 px-12 col-start-1 col-end-12">
+              <ChevronDots
+                steps={[
+                  "Qualifying Exam Details",
+                  "Application Fee Details",
+                  "Declaration",
+                  "Review",
+                ]}
+                currentStep={page}
+              />
+            </div>
 
-        <Link
-          to="/home"
-          className="col-start-12 col-end-13 justify-center lg:w-12 lg:h-12 w-8 h-8 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-        >
-          <svg
-            className="lg:w-6 lg:h-6 w-4 h-4"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </Link>
-      </div>
+            <Link
+              to="/home"
+              className="col-start-12 col-end-13 justify-center lg:w-12 lg:h-12 w-8 h-8 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm m-3 p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              <svg
+                className="lg:w-6 lg:h-6 w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
+          </div>
 
-      {
-        {
-          1: (
-            <QualifyingExamDetails
-              hasFilledHighestGate={hasFilledHighestGate}
-              setHasFilledHighestGate={setHasFilledHighestGate}
-              hasGivenMultipleGates={hasGivenMultipleGates}
-              setHasGivenMultipleGates={setHasGivenMultipleGates}
-              offering={offering}
-              increasePageNumber={increasePageNumber}
-              details={applicant_details}
-              onChange={handleApplicantDetailsChange}
-              handleFileSubmit={handleFileSubmit}
-              emptyFileIndex={emptyFileIndex}
-            />
-          ),
-          2: (
-            <ApplicationFeeDetails
-              category={category}
-              increasePageNumber={increasePageNumber}
-              decreasePageNumber={decreasePageNumber}
-              details={applicant_details}
-              onChange={handleApplicantDetailsChange}
-              handleFileSubmit={handleFileSubmit}
-              emptyFileIndex={emptyFileIndex}
-              categoryFees = {categoryFees}
-            />
-          ),
-          3: (
-            <Declaration
-              full_name={full_name}
-              increasePageNumber={increasePageNumber}
-              details={applicant_details}
-              decreasePageNumber={decreasePageNumber}
-              onChange={handleApplicantDetailsChange}
-              handleFileSubmit={handleFileSubmit}
-              emptyFileIndex={emptyFileIndex}
-            />
-          ),
-          4: (
-            <Review
-              offering={offering}
-              decreasePageNumber={decreasePageNumber}
-              details={applicant_details}
-              handleSubmit={handleSubmit}
-              onSubmit={handleApplicationSubmit}
-              isLoading={isLoading}
-            />
-          ),
-        }[page]
-      }
+          {
+            {
+              1: (
+                <QualifyingExamDetails
+                  hasFilledHighestGate={hasFilledHighestGate}
+                  setHasFilledHighestGate={setHasFilledHighestGate}
+                  hasGivenMultipleGates={hasGivenMultipleGates}
+                  setHasGivenMultipleGates={setHasGivenMultipleGates}
+                  offering={offering}
+                  increasePageNumber={increasePageNumber}
+                  details={applicant_details}
+                  onChange={handleApplicantDetailsChange}
+                  handleFileSubmit={handleFileSubmit}
+                  emptyFileIndex={emptyFileIndex}
+                />
+              ),
+              2: (
+                <ApplicationFeeDetails
+                  category={category}
+                  increasePageNumber={increasePageNumber}
+                  decreasePageNumber={decreasePageNumber}
+                  details={applicant_details}
+                  onChange={handleApplicantDetailsChange}
+                  handleFileSubmit={handleFileSubmit}
+                  emptyFileIndex={emptyFileIndex}
+                  categoryFees={categoryFees}
+                />
+              ),
+              3: (
+                <Declaration
+                  full_name={full_name}
+                  increasePageNumber={increasePageNumber}
+                  details={applicant_details}
+                  decreasePageNumber={decreasePageNumber}
+                  onChange={handleApplicantDetailsChange}
+                  handleFileSubmit={handleFileSubmit}
+                  emptyFileIndex={emptyFileIndex}
+                />
+              ),
+              4: (
+                <Review
+                  offering={offering}
+                  decreasePageNumber={decreasePageNumber}
+                  details={applicant_details}
+                  handleSubmit={handleSubmit}
+                  onSubmit={handleApplicationSubmit}
+                  isLoading={isLoading}
+                />
+              ),
+            }[page]
+          }
+        </div>
+      )}
     </div>
-  }
-  </div>
   );
 }
 

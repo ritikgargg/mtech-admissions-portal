@@ -1,22 +1,22 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { Tooltip, IconButton } from '@mui/material';
-import { Close } from '@mui/icons-material';
-import { Grid } from '@mui/material';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { Tooltip, IconButton } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import { Grid } from "@mui/material";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
+  bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
-  borderRadius: 5
+  borderRadius: 5,
 };
 
 export default function ViewModal(props) {
@@ -27,7 +27,17 @@ export default function ViewModal(props) {
   return (
     <div>
       <Tooltip title="View Eligibility">
-        <Button className="focus:outline-none" onClick={handleOpen} style={{color: "rgb(88 80 236)", fontSize: "0.875rem", textTransform: "none"}}>View</Button>
+        <Button
+          className="focus:outline-none"
+          onClick={handleOpen}
+          style={{
+            color: "rgb(88 80 236)",
+            fontSize: "0.875rem",
+            textTransform: "none",
+          }}
+        >
+          View
+        </Button>
       </Tooltip>
       <Modal
         open={open}
@@ -43,7 +53,11 @@ export default function ViewModal(props) {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <IconButton className="focus:outline-none" aria-label="Close" onClick={handleClose}>
+              <IconButton
+                className="focus:outline-none"
+                aria-label="Close"
+                onClick={handleClose}
+              >
                 <Close />
               </IconButton>
             </Grid>

@@ -1,42 +1,42 @@
-import React, {useState, useEffect, Fragment} from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import React, { useState, useEffect, Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
 import iit_ropar_logo_clear from "../../images/iit-ropar-logo-clear.png";
-import {MenuIcon, XIcon } from '@heroicons/react/outline'
-import axios from "axios"
-import { getToken } from "../SignIn_SignUp/Sessions"
-import { useNavigate } from "react-router-dom"
-import DefaultProfilePicture from "../../images/default-profile-picture.png"
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import axios from "axios";
+import { getToken } from "../SignIn_SignUp/Sessions";
+import { useNavigate } from "react-router-dom";
+import DefaultProfilePicture from "../../images/default-profile-picture.png";
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: 'Home', to: '/home' },
-  { name: 'My Applications', to: '/my-applications' },
-  { name: 'My Profile', to: '/my-profile' }
-]
+  { name: "Home", to: "/home" },
+  { name: "My Applications", to: "/my-applications" },
+  { name: "My Profile", to: "/my-profile" },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
-function DashboardNavBar (props) {
+function DashboardNavBar(props) {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
 
-  useEffect(()=>{
-    axios.get("/get-user-info", {
+  useEffect(() => {
+    axios
+      .get("/get-user-info", {
         headers: {
-            Authorization: getToken()
-        }
-    })
-    .then(response => {
-        if(response.data === 1) {
+          Authorization: getToken(),
+        },
+      })
+      .then((response) => {
+        if (response.data === 1) {
           navigate("/logout");
-        }
-        else {
-            setUser(response.data);
+        } else {
+          setUser(response.data);
         }
       })
-    .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -60,12 +60,14 @@ function DashboardNavBar (props) {
                         key="Home"
                         to="/home"
                         className={classNames(
-                          (0 === props.currentFlag)
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
+                          0 === props.currentFlag
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
                         )}
-                        aria-current={0 === props.currentFlag ? 'page' : undefined}
+                        aria-current={
+                          0 === props.currentFlag ? "page" : undefined
+                        }
                       >
                         Home
                       </Link>
@@ -74,33 +76,37 @@ function DashboardNavBar (props) {
                         key="My Applications"
                         to="/my-applications"
                         className={classNames(
-                          (1 === props.currentFlag)
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
+                          1 === props.currentFlag
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
                         )}
-                        aria-current={1 === props.currentFlag ? 'page' : undefined}
+                        aria-current={
+                          1 === props.currentFlag ? "page" : undefined
+                        }
                       >
                         My Applications
                       </Link>
-                      
+
                       <Link
                         key="My Profile"
                         to="/my-profile"
                         className={classNames(
-                          (2 === props.currentFlag)
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
+                          2 === props.currentFlag
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
                         )}
-                        aria-current={2 === props.currentFlag ? 'page' : undefined}
+                        aria-current={
+                          2 === props.currentFlag ? "page" : undefined
+                        }
                       >
                         My Profile
                       </Link>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
                     {/* Profile dropdown */}
@@ -108,7 +114,15 @@ function DashboardNavBar (props) {
                       <div>
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <img className="h-8 w-8 rounded-full" src={user.profile_image_url ? user.profile_image_url : DefaultProfilePicture} alt="" />
+                          <img
+                            className="h-8 w-8 rounded-full"
+                            src={
+                              user.profile_image_url
+                                ? user.profile_image_url
+                                : DefaultProfilePicture
+                            }
+                            alt=""
+                          />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -121,26 +135,26 @@ function DashboardNavBar (props) {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Disclosure.Button
-                                  as="a"
-                                  href="logout"
-                                  className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700'
-                                  )}
-                                >
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Disclosure.Button
+                                as="a"
+                                href="logout"
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
                                 Sign out
-                                </Disclosure.Button>
-                              )}
-                            </Menu.Item>
+                              </Disclosure.Button>
+                            )}
+                          </Menu.Item>
                         </Menu.Items>
                       </Transition>
                     </Menu>
                   </div>
                 </div>
-                
+
                 <div className="-mr-2 flex md:hidden">
                   {/* Mobile menu button */}
                   <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -162,35 +176,49 @@ function DashboardNavBar (props) {
                     <Disclosure.Button
                       key={item.name}
                       className={classNames(
-                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'block px-3 py-2 rounded-md text-base font-medium'
+                        item.current
+                          ? "bg-gray-900 text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        "block px-3 py-2 rounded-md text-base font-medium"
                       )}
-                      aria-current={item.current ? 'page' : undefined}
+                      aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
                     </Disclosure.Button>
                   </Link>
                 ))}
               </div>
-              
+
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={user.profile_image_url ? user.profile_image_url : DefaultProfilePicture} alt="" />
+                    <img
+                      className="h-10 w-10 rounded-full"
+                      src={
+                        user.profile_image_url
+                          ? user.profile_image_url
+                          : DefaultProfilePicture
+                      }
+                      alt=""
+                    />
                   </div>
                   <div className="ml-3 items-center">
-                    <div className="text-base mb-1 font-medium leading-none text-white">{user.full_name}</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">{user.email_id}</div>
+                    <div className="text-base mb-1 font-medium leading-none text-white">
+                      {user.full_name}
+                    </div>
+                    <div className="text-sm font-medium leading-none text-gray-400">
+                      {user.email_id}
+                    </div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
-                    <Disclosure.Button
-                      as="a"
-                      href="logout"
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                    >
+                  <Disclosure.Button
+                    as="a"
+                    href="logout"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                  >
                     Sign out
-                    </Disclosure.Button>
+                  </Disclosure.Button>
                 </div>
               </div>
             </Disclosure.Panel>
@@ -198,7 +226,7 @@ function DashboardNavBar (props) {
         )}
       </Disclosure>
     </>
-  )
+  );
 }
 
 export default DashboardNavBar;

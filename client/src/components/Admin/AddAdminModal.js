@@ -6,8 +6,8 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated'
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 import spinner from "../../images/SpinnerWhite.gif";
 
 const style = {
@@ -30,13 +30,13 @@ const customStyles = {
     padding: "5px",
     outline: state.isFocused ? "none" : "",
     border: "1px solid rgb(229 231 235)",
-    boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)"
-  })
+    boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+  }),
 };
 
 export default function AddAdminModal() {
   const [isLoading, setIsLoading] = useState(false);
-  const [adminType, setAdminType] = useState("")
+  const [adminType, setAdminType] = useState("");
   const animatedComponents = makeAnimated();
   const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
@@ -44,13 +44,16 @@ export default function AddAdminModal() {
   const [error, setError] = useState(0);
 
   const options = [
-    {value:'Biomedical Engineering', label: 'Biomedical Engineering'},
-    {value: 'Chemical Engineering', label: 'Chemical Engineering'},
-    {value:'Civil Engineering', label: 'Civil Engineering'},
-    {value:'Computer Science and Engineering', label: 'Computer Science and Engineering'},
-    {value:'Electrical Engineering', label: 'Electrical Engineering' },
-    {value:'Mechanical Engineering', label: 'Mechanical Engineering'},
-  ]
+    { value: "Biomedical Engineering", label: "Biomedical Engineering" },
+    { value: "Chemical Engineering", label: "Chemical Engineering" },
+    { value: "Civil Engineering", label: "Civil Engineering" },
+    {
+      value: "Computer Science and Engineering",
+      label: "Computer Science and Engineering",
+    },
+    { value: "Electrical Engineering", label: "Electrical Engineering" },
+    { value: "Mechanical Engineering", label: "Mechanical Engineering" },
+  ];
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -59,7 +62,6 @@ export default function AddAdminModal() {
     setOpen(false);
   };
 
-
   const onClose = () => {
     reset();
     setAdminType("");
@@ -67,25 +69,22 @@ export default function AddAdminModal() {
 
   const handleChange = (options) => {
     setSelectedOptions(options);
-};
-  
+  };
 
   const onSubmit = (data) => {
     setIsLoading(true);
 
     const formData = new FormData();
-    let filteredOptions = []
-    if(adminType === 0){
+    let filteredOptions = [];
+    if (adminType === 0) {
       for (let i = 0; i < options.length; i++) {
         filteredOptions.push(options[i].value);
       }
-    }
-    else{
+    } else {
       for (let i = 0; i < selectedOptions.length; i++) {
         filteredOptions.push(selectedOptions[i].value);
       }
     }
-    
 
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
@@ -100,13 +99,11 @@ export default function AddAdminModal() {
       .then((response) => {
         if (response.data === 1) {
           navigate("/logout");
-        }
-        else if (response.data === 2) {
+        } else if (response.data === 2) {
           //show error message
           setError(1);
           setIsLoading(false);
-        } 
-        else {
+        } else {
           sessionStorage.setItem("alert", "1");
           setError(0);
           window.location.reload();
@@ -114,7 +111,6 @@ export default function AddAdminModal() {
       })
       .catch((err) => console.log(err));
   };
-
 
   return (
     <div>
@@ -207,45 +203,62 @@ export default function AddAdminModal() {
                         type="email"
                         {...register("email_id")}
                         id="email_id"
-                        onChange = {() => setError(0)}
-                        className= {error === 1 ? 
-                          "shadow-sm bg-red-50 border border-red-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:bg-red-50 focus:border-red-600 block w-full p-2.5"
-                          :
-                          "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        onChange={() => setError(0)}
+                        className={
+                          error === 1
+                            ? "shadow-sm bg-red-50 border border-red-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:bg-red-50 focus:border-red-600 block w-full p-2.5"
+                            : "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         }
                         required
                       />
-                      {error === 1 ? <p className="pl-1 pt-1 text-red-500 text-sm">E-mail address already exists</p> : <></>}
+                      {error === 1 ? (
+                        <p className="pl-1 pt-1 text-red-500 text-sm">
+                          E-mail address already exists
+                        </p>
+                      ) : (
+                        <></>
+                      )}
                     </div>
-                    
+
                     {/* <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label>
                         <Toggle/>
                       </div> */}
 
-                      <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="admin_type" className="text-sm font-medium text-gray-900 block mb-2">Role</label>
-                        
-                        <select
-                          id="admin_type"
-                          required
-                          name = "admin_type"
-                          value={adminType}
-                          onChange={(event) => {setAdminType(parseInt(event.target.value))}}
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        >
-                          <option value="">- Select -</option>
-                          <option value={0}>SUPER ADMIN</option>
-                          <option value={1}>FACULTY</option>
-                          <option value={3}>STAFF</option>
-                        </select>
-                      </div>
+                    <div className="col-span-full sm:col-span-full">
+                      <label
+                        htmlFor="admin_type"
+                        className="text-sm font-medium text-gray-900 block mb-2"
+                      >
+                        Role
+                      </label>
 
-                      
-                      {(adminType === 0) && 
+                      <select
+                        id="admin_type"
+                        required
+                        name="admin_type"
+                        value={adminType}
+                        onChange={(event) => {
+                          setAdminType(parseInt(event.target.value));
+                        }}
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                      >
+                        <option value="">- Select -</option>
+                        <option value={0}>SUPER ADMIN</option>
+                        <option value={1}>FACULTY</option>
+                        <option value={3}>STAFF</option>
+                      </select>
+                    </div>
+
+                    {adminType === 0 && (
                       <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                        
+                        <label
+                          htmlFor="department"
+                          className="text-sm font-medium text-gray-900 block mb-2"
+                        >
+                          Department
+                        </label>
+
                         <select
                           id="department"
                           {...register("department")}
@@ -254,15 +267,19 @@ export default function AddAdminModal() {
                         >
                           <option value="">- Select -</option>
                           <option value="Academics">Academics</option>
-                          </select>
-                          </div>
-                          }
+                        </select>
+                      </div>
+                    )}
 
-                          {
-                            (adminType === 1 || adminType === 3) &&
-                            <div className="col-span-full sm:col-span-full">
-                        <label htmlFor="department" className="text-sm font-medium text-gray-900 block mb-2">Department</label>
-                            {/* <select
+                    {(adminType === 1 || adminType === 3) && (
+                      <div className="col-span-full sm:col-span-full">
+                        <label
+                          htmlFor="department"
+                          className="text-sm font-medium text-gray-900 block mb-2"
+                        >
+                          Department
+                        </label>
+                        {/* <select
                                 id="department"
                                 {...register("department")}
                                 required
@@ -276,51 +293,47 @@ export default function AddAdminModal() {
                                 <option value="Mechanical Engineering">Mechanical Engineering</option>
                                 <option value="Biomedical Engineering">Biomedical Engineering</option>
                           </select> */}
-                          <Select
-                              // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
-                              styles={customStyles}
-                              closeMenuOnSelect={false}
-                              components={animatedComponents}
-                              isMulti={true}
-                              options={options}
-                              onChange={handleChange}
-                              maxMenuHeight={150}
-                          />
-                          </div> 
-                          }
-
-                     
+                        <Select
+                          // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+                          styles={customStyles}
+                          closeMenuOnSelect={false}
+                          components={animatedComponents}
+                          isMulti={true}
+                          options={options}
+                          onChange={handleChange}
+                          maxMenuHeight={150}
+                        />
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
                   <div className="p-3 border-t border-gray-200 rounded-b">
-                      
-                          {!isLoading ? (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                            >
-                              <div className="w-20 h-5 mx-5 my-2.5">
-                            <p>Add admin</p>
-                              </div>
-                        </button>
-                          ) : (
-                            <button
-                              className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-                              type="submit"
-                              disabled
-                            >
-                              <div className="w-20 h-5 mx-5 my-2.5">
-                            <img
-                              className="h-5 w-5 mx-auto"
-                              alt="spinner"
-                              src={spinner}
-                            />
-                            </div>
-                        </button>
-                          )}
-                 
-                    </div>
+                    {!isLoading ? (
+                      <button
+                        className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                        type="submit"
+                      >
+                        <div className="w-20 h-5 mx-5 my-2.5">
+                          <p>Add admin</p>
+                        </div>
+                      </button>
+                    ) : (
+                      <button
+                        className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
+                        type="submit"
+                        disabled
+                      >
+                        <div className="w-20 h-5 mx-5 my-2.5">
+                          <img
+                            className="h-5 w-5 mx-auto"
+                            alt="spinner"
+                            src={spinner}
+                          />
+                        </div>
+                      </button>
+                    )}
+                  </div>
                 </form>
               </div>
             </div>

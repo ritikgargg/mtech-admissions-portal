@@ -93,7 +93,7 @@ function MyApplications(props) {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                            {/* Reapply */}
+                          {/* Reapply */}
                         </th>
                         <th
                           scope="col"
@@ -140,35 +140,34 @@ function MyApplications(props) {
                               )}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              {(application.is_result_published === 1) 
-                                ?
-                                  (application.status === 0) 
-                                  ? 
-                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                      Not Selected
-                                    </span>
-                                  :
-                                  (application.status === 1) 
-                                    ?
-                                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                        Under Review
-                                      </span>
-                                    :
-                                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Selected
-                                      </span>
-
-                              :
-
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                Under Review
-                              </span>
-                            }
+                              {application.is_result_published === 1 ? (
+                                application.status === 0 ? (
+                                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Not Selected
+                                  </span>
+                                ) : application.status === 1 ? (
+                                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    Under Review
+                                  </span>
+                                ) : (
+                                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Selected
+                                  </span>
+                                )
+                              ) : (
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                  Under Review
+                                </span>
+                              )}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <ViewModal
                                 header={"Remarks"}
-                                data={(application.is_result_published === 1) ? application.status_remark: 'The results are not out yet!'}
+                                data={
+                                  application.is_result_published === 1
+                                    ? application.status_remark
+                                    : "The results are not out yet!"
+                                }
                               />
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap font-medium">
@@ -176,33 +175,38 @@ function MyApplications(props) {
                                 to={"/view/" + application.application_id}
                                 className="text-indigo-600 hover:text-indigo-900"
                               >
-                               <Tooltip title="View Application">
-                                <VisibilityIcon />
+                                <Tooltip title="View Application">
+                                  <VisibilityIcon />
                                 </Tooltip>
                               </Link>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap font-medium">
-                              <ReApplyModal application={application}/>
+                              <ReApplyModal application={application} />
                             </td>
                           </tr>
                         ))}
                       </tbody>
                     )}
                   </table>
-                  {(isFetching)?
-                    <img className="mx-auto h-[200px] w-[200px]" alt="Spinner" src={screenSpinner}/>
-                    :
+                  {isFetching ? (
+                    <img
+                      className="mx-auto h-[200px] w-[200px]"
+                      alt="Spinner"
+                      src={screenSpinner}
+                    />
+                  ) : (
                     applications.length === 0 && (
-                    <div className="bg-white">
-                      <div className="w-2/5 mx-auto my-50 text-center">
-                        <div className="h-5" />
-                        <img alt="No data" src={noDataGirlPic} />
-                        <p className="text-2xl font-semibold">
-                          No applications submitted yet!
-                        </p>
-                        <div className="h-6"></div>
+                      <div className="bg-white">
+                        <div className="w-2/5 mx-auto my-50 text-center">
+                          <div className="h-5" />
+                          <img alt="No data" src={noDataGirlPic} />
+                          <p className="text-2xl font-semibold">
+                            No applications submitted yet!
+                          </p>
+                          <div className="h-6"></div>
+                        </div>
                       </div>
-                    </div>
+                    )
                   )}
                 </div>
               </div>

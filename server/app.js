@@ -81,7 +81,10 @@ app.get("/get-profile-info", applicantdB.get_profile_info);
 
 app.get("/check-applicant-info", applicantdB.check_applicant_info);
 
-app.get("/reapply-check-applicant-info", applicantdB.reapply_check_applicant_info);
+app.get(
+  "/reapply-check-applicant-info",
+  applicantdB.reapply_check_applicant_info
+);
 
 app.get("/get-open-positions", applicantdB.get_open_positions);
 
@@ -183,11 +186,7 @@ app.post(
   admindB.unpublish_all_results
 );
 
-app.post(
-  "/open-all-offerings",
-  upload.fields([]),
-  admindB.open_all_offerings
-);
+app.post("/open-all-offerings", upload.fields([]), admindB.open_all_offerings);
 
 app.post(
   "/close-all-offerings",
@@ -211,7 +210,6 @@ app.get(
 app.post("/get-merit-list", upload.fields([]), generateResults.get_merit_list);
 
 app.get("/get-applicants-branches", generateResults.get_applicants_branches);
-
 
 app.get(
   "/get-deleted-admissions-cycles",
