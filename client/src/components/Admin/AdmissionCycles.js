@@ -19,8 +19,8 @@ function AdmissionCycles() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentCycles, setCurrentCycles] = useState([]);
-  const [brochure, setBrochure] = useState(null);
-  const [ranklist, setRanklist] = useState(null);
+  const [brochure, setBrochure] = useState("");
+  const [ranklist, setRanklist] = useState("");
   const [fees, setFees] = useState(["0", "0", "0", "0", "0", "0"]);
   const empty_cycle = {
     name: "",
@@ -107,7 +107,6 @@ function AdmissionCycles() {
         if (response.data === 1) {
           navigate("/logout");
         } else {
-          window.location.reload();
           window.location.reload();
         }
       })
@@ -416,132 +415,42 @@ function AdmissionCycles() {
                             </div>
                           </div>
 
-                          <div className="col-span-full sm:col-span-full">
+                          <div>
                             <label
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                               htmlFor="brochure"
+                              className="text-sm font-medium"
                             >
                               Brochure for M.Tech. Admissions
-                              <span style={{ color: "#ff0000" }}> *</span>
                             </label>
-                            {!brochure ? (
-                              <>
-                                <input
-                                  className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                  aria-describedby="brochure-desc"
-                                  id="brochure"
-                                  name="brochure"
-                                  type="file"
-                                  required
-                                  accept=".pdf"
-                                  onChange={(e) => {
-                                    handleFileSubmit(e, setBrochure);
-                                  }}
-                                />
-                                <div
-                                  className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                  id="profile-picture-desc"
-                                >
-                                  <span className="font-semibold">
-                                    Allowed file formats:
-                                  </span>{" "}
-                                  .pdf
-                                  <br />
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                  <input
-                                    className="border-none block w-full shadow-sm sm:text-sm"
-                                    id="profile_picture"
-                                    name="profile_picture"
-                                    type="text"
-                                    value={brochure.name}
-                                    readOnly
-                                  />
-
-                                  <button
-                                    type="button"
-                                    className="flex focus:outline-none items-center ml-2 mr-2 justify-center"
-                                    onClick={() => {
-                                      //  props.emptyFile("marksheet_10th_url");
-                                      setBrochure(null);
-                                    }}
-                                  >
-                                    <img
-                                      className="w-6 h-6"
-                                      src={crossPic}
-                                      alt="Cross"
-                                    ></img>
-                                  </button>
-                                </div>
-                              </>
-                            )}
+                            <div className="relative mt-1">
+                              <input
+                                type="text"
+                                id="brochure"
+                                onChange={(e) => setBrochure(e.target.value)}
+                                className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                                placeholder="Public URL of the brochure PDF"
+                                required
+                              />
+                            </div>
                           </div>
 
-                          <div className="col-span-full sm:col-span-full">
+                          <div>
                             <label
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                               htmlFor="ranklist"
+                              className="text-sm font-medium"
                             >
-                              GATE Opening and closing rank
-                              <span style={{ color: "#ff0000" }}> *</span>
+                              GATE opening and closing score
                             </label>
-                            {!ranklist ? (
-                              <>
-                                <input
-                                  className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                  aria-describedby="ranklist-desc"
-                                  id="ranklist"
-                                  name="ranklist"
-                                  type="file"
-                                  required
-                                  accept=".pdf"
-                                  onChange={(e) => {
-                                    handleFileSubmit(e, setRanklist);
-                                  }}
-                                />
-                                <div
-                                  className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                  id="profile-picture-desc"
-                                >
-                                  <span className="font-semibold">
-                                    Allowed file formats:
-                                  </span>{" "}
-                                  .pdf
-                                  <br />
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                  <input
-                                    className="border-none block w-full shadow-sm sm:text-sm"
-                                    id="profile_picture"
-                                    name="profile_picture"
-                                    type="text"
-                                    value={ranklist.name}
-                                    readOnly
-                                  />
-
-                                  <button
-                                    type="button"
-                                    className="flex focus:outline-none items-center ml-2 mr-2 justify-center"
-                                    onClick={() => {
-                                      //  props.emptyFile("marksheet_10th_url");
-                                      setRanklist(null);
-                                    }}
-                                  >
-                                    <img
-                                      className="w-6 h-6"
-                                      src={crossPic}
-                                      alt="Cross"
-                                    ></img>
-                                  </button>
-                                </div>
-                              </>
-                            )}
+                            <div className="relative mt-1">
+                              <input
+                                type="text"
+                                id="ranklist"
+                                onChange={(e) => setRanklist(e.target.value)}
+                                className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                                placeholder="Public URL of the opening-closing-score PDF"
+                                required
+                              />
+                            </div>
                           </div>
 
                           <div className="p-3">

@@ -122,10 +122,7 @@ app.post(
 
 app.post(
   "/add-admission-cycle",
-  upload.fields([
-    { name: "brochure", maxCount: 1 },
-    { name: "ranklist", maxCount: 1 },
-  ]),
+  upload.fields([]),
   admindB.add_admission_cycle
 );
 
@@ -224,6 +221,8 @@ app.get(
 app.get("/get-dashboard-info", dashboard.get_dashboard_info);
 
 app.get("/get-fees-info", landing.get_fees_info);
+
+app.get("/get-brochure-ranklist-url", landing.get_brochure_ranklist_urls);
 
 app.post(
   "/restore-cycle",

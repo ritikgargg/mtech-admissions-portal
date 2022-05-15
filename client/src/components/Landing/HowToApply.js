@@ -187,7 +187,7 @@ function HowToApply() {
               <div className="mt-4 text-[#F5F5F5]">
                 Details of the fees for different categories and mode of payment
                 will be updated when Indian Institute of Technology Ropar will
-                start accepting applications for Mtech programmes
+                start accepting applications for Mtech programmes.
               </div>
             )}
           </div>

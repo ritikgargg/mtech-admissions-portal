@@ -1,20 +1,11 @@
 const pool = require("./db");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
-const { Storage } = require("@google-cloud/storage");
-const { format } = require("util");
 
 dotenv.config();
 
-const gc = new Storage({
-  credentials: JSON.parse(process.env.GCP_KEYFILE),
-  // keyFilename: path.join(__dirname, "./phd-pg-admission-iit-ropar-0aa094c57f3e.json"),
-  projectId: "phd-pg-admission-iit-ropar",
-});
-const applicantBucket = gc.bucket("applicant-iit-ropar");
-
 /** Add admission cycle and make it the current cycle */
-const add_admission_cycle = async (req, res, next) => {
+const add_admission_cycle = async (req, res) => {
   /**
    * Verify using authToken
    */
@@ -42,7 +33,7 @@ const add_admission_cycle = async (req, res, next) => {
   let info = req.body;
   let fees = JSON.parse(req.body.fees);
   const results = await pool.query(
-    "INSERT INTO admission_cycles(name, duration_start, duration_end, fees_gen, fees_obc, fees_ews, fees_sc, fees_st, fees_pwd) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING cycle_id;",
+    "INSERT INTO admission_cycles(name, duration_start, duration_end, fees_gen, fees_obc, fees_ews, fees_sc, fees_st, fees_pwd, brochure_url, rank_list_url) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING cycle_id;",
     [
       info.name,
       info.start,
@@ -53,6 +44,8 @@ const add_admission_cycle = async (req, res, next) => {
       fees[3],
       fees[4],
       fees[5],
+      info.brochure,
+      info.ranklist,
     ]
   );
 
@@ -108,57 +101,7 @@ const add_admission_cycle = async (req, res, next) => {
     );
   }
 
-  let promises = [];
-  let vals = Object.values(req.files);
-
-  for (let f of vals) {
-    const gcsname = f[0].originalname + "_" + Date.now();
-    const file = applicantBucket.file(gcsname);
-
-    const stream = file.createWriteStream({
-      metadata: {
-        contentType: f[0].mimetype,
-      },
-      resumable: false,
-    });
-
-    stream.on("error", (err) => {
-      f[0].cloudStorageError = err;
-      next(err);
-      console.log(err);
-    });
-
-    stream.end(f[0].buffer);
-
-    promises.push(
-      new Promise((resolve, reject) => {
-        stream.on("finish", async () => {
-          url = format(
-            `https://storage.googleapis.com/${applicantBucket.name}/${file.name}`
-          );
-
-          if (f[0].fieldname === "ranklist") {
-            await pool.query(
-              "UPDATE admission_cycles SET rank_list_url = $1 WHERE cycle_id = $2;",
-              [url, new_cycle_id]
-            );
-          } else if (f[0].fieldname === "brochure") {
-            await pool.query(
-              "UPDATE admission_cycles SET brochure_url = $1 WHERE cycle_id = $2;",
-              [url, new_cycle_id]
-            );
-          }
-
-          f[0].cloudStorageObject = gcsname;
-          file.makePublic().then(() => {
-            resolve();
-          });
-        });
-      })
-    );
-  }
-
-  Promise.allSettled(promises).then(res.status(200).send("Ok"));
+  return res.send("Ok");
 };
 
 /** Get all the admission cycles */

@@ -58,8 +58,24 @@ const get_cycle_duration = async (req, res) => {
   return res.send(results.rows[0]);
 };
 
+/** Get brochure and ranklist urls */
+const get_brochure_ranklist_urls = async (req, res) => {
+  const cycle = await pool.query("SELECT cycle_id from current_cycle;");
+  let cycle_id = cycle.rows[0].cycle_id;
+
+  if (cycle_id === 0) return res.send("1");
+
+  const results = await pool.query(
+    "SELECT brochure_url, rank_list_url from admission_cycles where cycle_id = $1;",
+    [cycle_id]
+  );
+
+  return res.send(results.rows[0]);
+};
+
 module.exports = {
   get_fees_info,
   get_open_positions_landing,
   get_cycle_duration,
+  get_brochure_ranklist_urls,
 };

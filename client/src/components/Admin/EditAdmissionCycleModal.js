@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Tooltip } from "@mui/material";
@@ -357,6 +357,38 @@ export default function EditAdmissionCycleModal(props) {
                     />
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="brochure" className="text-sm font-medium">
+                Brochure for M.Tech. Admissions
+              </label>
+              <div className="relative mt-1">
+                <input
+                  type="text"
+                  id="brochure_url"
+                  {...register("brochure_url")}
+                  className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                  placeholder="Public URL of the brochure PDF"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="ranklist" className="text-sm font-medium">
+                GATE opening and closing score
+              </label>
+              <div className="relative mt-1">
+                <input
+                  type="text"
+                  id="rank_list_url"
+                  {...register("rank_list_url")}
+                  className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                  placeholder="Public URL of the opening-closing-score PDF"
+                  required
+                />
               </div>
             </div>
 
