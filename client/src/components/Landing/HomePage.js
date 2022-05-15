@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import iit_ropar_pic from "../../images/iit-ropar.jpg";
 import pic from "../../images/iit-ropar-logo.jpg";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 function HomePage() {
+  const [cycleDuration, setCycleDuration] = useState({});
+  const [isCyclePresent, setIsCyclePresent] = useState(false);
+
+  useEffect(() => {
+    Axios.get("/get-cycle-duration")
+      .then((response) => {
+        if (response.data === 1) {
+          setIsCyclePresent(false);
+        } else {
+          setCycleDuration(response.data);
+          setIsCyclePresent(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div className="w-full">
       <div className=" flex bg-white" style={{ height: "690px" }}>
@@ -27,10 +44,17 @@ function HomePage() {
                 MTech Registration Portal
               </span>
             </h1>
-            <p className="text-center mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
-              Indian Institute of Technology Ropar invites applications for
-              MTech programmes for the academic year 2022-23.
-            </p>
+            {isCyclePresent ? (
+              <p className="text-center mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
+                Indian Institute of Technology Ropar invites applications for
+                MTech programmes for {cycleDuration.duration_start}-
+                {cycleDuration.duration_end}.
+              </p>
+            ) : (
+              <p className="text-center mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
+                Applications for Mtech programmes are currently closed
+              </p>
+            )}
             <div className="mt-5 sm:mt-8 sm:flex sm:justify-center">
               <div className="rounded-md shadow">
                 <Link

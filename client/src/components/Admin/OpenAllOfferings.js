@@ -9,8 +9,6 @@ import spinner from "../../images/SpinnerWhite.gif";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import publishIcon from "../../images/publish.png";
-import { getAdminType } from "./AdminTypes";
 
 const style = {
   position: "absolute",

@@ -90,6 +90,8 @@ app.get("/get-open-positions", applicantdB.get_open_positions);
 
 app.get("/get-open-positions-landing", landing.get_open_positions_landing);
 
+app.get("/get-cycle-duration", landing.get_cycle_duration);
+
 app.get("/get-user-info", applicantdB.get_user_info);
 
 app.get("/get-offering-info", applicantdB.get_offering_info);
@@ -120,7 +122,10 @@ app.post(
 
 app.post(
   "/add-admission-cycle",
-  upload.fields([]),
+  upload.fields([
+    { name: "brochure", maxCount: 1 },
+    { name: "ranklist", maxCount: 1 },
+  ]),
   admindB.add_admission_cycle
 );
 

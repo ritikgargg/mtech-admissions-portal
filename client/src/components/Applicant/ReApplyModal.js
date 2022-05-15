@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Tooltip, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { Grid } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const style = {

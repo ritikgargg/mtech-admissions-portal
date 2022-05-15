@@ -113,7 +113,9 @@ CREATE TABLE admission_cycles(
   fees_obc TEXT,
   fees_sc TEXT,
   fees_st TEXT,
-  fees_pwd TEXT
+  fees_pwd TEXT,
+  brochure_url TEXT,
+  rank_list_url TEXT
 );
 
 CREATE TABLE deleted_admission_cycles(

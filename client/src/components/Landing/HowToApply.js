@@ -11,11 +11,17 @@ import Axios from "axios";
 
 function HowToApply() {
   const [fees, setFees] = useState({});
+  const [isCyclePresent, setIsCyclePresent] = useState(false);
 
   useEffect(() => {
     Axios.get("/get-fees-info")
       .then((response) => {
-        setFees(response.data);
+        if (response.data === 1) {
+          setIsCyclePresent(false);
+        } else {
+          setFees(response.data);
+          setIsCyclePresent(true);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
@@ -157,25 +163,33 @@ function HowToApply() {
             <div className="md:text-3xl text-xl font-bold text-white">
               Application Fee Details
             </div>
-            <div className="mt-4 text-[#F5F5F5]">
-              Please find below the details regarding the fees for different
-              categories and the mode of payment:
-              <br />₹ {fees.fees_gen} for{" "}
-              <span className="font-semibold">GEN</span>
-              <br />₹ {fees.fees_obc} for{" "}
-              <span className="font-semibold">OBC</span>
-              <br />₹ {fees.fees_ews} for{" "}
-              <span className="font-semibold">EWS</span>
-              <br />₹ {fees.fees_sc} For{" "}
-              <span className="font-semibold">SC</span>
-              <br />₹ {fees.fees_st} For{" "}
-              <span className="font-semibold">ST</span>
-              <br />₹ {fees.fees_pwd} For{" "}
-              <span className="font-semibold">PWD</span>
-              <br />
-              Mode of Fee Payment :{" "}
-              <span className="font-bold">SBI Collect</span>
-            </div>
+            {isCyclePresent ? (
+              <div className="mt-4 text-[#F5F5F5]">
+                Please find below the details regarding the fees for different
+                categories and the mode of payment:
+                <br />₹ {fees.fees_gen} for{" "}
+                <span className="font-semibold">GEN</span>
+                <br />₹ {fees.fees_obc} for{" "}
+                <span className="font-semibold">OBC</span>
+                <br />₹ {fees.fees_ews} for{" "}
+                <span className="font-semibold">EWS</span>
+                <br />₹ {fees.fees_sc} For{" "}
+                <span className="font-semibold">SC</span>
+                <br />₹ {fees.fees_st} For{" "}
+                <span className="font-semibold">ST</span>
+                <br />₹ {fees.fees_pwd} For{" "}
+                <span className="font-semibold">PWD</span>
+                <br />
+                Mode of Fee Payment :{" "}
+                <span className="font-bold">SBI Collect</span>
+              </div>
+            ) : (
+              <div className="mt-4 text-[#F5F5F5]">
+                Details of the fees for different categories and mode of payment
+                will be updated when Indian Institute of Technology Ropar will
+                start accepting applications for Mtech programmes
+              </div>
+            )}
           </div>
         </div>
 

@@ -89,7 +89,9 @@ export default function MeetTheTeam() {
                         </button>
                         {/* Instagram */}
                         <a
-                          href="#"
+                          href="https://instagram.com/anshul_verma.exo?igshid=YmMyMTA2M2Y="
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="flex rounded-full hover:bg-orange-50 h-10 w-10"
                         >
                           <i className="mdi mdi-instagram text-orange-400 mx-auto mt-2" />
@@ -145,7 +147,9 @@ export default function MeetTheTeam() {
                         </button>
                         {/* Instagram */}
                         <a
-                          href="#"
+                          href="https://instagram.com/piyush_p1?igshid=YmMyMTA2M2Y="
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="flex rounded-full hover:bg-orange-50 h-10 w-10"
                         >
                           <i className="mdi mdi-instagram text-orange-400 mx-auto mt-2" />
@@ -201,7 +205,9 @@ export default function MeetTheTeam() {
                         </button>
                         {/* Instagram */}
                         <a
-                          href="#"
+                          href="https://instagram.com/ritik._.garg_?igshid=YmMyMTA2M2Y="
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="flex rounded-full hover:bg-orange-50 h-10 w-10"
                         >
                           <i className="mdi mdi-instagram text-orange-400 mx-auto mt-2" />
@@ -257,7 +263,9 @@ export default function MeetTheTeam() {
                         </button>
                         {/* Instagram */}
                         <a
-                          href="#"
+                          href="https://instagram.com/_taarun?igshid=YmMyMTA2M2Y="
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="flex rounded-full hover:bg-orange-50 h-10 w-10"
                         >
                           <i className="mdi mdi-instagram text-orange-400 mx-auto mt-2" />

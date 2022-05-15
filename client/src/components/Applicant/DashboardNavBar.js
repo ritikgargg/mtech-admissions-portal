@@ -9,9 +9,9 @@ import DefaultProfilePicture from "../../images/default-profile-picture.png";
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Home", to: "/home" },
-  { name: "My Applications", to: "/my-applications" },
-  { name: "My Profile", to: "/my-profile" },
+  { name: "Home", to: "/home", id: 1 },
+  { name: "My Applications", to: "/my-applications", id: 2 },
+  { name: "My Profile", to: "/my-profile", id: 3 },
 ];
 
 function classNames(...classes) {
@@ -171,22 +171,30 @@ function DashboardNavBar(props) {
 
             <Disclosure.Panel className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {navigation.map((item) => (
-                  <Link to={item.to}>
-                    <Disclosure.Button
-                      key={item.name}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "block px-3 py-2 rounded-md text-base font-medium"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      {item.name}
-                    </Disclosure.Button>
-                  </Link>
-                ))}
+                <table>
+                  <tbody>
+                    {navigation.map((item) => (
+                      <tr key={item.id}>
+                        <td>
+                          <Link to={item.to}>
+                            <Disclosure.Button
+                              key={item.name}
+                              className={classNames(
+                                item.current
+                                  ? "bg-gray-900 text-white"
+                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                "block px-3 py-2 rounded-md text-base font-medium"
+                              )}
+                              aria-current={item.current ? "page" : undefined}
+                            >
+                              {item.name}
+                            </Disclosure.Button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
 
               <div className="pt-4 pb-3 border-t border-gray-700">

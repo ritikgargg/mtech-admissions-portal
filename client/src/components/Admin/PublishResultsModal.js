@@ -68,7 +68,7 @@ export default function PublishResultsModal(props) {
           <FormControlLabel
             control={
               <Toggle
-                checked={props.isResultPublished}
+                checked={props.isResultPublished === 1 ? true : false}
                 // onChange={handleChange2}
                 sx={{ m: 1 }}
               />

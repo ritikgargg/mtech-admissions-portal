@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Tooltip } from "@mui/material";
 import fileSaver from "file-saver";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
@@ -113,8 +112,7 @@ export default function MeritListGeneration(props) {
               <button
                 type="button"
                 onClick={() => props.setIsGeneratingMeritList(false)}
-                bg-gray-100
-                className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                className="text-gray-400 focus:outline-none bg-gray-100 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 <svg
                   className="w-5 h-5"

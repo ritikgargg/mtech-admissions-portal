@@ -3,7 +3,6 @@ import SlidesDisplayModule from "./SlidesDisplayModule";
 import AdminImage from "../../images/How-To-Use-9.svg";
 import ApplicationsImage from "../../images/Asset 12.svg";
 import ProfileImage from "../../images/Asset 16.svg";
-import HowToUse4 from "../../images/How-To-Use-4.jpg";
 import TemplateImage from "../../images/How-To-Use-12.svg";
 import ExportDataImage from "../../images/Asset 15.svg";
 import OfferingsImage from "../../images/Asset 9.svg";

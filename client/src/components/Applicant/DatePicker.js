@@ -1,7 +1,7 @@
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
-function DatePick(props) {
+function DatePicker(props) {
   return (
     <div>
       <input
@@ -15,4 +15,4 @@ function DatePick(props) {
   );
 }
 
-export default DatePick;
+export default DatePicker;

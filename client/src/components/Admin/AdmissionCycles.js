@@ -6,19 +6,21 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import EditCurrentCycle from "./EditCurrentCycle";
+import EditAdmissionCycleModal from "./EditAdmissionCycleModal";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Toggle from "./Toggle";
 import background from "../../images/background.jpg";
 import spinner from "../../images/SpinnerWhite.gif";
 import screenSpinner from "../../images/2300-spinner.gif";
 import { getAdminType } from "./AdminTypes";
-
+import crossPic from "../../images/red_cross.png";
 function AdmissionCycles() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentCycles, setCurrentCycles] = useState([]);
+  const [brochure, setBrochure] = useState(null);
+  const [ranklist, setRanklist] = useState(null);
   const [fees, setFees] = useState(["0", "0", "0", "0", "0", "0"]);
   const empty_cycle = {
     name: "",
@@ -73,6 +75,17 @@ function AdmissionCycles() {
     } else obj[prop[0]] = value;
   }
 
+  const handleFileSubmit = (e, setVariable) => {
+    const file = e.target.files[0];
+
+    if (file.type !== "application/pdf") {
+      e.target.value = null;
+      alert("File format not followed! Allowed formats: .pdf");
+      return;
+    }
+    setVariable(file);
+  };
+
   const handleSubmit = () => {
     setIsLoading(true);
     const formData = new FormData();
@@ -81,6 +94,9 @@ function AdmissionCycles() {
     formData.append("end", String(cycleInfo["duration_end"]));
     formData.append("fees", JSON.stringify(fees));
     formData.append("make_current", makeCurrent);
+
+    formData.append("brochure", brochure);
+    formData.append("ranklist", ranklist);
 
     Axios.post("/add-admission-cycle", formData, {
       headers: {
@@ -91,6 +107,7 @@ function AdmissionCycles() {
         if (response.data === 1) {
           navigate("/logout");
         } else {
+          window.location.reload();
           window.location.reload();
         }
       })
@@ -399,6 +416,134 @@ function AdmissionCycles() {
                             </div>
                           </div>
 
+                          <div className="col-span-full sm:col-span-full">
+                            <label
+                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                              htmlFor="brochure"
+                            >
+                              Brochure for M.Tech. Admissions
+                              <span style={{ color: "#ff0000" }}> *</span>
+                            </label>
+                            {!brochure ? (
+                              <>
+                                <input
+                                  className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                  aria-describedby="brochure-desc"
+                                  id="brochure"
+                                  name="brochure"
+                                  type="file"
+                                  required
+                                  accept=".pdf"
+                                  onChange={(e) => {
+                                    handleFileSubmit(e, setBrochure);
+                                  }}
+                                />
+                                <div
+                                  className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                  id="profile-picture-desc"
+                                >
+                                  <span className="font-semibold">
+                                    Allowed file formats:
+                                  </span>{" "}
+                                  .pdf
+                                  <br />
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                  <input
+                                    className="border-none block w-full shadow-sm sm:text-sm"
+                                    id="profile_picture"
+                                    name="profile_picture"
+                                    type="text"
+                                    value={brochure.name}
+                                    readOnly
+                                  />
+
+                                  <button
+                                    type="button"
+                                    className="flex focus:outline-none items-center ml-2 mr-2 justify-center"
+                                    onClick={() => {
+                                      //  props.emptyFile("marksheet_10th_url");
+                                      setBrochure(null);
+                                    }}
+                                  >
+                                    <img
+                                      className="w-6 h-6"
+                                      src={crossPic}
+                                      alt="Cross"
+                                    ></img>
+                                  </button>
+                                </div>
+                              </>
+                            )}
+                          </div>
+
+                          <div className="col-span-full sm:col-span-full">
+                            <label
+                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                              htmlFor="ranklist"
+                            >
+                              GATE Opening and closing rank
+                              <span style={{ color: "#ff0000" }}> *</span>
+                            </label>
+                            {!ranklist ? (
+                              <>
+                                <input
+                                  className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                  aria-describedby="ranklist-desc"
+                                  id="ranklist"
+                                  name="ranklist"
+                                  type="file"
+                                  required
+                                  accept=".pdf"
+                                  onChange={(e) => {
+                                    handleFileSubmit(e, setRanklist);
+                                  }}
+                                />
+                                <div
+                                  className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                  id="profile-picture-desc"
+                                >
+                                  <span className="font-semibold">
+                                    Allowed file formats:
+                                  </span>{" "}
+                                  .pdf
+                                  <br />
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <div className="flex border-2 mt-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                  <input
+                                    className="border-none block w-full shadow-sm sm:text-sm"
+                                    id="profile_picture"
+                                    name="profile_picture"
+                                    type="text"
+                                    value={ranklist.name}
+                                    readOnly
+                                  />
+
+                                  <button
+                                    type="button"
+                                    className="flex focus:outline-none items-center ml-2 mr-2 justify-center"
+                                    onClick={() => {
+                                      //  props.emptyFile("marksheet_10th_url");
+                                      setRanklist(null);
+                                    }}
+                                  >
+                                    <img
+                                      className="w-6 h-6"
+                                      src={crossPic}
+                                      alt="Cross"
+                                    ></img>
+                                  </button>
+                                </div>
+                              </>
+                            )}
+                          </div>
+
                           <div className="p-3">
                             <FormControlLabel
                               control={
@@ -510,7 +655,7 @@ function AdmissionCycles() {
                             </p>
                           </div>
                         </Link>
-                        <EditCurrentCycle
+                        <EditAdmissionCycleModal
                           className="col-span-1"
                           cycle={cycle}
                           is_current={true}
@@ -558,7 +703,7 @@ function AdmissionCycles() {
                           </p>
                         </div>
                       </Link>
-                      <EditCurrentCycle
+                      <EditAdmissionCycleModal
                         className="col-span-1"
                         cycle={previousCycle}
                         is_current={false}

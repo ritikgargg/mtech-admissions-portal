@@ -9,8 +9,8 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { getAdminType } from "./AdminTypes";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 
 export default function AdminNavbarWithSidebar() {
   const location = useLocation().pathname;
@@ -195,8 +195,8 @@ export default function AdminNavbarWithSidebar() {
                         : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                     }
                   >
-                    <DeleteOutlineIcon size="2xl" />
-                    Recycle Bin
+                    <ArchiveOutlinedIcon size="2xl" />
+                    Archive
                   </NavLink>
                 </li>
               )}

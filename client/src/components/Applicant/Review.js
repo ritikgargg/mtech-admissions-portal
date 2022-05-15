@@ -284,10 +284,7 @@ export default function Review(props) {
               <dt className="text-sm font-medium text-gray-500">Uploads</dt>
               {profileInfo.category_certificate_url && (
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <ul
-                    role="list"
-                    className="border border-gray-200 rounded-md divide-y divide-gray-200"
-                  >
+                  <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                     <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                       <div className="w-0 flex-1 flex items-center">
                         <PaperClipIcon
@@ -682,7 +679,7 @@ export default function Review(props) {
                 disabled
                 className="mr-5 col-start-6 col-end-7 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                <img src={spinner} className="h-5 w-5 mx-auto" />
+                <img src={spinner} className="h-5 w-5 mx-auto" alt="Spinner" />
               </button>
             )}
           </div>

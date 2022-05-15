@@ -15,7 +15,7 @@ import MyApplications from "./components/Applicant/MyApplications";
 import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
 import ApplicationDetails from "./components/Applicant/ApplicationDetails";
 import ViewSubmittedApplication from "./components/Applicant/ViewSubmittedApplication";
-import Courses from "./components/Landing/Courses";
+import Courses from "./components/Landing/Openings";
 import Info from "./components/Landing/Info";
 import Success from "./components/Applicant/Success";
 import ReApplicationDetails from "./components/Applicant/ReApplicationDetails";

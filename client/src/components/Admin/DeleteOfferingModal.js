@@ -16,7 +16,7 @@ const style = {
   boxShadow: 24,
 };
 
-export default function DeleteAlertModal(props) {
+export default function DeleteOfferingModal(props) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = React.useState(false);

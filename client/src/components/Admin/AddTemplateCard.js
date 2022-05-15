@@ -174,8 +174,7 @@ export default function AddTemplateCard(props) {
               <button
                 type="button"
                 onClick={() => props.setIsAddingTemplate(false)}
-                bg-gray-100
-                className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                className="text-gray-400 bg-gray-100 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 <svg
                   className="w-5 h-5"

@@ -208,7 +208,9 @@ function ContactUs() {
                 <i className="fas fa-map-marker-alt pt-2 pr-2">
                   <div className="flex flex-col content-center">
                     <h2 className="text-3xl font-medium">Mail Us</h2>
-                    <p className="text-gray-400 text-xl">abc@iitrpr.ac.in</p>
+                    <p className="text-gray-400 text-xl">
+                      coapcell@iitrpr.ac.in
+                    </p>
                     <p className="text-gray-400 text-xl">xyz@iitrpr.ac.in</p>
                   </div>
                 </i>

@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileSettingsImage from "../../images/Asset 7.svg";
+import ProfileSettingsImageMobile from "../../images/admin-profile.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
@@ -8,7 +9,6 @@ import spinner from "../../images/SpinnerWhite.gif";
 import EmailIcon from "@mui/icons-material/Email";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import WorkIcon from "@mui/icons-material/Work";
-import EditProfile from "./EditProfile";
 import { Tooltip } from "@mui/material";
 import Tick from "../../images/tick.png";
 
@@ -80,7 +80,9 @@ export default function AdminProfile() {
               {/* Image for mobile view*/}
               <div
                 className="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
-                style={{ backgroundImage: `url(${ProfileSettingsImage})` }}
+                style={{
+                  backgroundImage: `url(${ProfileSettingsImageMobile})`,
+                }}
               />
               {!isInputField ? (
                 <div className="flex justify-between">
@@ -260,6 +262,7 @@ export default function AdminProfile() {
             <img
               src={ProfileSettingsImage}
               className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
+              alt="Spinner"
             />
             {/* Image from: http://unsplash.com/photos/MP0IUfwrn0A */}
           </div>

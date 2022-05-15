@@ -131,8 +131,8 @@ function QualifyingExamDetails(props) {
                           <option value="">-- Select --</option>
                           {gatePaperCodesToArray(
                             props.offering.gate_paper_codes
-                          ).map((gatePaperCode) => (
-                            <option value={gatePaperCode}>
+                          ).map((gatePaperCode, index) => (
+                            <option value={gatePaperCode} key={index}>
                               {gatePaperCode}
                             </option>
                           ))}
@@ -170,7 +170,8 @@ function QualifyingExamDetails(props) {
                           type="text"
                           name="gate_enrollment_number"
                           id="gate_enrollment_number"
-                          pattern="[A-Z]{2}[0-9]{10}"
+                          // pattern="[A-Z]{2}[0-9]{10}"
+                          pattern={props.details[7] + "[0-9]{10}"}
                           required
                           title="Correct Format : GATE paper code followed by 10 digits"
                           value={props.details[9]}

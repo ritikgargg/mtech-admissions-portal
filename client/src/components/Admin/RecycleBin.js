@@ -3,7 +3,6 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
-import DeleteCyclePermanently from "./DeleteCyclePermanently";
 import RestoreDeletedCycle from "./RestoreDeletedCycle";
 import EmptyTrashSvg from "../../images/image.svg";
 import ViewFeesModal from "./ViewFeesModal";

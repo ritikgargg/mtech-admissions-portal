@@ -5,10 +5,7 @@ import { Tooltip } from "@mui/material";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
-import crossPic from "../../images/red_cross.png";
-import CollegeDegreeSection from "./CollegeDegreeSection.js";
 import { PencilIcon } from "@heroicons/react/outline";
 
 const style = {
@@ -423,7 +420,11 @@ export default function CommunicationDetails(props) {
                               disabled
                               className="text-white focus:outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
-                              <img src={spinner} className="mx-auto h-5 w-5" />
+                              <img
+                                src={spinner}
+                                className="mx-auto h-5 w-5"
+                                alt="Spinner"
+                              />
                             </button>
                           )}
                           {/* <button type="button" onClick={props.syncLocalGlobalData} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Print</button> */}

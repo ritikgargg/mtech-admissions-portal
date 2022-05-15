@@ -1,6 +1,5 @@
 import React from "react";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import { PencilIcon } from "@heroicons/react/outline";
 import PersonalInfo from "./PersonalInfo";
 import CommunicationDetails from "./CommunicationDetails";
 import EducationalDetails from "./EducationalDetails";

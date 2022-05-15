@@ -1,5 +1,5 @@
 import { PaperClipIcon } from "@heroicons/react/solid";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate, useParams } from "react-router-dom";

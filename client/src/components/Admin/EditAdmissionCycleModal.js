@@ -25,7 +25,7 @@ const style = {
   borderRadius: 5,
 };
 
-export default function EditCurrentCycle(props) {
+export default function EditAdmissionCycleModal(props) {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const admin_type = getAdminType();

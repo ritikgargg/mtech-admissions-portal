@@ -2,7 +2,6 @@ import { useLocation } from "react-router-dom";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import LogoutPic from "../../images/power-off.png";
-import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import ChartBar from "./ChartBar";
+import ChartBarCategory from "./ChartBarCategory";
 import ChartBarGender from "./ChartBarGender";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import calendar from "../../images/calendar_1.png";
 import screenSpinner from "../../images/2300-spinner.gif";
 import dashboardImg from "../../images/dashboard.jpg";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -209,7 +208,7 @@ export default function AdminDashboard() {
           <div className="px-3 md:px-8 mt-12">
             <div className="flex gap-4">
               <div className="container mx-auto w-1/2">
-                <ChartBar
+                <ChartBarCategory
                   currentCycleName={currentCycleName}
                   offerings={offerings}
                   currentOffering={currentOffering}
