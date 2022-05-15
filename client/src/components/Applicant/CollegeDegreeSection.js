@@ -5,6 +5,8 @@ function CollegeDegreeSection(props) {
   return (
     <div className="col-span-full sm:col-span-full">
       <div className="outline rounded outline-[#f3f4f6] px-8 py-8 grid grid-cols-6 gap-6">
+      <div className="col-span-full sm:col-span-full">{(props.id === 0) ? <><span className="italic">This is the primary <span className="font-semibold">Degree Details Section</span>. Information provided here will be used to validate the <span className="font-semibold">eligibility</span> of the candidate.</span><br/><br/><span className="italic">One can add or remove <span className="font-semibold">non-primary</span> Degree Details Section(s) using the <span className="font-semibold">Add Section</span> and <span className="font-semibold">Remove Section</span> buttons.</span></> : ""}</div>
+      
         <div className="col-span-4 sm:col-span-2">
           <label
             htmlFor="degree"
