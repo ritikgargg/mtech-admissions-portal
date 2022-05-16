@@ -284,7 +284,7 @@ function write_data(worksheet, data, rowIndex, type) {
         } else if (i === 11) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .number(+element[header_list_1[i]]);
+            .number(+element[header_list_2[i]]);
         } else if (i === header_list_2.length - 3) {
           worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
@@ -314,7 +314,7 @@ function write_data(worksheet, data, rowIndex, type) {
         } else if (i === 10) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .number(+element[header_list_1[i]]);
+            .number(+element[header_list_3[i]]);
         } else if (i === header_list_3.length - 2) {
           worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
@@ -369,7 +369,7 @@ async function generate_merit_list(info, eligible_branches) {
   const applications = await pool.query(
     "SELECT application_id, category, coap_registeration_number, \
     full_name, fathers_name, date_of_birth, email_id, mobile_number, branch_code, \
-    gate_enrollment_number, gate_score, degrees FROM applications_" +
+    gate_enrollment_number, gate_score, degrees, is_pwd FROM applications_" +
       info.cycle_id +
       " WHERE offering_id = $1;",
     [info.offering_id]
