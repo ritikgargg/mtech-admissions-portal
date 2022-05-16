@@ -13,7 +13,6 @@ function Openings() {
       .get("/get-open-positions-landing")
       .then((response) => {
         setApplications(response.data);
-        console.log(response.data);
         setIsFetching(false);
       })
       .catch((err) => console.log(err));

@@ -9,7 +9,6 @@ function Info() {
   useEffect(() => {
     Axios.get("/get-brochure-ranklist-url")
       .then((response) => {
-        console.log(response.data);
         if (response.data === 1) {
           setIsCyclePresent(false);
         } else {
