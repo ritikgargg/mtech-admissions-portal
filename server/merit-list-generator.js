@@ -248,11 +248,11 @@ function write_data(worksheet, data, rowIndex, type) {
 
       for (var i = 0; i < header_list_1.length - 2; i++) {
         if (i === 0) {
-          worksheet.cell(rowIndex, columnIndex).string(rowIndex - 1);
+          worksheet.cell(rowIndex, columnIndex).number(rowIndex - 1);
         } else if (i === 1) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .string(+element[header_list_1[i]]);
+            .number(+element[header_list_1[i]]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
@@ -272,13 +272,13 @@ function write_data(worksheet, data, rowIndex, type) {
 
       for (var i = 0; i < header_list_2.length - 2; i++) {
         if (i === 0) {
-          worksheet.cell(rowIndex, columnIndex).string(rowIndex - 1);
+          worksheet.cell(rowIndex, columnIndex).number(rowIndex - 1);
         } else if (i === 1) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .string(+element[header_list_2[i]]);
+            .number(+element[header_list_2[i]]);
         } else if (i === header_list_2.length - 3) {
-          worksheet.cell(rowIndex, columnIndex).string(merit_positions[index]);
+          worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
@@ -298,13 +298,13 @@ function write_data(worksheet, data, rowIndex, type) {
 
       for (var i = 0; i < header_list_3.length - 1; i++) {
         if (i === 0) {
-          worksheet.cell(rowIndex, columnIndex).string(rowIndex - 1);
+          worksheet.cell(rowIndex, columnIndex).number(rowIndex - 1);
         } else if (i === 1) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .string(+element[header_list_3[i]]);
+            .number(+element[header_list_3[i]]);
         } else if (i === header_list_3.length - 2) {
-          worksheet.cell(rowIndex, columnIndex).string(merit_positions[index]);
+          worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
@@ -416,7 +416,7 @@ async function generate_merit_list(info, eligible_branches) {
   /** Write data to the worksheets */
   write_data(master, all_applications, row_indices[0], 1);
   write_data(consolidated, consolidated_applications, row_indices[1], 2);
-  write_data(obc, obc_applications, obc_applications, row_indices[2], 3);
+  write_data(obc, obc_applications, row_indices[2], 3);
   write_data(sc, sc_applications, row_indices[3], 3);
   write_data(st, st_applications, row_indices[4], 3);
   write_data(ews, ews_applications, row_indices[5], 3);
