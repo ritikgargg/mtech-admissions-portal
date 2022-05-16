@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { Tooltip } from "@mui/material";
-import noDataPic from "../../images/no-data.jpg";
+import noDataPic from "../../images/no-data.svg";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import screenSpinner from "../../images/2300-spinner.gif";

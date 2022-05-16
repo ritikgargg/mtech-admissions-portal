@@ -1,5 +1,5 @@
 import React from "react";
-import crossPic from "../../images/red_cross.png";
+import crossPic from "../../images/red_cross.svg";
 import HelpIcon from "@mui/icons-material/Help";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";

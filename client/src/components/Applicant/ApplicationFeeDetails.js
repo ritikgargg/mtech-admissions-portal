@@ -1,5 +1,5 @@
 import React from "react";
-import crossPic from "../../images/red_cross.png";
+import crossPic from "../../images/red_cross.svg";
 
 function ApplicationFeeDetails(props) {
   return (

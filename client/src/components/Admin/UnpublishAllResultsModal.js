@@ -9,7 +9,7 @@ import spinner from "../../images/SpinnerWhite.gif";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import unpublishIcon from "../../images/unpublish.png";
+import unpublishIcon from "../../images/unpublish.svg";
 import { getAdminType } from "./AdminTypes";
 
 const style = {

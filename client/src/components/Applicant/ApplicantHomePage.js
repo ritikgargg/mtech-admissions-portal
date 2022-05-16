@@ -6,7 +6,7 @@ import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import ViewModal from "./ViewModal";
-import noDataPic from "../../images/no-data.jpg";
+import noDataPic from "../../images/no-data.svg";
 import screenSpinner from "../../images/2300-spinner.gif";
 
 export default function ApplicantHomePage() {
@@ -238,7 +238,7 @@ export default function ApplicantHomePage() {
                       <div className="bg-white">
                         <div className="w-3/5 mx-auto my-50 text-center">
                           <div className="h-5" />
-                          <img alt="No data" src={noDataPic} />
+                          <img alt="No Data" src={noDataPic} />
                           <p className="text-2xl font-semibold mb-5">
                             No positions open currently!
                           </p>

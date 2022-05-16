@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import noDataPic from "../../images/no-data.jpg";
+import noDataPic from "../../images/no-data.svg";
 import screenSpinner from "../../images/2300-spinner.gif";
 
 function Openings() {
@@ -98,7 +98,7 @@ function Openings() {
           <div className="bg-white">
             <div className="w-3/5 mx-auto my-50 text-center">
               <div className="h-5" />
-              <img alt="No data" src={noDataPic} />
+              <img alt="No Data" src={noDataPic} />
               <p className="text-2xl font-semibold mb-5">
                 No positions open currently!
               </p>

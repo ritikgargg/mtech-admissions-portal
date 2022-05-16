@@ -6,7 +6,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import ViewModal from "./ViewModal";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import noDataGirlPic from "../../images/no-data-girl.jpg";
+import noDataGirlPic from "../../images/no-data-girl.svg";
 import screenSpinner from "../../images/2300-spinner.gif";
 import ReApplyModal from "./ReApplyModal";
 import { Tooltip } from "@mui/material";
@@ -199,7 +199,7 @@ function MyApplications(props) {
                       <div className="bg-white">
                         <div className="w-2/5 mx-auto my-50 text-center">
                           <div className="h-5" />
-                          <img alt="No data" src={noDataGirlPic} />
+                          <img alt="No Data" src={noDataGirlPic} />
                           <p className="text-2xl font-semibold">
                             No applications submitted yet!
                           </p>

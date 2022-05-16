@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "../../images/calendar_1.png";
-import Plus from "../../images/plus.png";
+import Calendar from "../../images/calendar_1.svg";
+import Plus from "../../images/plus.svg";
 import DeleteAdmissionCycleModal from "./DeleteAdmissionCycleModal";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";

@@ -5,11 +5,10 @@ import Modal from "@mui/material/Modal";
 import { Tooltip, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { Grid } from "@mui/material";
-import Delete from "../../images/delete.png";
-import DeleteDisabled from "../../images/delete-disabled.png";
+import DeleteDisabled from "../../images/delete disabled.svg";
 import spinner from "../../images/SpinnerWhite.gif";
 import { getAdminType } from "./AdminTypes";
-import ArchiveIcon from "../../images/archive.png";
+import ArchiveIcon from "../../images/archive3.png";
 
 const style = {
   position: "absolute",

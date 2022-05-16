@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import SlidesDisplayModule from "./SlidesDisplayModule";
-import AdminImage from "../../images/How-To-Use-9.svg";
-import ApplicationsImage from "../../images/Asset 12.svg";
-import ProfileImage from "../../images/Asset 16.svg";
-import TemplateImage from "../../images/How-To-Use-12.svg";
-import ExportDataImage from "../../images/Asset 15.svg";
-import OfferingsImage from "../../images/Asset 9.svg";
-import CalendarImage from "../../images/How-To-Use-11.svg";
+import AdminImage from "../../images/admin-use.svg";
+import ApplicationsImage from "../../images/applications-use.svg";
+import ProfileImage from "../../images/profile-use.svg";
+import TemplateImage from "../../images/templates-use.svg";
+import ExportDataImage from "../../images/applicant-data-use.svg";
+import OfferingsImage from "../../images/offerings-use.svg";
+import CalendarImage from "../../images/admission-cycles-use.svg";
+import ArchiveImage from "../../images/archive-use.svg";
 
 const items = [
   {
@@ -59,11 +60,19 @@ const items = [
   },
   {
     id: 6,
-    name: "Export Data",
+    name: "Applicant Data",
     imageSrc: ExportDataImage,
-    imageAlt: "Export Data",
+    imageAlt: "Applicant Data",
     slidesUrl:
       "https://docs.google.com/presentation/d/1DprcXU5KXuDx9o50EdR5gGmzpv9Q5L7UK-k7A3ffNq4/edit?usp=sharing",
+  },
+  {
+    id: 7,
+    name: "Archive",
+    imageSrc: ArchiveImage,
+    imageAlt: "Archive",
+    slidesUrl:
+      "https://docs.google.com/presentation/d/1_uQOR5zWiHirEr7HnNNL0xWTKjELzP13_4BOvTiEW6g/edit?usp=sharing",
   },
 ];
 

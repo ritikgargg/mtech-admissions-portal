@@ -5,7 +5,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import DefaultProfilePicture from "../../images/default-profile-picture.png";
+import DefaultProfilePicture from "../../images/default-profile-picture.svg";
 import { Link } from "react-router-dom";
 
 const navigation = [

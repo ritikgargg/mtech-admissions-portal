@@ -10,7 +10,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import WorkIcon from "@mui/icons-material/Work";
 import { Tooltip } from "@mui/material";
-import Tick from "../../images/tick.png";
+import Tick from "../../images/tick.svg";
 
 export default function AdminProfile() {
   const [profile, setProfile] = useState({});

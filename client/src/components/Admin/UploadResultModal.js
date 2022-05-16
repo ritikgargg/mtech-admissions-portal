@@ -6,7 +6,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import spinner from "../../images/SpinnerWhite.gif";
-import crossPic from "../../images/red_cross.png";
+import crossPic from "../../images/red_cross.svg";
 import fileSaver from "file-saver";
 
 const style = {

@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import DefaultProfilePicture from "../../images/default-profile-picture.png";
+import DefaultProfilePicture from "../../images/default-profile-picture.svg";
 
 export default function Profile() {
   const navigate = useNavigate();

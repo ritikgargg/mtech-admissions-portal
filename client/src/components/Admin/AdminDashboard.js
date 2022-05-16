@@ -5,7 +5,7 @@ import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
-import dashboardImg from "../../images/dashboard.jpg";
+import dashboardImg from "../../images/dashboard.svg";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 

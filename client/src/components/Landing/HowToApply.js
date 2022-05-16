@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import step1 from "../../images/step1.png";
-import step2 from "../../images/step2.png";
-import step3 from "../../images/step3.png";
-import step4 from "../../images/step4.png";
-import step5 from "../../images/step5.png";
-import step6 from "../../images/step6.png";
-import step7 from "../../images/step7.png";
-import step8 from "../../images/step8.png";
+import step1 from "../../images/step1.svg";
+import step2 from "../../images/step2.svg";
+import step3 from "../../images/step3.svg";
+import step4 from "../../images/step4.svg";
+import step5 from "../../images/step5.svg";
+import step6 from "../../images/step6.svg";
+import step7 from "../../images/step7.svg";
+import step8 from "../../images/step8.svg";
 import Axios from "axios";
 
 function HowToApply() {

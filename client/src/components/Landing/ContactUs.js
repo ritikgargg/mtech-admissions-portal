@@ -209,7 +209,7 @@ function ContactUs() {
                     <p className="text-gray-400 text-xl">
                       coapcell@iitrpr.ac.in
                     </p>
-                    <p className="text-gray-400 text-xl">xyz@iitrpr.ac.in</p>
+                    <p className="text-gray-400 text-xl">info@iitrpr.ac.in</p>
                   </div>
                 </i>
               </div>
@@ -221,8 +221,12 @@ function ContactUs() {
                   <i className="fas fa-phone-alt pt-2 pr-2">
                     <div className="flex flex-col">
                       <h2 className="text-3xl font-medium">Call Us</h2>
-                      <p className="text-gray-400 text-xl">Tel: xxx-xxx-xxx</p>
-                      <p className="text-gray-400 text-xl">Fax: xxx-xxx-xxx</p>
+                      <p className="text-gray-400 text-xl">
+                        Tel: +91-1881-231114
+                      </p>
+                      <p className="text-gray-400 text-xl">
+                        Tel: +91-1881-231169
+                      </p>
                     </div>
                   </i>
                 </div>
