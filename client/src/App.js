@@ -199,7 +199,7 @@ function App() {
           />
 
           <Route
-            path="/admin/recycle-bin"
+            path="/admin/archive"
             element={
               <PrivateRoute>
                 <Archive />

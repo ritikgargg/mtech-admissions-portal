@@ -66,7 +66,7 @@ const signin_otp = async (req, res) => {
   };
 
   mailOptions.to = email;
-  // console.log(otp);
+  console.log(otp);
 
   /** encrypt otp and save in db */
   await bcrypt.hash(otp, saltRounds, async function (err, hash) {
@@ -176,7 +176,7 @@ const signup_otp = async (req, res) => {
   };
 
   mailOptions.to = email;
-  // console.log(otp);
+  console.log(otp);
 
   const ifexists = await pool.query(
     "select * from signup_verification where email_id = $1",

@@ -59,8 +59,8 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
               ? "Templates"
               : location.split("/")[2] === "how-to-use"
               ? "How To Use?"
-              : location.split("/")[2] === "recycle-bin"
-              ? "Recycle Bin"
+              : location.split("/")[2] === "archive"
+              ? "Archive"
               : "Admissions"}
           </h4>
           <Disclosure as="nav">

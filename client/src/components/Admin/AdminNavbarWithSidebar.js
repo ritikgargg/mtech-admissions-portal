@@ -143,10 +143,10 @@ export default function AdminNavbarWithSidebar() {
               {admin_type === "0" && (
                 <li className="rounded-lg mb-2 text-gray-700">
                   <NavLink
-                    to="/admin/recycle-bin"
+                    to="/admin/archive"
                     exact="true"
                     className={
-                      location !== "/admin/recycle-bin"
+                      location !== "/admin/archive"
                         ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
                         : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                     }
