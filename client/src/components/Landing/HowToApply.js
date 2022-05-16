@@ -271,8 +271,7 @@ function HowToApply() {
               all the details before submitting.
               <br />
               <span className="font-bold">
-                You will not be able to make any changes once you submit the
-                form.{" "}
+                You will not be able to make any changes to an existing application after submission.{" "} However, you can re-apply, as long as the offering is accepting applications.
               </span>
             </div>
           </div>
