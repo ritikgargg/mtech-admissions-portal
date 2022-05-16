@@ -115,7 +115,7 @@ function sort_function(application_1, application_2) {
     return 1;
 
   /** Compare degree marks */
-  var perccentage_1 = 0,
+  var percentage_1 = 0,
     percentage_2 = 0;
   var degree_1_data_type = application_1.degrees[0][4];
   var degree_1_value = application_1.degrees[0][5];
@@ -297,13 +297,13 @@ function write_data(worksheet, data, rowIndex, type) {
       columnIndex = 1;
 
       for (var i = 0; i < header_list_3.length - 1; i++) {
-        if (i == 0) {
+        if (i === 0) {
           worksheet.cell(rowIndex, columnIndex).number(rowIndex - 1);
-        } else if (i == 1) {
+        } else if (i === 1) {
           worksheet
             .cell(rowIndex, columnIndex)
             .number(+element[header_list_3[i]]);
-        } else if (i == header_list_3.length - 2) {
+        } else if (i === header_list_3.length - 2) {
           worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
           worksheet
