@@ -34,6 +34,8 @@ export default function OfferingList() {
   const [textToSearch, setTextToSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("0"); // 0 -indicates default
   var admin_type = getAdminType();
+  const [brochureUrl, setBrochureUrl] = useState("");
+  const [rankListUrl, setRankListUrl] = useState("");
 
   useEffect(() => {
     axios
@@ -52,6 +54,8 @@ export default function OfferingList() {
           setAllOfferings(copy);
           setCycleName(response.data.cycle_name);
           setDepartment(response.data.department);
+          setBrochureUrl(response.data.brochure_url);
+          setRankListUrl(response.data.rank_list_url);
           setIsFetching(false);
         }
       })
@@ -335,6 +339,32 @@ export default function OfferingList() {
                   </select>
                 </div>
                 <span className="ml-2 mt-7 text-sm">entries</span>
+                <div>
+                 
+                  <a target="_blank" rel="noopener noreferrer" className="ml-4 mr-2 relative inline-flex items-center mt-4 px-8 py-3 overflow-hidden text-white bg-cyan-600 rounded-lg group active:bg-cyan-500 focus:outline-none focus:ring" href={brochureUrl}>
+                    <span className="absolute right-0 transition-transform translate-x-full group-hover:-translate-x-4">
+                      <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                    <span className="text-sm font-medium transition-all group-hover:mr-4">
+                      Brochure
+                    </span>
+                  </a>
+
+                  <a target="_blank" rel="noopener noreferrer" className="relative inline-flex items-center px-8 py-3 overflow-hidden text-cyan-600 border border-current rounded-lg group active:text-cyan-500 focus:outline-none focus:ring" href={rankListUrl}>
+                    <span className="absolute right-0 transition-transform translate-x-full group-hover:-translate-x-4">
+                      <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                    <span className="text-sm font-medium transition-all group-hover:mr-4">
+                      Score List
+                    </span>
+                  </a>
+                </div>
+
+
               </div>
               <div className="flex gap-1">
                 {admin_type === "0" ? (

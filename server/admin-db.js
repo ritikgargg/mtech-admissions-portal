@@ -440,7 +440,7 @@ const get_offerings = async (req, res) => {
   let cycle_id = req.headers.cycle_id;
 
   const cycle_name = await pool.query(
-    "SELECT NAME FROM admission_cycles WHERE cycle_id = $1;",
+    "SELECT NAME, brochure_url, rank_list_url FROM admission_cycles WHERE cycle_id = $1;",
     [cycle_id]
   );
 
@@ -479,6 +479,8 @@ const get_offerings = async (req, res) => {
   return res.send({
     offerings: results.rows,
     cycle_name: cycle_name.rows[0].name,
+    brochure_url: cycle_name.rows[0].brochure_url,
+    rank_list_url: cycle_name.rows[0].rank_list_url,
     department: department,
   });
 };
