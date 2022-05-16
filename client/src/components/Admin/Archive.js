@@ -7,7 +7,7 @@ import RestoreDeletedCycle from "./RestoreDeletedCycle";
 import EmptyTrashSvg from "../../images/image.svg";
 import ViewFeesModal from "./ViewFeesModal";
 
-export default function RecycleBin() {
+export default function Archive() {
   const navigate = useNavigate();
   const [deletedAdmissionCycles, setDeletedAdmissionCycles] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
@@ -96,7 +96,7 @@ export default function RecycleBin() {
                 <div className="w-2/5 mx-auto my-24 text-center">
                   <img alt="Empty Trash" src={EmptyTrashSvg} />
                   <div className="h-5" />
-                  <p className="text-2xl font-semibold">Nothing in Trash!</p>
+                  <p className="text-2xl font-semibold">Nothing in Archive!</p>
                   <div className="h-6" />
                 </div>
               </div>

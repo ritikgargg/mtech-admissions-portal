@@ -18,7 +18,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "30%",
+  width: "40%",
+  height: "80%",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -160,12 +161,7 @@ export default function EditAdmissionCycleModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            id="modal-modal-description"
-            className="mb-0 space-y-4 "
-          >
-            <div className="flex">
+        <div className="flex mb-6">
               <p className="text-lg font-medium">Edit Admission Cycle</p>
               <button
                 type="button"
@@ -190,6 +186,13 @@ export default function EditAdmissionCycleModal(props) {
                 </svg>
               </button>
             </div>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            id="modal-modal-description"
+            className="mb-0 space-y-4 h-5/6 overflow-y-auto overflow-x-hidden overscroll-none"
+          >
+            
+            <div className="ml-2 mr-6">
             <div>
               <label htmlFor="email" className="text-sm font-medium">
                 Name
@@ -425,6 +428,7 @@ export default function EditAdmissionCycleModal(props) {
                 </div>
               </button>
             )}
+            </div>
           </form>
         </Box>
       </Modal>

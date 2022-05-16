@@ -31,7 +31,7 @@ import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
 import Templates from "./components/Admin/Templates";
 import MeetTheTeam from "./components/Landing/MeetTheTeam";
-import RecycleBin from "./components/Admin/RecycleBin";
+import Archive from "./components/Admin/Archive";
 import HowToUseAdmin from "./components/Admin/HowToUseAdmin";
 
 function App() {
@@ -202,7 +202,7 @@ function App() {
             path="/admin/recycle-bin"
             element={
               <PrivateRoute>
-                <RecycleBin />
+                <Archive />
               </PrivateRoute>
             }
           />
