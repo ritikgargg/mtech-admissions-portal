@@ -253,6 +253,10 @@ function write_data(worksheet, data, rowIndex, type) {
           worksheet
             .cell(rowIndex, columnIndex)
             .number(+element[header_list_1[i]]);
+        } else if (i === 11) {
+          worksheet
+            .cell(rowIndex, columnIndex)
+            .number(+element[header_list_1[i]]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
@@ -277,6 +281,10 @@ function write_data(worksheet, data, rowIndex, type) {
           worksheet
             .cell(rowIndex, columnIndex)
             .number(+element[header_list_2[i]]);
+        } else if (i === 11) {
+          worksheet
+            .cell(rowIndex, columnIndex)
+            .number(+element[header_list_1[i]]);
         } else if (i === header_list_2.length - 3) {
           worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
@@ -303,6 +311,10 @@ function write_data(worksheet, data, rowIndex, type) {
           worksheet
             .cell(rowIndex, columnIndex)
             .number(+element[header_list_3[i]]);
+        } else if (i === 10) {
+          worksheet
+            .cell(rowIndex, columnIndex)
+            .number(+element[header_list_1[i]]);
         } else if (i === header_list_3.length - 2) {
           worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
         } else {
@@ -409,7 +421,7 @@ async function generate_merit_list(info, eligible_branches) {
 
   /** pwd applications */
   let pwd_applications = all_applications.filter(
-    (element) => element["category"] === "PWD"
+    (element) => element["is_pwd"] === "YES"
   );
   pwd_applications.sort(sort_function);
 
