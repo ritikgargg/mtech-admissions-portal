@@ -248,11 +248,11 @@ function write_data(worksheet, data, rowIndex, type) {
 
       for (var i = 0; i < header_list_1.length - 2; i++) {
         if (i === 0) {
-          worksheet.cell(rowIndex, columnIndex).number(rowIndex - 1);
+          worksheet.cell(rowIndex, columnIndex).string(rowIndex - 1);
         } else if (i === 1) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .number(+element[header_list_1[i]]);
+            .string(+element[header_list_1[i]]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
@@ -272,13 +272,13 @@ function write_data(worksheet, data, rowIndex, type) {
 
       for (var i = 0; i < header_list_2.length - 2; i++) {
         if (i === 0) {
-          worksheet.cell(rowIndex, columnIndex).number(rowIndex - 1);
+          worksheet.cell(rowIndex, columnIndex).string(rowIndex - 1);
         } else if (i === 1) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .number(+element[header_list_2[i]]);
+            .string(+element[header_list_2[i]]);
         } else if (i === header_list_2.length - 3) {
-          worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
+          worksheet.cell(rowIndex, columnIndex).string(merit_positions[index]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
@@ -298,13 +298,13 @@ function write_data(worksheet, data, rowIndex, type) {
 
       for (var i = 0; i < header_list_3.length - 1; i++) {
         if (i === 0) {
-          worksheet.cell(rowIndex, columnIndex).number(rowIndex - 1);
+          worksheet.cell(rowIndex, columnIndex).string(rowIndex - 1);
         } else if (i === 1) {
           worksheet
             .cell(rowIndex, columnIndex)
-            .number(+element[header_list_3[i]]);
+            .string(+element[header_list_3[i]]);
         } else if (i === header_list_3.length - 2) {
-          worksheet.cell(rowIndex, columnIndex).number(merit_positions[index]);
+          worksheet.cell(rowIndex, columnIndex).string(merit_positions[index]);
         } else {
           worksheet
             .cell(rowIndex, columnIndex)
