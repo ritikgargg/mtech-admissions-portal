@@ -238,10 +238,6 @@ function QualifyingExamDetails(props) {
                                   "Please ensure that you have entered your GATE score, and not GATE marks."
                                 }{" "}
                                 <br />
-                                {/* {`GATE score ${max_year-2} : `} <em>514</em> <br/>
-                                  {`GATE score ${max_year-1} : `} <em>724</em><br/>
-                                  {`GATE score ${max_year} : `} <em>612</em> <br/>
-                                  {"Then you must fill the details of year"} <b>{max_year-1}</b> {"as it has the highest GATE score"} */}
                               </React.Fragment>
                             }
                           >
@@ -299,8 +295,6 @@ function QualifyingExamDetails(props) {
                               id="gate_result"
                               name="gate_result"
                               type="file"
-                              // value={props.details[4].name}
-                              // ref={props.ref}
                               required
                               accept=".pdf"
                               onChange={(e) =>
@@ -354,7 +348,6 @@ function QualifyingExamDetails(props) {
                                 name="gate_result"
                                 type="text"
                                 value={props.details[14].name}
-                                // ref={props.ref}
                                 required
                                 readOnly
                               />
@@ -436,7 +429,6 @@ function QualifyingExamDetails(props) {
                                 <Typography color="inherit">
                                   Consider The Case
                                 </Typography>
-                                {/* <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '} */}
                                 {
                                   "Suppose you have the following three valid GATE scores :"
                                 }{" "}
@@ -473,14 +465,6 @@ function QualifyingExamDetails(props) {
                     </div>
 
                     <div className="my-4 grid grid-cols-6 gap-6">
-                      {/* <button
-                          type="button"
-                          onClick={() => props.decreasePageNumber()}
-                          className="col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                          Back
-                        </button> */}
-
                       <button
                         type="submit"
                         className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

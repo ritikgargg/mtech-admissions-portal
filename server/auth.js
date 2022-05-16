@@ -66,8 +66,6 @@ const signin_otp = async (req, res) => {
   };
 
   mailOptions.to = email;
-  // mailOptions.text += otp;
-  // mailOptions.text += ". This OTP is valid for only 10 minutes."
   console.log(otp);
 
   /** encrypt otp and save in db */
@@ -178,8 +176,6 @@ const signup_otp = async (req, res) => {
   };
 
   mailOptions.to = email;
-  // mailOptions.text += otp;
-  // mailOptions.text += ". This OTP is valid for only 10 minutes."
   console.log(otp);
 
   const ifexists = await pool.query(

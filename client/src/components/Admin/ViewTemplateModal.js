@@ -57,11 +57,6 @@ export default function ViewTemplateModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <div
-        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
-        id="add-product-modal"
-        aria-hidden="true"
-      > */}
           <div
             id="modal-modal-description"
             className="relative w-full max-w-2xl h-full md:h-auto"
@@ -99,17 +94,11 @@ export default function ViewTemplateModal(props) {
                         {column}
                       </li>
                     ))}
-                    {/* <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">An item</li>
-                  <li class="px-6 py-2 border-b border-gray-200 w-full">A second item</li>
-                  <li class="px-6 py-2 border-b border-gray-200 w-full">A third item</li>
-                  <li class="px-6 py-2 border-b border-gray-200 w-full">A fourth item</li>
-                  <li class="px-6 py-2 w-full rounded-b-lg">And a fifth one</li> */}
                   </ul>
                 </div>
               </div>
             </div>
           </div>
-          {/* </div> */}
         </Box>
       </Modal>
     </div>

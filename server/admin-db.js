@@ -448,17 +448,6 @@ const get_offerings = async (req, res) => {
     return res.send("1");
   }
 
-  // const check_offerings_table = await pool.query(
-  //   "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
-  //   ["mtech_offerings_" + cycle_id]
-  // );
-
-  // let offering_table_exists = check_offerings_table.rows[0].exists;
-
-  // if (offering_table_exists === false) {
-  //   return res.send("1");
-  // }
-
   let results = null;
   if (userRole === 0) {
     results = await pool.query(
@@ -522,17 +511,6 @@ const get_offering_applications = async (req, res) => {
   if (cycle_name.rows.length === 0) {
     return res.send("1");
   }
-
-  // const check_offerings_table = await pool.query(
-  //   "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
-  //   ["applications_" + cycle_id]
-  // );
-
-  // let offering_table_exists = check_offerings_table.rows[0].exists;
-
-  // if (offering_table_exists === false) {
-  //   return res.send("1");
-  // }
 
   const offering_details = await pool.query(
     "SELECT specialization, is_result_published, is_result_published_by_faculty FROM mtech_offerings_" +
@@ -598,17 +576,6 @@ const get_application_info_admin = async (req, res) => {
   if (cycle_name.rows.length === 0) {
     return res.send("1");
   }
-
-  /** Check if applications table exists **/
-  // const check_applications_table = await pool.query(
-  //   "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
-  //   ["applications_" + cycle_id]
-  // );
-  // let applications_table_exists = check_applications_table.rows[0].exists;
-
-  // if (applications_table_exists === false) {
-  //   return res.send("1"); /** No application table */
-  // }
 
   /** Check if application exists */
   const query_result = await pool.query(
@@ -1162,30 +1129,6 @@ const delete_application = async (req, res) => {
 
   return res.send("Ok");
 };
-
-// const get_admin_type = async (req, res) => {
-//   /**
-//    * Verify using authToken
-//    */
-//   authToken = req.headers.authorization;
-//   let jwtSecretKey = process.env.JWT_SECRET_KEY;
-
-//   var verified = null;
-
-//   try {
-//     verified = jwt.verify(authToken, jwtSecretKey);
-//   } catch (error) {
-//     return res.send("1"); /** Error, logout on user side */
-//   }
-
-//   if (!verified) {
-//     return res.send("1"); /** Error, logout on user side */
-//   }
-
-//   /** Get role */
-//   var userRole = jwt.decode(authToken).userRole;
-//   return res.send({admin_type: parseInt(userRole)});
-// };
 
 module.exports = {
   add_admission_cycle,

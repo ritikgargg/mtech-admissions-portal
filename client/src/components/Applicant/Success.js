@@ -1,5 +1,4 @@
 import React from "react";
-// import success from "../../images/Success.gif"
 import success from "../../images/success.gif";
 import { useNavigate } from "react-router-dom";
 

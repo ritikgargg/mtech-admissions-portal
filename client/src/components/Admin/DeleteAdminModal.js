@@ -26,7 +26,6 @@ export default function DeleteAlertModal(props) {
   const handleDelete = () => {
     setIsLoading(true);
     const formData = new FormData();
-    // formData.append("offering_id", props.application.offering_id);
     formData.append("email_id", props.email_id);
     Axios.post("/delete-admin", formData, {
       headers: {

@@ -108,7 +108,6 @@ export default function PersonalInfo(props) {
           type="button"
           onClick={handleOpen}
           className="w-5 text-indigo-600 focus:outline-none"
-          //   className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           <PencilIcon />
         </button>
@@ -119,16 +118,9 @@ export default function PersonalInfo(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {/* className="overflow-y-auto overflow-x-hidden overscroll-none" */}
         <Box sx={style}>
-          {/* <div
-        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
-        id="add-product-modal"
-        aria-hidden="true"
-      > */}
           <div id="modal-modal-description" className="relative w-full h-full">
             <div className="flex items-start justify-between py-3 px-5 border-b rounded-t">
-              {/* <h3 className="text-xl font-semibold">hue hue</h3> */}
               <button
                 onClick={closePersonalInfo}
                 type="button"
@@ -167,7 +159,6 @@ export default function PersonalInfo(props) {
 
                     {/* Main form */}
                     <div className="mt-5 md:mt-0 md:col-span-2">
-                      {/* <form action="/save-personal-info" method="POST"> */}
                       <form onSubmit={onSubmit}>
                         <div className="shadow overflow-hidden sm:rounded-md">
                           <div className="px-4 py-5 bg-white sm:p-6">
@@ -577,16 +568,6 @@ export default function PersonalInfo(props) {
                               </div>
                             </div>
                           </div>
-
-                          {/* <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                          <button
-                            type="button"
-                            onClick={()=>props.increasePageNumber()}
-                            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                          >
-                            Next
-                          </button>
-                        </div> */}
                         </div>
                         <div className="flex items-center mt-4 space-x-2 rounded-b border-gray-200 dark:border-gray-600">
                           {!isLoading ? (
@@ -609,15 +590,6 @@ export default function PersonalInfo(props) {
                               />
                             </button>
                           )}
-                          {/* <button
-                          onClick={() => {
-                            console.log(props.localProfileInfo);
-                          }}
-                          type="button"
-                          className="text-gray-500 focus:outline-none bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
-                        >
-                          Print
-                        </button> */}
                           <button
                             onClick={closePersonalInfo}
                             data-modal-toggle="personalDetailsModal"
@@ -634,7 +606,6 @@ export default function PersonalInfo(props) {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </Box>
       </Modal>
     </div>

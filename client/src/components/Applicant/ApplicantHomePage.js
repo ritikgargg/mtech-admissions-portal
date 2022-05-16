@@ -210,7 +210,6 @@ export default function ApplicantHomePage() {
                                   to={"/apply/" + application.offering_id}
                                   className="text-indigo-600 hover:text-indigo-900"
                                 >
-                                  {/* <Link to={{pathname: `/apply`, query: `${application.offering_id}`}} className="text-indigo-600 hover:text-indigo-900"> */}
                                   Apply
                                 </Link>
                               ) : (

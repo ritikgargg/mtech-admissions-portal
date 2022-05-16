@@ -69,7 +69,6 @@ export default function PublishResultsModal(props) {
             control={
               <Toggle
                 checked={props.isResultPublishedByFaculty}
-                // onChange={handleChange2}
                 sx={{ m: 1 }}
               />
             }
@@ -107,7 +106,6 @@ export default function PublishResultsModal(props) {
             className="pl-5 bg-white rounded-lg"
             id="modal-modal-description"
           >
-            {/* {(props.isResultPublished === 0) && */}
             <>
               <h2 className="text-xl font-bold">
                 Are you sure you want to{" "}
@@ -184,30 +182,6 @@ export default function PublishResultsModal(props) {
                 </button>
               </div>
             </>
-            {/* } */}
-
-            {/* {(props.isResultPublished === 1) && 
-            <>
-            <h2 className="text-xl font-bold">
-             Results for <span className="italic font-semibold">{props.offeringName}</span> already published by Academic Section to the applicants.
-            </h2>
-            <p className="mt-2 text-sm text-gray-500">
-              <div>
-              You can no longer change the status of the results for <span className="italic font-semibold">{props.offeringName}</span>.
-              </div>
-              
-            </p>
-            <div className="flex items-center justify-end mt-8 text-xs">                     
-              <button
-                type="button"
-                onClick={handleClose}
-                className="border border-gray-400 transition duration-200 hover:bg-gray-600 hover:text-gray-50 focus-outline-none px-4 py-2 ml-2 font-medium text-gray-600 rounded bg-gray-50"
-              >
-                Go back
-              </button>
-            </div>
-            </>
-            } */}
           </div>
         </Box>
       </Modal>

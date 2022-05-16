@@ -110,11 +110,6 @@ export default function AddOfferingModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <div
-        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
-        id="add-product-modal"
-        aria-hidden="true"
-      > */}
           <div
             id="modal-modal-description"
             className="relative w-full max-w-2xl h-full md:h-auto"
@@ -145,19 +140,6 @@ export default function AddOfferingModal(props) {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
-                      {/* <label
-                        htmlFor="department"
-                        className="text-sm font-medium text-gray-900 block mb-2"
-                      >
-                        Department
-                      </label>
-                      <input
-                        type="text"
-                        {...register("department")}
-                        id="department"
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        required
-                      /> */}
                       <label
                         htmlFor="department"
                         className="text-sm font-medium text-gray-900 block mb-2"
@@ -244,24 +226,6 @@ export default function AddOfferingModal(props) {
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                       />
                     </div>
-                    {/* <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label>
-                        <Toggle/>
-                      </div> */}
-                    {/* <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Status</label>
-                        
-                        <select
-                          id="degree"
-                          name="degree"
-                          required
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                        >
-                          <option value="">- Select -</option>
-                          <option value="Open">Open</option>
-                          <option value="Closed">Closed</option>
-                        </select>
-                      </div> */}
                     <div className="col-span-full">
                       <label
                         htmlFor="eligibility"
@@ -295,8 +259,6 @@ export default function AddOfferingModal(props) {
                             }
                             label="Accept Applications"
                           />
-
-                          {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
                         </div>
                         <div className="p-3">
                           <FormControlLabel
@@ -309,8 +271,6 @@ export default function AddOfferingModal(props) {
                             }
                             label="Draft Mode"
                           />
-
-                          {/* <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label> */}
                         </div>
                       </>
                     ) : (
@@ -350,7 +310,6 @@ export default function AddOfferingModal(props) {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </Box>
       </Modal>
     </div>

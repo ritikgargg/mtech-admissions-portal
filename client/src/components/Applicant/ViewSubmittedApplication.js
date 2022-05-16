@@ -53,14 +53,12 @@ export default function ViewSubmittedApplication() {
         <div className="do-not-print-me mt-6 text-gray-400 shadow-sm border-[3px] pl-[8px] pt-[8px] w-[60px] h-[60px] border-gray-200 rounded-full hover:border-gray-600 hover:bg-gray-300 hover:text-gray-600">
           <ArrowBackIcon
             fontSize="large"
-            // type="button"
             onClick={() => navigate("/my-applications")}
           ></ArrowBackIcon>
         </div>
         <div className="do-not-print-me mt-6 ml-6 text-gray-400 shadow-sm border-[3px] pl-[8px] pt-[8px] w-[60px] h-[60px] border-gray-200 rounded-full hover:border-gray-600 hover:bg-gray-300 hover:text-gray-600">
           <DownloadIcon
             fontSize="large"
-            // type="button"
             onClick={() => window.print()}
           ></DownloadIcon>
         </div>
@@ -149,9 +147,6 @@ export default function ViewSubmittedApplication() {
                     </div>
                   </div>
                 </dd>
-                {/* <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {applicationInfo.transaction_slip_url}
-                    </dd> */}
               </div>
 
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -266,9 +261,6 @@ export default function ViewSubmittedApplication() {
                     </div>
                   </div>
                 </dd>
-                {/* <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {applicationInfo.self_attested_copies_url}
-                    </dd> */}
               </div>
 
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -737,23 +729,6 @@ export default function ViewSubmittedApplication() {
             ))}
           </div>
         </div>
-        {/* <div className="mb-10 flex  space-x-4 do-not-print-me">
-                <button
-                    type="button"
-                    onClick={() => navigate('/my-applications')}
-                    className="ml-5 col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                    Back
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => window.print()}
-                    className="ml-5 col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                    Download
-                </button>
-            </div> */}
       </div>
     </>
   );

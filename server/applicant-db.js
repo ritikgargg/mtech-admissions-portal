@@ -10,16 +10,9 @@ dotenv.config();
 
 const gc = new Storage({
   credentials: JSON.parse(process.env.GCP_KEYFILE),
-  // keyFilename: path.join(__dirname, "./phd-pg-admission-iit-ropar-0aa094c57f3e.json"),
   projectId: "phd-pg-admission-iit-ropar",
 });
 const applicantBucket = gc.bucket("applicant-iit-ropar");
-
-// const gc = new Storage({
-//   keyFilename: path.join(__dirname, "./phd-pg-admission-iit-ropar-0aa094c57f3e.json"),
-//   projectId: "phd-pg-admission-iit-ropar"
-// });
-// const applicantBucket = gc.bucket("applicant-iit-ropar");
 
 /**
  * Update/save applicant communcation info
@@ -183,8 +176,6 @@ const save_education_details = async (req, res, next) => {
             x = parseInt(lastChar) + 1;
             y = first === "upload_marksheet" ? 9 : 10;
 
-            // console.log(x, y, first, lastChar, str)
-
             await pool.query(
               "UPDATE applicants SET degrees[$1][$2] = $3 WHERE email_id = $4;",
               [x, y, url, email]
@@ -256,8 +247,6 @@ const save_personal_info = async (req, res, next) => {
 
   let promises = [];
   let vals = Object.values(req.files);
-
-  // console.log(vals[0]);
 
   for (let f of vals) {
     const gcsname = f[0].originalname + "_" + Date.now();
@@ -407,14 +396,6 @@ const check_applicant_info = async (req, res) => {
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
   let cycle_id = cycle.rows[0].cycle_id;
 
-  /** Not required, since, either both will exist or neither */
-  // const check_applications_table = await pool.query("SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);", ["applications_" + cycle_id]);
-  // let applications_table_exists = check_applications_table.rows[0].exists;
-
-  // if(applications_table_exists === false) {
-  //   return res.send("2"); /** No offerings yet, therefore, no applications */
-  // }
-
   const check_offerings_table = await pool.query(
     "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",
     ["mtech_offerings_" + cycle_id]
@@ -555,10 +536,6 @@ const save_application_info = async (req, res, next) => {
     ]
   );
 
-  // const applicant_degrees = await pool.query("SELECT degrees from applicants WHERE email_id = $1;", [email]);
-  // let degrees = applicant_degrees.rows[0]['degrees'][0];
-  // await pool.query("INSERT INTO offering_branches VALUES($1, $2, $3);", [app_details[20], degrees[1], degrees[0]]);
-
   await pool.query(
     "UPDATE applications_" +
       cycle_id +
@@ -581,8 +558,10 @@ const save_application_info = async (req, res, next) => {
     other_remarks = a.other_remarks, is_last_degree_completed = a.is_last_degree_completed \
     FROM applicants as a WHERE a.email_id = $1 AND applications_" +
       cycle_id +
-      ".email_id = a.email_id;",
-    [email]
+      ".email_id = a.email_id AND applications_" +
+      cycle_id +
+      ".offering_id = $2;",
+    [email, app_details[20]]
   );
 
   let promises = [];
@@ -943,7 +922,7 @@ const get_application_info = async (req, res) => {
 };
 
 /** Reapply application */
-const reapply_save_application_info = async (req, res) => {
+const reapply_save_application_info = async (req, res, next) => {
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
@@ -983,13 +962,13 @@ const reapply_save_application_info = async (req, res) => {
 
   app_details = JSON.parse(info.applicant_details);
 
-  await pool.query(
+  const app_save_result = await pool.query(
     "INSERT INTO applications_" +
       cycle_id +
       "(email_id, amount, transaction_id, bank, date_of_transaction, qualifying_examination, \
                   branch_code, year, gate_enrollment_number, coap_registeration_number, all_india_rank, gate_score, valid_upto, \
                   remarks, date_of_declaration, place_of_declaration, offering_id, status, status_remark) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, \
-                  $13, $14, $15, $16, $17, 1, '');",
+                  $13, $14, $15, $16, $17, 1, '') RETURNING application_id;",
     [
       email,
       app_details[1],
@@ -1033,8 +1012,10 @@ const reapply_save_application_info = async (req, res) => {
   other_remarks = a.other_remarks, is_last_degree_completed = a.is_last_degree_completed \
   FROM applicants as a WHERE a.email_id = $1 AND applications_" +
       cycle_id +
-      ".email_id = a.email_id;",
-    [email]
+      ".email_id = a.email_id AND applications_" +
+      cycle_id +
+      ".offering_id = $2;",
+    [email, app_details[20]]
   );
 
   let promises = [];
@@ -1098,6 +1079,23 @@ const reapply_save_application_info = async (req, res) => {
     );
   }
 
+  // app_details[20] is offering_id
+  /** Get offering_details */
+  const offering_details = await pool.query(
+    "SELECT department, specialization FROM mtech_offerings_" +
+      cycle_id +
+      " WHERE offering_id = $1",
+    [app_details[20]]
+  );
+  let dep = offering_details.rows[0].department;
+  let spec = offering_details.rows[0].specialization;
+
+  /** Get application ID */
+  let app_id = app_save_result.rows[0].application_id;
+
+  /** Email application submission */
+  auth.application_submission(email, app_id, dep, spec);
+
   Promise.allSettled(promises).then(res.status(200).send("Ok"));
 };
 
@@ -1151,14 +1149,6 @@ const reapply_check_applicant_info = async (req, res) => {
 
   const cycle = await pool.query("SELECT cycle_id from current_cycle;");
   let cycle_id = cycle.rows[0].cycle_id;
-
-  /** Not required, since, either both will exist or neither */
-  // const check_applications_table = await pool.query("SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);", ["applications_" + cycle_id]);
-  // let applications_table_exists = check_applications_table.rows[0].exists;
-
-  // if(applications_table_exists === false) {
-  //   return res.send("2"); /** No offerings yet, therefore, no applications */
-  // }
 
   const check_offerings_table = await pool.query(
     "SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name = $1);",

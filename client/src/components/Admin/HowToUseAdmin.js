@@ -8,27 +8,10 @@ import ExportDataImage from "../../images/Asset 15.svg";
 import OfferingsImage from "../../images/Asset 9.svg";
 import CalendarImage from "../../images/How-To-Use-11.svg";
 
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 const items = [
   {
     id: 0,
     name: "Profile",
-    // price: '$48',
     imageSrc: ProfileImage,
     imageAlt: "Profile",
     slidesUrl:
@@ -37,7 +20,6 @@ const items = [
   {
     id: 1,
     name: "Admission Cycles",
-    // price: '$35',
     imageSrc: CalendarImage,
     imageAlt: "Admission Cycles",
     slidesUrl:
@@ -46,7 +28,6 @@ const items = [
   {
     id: 2,
     name: "Offerings",
-    // price: '$89',
     imageSrc: OfferingsImage,
     imageAlt: "Offerings",
     slidesUrl:
@@ -55,7 +36,6 @@ const items = [
   {
     id: 3,
     name: "Applications",
-    // price: '$35',
     imageSrc: ApplicationsImage,
     imageAlt: "Applications",
     slidesUrl:
@@ -64,7 +44,6 @@ const items = [
   {
     id: 4,
     name: "Admins",
-    // price: '$35',
     imageSrc: AdminImage,
     imageAlt: "Admins",
     slidesUrl:
@@ -73,7 +52,6 @@ const items = [
   {
     id: 5,
     name: "Templates",
-    // price: 'Templates',
     imageSrc: TemplateImage,
     imageAlt: "Templates",
     slidesUrl:
@@ -82,7 +60,6 @@ const items = [
   {
     id: 6,
     name: "Export Data",
-    // price: '$35',
     imageSrc: ExportDataImage,
     imageAlt: "Export Data",
     slidesUrl:
@@ -121,7 +98,6 @@ export default function HowToUseAdmin() {
               <h3 className="mt-4 text-lg font-medium text-gray-900">
                 {item.name}
               </h3>
-              {/* <p className="mt-1 text-lg font-medium text-gray-900">{item.price}</p> */}
             </button>
           ))}
         </div>

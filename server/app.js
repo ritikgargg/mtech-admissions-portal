@@ -14,14 +14,11 @@ const recycleBin = require("./recyclebin.js");
 const dashboard = require("./dashboard.js");
 const landing = require("./landing.js");
 var bodyParser = require("body-parser");
-// const dotenv = require("dotenv");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 

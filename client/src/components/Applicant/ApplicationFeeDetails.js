@@ -48,12 +48,6 @@ function ApplicationFeeDetails(props) {
                           required
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
-                          {/* <option value="">- Select -</option>
-                          <option value="GEN">GEN</option>
-                          <option value="GEN-EWS">GEN-EWS</option>
-                          <option value="OBC">OBC</option>
-                          <option value="SC">SC</option>
-                          <option value="ST">ST</option> */}
                           <option value={props.category}>
                             {props.category}
                           </option>
@@ -139,8 +133,6 @@ function ApplicationFeeDetails(props) {
                               id="transaction_slip"
                               name="transaction_slip"
                               type="file"
-                              // value={props.details[4].name}
-                              // ref={props.ref}
                               required
                               accept=".pdf, .jpeg, .jpg"
                               onChange={(e) =>
@@ -191,7 +183,6 @@ function ApplicationFeeDetails(props) {
                                 name="transaction_slip"
                                 type="text"
                                 value={props.details[4].name}
-                                // ref={props.ref}
                                 required
                                 readOnly
                               />

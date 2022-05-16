@@ -9,6 +9,7 @@ import Delete from "../../images/delete.png";
 import DeleteDisabled from "../../images/delete-disabled.png";
 import spinner from "../../images/SpinnerWhite.gif";
 import { getAdminType } from "./AdminTypes";
+import ArchiveIcon from "../../images/archive.png";
 
 const style = {
   position: "absolute",
@@ -31,7 +32,7 @@ export default function DeleteAlertModal(props) {
   return (
     <div>
       {admin_type === "0" ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Archive">
           <button
             onClick={handleOpen}
             className="focus:outline-none hover:bg-gray-100 rounded-lg"
@@ -42,7 +43,7 @@ export default function DeleteAlertModal(props) {
               height: "35px",
             }}
           >
-            <img className="w-5 h-5 mx-auto" src={Delete} alt="Delete" />
+            <img className="w-6 h-6 mx-auto" src={ArchiveIcon} alt="Archive" />
           </button>
         </Tooltip>
       ) : (
@@ -109,7 +110,6 @@ export default function DeleteAlertModal(props) {
                   type="button"
                   onClick={() => {
                     props.onDelete(props.list, props.setList, props.index);
-                    // handleClose();
                   }}
                   className="hover:shadow-lg transition duration-200 border border-red-400 hover:bg-red-600 hover:text-white focus:outline-none w-28 px-4 py-2 font-medium text-red-600 rounded bg-red-50"
                 >

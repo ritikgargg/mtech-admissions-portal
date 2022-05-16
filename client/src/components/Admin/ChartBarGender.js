@@ -19,16 +19,6 @@ export default function ChartBarGender(props) {
             fill: false,
             barThickness: 20,
           },
-          //0093AB
-          //00AFC1
-          // {
-          //     label: new Date().getFullYear() - 1,
-          //     fill: false,
-          //     backgroundColor: '#f44336',
-          //     borderColor: '#f44336',
-          //     data: [27, 68, 86, 74, 10, 4, 87],
-          //     barThickness: 8,
-          // },
         ],
       },
       options: {

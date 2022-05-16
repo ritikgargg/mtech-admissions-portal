@@ -267,7 +267,6 @@ function CollegeDegreeSection(props) {
                           props.localDegrees[props.id]["8"].lastIndexOf("_")
                         )
                   }
-                  // value={props.localDegrees[props.id]['8'].substring(props.localDegrees[props.id]['8'].lastIndexOf('/') + 1, props.localDegrees[props.id]['8'].lastIndexOf('_'))}
                   readOnly
                 />
 
@@ -346,7 +345,6 @@ function CollegeDegreeSection(props) {
                           props.localDegrees[props.id]["9"].lastIndexOf("_")
                         )
                   }
-                  // value={props.localDegrees[props.id]['9'].substring(props.localDegrees[props.id]['9'].lastIndexOf('/') + 1, props.localDegrees[props.id]['9'].lastIndexOf('_'))}
                   readOnly
                 />
 

@@ -75,8 +75,6 @@ export default function Profile() {
       { length: 7 },
       () => "(^100(\\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\\.[0-9]{1,2})?$)"
     )
-    // init_percentage_cgpa_pattern()
-    // []
   );
   const [profileInfo, setProfileInfo] = useState(0);
   const [localProfileInfo, setLocalProfileInfo] = useState(0);
@@ -128,7 +126,6 @@ export default function Profile() {
 
     var result = [];
     for (var i = 0; i < degrees.length; i++) {
-      // if(degrees[i][0] === "") continue;
       var degree = {};
       for (var j = 0; j < degrees[i].length; j++) {
         degree[String(j)] = degrees[i][j];
@@ -173,17 +170,6 @@ export default function Profile() {
               copy[key] = "";
             }
           }
-          // if (copy.alternate_mobile_number === "null")
-          //   assign(copy, "alternate_mobile_number", null);
-          // if (copy.category_certificate_url === "null")
-          //   assign(copy, "category_certificate_url", null);
-          // if (copy.nationality === "null") assign(copy, "nationality", null);
-          // if (copy.marital_status === "null")
-          //   assign(copy, "marital_status", null);
-          // if (copy.remarks_10th === "null") assign(copy, "remarks_10th", null);
-          // if (copy.remarks_12th === "null") assign(copy, "remarks_12th", null);
-          // if (copy.other_remarks === "null")
-          //   assign(copy, "other_remarks", null);
 
           let copy2 = { ...response.data };
           for (const key in copy2) {
@@ -198,19 +184,6 @@ export default function Profile() {
               copy3[key] = "";
             }
           }
-          // if (copy2.alternate_mobile_number === "null")
-          //   assign(copy2, "alternate_mobile_number", null);
-          // if (copy2.category_certificate_url === "null")
-          //   assign(copy2, "category_certificate_url", null);
-          // if (copy2.nationality === "null") assign(copy2, "nationality", null);
-          // if (copy2.marital_status === "null")
-          //   assign(copy2, "marital_status", null);
-          // if (copy2.remarks_10th === "null")
-          //   assign(copy2, "remarks_10th", null);
-          // if (copy2.remarks_12th === "null")
-          //   assign(copy2, "remarks_12th", null);
-          // if (copy2.other_remarks === "null")
-          //   assign(copy2, "other_remarks", null);
 
           setProfileInfo(copy);
           setLocalProfileInfo(copy2);
@@ -241,7 +214,6 @@ export default function Profile() {
   const handleLocalChangeDegrees = (index, key, event) => {
     let copy = [...localDegrees];
     let temp = copy[index];
-    // copy[index][key] = event.target.value;
     assign(temp, key, event.target.value);
     copy[index] = temp;
     setLocalDegrees(copy);
@@ -261,16 +233,6 @@ export default function Profile() {
     setLocalProfileInfo(copy);
   };
 
-  // const [showModalPersonalInfo, setShowModalPersonalInfo] = useState(false);
-
-  // const openModal = (setShowModal) => {
-  //     setShowModal(true);
-  //   };
-
-  // const closeModal = (setShowModal) => {
-  //     setShowModal(false);
-  // };
-
   return (
     <>
       <DashboardNavBar currentFlag={2} />
@@ -287,25 +249,12 @@ export default function Profile() {
           />
         </div>
 
-        {/* {profileInfo.profile_image_url ? 
-                <div className="mx-20 my-20 rounded-full h-40 w-40" style={{backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: '50% 50%', border: '2px solid black', backgroundImage: `url(${profileInfo.profile_image_url})`}} />
-                : <div className="mx-20 my-20 rounded-full h-40 w-40" style={{backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: '50% 50%', border: '2px solid black', backgroundImage: `${DefaultProfilePicture}`}} />} */}
-
         <div className="mr-20 mt-4 flex-1 bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="flex space-x-3 px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
               Personal Details
             </h3>
 
-            {/* <button
-              data-modal-toggle="personalDetailsModal"
-              data-tooltip-target="tooltip-animation"
-              type="button"
-              className="w-5 text-indigo-600 focus:outline-none"
-              onClick={() => {}}
-            >
-              <PencilIcon />
-            </button> */}
             <PersonalInfo
               onChangeNationality={onChangeNationality}
               localProfileInfo={localProfileInfo}
@@ -332,8 +281,7 @@ export default function Profile() {
                     ? profileInfo.full_name
                     : "Your Full Name"}
                 </dd>
-                {/* </div>
-                            <div className="bg-white px-4 py-3 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6"> */}
+
                 <dt className="text-sm font-medium text-gray-500">
                   Father's Name
                 </dt>
@@ -451,14 +399,6 @@ export default function Profile() {
               Communication Details
             </h3>
 
-            {/* <button
-              data-modal-toggle="communicationDetailsModal"
-              data-tooltip-target="tooltip-animation"
-              type="button"
-              className="w-5 text-indigo-600 focus:outline-none"
-            >
-              <PencilIcon />
-            </button> */}
             <CommunicationDetails
               localProfileInfo={localProfileInfo}
               onChange={handleLocalChange}
@@ -573,14 +513,6 @@ export default function Profile() {
               Education Details
             </h3>
 
-            {/* <button
-              data-modal-toggle="educationalDetailsModal"
-              data-tooltip-target="tooltip-animation"
-              type="button"
-              className="w-5 text-indigo-600 focus:outline-none"
-            >
-              <PencilIcon />
-            </button> */}
             <EducationalDetails
               setPercentageCgpaPattern={setPercentageCgpaPattern}
               percentage_cgpa_pattern={percentage_cgpa_pattern}

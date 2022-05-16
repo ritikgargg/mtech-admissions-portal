@@ -29,11 +29,6 @@ export default function EducationalDetails(props) {
   const [marksheet_10th, setMarksheet_10th] = useState(null);
   const [marksheet_12th, setMarksheet_12th] = useState(null);
 
-  // useEffect(() => {
-  //   setPercentageCgpaPattern(init_percentage_cgpa_pattern())
-  // }, []);
-  // console.log(percentage_cgpa_pattern)
-
   const [degreesFiles, setDegreesFiles] = useState(
     Array.from({ length: 5 }, () => Array.from({ length: 2 }, () => ""))
   );
@@ -63,8 +58,6 @@ export default function EducationalDetails(props) {
     event.preventDefault();
     setIsLoading(true);
     const formData = new FormData();
-    // console.log(props.localDegrees);
-    // console.log(props.localProfileInfo);
     formData.append(
       "degrees",
       JSON.stringify(convertJsonObjectArrayTo2dArray(props.localDegrees))
@@ -108,10 +101,6 @@ export default function EducationalDetails(props) {
       props.localProfileInfo.is_last_degree_completed
     );
 
-    // for (var value of formData.values()) {
-    //   console.log(value);
-    // }
-
     // Append Files
     formData.append("marksheet_10th_url", marksheet_10th);
     formData.append("marksheet_12th_url", marksheet_12th);
@@ -136,7 +125,6 @@ export default function EducationalDetails(props) {
           navigate("/logout");
         } else {
           window.location.reload();
-          // handleClose();
         }
       })
       .catch((err) => console.log(err));
@@ -224,7 +212,6 @@ export default function EducationalDetails(props) {
       copy[index] = "^(([0-3]{1})|([0-3]{1}\\.\\d{1,2}))|4\\.00|4\\.0|4";
       props.setPercentageCgpaPattern(copy);
     }
-    // console.log(percentage_cgpa_pattern);
   };
 
   function closeEducationDetails() {
@@ -253,7 +240,6 @@ export default function EducationalDetails(props) {
           type="button"
           onClick={handleOpen}
           className="w-5 text-indigo-600 focus:outline-none"
-          //   className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           <PencilIcon />
         </button>
@@ -264,16 +250,9 @@ export default function EducationalDetails(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {/* className="overflow-y-auto overflow-x-hidden overscroll-none" */}
         <Box sx={style}>
-          {/* <div
-        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
-        id="add-product-modal"
-        aria-hidden="true"
-      > */}
           <div id="modal-modal-description" className="relative w-full h-full">
             <div className="flex items-start justify-between py-3 px-5 border-b rounded-t">
-              {/* <h3 className="text-xl font-semibold">hue hue</h3> */}
               <button
                 onClick={closeEducationDetails}
                 type="button"
@@ -781,16 +760,6 @@ export default function EducationalDetails(props) {
                                         *
                                       </span>
                                     </label>
-                                    {/* <input
-                                        className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        aria-describedby="profile-picture-desc"
-                                        id="marksheet_12th"
-                                        name="marksheet_12th"
-                                        type="file"
-                                        required
-                                        accept=".pdf"
-                                        onChange={(e) => handleFileSubmit(e, 2, setMarksheet_12th)}
-                                        /> */}
 
                                     {!props.localProfileInfo
                                       .marksheet_12th_url && !marksheet_12th ? (
@@ -885,18 +854,6 @@ export default function EducationalDetails(props) {
                                         </div>
                                       </>
                                     )}
-
-                                    {/* <div
-                                      className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                      id="marksheet_help"
-                                    >
-                                    <span className="font-semibold">Maximum file size:</span> 2 MB <span className="font-semibold">Allowed file formats:</span> .pdf
-                                  </div>
-
-                                  <div className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="profile-picture-desc">
-                                    <span className="font-semibold">Recommended File Name Format:</span> 
-                                    <span> Marksheet12th_&lt;your_email_id&gt; <br/>For Example: Marksheet12th__abc@gmail.com</span>
-                                  </div> */}
                                   </div>
                                 </div>
                               </div>
@@ -1004,24 +961,6 @@ export default function EducationalDetails(props) {
                                 </div>
                               </div>
                             </div>
-
-                            {/* <div className="my-4 grid grid-cols-6 gap-6">
-                          <button
-                            type="button"
-                            onClick={() => props.decreasePageNumber()}
-                            className="col-start-1 col-end-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                          >
-                            Back
-                          </button>
-                          
-                          <button
-                            type="button"
-                            onClick={() => props.increasePageNumber()}
-                            className="col-start-6 col-end-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white justify-center block py-2 px-4 mr-2 items-center bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                          >
-                            Next
-                            </button>
-                          </div> */}
                           </div>
                         </div>
 
@@ -1046,21 +985,8 @@ export default function EducationalDetails(props) {
                               />
                             </button>
                           )}
-                          {/* <button
-                          type="button"
-                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                          onClick={() => {
-                            console.log(props.localProfileInfo);
-                            console.log(props.localDegrees);
-                            console.log(degreesFiles);
-                         
-                          }}
-                        >
-                          Print
-                        </button> */}
                           <button
                             onClick={closeEducationDetails}
-                            // data-modal-toggle="educationalDetailsModal"
                             type="button"
                             className="text-gray-500 focus:outline-none bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
                           >
@@ -1074,7 +1000,6 @@ export default function EducationalDetails(props) {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </Box>
       </Modal>
     </div>

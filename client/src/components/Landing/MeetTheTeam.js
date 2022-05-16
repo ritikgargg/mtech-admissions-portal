@@ -8,22 +8,12 @@ import mentorImage2 from "../../images/DrAnilShukla.png";
 export default function MeetTheTeam() {
   return (
     <div>
-      {/* MDI Icons */}
       <link
         rel="stylesheet"
         href="https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css"
       />
-      {/* Page Container */}
       <div className="flex items-center justify-center min-h-screen bg-white py-8">
         <div className="flex flex-col">
-          {/* Notes */}
-          {/* <span className="text-center font-bold my-10 opacity-30">
-              MDI (npm i @mdi/font) reuqired for all icons
-              <hr className="my-4" />
-              <a href="https://egoistdeveloper.github.io/twcss-to-sass-playground/" target="_blank" className="text-blue-600">
-                Convetert to SASS
-              </a>
-            </span> */}
           <div className="flex flex-col mt-8">
             {/* Meet the Team */}
             <div className="container max-w-7xl px-4">
@@ -35,9 +25,7 @@ export default function MeetTheTeam() {
                     Meet the Team
                   </h1>
                   {/* Description */}
-                  <p className="text-gray-700 text-lg font-light">
-                    {/* With over 100 years of combined experience, we've got a well-seasoned team at the helm. */}
-                  </p>
+                  <p className="text-gray-700 text-lg font-light"></p>
                 </div>
               </div>
               {/* Team Members */}
@@ -77,7 +65,7 @@ export default function MeetTheTeam() {
                         >
                           <i className="mdi mdi-linkedin text-indigo-500 mx-auto mt-2" />
                         </a>
-                        {/* Twitter */}
+                        {/* Email */}
                         <button
                           onClick={() =>
                             (window.location.href =
@@ -135,7 +123,7 @@ export default function MeetTheTeam() {
                         >
                           <i className="mdi mdi-linkedin text-indigo-700 mx-auto mt-2" />
                         </a>
-                        {/* Twitter */}
+                        {/* Email */}
                         <button
                           onClick={() =>
                             (window.location.href =
@@ -193,7 +181,7 @@ export default function MeetTheTeam() {
                         >
                           <i className="mdi mdi-linkedin text-indigo-700 mx-auto mt-2" />
                         </a>
-                        {/* Twitter */}
+                        {/* Email */}
                         <button
                           onClick={() =>
                             (window.location.href =
@@ -251,7 +239,7 @@ export default function MeetTheTeam() {
                         >
                           <i className="mdi mdi-linkedin text-indigo-700 mx-auto mt-2" />
                         </a>
-                        {/* Twitter */}
+                        {/* Email */}
                         <button
                           onClick={() =>
                             (window.location.href =
@@ -296,9 +284,6 @@ export default function MeetTheTeam() {
                   <div className="text-gray-700 font-light mb-2">
                     Department of Computer Science and Engineering, IIT Ropar
                   </div>
-                  {/* <div className="text-gray-700 font-light mb-2">
-                        IIT Ropar
-                        </div> */}
                 </div>
               </div>
               <div className="flex flex-wrap justify-center text-left items-center my-10 gap-6">

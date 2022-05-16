@@ -136,7 +136,6 @@ function ApplicantionDetails() {
       }
     }
 
-    // ref.current = file;
     if (file.size > maxSize * 1000000) {
       e.target.value = null;
       const error =

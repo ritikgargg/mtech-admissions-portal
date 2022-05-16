@@ -8,7 +8,6 @@ import DeleteTemplateModal from "./DeleteTemplateModal";
 import ViewTemplateModal from "./ViewTemplateModal";
 import { Tooltip } from "@mui/material";
 import { getAdminType } from "./AdminTypes";
-// import TagPicker from './TagPicker';
 
 export default function Templates() {
   const navigate = useNavigate();

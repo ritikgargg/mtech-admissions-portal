@@ -8,17 +8,6 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useForm } from "react-hook-form";
 import { getAdminType } from "./AdminTypes";
 
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: "30%",
-//   bgcolor: "background.paper",
-//   boxShadow: 24,
-//   borderRadius: 5,
-// };
-
 const customStyles = {
   control: (base, state) => ({
     ...base,
@@ -88,7 +77,6 @@ export default function AddTemplateCard(props) {
       value: "is_last_degree_completed",
       label: "Last Degree Completion Status",
     },
-    // {value: 'offering_id', label: 'Offering' },
     { value: "qualifying_examination", label: "Qualifying Exmaination" },
     { value: "branch_code", label: "Branch Code" },
     { value: "year", label: "GATE Examination Year" },
@@ -205,8 +193,6 @@ export default function AddTemplateCard(props) {
                       ? "w-full p-3 pr-12 text-sm border-red-200 rounded-lg shadow-sm"
                       : "w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                   }
-                  // className="w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-                  // placeholder="Name of the template"
                   required
                 />
                 {error === 1 ? (
@@ -231,8 +217,6 @@ export default function AddTemplateCard(props) {
               >
                 <option value="">- Select -</option>
                 <option value="APPLICANT LIST">APPLICANT LIST</option>
-                {/* <option value="Applications">Offerings</option>
-                        <option value="Applications">Admins</option> */}
               </select>
             </div>
             <div>
@@ -254,14 +238,12 @@ export default function AddTemplateCard(props) {
               <label className="text-sm font-medium">Select Columns</label>
               <div className="h-1" />
               <Select
-                // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
                 styles={customStyles}
                 closeMenuOnSelect={false}
                 components={animatedComponents}
                 isMulti={true}
                 options={options}
                 onChange={handleChange}
-                // maxMenuHeight={150}
               />
             </div>
 

@@ -71,9 +71,6 @@ export default function UploadResultModal(props) {
           type="button"
           className="focus:outline-none w-1/2 text-white bg-black focus:ring-4 focus:ring-gray-200 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
         >
-          {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
-                </svg> */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4 mr-1"
@@ -96,11 +93,6 @@ export default function UploadResultModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <div
-        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
-        id="add-product-modal"
-        aria-hidden="true"
-      > */}
           <div
             id="modal-modal-description"
             className="relative w-full max-w-2xl h-full md:h-auto"
@@ -110,7 +102,6 @@ export default function UploadResultModal(props) {
                 <h3 className="text-xl font-semibold ml-4">Upload Result</h3>
                 <button
                   onClick={handleClose}
-                  // type="button"
                   className="text-gray-400 bg-transparent focus:outline-none hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                 >
                   <svg
@@ -130,13 +121,6 @@ export default function UploadResultModal(props) {
               <div className="px-6 pt-6 pb-2 space-y-6">
                 <form onSubmit={onSubmit}>
                   <div className="grid grid-cols-12 gap-6">
-                    {/* col-span-6 sm:col-span-3  */}
-
-                    {/* <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label>
-                        <Toggle/>
-                      </div> */}
-
                     <div className="col-span-full mx-3">
                       <label
                         className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -250,7 +234,6 @@ export default function UploadResultModal(props) {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </Box>
       </Modal>
     </div>

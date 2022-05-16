@@ -145,7 +145,6 @@ export default function ManageAdmin() {
                   </td>
                   <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                     <div className={renderAdminStyles(admin.admin_type)}>
-                      {/* {admin.admin_type === 1 ? "FACULTY" : "SUPER ADMIN"} */}
                       {renderAdmin(admin.admin_type)}
                     </div>
                   </td>

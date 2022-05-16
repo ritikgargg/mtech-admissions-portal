@@ -378,18 +378,12 @@ async function generate_merit_list(info, eligible_branches) {
   /** All applications */
   let applications_rows = applications.rows;
 
-  // console.log(eligible_branches)
-
   let all_applications = [];
   applications_rows.forEach((element) => {
-    // console.log(element.degrees[0][1]);
     if (eligible_branches.includes(element.degrees[0][1])) {
-      // console.log(eligible_branches.includes(element.degrees[0][1]))
       all_applications.push(element);
     }
   });
-
-  // console.log(all_applications)
 
   /** consolidated applications */
   let consolidated_applications = all_applications.slice();
@@ -531,10 +525,6 @@ const get_applicants_branches = async (req, res) => {
   });
 
   let uniqueBranches = [...new Set(branches)];
-  // console.log(uniqueBranches)
-
-  // console.log(branches)
-  // console.log(results.rows[0]['degrees'][0][1])
 
   return res.send(uniqueBranches);
 };

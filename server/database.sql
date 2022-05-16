@@ -5,7 +5,6 @@ CREATE TABLE signup_verification (
     hashed_otp TEXT,
     expiration_time TIMESTAMP
 );
--- Maybe delete entries from signup_verification table using a corn-job
 
 CREATE TABLE login_verification (
     email_id TEXT PRIMARY KEY,
@@ -74,7 +73,7 @@ CREATE TABLE admins(
   admin_type INT NOT NULL,
   department TEXT[]
 );
--- 0 for super-admin, 1 for faculty-admins, 3 for Staff
+-- 0 for super-admin, 1 for faculty-admins, 2 for applicant, 3 for Staff
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
   RETURNS TRIGGER 
@@ -168,8 +167,6 @@ INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES
 'year_of_passing_10th', 'remarks_10th', 'marksheet_10th_url', 'degree_12th', 'board_12th', 'percentage_cgpa_format_12th', 'percentage_cgpa_value_12th',
 'year_of_passing_12th', 'remarks_12th', 'marksheet_12th_url', 'degrees', 'other_remarks', 'is_last_degree_completed', 'amount', 'transaction_id', 'bank', 
 'date_of_transaction', 'qualifying_examination', 'branch_code', 'year', 'gate_enrollment_number', 'coap_registeration_number', 'all_india_rank', 'gate_score', 'valid_upto','self_attested_copies_url', 'remarks','signature_url', 'date_of_declaration', 'place_of_declaration'], ARRAY['Application ID','Full Name','Father''s Name','Email Address','Profile Image','Date of Birth','Aadhar Card Number','Category','Category Certificate','Belongs to PWD','Marital Status','Nationality','Gender','Communication Address','Permanent Address','Mobile Number','Alternate Mobile Number','Educational Details: 10th','Educational Details: 12th','Educational Details: College','Educational Remarks','Last Degree Completion Status','Qualifying Exmaination','Branch Code','GATE Examination Year','GATE Enrollment Number','COAP Registration Number','All India Rank','GATE Score','Valid Upto','Self Attested Copies of GATE','Qualifying Exam Remarks','Amount','Transaction ID','Bank','Transaction Slip','Date of Transaction','Signature','Date of Declaration','Place of Declaration','Status','Status Remarks']);
-
--- UPDATE TEMPLATES SET column_list_compact = ARRAY['Full Name','Father''s Name','Email Address','Profile Image','Date of Birth','Aadhar Card Number','Category','Category Certificate','Belongs to PWD','Marital Status','Nationality','Gender','Communication Address','Permanent Address','Mobile Number','Alternate Mobile Number','Educational Details: 10th','Educational Details: 12th','Educational Details: College','Educational Remarks','Last Degree Completion Status','Qualifying Exmaination','Branch Code','GATE Examination Year','GATE Enrollment Number','COAP Registration Number','All India Rank','GATE Score','Valid Upto','Self Attested Copies of GATE','Qualifying Exam Remarks','Amount','Transaction ID','Bank','Transaction Slip','Date of Transaction','Signature','Date of Declaration','Place of Declaration','Status','Status Remarks'] WHERE email_id = 'default@template';
 
 -- Always executed because admin will only be allowed to update it
 INSERT INTO current_cycle(cycle_id) VALUES(0);

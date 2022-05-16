@@ -48,7 +48,6 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
         </div>
 
         <div className="flex justify-between items-center w-full">
-          {/* <h4 className="uppercase text-white font-bold text-sm tracking-wider mt-1"> */}
           <h4 className=" text-white font-bold text-lg tracking-wider mt-1">
             {location.split("/")[2] === "dashboard"
               ? "Dashboard"
@@ -63,9 +62,6 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
               : location.split("/")[2] === "recycle-bin"
               ? "Recycle Bin"
               : "Admissions"}
-            {/* {location === "/"
-              ? "DASHBOARD"
-              : location.toUpperCase().replace("/", "")} */}
           </h4>
           <Disclosure as="nav">
             {({ open }) => (
@@ -74,7 +70,6 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                   <div>
                     <Menu.Button className="max-w-xs rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
-                      {/* <img className="h-8 w-8 rounded-full" src={user.profile_image_url ? user.profile_image_url : DefaultProfilePicture} alt="" /> */}
                       <img alt="Logout" src={LogoutPic} className="w-6 h-6" />
                     </Menu.Button>
                   </div>
@@ -110,33 +105,6 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
               </>
             )}
           </Disclosure>
-          {/* <Tooltip title="Logout">
-            <Link className="ml-auto" to="/logout">
-              <img alt="Logout" src={LogoutPic} className="w-6 h-6" />
-            </Link>
-          </Tooltip> */}
-          {/* <div className="flex">
-            <NavbarInput placeholder="Search" />
-
-            <div className="mr-4 ml-6">
-              <Dropdown
-                color="transparent"
-                buttonText={
-                  <div className="w-12">
-                  </div>
-                }
-                rounded
-                style={{
-                  padding: 0,
-                  color: "transparent",
-                }}
-              >
-                <DropdownItem color="lightBlue">Action</DropdownItem>
-                <DropdownItem color="lightBlue">Another Action</DropdownItem>
-                <DropdownItem color="lightBlue">Something Else</DropdownItem>
-              </Dropdown>
-            </div>
-          </div> */}
         </div>
       </div>
     </nav>

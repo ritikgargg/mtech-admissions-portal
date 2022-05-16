@@ -42,7 +42,6 @@ function ReApplicantionDetails() {
     const array = Array.from({ length: 21 }, () => "");
 
     array[6] = "GATE";
-    // array[7]='CS';
     array[5] = changeDateFormat();
     array[19] = changeDateFormat();
     array[20] = params.offering_id;

@@ -36,7 +36,6 @@ export default function ExportExcelModal(props) {
           navigate("/logout");
         } else {
           setTemplateList(response.data);
-          // setIsFetching(false);
         }
       })
       .catch((err) => console.log(err));
@@ -117,11 +116,6 @@ export default function ExportExcelModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <div
-        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
-        id="add-product-modal"
-        aria-hidden="true"
-      > */}
           <div
             id="modal-modal-description"
             className="relative w-full max-w-2xl h-full md:h-auto"
@@ -131,7 +125,6 @@ export default function ExportExcelModal(props) {
                 <h3 className="text-xl font-semibold">Choose Template</h3>
                 <button
                   onClick={handleClose}
-                  // type="button"
                   className="text-gray-400 bg-transparent focus:outline-none hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                 >
                   <svg
@@ -151,13 +144,6 @@ export default function ExportExcelModal(props) {
               <div className="px-6 pt-6 pb-2 space-y-6">
                 <form onSubmit={onSubmit}>
                   <div className="grid grid-cols-6 gap-6">
-                    {/* col-span-6 sm:col-span-3  */}
-
-                    {/* <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label>
-                        <Toggle/>
-                      </div> */}
-
                     <div className="col-span-full sm:col-span-full">
                       <label
                         htmlFor="admin_type"
@@ -176,9 +162,6 @@ export default function ExportExcelModal(props) {
                         }}
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                       >
-                        {/* <option value="">- Select -</option>
-                          <option value="SUPER ADMIN">SUPER ADMIN</option>
-                          <option value="FACULTY">FACULTY</option> */}
                         <option value="">- Select -</option>
                         {templateList.map((item) => {
                           return (
@@ -241,7 +224,6 @@ export default function ExportExcelModal(props) {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </Box>
       </Modal>
     </div>

@@ -100,7 +100,6 @@ export default function AddAdminModal() {
         if (response.data === 1) {
           navigate("/logout");
         } else if (response.data === 2) {
-          //show error message
           setError(1);
           setIsLoading(false);
         } else {
@@ -142,11 +141,6 @@ export default function AddAdminModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <div
-        className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full"
-        id="add-product-modal"
-        aria-hidden="true"
-      > */}
           <div
             id="modal-modal-description"
             className="relative w-full max-w-2xl h-full md:h-auto"
@@ -191,7 +185,6 @@ export default function AddAdminModal() {
                         required
                       />
                     </div>
-                    {/* col-span-6 sm:col-span-3  */}
                     <div className="col-span-full sm:col-span-full">
                       <label
                         htmlFor="email_id"
@@ -219,11 +212,6 @@ export default function AddAdminModal() {
                         <></>
                       )}
                     </div>
-
-                    {/* <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">Accept Applications</label>
-                        <Toggle/>
-                      </div> */}
 
                     <div className="col-span-full sm:col-span-full">
                       <label
@@ -279,22 +267,7 @@ export default function AddAdminModal() {
                         >
                           Department
                         </label>
-                        {/* <select
-                                id="department"
-                                {...register("department")}
-                                required
-                                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                              >
-                                <option value="">- Select -</option>
-                                <option value="Chemical Engineering">Chemical Engineering</option>
-                                <option value="Civil Engineering">Civil Engineering</option>
-                                <option value="Computer Science and Engineering">Computer Science and Engineering</option>
-                                <option value="Electrical Engineering">Electrical Engineering</option>
-                                <option value="Mechanical Engineering">Mechanical Engineering</option>
-                                <option value="Biomedical Engineering">Biomedical Engineering</option>
-                          </select> */}
                         <Select
-                          // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
                           styles={customStyles}
                           closeMenuOnSelect={false}
                           components={animatedComponents}
@@ -338,7 +311,6 @@ export default function AddAdminModal() {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </Box>
       </Modal>
     </div>

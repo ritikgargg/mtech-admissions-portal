@@ -13,7 +13,7 @@ import background from "../../images/background.jpg";
 import spinner from "../../images/SpinnerWhite.gif";
 import screenSpinner from "../../images/2300-spinner.gif";
 import { getAdminType } from "./AdminTypes";
-import crossPic from "../../images/red_cross.png";
+
 function AdmissionCycles() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -514,29 +514,6 @@ function AdmissionCycles() {
                   )}
                 </>
               )}
-
-              {/* <button
-            // className="bg-gradient-to-tr from-[#000000] to-[#090909] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
-            className="focus:outline-none bg-gradient-to-tr from-[#1E3A8A] to-[#1E3A8A] mt-4 h-auto block py-5 px-8 w-full border border-gray-300 hover:shadow-xl rounded-xl ease-in-out duration-200"
-            onClick={() => {
-              setCycleInfo(empty_cycle);
-              setAddAdmissionCycle(true);
-            }}
-          >
-            <div className="grid grid-cols-10 items-center justify-center content-center text-white sm:pr-8">
-              <img
-                className="col-span-2 mr-5 h-10 sm:w-12 sm:h-12"
-                src={PlusWhite}
-                alt="Plus"
-              />
-              <div className="col-span-7 text-left">
-                <h5 className="text-lg font-semibold text-white">
-                  Add New
-                </h5>
-                <p className="font-thin">Click to add a new admission cycle</p>
-              </div>
-            </div>
-          </button> */}
 
               <div className="mt-4 mx-auto space-y-4">
                 {currentCycles.length !== 0 &&

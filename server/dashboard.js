@@ -43,7 +43,6 @@ const get_dashboard_info = async (req, res) => {
   const applications_count = await pool.query(
     "SELECT count(*) FROM applications_" + current_cycle_id + ";"
   );
-  // const offerings_count = await pool.query("SELECT count(*) FROM mtech_offerings_" + current_cycle_id + ";");
   const offerings = await pool.query(
     "SELECT offering_id, specialization FROM mtech_offerings_" +
       current_cycle_id +
@@ -114,7 +113,6 @@ const get_dashboard_info = async (req, res) => {
   return res.send({
     current_cycle_info: current_cycle_info.rows[0],
     applications_count: applications_count.rows[0],
-    // offerings_count: offerings_count.rows[0],
     offerings_count: offerings.rows.length,
     offerings: offerings.rows,
     category_distribution: category_distribution,
@@ -200,7 +198,6 @@ const get_dashboard_info_gender = async (req, res) => {
   return res.send({
     current_cycle_info: current_cycle_info.rows[0],
     applications_count: applications_count.rows[0],
-    // offerings_count: offerings_count.rows[0],
     offerings_count: offerings.rows.length,
     offerings: offerings.rows,
     gender_distribution: gender_distribution,

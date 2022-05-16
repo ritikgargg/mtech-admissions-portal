@@ -76,7 +76,6 @@ export default function Archive() {
                         cycle_id={cycle.cycle_id}
                         cycle_name={cycle.name}
                       />
-                      {/* <DeleteCyclePermanently cycle_id ={cycle.cycle_id} cycle_name={cycle.name}/> */}
                     </div>
                   </td>
                 </tr>

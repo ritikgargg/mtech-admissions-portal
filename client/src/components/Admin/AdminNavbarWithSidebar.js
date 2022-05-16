@@ -15,7 +15,6 @@ import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 export default function AdminNavbarWithSidebar() {
   const location = useLocation().pathname;
   const [showSidebar, setShowSidebar] = useState("-left-64");
-  // const [logout, setLogout] = useState(false);
   var admin_type = getAdminType();
 
   function renderAdmin(param) {
@@ -42,7 +41,6 @@ export default function AdminNavbarWithSidebar() {
             rel="noreferrer"
             className="mt-2 text-center w-full inline-block"
           >
-            {/* <H6 color="gray">{(admin_type === "0")? "Admin" : "Faculty"} Portal</H6> */}
             <H6 color="gray">{renderAdmin(admin_type)} Portal</H6>
           </a>
           <div className="flex flex-col">
@@ -63,42 +61,11 @@ export default function AdminNavbarWithSidebar() {
                   Dashboard
                 </NavLink>
               </li>
-              {/* <li className="rounded-lg mb-2">
-                <NavLink
-                  to="/settings"
-                  className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                  activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                >
-                  <Icon name="settings" size="2xl" />
-                  Settings
-                </NavLink>
-              </li> */}
-              {/* <li className="rounded-lg mb-2 ">
-                <NavLink
-                  to="/tables"
-                  className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                  activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                >
-                  <Icon name="toc" size="2xl" />
-                  Tables
-                </NavLink>
-              </li> */}
-              {/* <li className="rounded-lg mb-2 text-gray-700">
-                <NavLink
-                  to="/maps"
-                  className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                  activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
-                >
-                  <Icon name="map" size="2xl" />
-                  Maps
-                </NavLink>
-              </li> */}
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/admission-cycles"
                   exact="true"
                   className={
-                    // location !== "/admin/admission-cycles"
                     !location.startsWith("/admin/admission-cycles") &&
                     !location.startsWith("/admin/offerings") &&
                     !location.startsWith("/admin/applications") &&
@@ -111,17 +78,6 @@ export default function AdminNavbarWithSidebar() {
                   Admissions
                 </NavLink>
               </li>
-              {/* <li className="px-4 rounded-lg mb-2 text-gray-700">
-                <a
-                  href="https://demos.creative-tim.com/material-tailwind-kit-react/#/profile"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-4 text-sm font-light py-3"
-                >
-                  <Icon name="account_circle" size="2xl" />
-                  Profile Page
-                </a>
-              </li> */}
 
               {admin_type === "0" && (
                 <li className="rounded-lg mb-2 text-gray-700">
@@ -200,47 +156,7 @@ export default function AdminNavbarWithSidebar() {
                   </NavLink>
                 </li>
               )}
-
-              {/* <li className="rounded-lg mb-2 text-gray-700">
-                <NavLink
-                  to="/logout"
-                  exact
-                  onClick={() => setLogout(true)}
-                  className={
-                    !logout
-                      ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
-                  }
-                >
-                  <Icon name="logout" size="2xl" />
-                  Logout
-                </NavLink>
-              </li> */}
             </ul>
-
-            {/* <ul className="flex-col min-w-full flex list-none absolute bottom-0">
-              <li className="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 px-4 rounded-lg text-white mb-2">
-                <a
-                  href="https://material-tailwind.com/documentation/quick-start"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-4 text-sm font-light py-3"
-                >
-                  <Icon name="description" size="2xl" />
-                  Documentation
-                </a>
-              </li>
-              <li className="bg-gradient-to-tr from-purple-500 to-purple-700 px-4 rounded-lg text-white">
-                <a
-                  href="https://www.creative-tim.com/product/material-tailwind-dashboard-react"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center justify-center gap-4 text-sm font-light py-3"
-                >
-                  Free Download
-                </a>
-              </li>
-            </ul> */}
           </div>
         </div>
       </div>

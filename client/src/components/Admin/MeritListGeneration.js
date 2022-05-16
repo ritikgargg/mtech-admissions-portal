@@ -32,14 +32,6 @@ export default function MeritListGeneration(props) {
   const handleChange = (options) => {
     setSelectedOptions(options);
   };
-  // const options = [
-  //   {value: 'application_id', label: 'Application ID'},
-  //   {value:'full_name', label: 'Full Name'},
-  //   {value:'fathers_name', label: 'Father\'s Name'},
-  //   {value:'email_id', label: 'Email Address' },
-  //   {value:'profile_image_url', label: 'Profile Image'},
-  //   {value:'date_of_birth', label: 'Date of Birth'},
-  // ]
 
   const initOptions = (dataList) => {
     let temp = [];
@@ -128,21 +120,6 @@ export default function MeritListGeneration(props) {
                 </svg>
               </button>
             </div>
-            {/* <div>
-                  <label htmlFor="name" className="text-sm font-medium">
-                      Name
-                  </label>
-                  <div className="relative mt-1">
-                      <input
-                      type="text"
-                      id="name"
-                      {...register("name")}
-                      className="w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-                      // placeholder="Name of the template"
-                      required
-                      />
-                  </div>
-              </div> */}
 
             <div>
               <label className="text-sm font-medium">
@@ -150,14 +127,12 @@ export default function MeritListGeneration(props) {
               </label>
               <div className="h-1" />
               <Select
-                // className='mt-1 w-full p-3 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
                 styles={customStyles}
                 closeMenuOnSelect={false}
                 components={animatedComponents}
                 isMulti={true}
                 options={options}
                 onChange={handleChange}
-                // maxMenuHeight={150}
               />
             </div>
 

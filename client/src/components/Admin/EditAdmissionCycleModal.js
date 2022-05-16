@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Tooltip } from "@mui/material";
@@ -103,7 +103,6 @@ export default function EditAdmissionCycleModal(props) {
     formData.append("fees_st", data.fees_st);
     formData.append("fees_pwd", data.fees_pwd);
     formData.append("make_current", makeCurrent);
-    // formData.append("cycle_id", props.cycle_id);
 
     Axios.post("/edit-admission-cycle", formData, {
       headers: {
@@ -161,273 +160,258 @@ export default function EditAdmissionCycleModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <div className="flex mb-6">
-              <p className="text-lg font-medium">Edit Admission Cycle</p>
-              <button
-                type="button"
-                onClick={handleClose}
-                // onClick={() => {
-                //   //   setCycleInfo(empty_cycle);
-                //   //   setAddAdmissionCycle(false);
-                // }}
-                className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          <div className="flex mb-6">
+            <p className="text-lg font-medium">Edit Admission Cycle</p>
+            <button
+              type="button"
+              onClick={handleClose}
+              className="text-gray-400 focus:outline-none bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             id="modal-modal-description"
             className="mb-0 space-y-4 h-5/6 overflow-y-auto overflow-x-hidden overscroll-none"
           >
-            
             <div className="ml-2 mr-6">
-            <div>
-              <label htmlFor="email" className="text-sm font-medium">
-                Name
-              </label>
-              <div className="relative mt-1">
-                <input
-                  type="text"
-                  id="name"
-                  {...register("name")}
-                  //   onChange={(e) => handleChange(e, "name")}
-                  className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-                  placeholder="Admission Cycle for 2020-2021"
-                  required
-                />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="password" className="text-sm font-medium">
-                Duration
-              </label>
-              <div className="relative mt-1 flex">
-                <input
-                  type="month"
-                  required
-                  id="start-date"
-                  {...register("duration_start")}
-                  // name="start-date"
-                  className="w-full p-4 mr-2 text-sm border-gray-200 rounded-lg shadow-sm-2"
-                />
-                <input
-                  type="month"
-                  required
-                  id="end-date"
-                  {...register("duration_end")}
-                  //   onChange={(e) => handleMonthChange(e, "duration_end")}
-                  // name="end-date"
-                  className="w-full p-4 ml-2 text-sm border-gray-200 rounded-lg shadow-sm"
-                />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="fees-GEN" className="text-sm font-medium">
-                Category-wise Application Fees
-              </label>
-              <div className="relative gap-3 flex mt-1">
-                <div>
-                  <div className="flex">
-                    <label
-                      htmlFor="fees-GEN"
-                      className="text-sm mr-2 my-auto font-medium"
-                    >
-                      GEN
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      id="fees-GEN"
-                      {...register("fees_gen")}
-                      // placeholder="GEN"
-                      pattern="[0-9]*"
-                      title="Only numbers are allowed"
-                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex">
-                    <label
-                      htmlFor="password"
-                      className="text-sm mr-2 my-auto font-medium"
-                    >
-                      OBC
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      id="fees-OBC"
-                      {...register("fees_obc")}
-                      // placeholder="OBC"
-                      pattern="[0-9]*"
-                      title="Only numbers are allowed"
-                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex">
-                    <label
-                      htmlFor="fees-GEN"
-                      className="text-sm mr-2 my-auto font-medium"
-                    >
-                      EWS
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      id="fees-EWS"
-                      {...register("fees_ews")}
-                      // placeholder="EWS"
-                      pattern="[0-9]*"
-                      title="Only numbers are allowed"
-                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="relative gap-3 flex mt-3">
-                <div>
-                  <div className="flex">
-                    <label
-                      htmlFor="fees-GEN"
-                      className="text-sm ml-3 mr-2 my-auto font-medium"
-                    >
-                      SC
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      id="fees-SC"
-                      {...register("fees_sc")}
-                      // placeholder="SC"
-                      pattern="[0-9]*"
-                      title="Only numbers are allowed"
-                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex">
-                    <label
-                      htmlFor="password"
-                      className="text-sm ml-3 mr-2 my-auto font-medium"
-                    >
-                      ST
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      id="fees-ST"
-                      {...register("fees_st")}
-                      // placeholder="ST"
-                      pattern="[0-9]*"
-                      title="Only numbers are allowed"
-                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex">
-                    <label
-                      htmlFor="fees-GEN"
-                      className="text-sm mr-2 my-auto font-medium"
-                    >
-                      PWD
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      id="fees-PWD"
-                      {...register("fees_pwd")}
-                      // placeholder="PWD"
-                      pattern="[0-9]*"
-                      title="Only numbers are allowed"
-                      className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="brochure" className="text-sm font-medium">
-                Brochure for M.Tech. Admissions
-              </label>
-              <div className="relative mt-1">
-                <input
-                  type="text"
-                  id="brochure_url"
-                  {...register("brochure_url")}
-                  className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-                  placeholder="Public URL of the brochure PDF"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="ranklist" className="text-sm font-medium">
-                GATE opening and closing score
-              </label>
-              <div className="relative mt-1">
-                <input
-                  type="text"
-                  id="rank_list_url"
-                  {...register("rank_list_url")}
-                  className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-                  placeholder="Public URL of the opening-closing-score PDF"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="p-3">
-              <FormControlLabel
-                control={
-                  <Toggle
-                    checked={makeCurrent}
-                    onChange={handleChange}
-                    sx={{ m: 1 }}
-                  />
-                }
-                label="Make Current Admission Cycle"
-              />
-            </div>
-            {!isLoading ? (
-              <button
-                type="submit"
-                className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
-              >
-                <div>Edit cycle</div>
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
-              >
-                <div>
-                  <img
-                    className="h-5 w-5 mx-auto"
-                    src={spinner}
-                    alt="Spinner"
+              <div>
+                <label htmlFor="email" className="text-sm font-medium">
+                  Name
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="name"
+                    {...register("name")}
+                    className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                    placeholder="Admission Cycle for 2020-2021"
+                    required
                   />
                 </div>
-              </button>
-            )}
+              </div>
+              <div>
+                <label htmlFor="password" className="text-sm font-medium">
+                  Duration
+                </label>
+                <div className="relative mt-1 flex">
+                  <input
+                    type="month"
+                    required
+                    id="start-date"
+                    {...register("duration_start")}
+                    className="w-full p-4 mr-2 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                  />
+                  <input
+                    type="month"
+                    required
+                    id="end-date"
+                    {...register("duration_end")}
+                    className="w-full p-4 ml-2 text-sm border-gray-200 rounded-lg shadow-sm"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="fees-GEN" className="text-sm font-medium">
+                  Category-wise Application Fees
+                </label>
+                <div className="relative gap-3 flex mt-1">
+                  <div>
+                    <div className="flex">
+                      <label
+                        htmlFor="fees-GEN"
+                        className="text-sm mr-2 my-auto font-medium"
+                      >
+                        GEN
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        id="fees-GEN"
+                        {...register("fees_gen")}
+                        pattern="[0-9]*"
+                        title="Only numbers are allowed"
+                        className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex">
+                      <label
+                        htmlFor="password"
+                        className="text-sm mr-2 my-auto font-medium"
+                      >
+                        OBC
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        id="fees-OBC"
+                        {...register("fees_obc")}
+                        pattern="[0-9]*"
+                        title="Only numbers are allowed"
+                        className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex">
+                      <label
+                        htmlFor="fees-GEN"
+                        className="text-sm mr-2 my-auto font-medium"
+                      >
+                        EWS
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        id="fees-EWS"
+                        {...register("fees_ews")}
+                        pattern="[0-9]*"
+                        title="Only numbers are allowed"
+                        className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="relative gap-3 flex mt-3">
+                  <div>
+                    <div className="flex">
+                      <label
+                        htmlFor="fees-GEN"
+                        className="text-sm ml-3 mr-2 my-auto font-medium"
+                      >
+                        SC
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        id="fees-SC"
+                        {...register("fees_sc")}
+                        pattern="[0-9]*"
+                        title="Only numbers are allowed"
+                        className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex">
+                      <label
+                        htmlFor="password"
+                        className="text-sm ml-3 mr-2 my-auto font-medium"
+                      >
+                        ST
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        id="fees-ST"
+                        {...register("fees_st")}
+                        pattern="[0-9]*"
+                        title="Only numbers are allowed"
+                        className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex">
+                      <label
+                        htmlFor="fees-GEN"
+                        className="text-sm mr-2 my-auto font-medium"
+                      >
+                        PWD
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        id="fees-PWD"
+                        {...register("fees_pwd")}
+                        pattern="[0-9]*"
+                        title="Only numbers are allowed"
+                        className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm-2"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="brochure" className="text-sm font-medium">
+                  Brochure for M.Tech. Admissions
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="brochure_url"
+                    {...register("brochure_url")}
+                    className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                    placeholder="Public URL of the brochure PDF"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="ranklist" className="text-sm font-medium">
+                  GATE opening and closing score
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="rank_list_url"
+                    {...register("rank_list_url")}
+                    className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                    placeholder="Public URL of the opening-closing-score PDF"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="p-3">
+                <FormControlLabel
+                  control={
+                    <Toggle
+                      checked={makeCurrent}
+                      onChange={handleChange}
+                      sx={{ m: 1 }}
+                    />
+                  }
+                  label="Make Current Admission Cycle"
+                />
+              </div>
+              {!isLoading ? (
+                <button
+                  type="submit"
+                  className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
+                >
+                  <div>Edit cycle</div>
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="block w-full px-5 py-3 focus:outline-none text-sm font-medium text-white bg-indigo-600 rounded-lg"
+                >
+                  <div>
+                    <img
+                      className="h-5 w-5 mx-auto"
+                      src={spinner}
+                      alt="Spinner"
+                    />
+                  </div>
+                </button>
+              )}
             </div>
           </form>
         </Box>

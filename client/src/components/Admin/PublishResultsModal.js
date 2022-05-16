@@ -69,7 +69,6 @@ export default function PublishResultsModal(props) {
             control={
               <Toggle
                 checked={props.isResultPublished === 1 ? true : false}
-                // onChange={handleChange2}
                 sx={{ m: 1 }}
               />
             }
