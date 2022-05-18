@@ -159,7 +159,12 @@ export default function UploadResultModal(props) {
                             <p>
                               <span className="font-semibold">Note:</span> The
                               uploaded excel file should necessarily contain the
-                              following fields, besides other fields(if any).{" "}
+                              following fields, besides other fields(if any).
+                              Moreover the status can only have two options
+                              "Selected" or "Not Selected"{" "}
+                            </p>
+                            <p>
+                              <span className="font-semibold">Note:</span>{" "}
                             </p>
                             <ol>
                               <li className="font-semibold italic">

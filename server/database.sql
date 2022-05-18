@@ -1,5 +1,3 @@
-CREATE DATABASE mtech;
-
 CREATE TABLE signup_verification (
     email_id TEXT PRIMARY KEY,
     hashed_otp TEXT,
@@ -172,5 +170,4 @@ INSERT INTO TEMPLATES(email_id,name,type,column_list,column_list_compact) VALUES
 INSERT INTO current_cycle(cycle_id) VALUES(0);
 
 -- Do always
--- INSERT INTO admins(name, email_id, admin_type, department) VALUES('Acads', 'admin@admin', 0, 'Academics');
-INSERT INTO admins(name, email_id, admin_type, department) VALUES('Tarun Singla', '2019csb1126@iitrpr.ac.in', 0, ARRAY['Biomedical Engineering', 'Chemical Engineering','Civil Engineering','Computer Science and Engineering', 'Electrical Engineering', 'Mechanical Engineering']);
+INSERT INTO admins(name, email_id, admin_type, department) VALUES('Acads', 'admin@admin', 0, 'Academics');

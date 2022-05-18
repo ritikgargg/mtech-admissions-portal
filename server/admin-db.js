@@ -396,8 +396,13 @@ const delete_offering = async (req, res) => {
 
   var cycle_id = info.cycle_id;
 
+  const delete_applications = await pool.query(
+    "DELETE FROM applications_" + cycle_id + " WHERE offering_id = $1;",
+    [info.offering_id]
+  );
+
   const results = await pool.query(
-    "DELETE from mtech_offerings_" + cycle_id + " WHERE offering_id = $1",
+    "DELETE from mtech_offerings_" + cycle_id + " WHERE offering_id = $1;",
     [info.offering_id]
   );
 

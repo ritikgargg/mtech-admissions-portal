@@ -15,13 +15,11 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 ## Database
 
 1. Create a database in your postgres shell (psql) using the command `create database mtech;`.
-2. Connect to the `mtech` database by running `\c mtech;`
-3. Run all the commands in the `database.sql` file in psql.
-4. Create any relation you want in the psql. Also, add the command in the `database.sql` file.
-5. When you drop the `applicants` table or any other table and then add it to the database again, do not forget to add the corresponding triggers.
+2. Connect to the `mtech` database by running `\c mtech;`.
+3. Run all the commands in the `database.sql` (in server directory) file in psql.
 
 ## Extra settings
 
-In the `.env` file in the server directory, update your details.
-
-Happy Coding :)
+1. Configure GCP by creating a service account and a bucket named _applicant-iit-ropar_ for file storage and projectId _phd-pg-admission-iit-ropar_.
+2. Set up an app-password for your email.
+3. In the `.env` file in the server directory, update your details.

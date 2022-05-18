@@ -71,7 +71,7 @@ export default function PersonalInfo(props) {
     if (
       file.type !== "image/jpeg" &&
       file.type !== "images/jpg" &&
-      file.type !== "images/png"
+      file.type !== "image/png"
     ) {
       e.target.value = null;
       alert("File format not followed! Allowed formats: .jpeg, .jpg, .png");
